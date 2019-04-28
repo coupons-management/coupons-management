@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
  * CpScrapyDAO继承基类
  */
 @Repository
-public interface CpScrapyDAO extends MyBatisBaseDao<CpScrapy, String> {
+public interface CpScrapyDAO extends MyBatisBaseDao<CpScrapy, Integer> {
 }

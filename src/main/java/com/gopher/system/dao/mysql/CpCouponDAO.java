@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
  * CpCouponDAO继承基类
  */
 @Repository
-public interface CpCouponDAO extends MyBatisBaseDao<CpCoupon, String> {
+public interface CpCouponDAO extends MyBatisBaseDao<CpCoupon, Integer> {
 }

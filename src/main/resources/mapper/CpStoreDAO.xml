@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gopher.system.dao.mysql.CpStoreDAO">
   <resultMap id="BaseResultMap" type="com.gopher.system.model.CpStore">
-    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="WEBSITE" jdbcType="VARCHAR" property="website" />
     <result column="ADVERTISING" jdbcType="VARCHAR" property="advertising" />
@@ -11,10 +11,10 @@
     <result column="WEBSITE_CRC" jdbcType="VARCHAR" property="websiteCrc" />
     <result column="COUPON_COUNT" jdbcType="INTEGER" property="couponCount" />
     <result column="COUPON_COUNT_VALID" jdbcType="INTEGER" property="couponCountValid" />
-    <result column="IN_TYPE" jdbcType="CHAR" property="inType" />
-    <result column="APPROVAL" jdbcType="CHAR" property="approval" />
-    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
-    <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
+    <result column="IN_TYPE" jdbcType="INTEGER" property="inType" />
+    <result column="APPROVAL" jdbcType="INTEGER" property="approval" />
+    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
+    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -22,15 +22,15 @@
     ID, `NAME`, WEBSITE, ADVERTISING, COUNTRY, NAME_CRC, WEBSITE_CRC, COUPON_COUNT, COUPON_COUNT_VALID, 
     IN_TYPE, APPROVAL, CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from CP_STORE
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from CP_STORE
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpStore" useGeneratedKeys="true">
     insert into CP_STORE (`NAME`, WEBSITE, ADVERTISING, 
@@ -40,8 +40,8 @@
       CREATE_TIME, UPDATE_TIME)
     values (#{name,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, #{advertising,jdbcType=VARCHAR}, 
       #{country,jdbcType=VARCHAR}, #{nameCrc,jdbcType=VARCHAR}, #{websiteCrc,jdbcType=VARCHAR}, 
-      #{couponCount,jdbcType=INTEGER}, #{couponCountValid,jdbcType=INTEGER}, #{inType,jdbcType=CHAR}, 
-      #{approval,jdbcType=CHAR}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{couponCount,jdbcType=INTEGER}, #{couponCountValid,jdbcType=INTEGER}, #{inType,jdbcType=INTEGER}, 
+      #{approval,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, #{updateUser,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpStore" useGeneratedKeys="true">
@@ -116,16 +116,16 @@
         #{couponCountValid,jdbcType=INTEGER},
       </if>
       <if test="inType != null">
-        #{inType,jdbcType=CHAR},
+        #{inType,jdbcType=INTEGER},
       </if>
       <if test="approval != null">
-        #{approval,jdbcType=CHAR},
+        #{approval,jdbcType=INTEGER},
       </if>
       <if test="createUser != null">
-        #{createUser,jdbcType=VARCHAR},
+        #{createUser,jdbcType=INTEGER},
       </if>
       <if test="updateUser != null">
-        #{updateUser,jdbcType=VARCHAR},
+        #{updateUser,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -163,16 +163,16 @@
         COUPON_COUNT_VALID = #{couponCountValid,jdbcType=INTEGER},
       </if>
       <if test="inType != null">
-        IN_TYPE = #{inType,jdbcType=CHAR},
+        IN_TYPE = #{inType,jdbcType=INTEGER},
       </if>
       <if test="approval != null">
-        APPROVAL = #{approval,jdbcType=CHAR},
+        APPROVAL = #{approval,jdbcType=INTEGER},
       </if>
       <if test="createUser != null">
-        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+        CREATE_USER = #{createUser,jdbcType=INTEGER},
       </if>
       <if test="updateUser != null">
-        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+        UPDATE_USER = #{updateUser,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
@@ -181,7 +181,7 @@
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.CpStore">
     update CP_STORE
@@ -193,12 +193,12 @@
       WEBSITE_CRC = #{websiteCrc,jdbcType=VARCHAR},
       COUPON_COUNT = #{couponCount,jdbcType=INTEGER},
       COUPON_COUNT_VALID = #{couponCountValid,jdbcType=INTEGER},
-      IN_TYPE = #{inType,jdbcType=CHAR},
-      APPROVAL = #{approval,jdbcType=CHAR},
-      CREATE_USER = #{createUser,jdbcType=VARCHAR},
-      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      IN_TYPE = #{inType,jdbcType=INTEGER},
+      APPROVAL = #{approval,jdbcType=INTEGER},
+      CREATE_USER = #{createUser,jdbcType=INTEGER},
+      UPDATE_USER = #{updateUser,jdbcType=INTEGER},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

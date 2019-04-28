@@ -8,14 +8,14 @@ import java.util.Date;
  * @author 
  */
 public class CpSiteStore implements Serializable {
-    private String id;
+    private Integer id;
 
     /**
      * 内站ID
      */
-    private String inSiteId;
+    private Integer inSiteId;
 
-    private String storeId;
+    private Integer storeId;
 
     /**
      * 创建人
@@ -39,27 +39,27 @@ public class CpSiteStore implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getInSiteId() {
+    public Integer getInSiteId() {
         return inSiteId;
     }
 
-    public void setInSiteId(String inSiteId) {
+    public void setInSiteId(Integer inSiteId) {
         this.inSiteId = inSiteId;
     }
 
-    public String getStoreId() {
+    public Integer getStoreId() {
         return storeId;
     }
 
-    public void setStoreId(String storeId) {
+    public void setStoreId(Integer storeId) {
         this.storeId = storeId;
     }
 

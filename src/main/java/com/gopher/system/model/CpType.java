@@ -8,9 +8,9 @@ import java.util.Date;
  * @author 
  */
 public class CpType implements Serializable {
-    private String id;
+    private Integer id;
 
-    private String outSiteId;
+    private Integer outSiteId;
 
     private String name;
 
@@ -19,12 +19,12 @@ public class CpType implements Serializable {
     /**
      * 创建人
      */
-    private String createUser;
+    private Integer createUser;
 
     /**
      * 修改人
      */
-    private String updateUser;
+    private Integer updateUser;
 
     /**
      * 创建时间
@@ -38,19 +38,19 @@ public class CpType implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getOutSiteId() {
+    public Integer getOutSiteId() {
         return outSiteId;
     }
 
-    public void setOutSiteId(String outSiteId) {
+    public void setOutSiteId(Integer outSiteId) {
         this.outSiteId = outSiteId;
     }
 
@@ -70,19 +70,19 @@ public class CpType implements Serializable {
         this.des = des;
     }
 
-    public String getCreateUser() {
+    public Integer getCreateUser() {
         return createUser;
     }
 
-    public void setCreateUser(String createUser) {
+    public void setCreateUser(Integer createUser) {
         this.createUser = createUser;
     }
 
-    public String getUpdateUser() {
+    public Integer getUpdateUser() {
         return updateUser;
     }
 
-    public void setUpdateUser(String updateUser) {
+    public void setUpdateUser(Integer updateUser) {
         this.updateUser = updateUser;
     }
 

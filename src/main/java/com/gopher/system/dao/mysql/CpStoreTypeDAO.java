@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
  * CpStoreTypeDAO继承基类
  */
 @Repository
-public interface CpStoreTypeDAO extends MyBatisBaseDao<CpStoreType, String> {
+public interface CpStoreTypeDAO extends MyBatisBaseDao<CpStoreType, Integer> {
 }

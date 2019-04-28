@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gopher.system.dao.mysql.CpSiteStoreDAO">
   <resultMap id="BaseResultMap" type="com.gopher.system.model.CpSiteStore">
-    <id column="ID" jdbcType="VARCHAR" property="id" />
-    <result column="IN_SITE_ID" jdbcType="VARCHAR" property="inSiteId" />
-    <result column="STORE_ID" jdbcType="VARCHAR" property="storeId" />
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="IN_SITE_ID" jdbcType="INTEGER" property="inSiteId" />
+    <result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
     <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
     <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
@@ -13,21 +13,21 @@
   <sql id="Base_Column_List">
     ID, IN_SITE_ID, STORE_ID, CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from CP_SITE_STORE
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from CP_SITE_STORE
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpSiteStore" useGeneratedKeys="true">
     insert into CP_SITE_STORE (IN_SITE_ID, STORE_ID, CREATE_USER, 
       UPDATE_USER, CREATE_TIME, UPDATE_TIME
       )
-    values (#{inSiteId,jdbcType=VARCHAR}, #{storeId,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+    values (#{inSiteId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, 
       #{updateUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -55,10 +55,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="inSiteId != null">
-        #{inSiteId,jdbcType=VARCHAR},
+        #{inSiteId,jdbcType=INTEGER},
       </if>
       <if test="storeId != null">
-        #{storeId,jdbcType=VARCHAR},
+        #{storeId,jdbcType=INTEGER},
       </if>
       <if test="createUser != null">
         #{createUser,jdbcType=VARCHAR},
@@ -78,10 +78,10 @@
     update CP_SITE_STORE
     <set>
       <if test="inSiteId != null">
-        IN_SITE_ID = #{inSiteId,jdbcType=VARCHAR},
+        IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
       </if>
       <if test="storeId != null">
-        STORE_ID = #{storeId,jdbcType=VARCHAR},
+        STORE_ID = #{storeId,jdbcType=INTEGER},
       </if>
       <if test="createUser != null">
         CREATE_USER = #{createUser,jdbcType=VARCHAR},
@@ -96,16 +96,16 @@
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.CpSiteStore">
     update CP_SITE_STORE
-    set IN_SITE_ID = #{inSiteId,jdbcType=VARCHAR},
-      STORE_ID = #{storeId,jdbcType=VARCHAR},
+    set IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
+      STORE_ID = #{storeId,jdbcType=INTEGER},
       CREATE_USER = #{createUser,jdbcType=VARCHAR},
       UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

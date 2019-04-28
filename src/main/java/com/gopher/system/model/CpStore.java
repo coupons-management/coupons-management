@@ -8,7 +8,7 @@ import java.util.Date;
  * @author 
  */
 public class CpStore implements Serializable {
-    private String id;
+    private Integer id;
 
     /**
      * 商家名称
@@ -53,22 +53,22 @@ public class CpStore implements Serializable {
     /**
      * 入库方式
      */
-    private String inType;
+    private Integer inType;
 
     /**
      * 审核方式
      */
-    private String approval;
+    private Integer approval;
 
     /**
      * 创建人
      */
-    private String createUser;
+    private Integer createUser;
 
     /**
      * 修改人
      */
-    private String updateUser;
+    private Integer updateUser;
 
     /**
      * 创建时间
@@ -82,11 +82,11 @@ public class CpStore implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -154,35 +154,35 @@ public class CpStore implements Serializable {
         this.couponCountValid = couponCountValid;
     }
 
-    public String getInType() {
+    public Integer getInType() {
         return inType;
     }
 
-    public void setInType(String inType) {
+    public void setInType(Integer inType) {
         this.inType = inType;
     }
 
-    public String getApproval() {
+    public Integer getApproval() {
         return approval;
     }
 
-    public void setApproval(String approval) {
+    public void setApproval(Integer approval) {
         this.approval = approval;
     }
 
-    public String getCreateUser() {
+    public Integer getCreateUser() {
         return createUser;
     }
 
-    public void setCreateUser(String createUser) {
+    public void setCreateUser(Integer createUser) {
         this.createUser = createUser;
     }
 
-    public String getUpdateUser() {
+    public Integer getUpdateUser() {
         return updateUser;
     }
 
-    public void setUpdateUser(String updateUser) {
+    public void setUpdateUser(Integer updateUser) {
         this.updateUser = updateUser;
     }
 
