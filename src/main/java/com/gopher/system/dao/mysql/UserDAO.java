@@ -12,5 +12,10 @@ import com.gopher.system.model.vo.request.UserPageRequst;
  */
 @Repository
 public interface UserDAO extends MyBatisBaseDao<User, Integer> {
+	
 	List<User> selectPage(UserPageRequst userPageRequst);
+	
+	Integer selectTotalCount(UserPageRequst userPageRequst);
+	
+	User selectByAccount(final String account);
 }
