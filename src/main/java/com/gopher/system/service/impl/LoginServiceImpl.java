@@ -27,7 +27,7 @@ public class LoginServiceImpl implements LoginService {
 	@Resource
 	private UserService userService;
 	@Resource
-	private CacheService cacheService;
+	private CacheService<String,User> cacheService;
 
 	@Override
 	public LoginResponse login(LoginRequest loginRequest) {
