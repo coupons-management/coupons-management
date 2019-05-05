@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gopher.coupon.dao.SynMessageDataMapper">
+
+
+	<select id="getCouPonMessages"
+		resultType="com.gopher.system.model.TMessage">
+	
+		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
+		FROM T_MESSAGE_COUPON   where status=0
+		
+		
+	</select>
+	
+	<insert id="insert" 	parameterType="com.gopher.coupon.utils.CouPonJson">
+	
+       <selectKey keyProperty="id" resultType="String" order="BEFORE">
+        select replace(uuid(),'-','') from dual
+       </selectKey>
+		INSERT INTO CP_coupon
+		(ID,CONVERT_NAME,name,CODE,create_time)
+		VALUES
+		(#{id},#{storeUrlName},#{storeUrlName},#{code},now())
+	</insert> 
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM T_MESSAGE_COUPON WHERE PK_ID =
+		#{id}
+	</delete>
+	
+	<select id="getScrapyeMessages"
+		resultType="com.gopher.system.model.TMessage">
+		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
+		FROM T_MESSAGE_CATEGORY  WHERE STATUS=0
+	</select>
+	
+	<insert id="insertScrapye" 	parameterType="com.gopher.coupon.utils.CateGoryJson">
+       <selectKey keyProperty="id" resultType="String" order="BEFORE">
+        select replace(uuid(),'-','') from dual
+       </selectKey>
+		INSERT INTO cp_scrapy
+		(id,name,ENABLE,create_time)
+		VALUES
+		(#{id},#{name},#{status},now())
+	</insert> 
+
+
+<update id="updateScMessageStatus" parameterType="String">
+		UPDATE T_MESSAGE_CATEGORY
+		set status=1
+	   WHERE PK_ID=#{id}
+
+	</update>
+	<update id="updateCouPonMessageStatus" parameterType="String">
+		UPDATE T_MESSAGE_COUPON
+		set status=1
+	   WHERE PK_ID=#{id}
+
+	</update>
+	
+	
+	
+	
+</mapper>
