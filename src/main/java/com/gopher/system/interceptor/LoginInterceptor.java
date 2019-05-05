@@ -10,12 +10,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.gopher.system.controller.model.Result;
+import com.gopher.system.model.User;
 import com.gopher.system.service.CacheService;
 import com.gopher.system.util.ThreadLocalUtils;
 
 public class LoginInterceptor implements HandlerInterceptor {
 	@Autowired
-	private CacheService cacheService;
+	private CacheService<String,User> cacheService;
 
 	public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)
 			throws Exception {
@@ -29,17 +30,16 @@ public class LoginInterceptor implements HandlerInterceptor {
 			httpServletResponse.getWriter().write(JSON.toJSONString(new Result(-1, "您还没有登录,请登录", false)));
 			return false;
 		}
-		Object obj = cacheService.get(TOKEN);
-		if (null == obj) {
+		User user = cacheService.get(TOKEN);
+		if (null == user) {
 			// 缓存中没有对应的缓存
 			httpServletResponse.getWriter().write(JSON.toJSONString(new Result(-1, "会话已过期,请重新登录", false)));
 			return false;
 		}
-		int user_id = Integer.valueOf(obj.toString());
 		/**
 		 * 当前用户
 		 */
-		ThreadLocalUtils.setObject(ThreadLocalUtils.USER_KEY, user_id);
+		ThreadLocalUtils.setObject(ThreadLocalUtils.USER_KEY, user);
 		//当前所发送的请求的客户端类型(app,web)
 		ThreadLocalUtils.setObject(ThreadLocalUtils.APPLICATION, APPLICATION);
 		return true;

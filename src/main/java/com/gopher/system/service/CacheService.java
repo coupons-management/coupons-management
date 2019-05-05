@@ -7,7 +7,7 @@ public interface CacheService<K,V> {
 	 * @param key
 	 * @return
 	 */
-	Object get(K k);
+	V get(K k);
 
 	/**
 	 * 删除
