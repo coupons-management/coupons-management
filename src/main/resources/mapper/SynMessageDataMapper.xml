@@ -14,7 +14,7 @@
 		
 	</select>
 	
-	<insert id="insert" 	parameterType="com.gopher.coupon.utils.CouPonJson">
+	<insert id="insert" 	parameterType="com.gopher.system.util.CouPonJson">
 	
        <selectKey keyProperty="id" resultType="String" order="BEFORE">
         select replace(uuid(),'-','') from dual
@@ -35,7 +35,7 @@
 		FROM T_MESSAGE_CATEGORY  WHERE STATUS=0
 	</select>
 	
-	<insert id="insertScrapye" 	parameterType="com.gopher.coupon.utils.CateGoryJson">
+	<insert id="insertScrapye" 	parameterType="com.gopher.system.util.CateGoryJson">
        <selectKey keyProperty="id" resultType="String" order="BEFORE">
         select replace(uuid(),'-','') from dual
        </selectKey>

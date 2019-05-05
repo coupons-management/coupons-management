@@ -25,7 +25,7 @@ public class CookieUtils {
 	/**
 	 * 域
 	 */
-	public static final String DEFAULT_DOMAIN = ".ramosy.com";
+	public static final String DEFAULT_DOMAIN = "";
 	
     private final static Logger LOG = LoggerFactory.getLogger(CookieUtils.class);
     

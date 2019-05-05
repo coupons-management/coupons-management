@@ -34,7 +34,7 @@
 	</select>
 	
 	
-	<insert id="insert" 	parameterType="com.gopher.coupon.utils.StoreJson">
+	<insert id="insert" 	parameterType="com.gopher.system.util.StoreJson">
 	
        <selectKey keyProperty="id" resultType="String" order="BEFORE">
         select replace(uuid(),'-','') from dual
