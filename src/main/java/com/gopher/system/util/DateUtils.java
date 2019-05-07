@@ -443,5 +443,14 @@ public class DateUtils {
 		calendar.setTimeInMillis(dateTime);
 		return calendar.get(Calendar.HOUR_OF_DAY);
 	}
+	
+	public static void main(String[] args) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(getDateTime("2018-10-10"));
+		List<Long> list = getDayBetween(calendar.getTimeInMillis(),System.currentTimeMillis());
+		int theDays = list.size();
+		System.out.println(theDays / 7);
+		System.out.println(theDays % 7);
+	}
 
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * 商家信息
  * CP_STORE
  * @author 
  */

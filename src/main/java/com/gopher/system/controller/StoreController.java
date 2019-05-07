@@ -1,0 +1,27 @@
+package com.gopher.system.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.gopher.system.controller.model.Result;
+import com.gopher.system.model.vo.request.StoreRequest;
+import com.gopher.system.service.StoreService;
+
+@RestController
+@RequestMapping(path="/store")
+public class StoreController {
+	@Autowired
+	private StoreService storeService;
+	
+	@GetMapping(path="/getPage")
+	public Result getPage(@ModelAttribute StoreRequest storeRequest) {
+		Result result = new Result();
+		result.setData(storeService.getPage(storeRequest));
+		return result;
+	}
+	
+
+}

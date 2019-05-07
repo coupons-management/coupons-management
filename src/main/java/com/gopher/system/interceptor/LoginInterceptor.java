@@ -24,8 +24,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 	public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)
 			throws Exception {
-		httpServletResponse.setHeader("Content-type", "text/html;charset=UTF-8");
-		httpServletResponse.setCharacterEncoding("UTF-8");
 		Cookie[] cookies = httpServletRequest.getCookies();
 		boolean valid = false;
 		if(null !=cookies && cookies.length > 0) {
@@ -36,6 +34,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 						User user = cacheService.get(TOKEN);
 						if(null != user) {
 							// 当前用户写入线程
+							valid = true;
 							ThreadLocalUtils.setObject(ThreadLocalUtils.USER_KEY, user);
 						}
 					}
@@ -44,10 +43,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 		}
 		if(!valid) {
 			httpServletResponse.getWriter().write(JSON.toJSONString(new Result(-1, "您还没登录,或会话已过期,请重新登录", false)));
-			return false;
+			return valid;
 		}
-		return true;
-
+		return valid;
 	}
     
 	public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o,

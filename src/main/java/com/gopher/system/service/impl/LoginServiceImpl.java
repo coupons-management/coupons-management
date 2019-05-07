@@ -35,8 +35,8 @@ public class LoginServiceImpl implements LoginService {
 		if (null == loginRequest) {
 			throw new BusinessRuntimeException("参数不能为空");
 		}
-		final String account = loginRequest.getAccount();
-		final String password = loginRequest.getPassword();
+		final String account  = StringUtils.hasText(loginRequest.getAccount())?loginRequest.getAccount():loginRequest.getUserName();
+		final String password = StringUtils.hasText(loginRequest.getPassword())?loginRequest.getPassword():loginRequest.getPassWord();
 		if (!StringUtils.hasText(account)) {
 			throw new BusinessRuntimeException("账号不能为空");
 		}
@@ -54,6 +54,8 @@ public class LoginServiceImpl implements LoginService {
 		final String sessionKey = MD5Utils.MD5(password_DB);
 		this.loginSuccessHandle(sessionKey, user);
 		LoginResponse result = new LoginResponse();
+		result.setSessionKey(sessionKey);
+		result.setExpiryTime(System.currentTimeMillis()+CookieUtils.DEFAULT_TOKEN_ALIVE*1000L);
 		return result;
 	}
 
