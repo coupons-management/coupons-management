@@ -1,48 +1,138 @@
 package com.gopher.system.util;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class CouPonJson {
-	    private String id;
-	    private String code;
-	    @JSONField(name = "coupon_type")
-	    private String couponType;
-	    @JSONField(name = "created_at")
-	    private String createdAt;
+	private String id;
+	/**
+	 * 代码
+	 */
+	private String code;
+	/**
+	 * 优惠卷类型
+	 */
+	@JSONField(name = "coupon_type")
+	private String couponType;
+	/**
+	 * 创建时间
+	 */
+	@JSONField(name = "created_at")
+	private String createdAt;
+	/**
+	 * 描述
+	 */
+	private String description;
+	/**
+	 * 到期时间
+	 */
+	@JSONField(name = "expire_at")
+	private String expireAt;
+	
+	private Timestamp  expire;
+	
+	/**
+	 * 最终站点
+	 */
+	@JSONField(name = "final_website")
+	private String finalWebsite;
+	/**
+	 * 站点
+	 */
+	private String link;
+	/**
+	 * 名称
+	 */
+	private String name;
+	/**
+	 * 站点
+	 */
+	private String site;
+	/**
+	 * 状态
+	 */
+	private String status;
+	/**
+	 * 商家
+	 */
+	private String store;
+	/**
+	 * 商家类型
+	 */
+	@JSONField(name = "store_category")
+	private String storeCategory;
+	/**
+	 * 商家城市
+	 */
+	@JSONField(name = "store_country")
+	private String storeCountry;
+	/**
+	 * 商家描述
+	 */
+	@JSONField(name = "store_description")
+	private String storeDescription;
+	/**
+	 * 商家价格
+	 */
+	@JSONField(name = "store_picture")
+	private String storePicture;
+	/**
+	 * 商家URL名
+	 */
+	@JSONField(name = "store_url_name")
+	private String storeUrlName;
+	/**
+	 * 商家网站
+	 */
+	@JSONField(name = "store_website")
+	private String storeWebsite;
+	/**
+	 * 类型
+	 */
+	private String type;
 
-	    private String description;
-	    @JSONField(name = "expire_at")
-	    private String expireAt;
-	    @JSONField(name = "final_website")
-	    private String finalWebsite;
+	private String uuid;
 
-	    private String link;
+	private String verify;
+	    
+	   /* 
+	    {
+	        "code":"",
+	        "coupon_type":"DEAL",
+	        "created_at":"2019-02-28 13:17:38",
+	        "description":"",
+	        "expire_at":"2099-12-30 00:00:00+00",
+	        "final_website":"https://www.ywampublishing.com",
+	        "link":"https://www.offers.com/exit/outbound/offer_id/4549173/ld/offerstrip/c/merchant/a/index/vb/1626718628582131024/",
+	        "name":"Up to 45% off Kids' Mission Books",
+	        "site":"offers",
+	        "status":"0",
+	        "store":"YWAM Publishing",
+	        "store_category":"Books",
+	        "store_country":"US",
+	        "store_description":"Get Christian themed books at affordable prices on YWAM Publishing.",
+	        "store_picture":"https://sgi.offerscdn.net/i/zdcs-merchants/032eAGBjVvfL3vTNcof5N4k.h90.w170.flpad.v16.bffffff.png",
+	        "store_url_name":"https://www.offers.com/ywam-publishing/",
+	        "store_website":"https://www.ywampublishing.com/default.aspx",
+	        "type":"coupon_spider",
+	        "uuid":"38718368-3b5b-11e9-b459-f40f241a9d6c",
+	        "verify":"Y"
+	    }*/
 
-	    private String name;
+		public Timestamp  getExpire() {
+			//this.expire=Timestamp.parse(createdAt); 
+			this.expire = Timestamp.valueOf(createdAt);
+		return expire;
+	}
 
-	    private String site;
-
-	    private String status;
-
-	    private String store;
-	    @JSONField(name = "store_category")
-	    private String storeCategory;
-	    @JSONField(name = "store_country")
-	    private String storeCountry;
-	    @JSONField(name = "store_description")
-	    private String storeDescription;
-	    @JSONField(name = "store_picture")
-	    private String storePicture;
-	    @JSONField(name = "store_url_name")
-	    private String storeUrlName;
-	    @JSONField(name = "store_website")
-	    private String storeWebsite;
-
-	    private String type;
-
-	    private String uuid;
-
-	    private String verify;
+	public void setExpire(Timestamp  expire) {
+		
+		this.expire = Timestamp.valueOf(createdAt);
+	}
 
 		public String getId() {
 			return id;
@@ -212,5 +302,16 @@ public class CouPonJson {
 			this.verify = verify;
 		}
 	    
-	    
+		Date getDate(String dateStr){
+	        Date date = new Date();  
+	        //注意format的格式要与日期String的格式相匹配  
+	        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+	        try {  
+	            date = sdf.parse(dateStr);  
+	           return date;
+	        } catch (Exception e) {  
+	            e.printStackTrace();  
+	        }  
+	        return null;
+	    }
 }

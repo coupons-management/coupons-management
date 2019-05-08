@@ -7,8 +7,8 @@ public class CateGoryJson {
 	private String description;
 	@JSONField(name = "icon_code")
     private String iconCode;
-	@JSONField(name = "iconColor")
-    private String icon_color;
+	@JSONField(name = "icon_color")
+    private String iconColor;
     private String name;
 
     private String site;
@@ -19,7 +19,16 @@ public class CateGoryJson {
     @JSONField(name = "url_name")
     private String urlName;
     
-    
+ /*   {
+        "description":"Stay stylish yet keep warm with deals on outerwear from New York & Company, Eddie Bauer, Bloomingdale's, Kohl's, Old Navy, and other top brands.",
+        "icon_code":"icon-christmas-001",
+        "icon_color":"primary",
+        "name":"Women's Outerwear",
+        "site":"offers",
+        "status":"0",
+        "type":"category",
+        "url_name":"womens-coats-jackets"
+    }*/
 	public String getId() {
 		return id;
 	}
@@ -38,11 +47,12 @@ public class CateGoryJson {
 	public void setIconCode(String iconCode) {
 		this.iconCode = iconCode;
 	}
-	public String getIcon_color() {
-		return icon_color;
+
+	public String getIconColor() {
+		return iconColor;
 	}
-	public void setIcon_color(String icon_color) {
-		this.icon_color = icon_color;
+	public void setIconColor(String iconColor) {
+		this.iconColor = iconColor;
 	}
 	public String getName() {
 		return name;
