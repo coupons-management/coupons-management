@@ -1,5 +1,8 @@
 package com.gopher.system.interceptor;
 
+import java.util.Objects;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +15,7 @@ import com.alibaba.fastjson.JSON;
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.User;
 import com.gopher.system.service.CacheService;
+import com.gopher.system.util.CookieUtils;
 import com.gopher.system.util.ThreadLocalUtils;
 
 public class LoginInterceptor implements HandlerInterceptor {
@@ -20,31 +24,30 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 	public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)
 			throws Exception {
-		httpServletResponse.setHeader("Content-type", "text/html;charset=UTF-8");
-		httpServletResponse.setCharacterEncoding("UTF-8");
-		
-		final String TOKEN = httpServletRequest.getParameter("token");
-		final String APPLICATION = httpServletRequest.getParameter("application");
-		if (!StringUtils.hasText(TOKEN)) {
-			// 没有传token
-			httpServletResponse.getWriter().write(JSON.toJSONString(new Result(-1, "您还没有登录,请登录", false)));
-			return false;
+		Cookie[] cookies = httpServletRequest.getCookies();
+		boolean valid = false;
+		if(null !=cookies && cookies.length > 0) {
+			for (Cookie cookie : cookies) {
+				if(Objects.equals(cookie.getName(),CookieUtils.COOKIE_KEY)) {
+					final String TOKEN = cookie.getValue();
+					if(StringUtils.hasText(TOKEN)) {
+						User user = cacheService.get(TOKEN);
+						if(null != user) {
+							// 当前用户写入线程
+							valid = true;
+							ThreadLocalUtils.setObject(ThreadLocalUtils.USER_KEY, user);
+						}
+					}
+				}
+			}
 		}
-		User user = cacheService.get(TOKEN);
-		if (null == user) {
-			// 缓存中没有对应的缓存
-			httpServletResponse.getWriter().write(JSON.toJSONString(new Result(-1, "会话已过期,请重新登录", false)));
-			return false;
+		if(!valid) {
+			httpServletResponse.getWriter().write(JSON.toJSONString(new Result(-1, "您还没登录,或会话已过期,请重新登录", false)));
+			return valid;
 		}
-		/**
-		 * 当前用户
-		 */
-		ThreadLocalUtils.setObject(ThreadLocalUtils.USER_KEY, user);
-		//当前所发送的请求的客户端类型(app,web)
-		ThreadLocalUtils.setObject(ThreadLocalUtils.APPLICATION, APPLICATION);
-		return true;
+		return valid;
 	}
-
+    
 	public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o,
 			ModelAndView modelAndView) throws Exception {
 

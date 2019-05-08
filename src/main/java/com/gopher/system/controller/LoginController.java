@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gopher.system.controller.model.Result;
@@ -14,10 +15,11 @@ import com.gopher.system.service.LoginService;
 public class LoginController {
 	@Resource
 	private LoginService loginService;
-	@PostMapping(path="/login")
+	@RequestMapping(path="/login")
 	public Result login(@RequestBody LoginRequest loginRequest) {
-		loginService.login(loginRequest);
-		return new Result();
+		Result result = new Result();
+		result.setData(loginService.login(loginRequest));
+		return result;
 	}
 	@PostMapping(path="/logout")
 	public Result logout() {

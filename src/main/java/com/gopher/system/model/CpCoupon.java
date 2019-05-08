@@ -19,14 +19,17 @@ public class CpCoupon implements Serializable {
     private String name;
 
     private String code;
-
+   
     private Date expireAt;
 
     private String storeWebsiteCrc;
 
     private String storeNameCrc;
-
+    /**
+     * 1 通过 0未通过
+     */
     private String isPass;
+    
 
     private String finalWebsite;
 

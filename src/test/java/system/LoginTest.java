@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSON;
 import com.gopher.system.model.User;
 import com.gopher.system.model.vo.request.LoginRequest;
+import com.gopher.system.model.vo.response.LoginResponse;
 import com.gopher.system.service.CacheService;
 import com.gopher.system.service.LoginService;
 
@@ -19,7 +20,8 @@ public class LoginTest extends BaseTest{
 		LoginRequest loginRequest = new LoginRequest();
 		loginRequest.setAccount("TEST");
 		loginRequest.setPassword("test");
-		loginService.login(loginRequest);
+		LoginResponse rsp = loginService.login(loginRequest);
+        System.out.println(JSON.toJSONString(rsp));
 	}
 	@Test
     public void get() {

@@ -19,6 +19,8 @@ public class CommonsFilter implements Filter {
         httpResponse.setHeader("Access-Control-Allow-Origin", "*");
         httpResponse.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
+        httpResponse.setHeader("Content-type", "text/html;charset=UTF-8");
+        httpResponse.setCharacterEncoding("UTF-8");
         try {
             logger.info("=============================================================================");
             StringBuffer msg = new StringBuffer(200);
