@@ -11,11 +11,11 @@
      <!-- 配置线程池线程数量 -->
     <task:scheduler id="taskScheduler" pool-size="5"/> 
      <!-- 定义调用对象-->
-	<bean id="synBasicsData" class="com.gopher.coupon.SynBasicsData"> </bean> 
+	<bean id="synBasicsData" class="com.gopher.system.worker.SynBasicsData"> </bean> 
     <!-- 配置相关类中方法的执行时间-->
     <task:scheduled-tasks scheduler="taskScheduler" > 
         <!-- 每隔 2秒执行一次 -->
-    	<task:scheduled ref="synBasicsData" method="synDate" cron="*/5 * * * * ?"/>
+    	<task:scheduled ref="synBasicsData" method="synDate" cron="*/20 * * * * ?"/>
     	<!-- 每天凌晨 01:00 执行一次 -->  
         <task:scheduled ref="synBasicsData" method="test2" cron="0 0 1 * * *"/>  
     </task:scheduled-tasks>
