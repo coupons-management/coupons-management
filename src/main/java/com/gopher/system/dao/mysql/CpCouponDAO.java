@@ -1,6 +1,7 @@
 package com.gopher.system.dao.mysql;
 
 import com.gopher.system.model.CpCoupon;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -8,4 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CpCouponDAO extends MyBatisBaseDao<CpCoupon, Integer> {
+	CpCoupon getBeanByName(CpCoupon cou);
 }

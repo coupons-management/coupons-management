@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
+	public CpStore getBeanByWebSite(String website);
 }
