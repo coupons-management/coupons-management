@@ -7,22 +7,14 @@
 
 	<select id="getCouPonMessages"
 		resultType="com.gopher.system.model.TMessage">
-	
 		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
-		FROM T_MESSAGE_COUPON   where status=0
-		
-		
+		FROM T_MESSAGE_COUPON  where status=0 limit 2000
 	</select>
 	
-	<insert id="insert" 	parameterType="com.gopher.coupon.utils.CouPonJson">
-	
-       <selectKey keyProperty="id" resultType="String" order="BEFORE">
-        select replace(uuid(),'-','') from dual
-       </selectKey>
-		INSERT INTO CP_coupon
-		(ID,CONVERT_NAME,name,CODE,create_time)
-		VALUES
-		(#{id},#{storeUrlName},#{storeUrlName},#{code},now())
+	<insert id="insert" 	parameterType="com.gopher.system.util.CouPonJson">
+	 insert into CP_coupon (`NAME`, code, EXPIRE_AT,FINAL_WEBSITE)
+    values (#{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},#{expire}, #{finalWebsite,jdbcType=VARCHAR})
+    
 	</insert> 
 	<delete id="delete" parameterType="java.lang.Integer">
 		DELETE FROM T_MESSAGE_COUPON WHERE PK_ID =
@@ -35,7 +27,7 @@
 		FROM T_MESSAGE_CATEGORY  WHERE STATUS=0
 	</select>
 	
-	<insert id="insertScrapye" 	parameterType="com.gopher.coupon.utils.CateGoryJson">
+	<insert id="insertScrapye" 	parameterType="com.gopher.system.util.CateGoryJson">
        <selectKey keyProperty="id" resultType="String" order="BEFORE">
         select replace(uuid(),'-','') from dual
        </selectKey>
@@ -61,5 +53,29 @@
 	
 	
 	
+	 <insert id="insertStoreByMessage" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.util.StoreJson" useGeneratedKeys="true">
+    insert into CP_STORE (`NAME`, WEBSITE,  COUNTRY, COUPON_COUNT,UUID,IN_TYPE,DES,LOGO_URL)
+    values (#{name,jdbcType=VARCHAR}, #{finalWebsite,jdbcType=VARCHAR},#{country,jdbcType=VARCHAR},#{couponCount,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR},'0',
+    #{description,jdbcType=VARCHAR},  #{logoUrl,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  
+    <insert id="insertType" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpType" useGeneratedKeys="true">
+    insert into CP_TYPE (OUT_SITE_ID, `NAME`, DES, 
+      CREATE_USER, UPDATE_USER, CREATE_TIME, 
+      UPDATE_TIME)
+    values (#{outSiteId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=INTEGER}, #{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+	
+	
+	<select id="getStoreMessages"
+		resultType="com.gopher.system.model.TMessage">
+		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
+		FROM T_MESSAGE_STORE  WHERE STATUS=0
+		
+	</select>
 	
 </mapper>
