@@ -55,6 +55,20 @@ public class CpStore implements Serializable {
      * 入库方式
      */
     private Integer inType;
+    /**
+     * logo地址
+     */
+    private String logoUrl;
+    /**
+     * 描述
+     */
+    private String dec;
+    
+    /**
+     * uuid
+     */
+    private String uuid;
+    
 
     /**
      * 审核方式
@@ -83,7 +97,31 @@ public class CpStore implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
+    public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
+
+	public String getDec() {
+		return dec;
+	}
+
+	public void setDec(String dec) {
+		this.dec = dec;
+	}
+
+	public Integer getId() {
         return id;
     }
 

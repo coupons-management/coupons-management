@@ -108,4 +108,12 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  
+   <select id="getBeanByOutKey" parameterType="com.gopher.system.model.CpStoreType" resultType="com.gopher.system.model.CpStoreType">
+    select 
+    <include refid="Base_Column_List" />
+    from CP_STORE_TYPE
+    where STORE_ID = #{storeId,jdbcType=INTEGER}  and TYPE_ID = #{typeId,jdbcType=INTEGER} limit 1
+  </select>
+  
 </mapper>

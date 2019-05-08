@@ -17,6 +17,11 @@ public interface SynDataService {
 	 * 同步爬虫
 	 */
 	void synScrapyData();
+	/**
+	 * 同步爬虫
+	 */
+	void synTypeData();
+	
 
 
 }

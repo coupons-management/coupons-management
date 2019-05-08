@@ -201,4 +201,11 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+   <select id="getBeanByName" parameterType="com.gopher.system.model.CpCoupon" resultType="com.gopher.system.model.CpCoupon">
+   select 
+    <include refid="Base_Column_List" /> 
+    from CP_COUPON 
+    where   NAME = #{name,jdbcType=VARCHAR} and STORE_ID=#{storeId,jdbcType=INTEGER} limit 1
+  </select>
+
 </mapper>
