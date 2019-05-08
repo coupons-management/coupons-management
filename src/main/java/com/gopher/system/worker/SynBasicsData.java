@@ -18,10 +18,12 @@ public class SynBasicsData {
 		synDataService.synStoreData();
 		//同步优惠卷
 		synDataService.synCouponData();
+		//同步类型
+		synDataService.synTypeData();
 		//同步站点
 		//synDataService.synInSiteData();
 		//同步爬虫
-		synDataService.synScrapyData();
+		//synDataService.synScrapyData();
     
 	}
 	
