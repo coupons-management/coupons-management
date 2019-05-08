@@ -9,6 +9,9 @@
     <result column="COUNTRY" jdbcType="VARCHAR" property="country" />
     <result column="NAME_CRC" jdbcType="VARCHAR" property="nameCrc" />
     <result column="WEBSITE_CRC" jdbcType="VARCHAR" property="websiteCrc" />
+    <result column="UUID" jdbcType="VARCHAR" property="uuid" />
+    <result column="DES" jdbcType="VARCHAR" property="des" />
+    <result column="LOGO_URL" jdbcType="VARCHAR" property="logoUrl" />
     <result column="COUPON_COUNT" jdbcType="INTEGER" property="couponCount" />
     <result column="COUPON_COUNT_VALID" jdbcType="INTEGER" property="couponCountValid" />
     <result column="IN_TYPE" jdbcType="INTEGER" property="inType" />
@@ -20,7 +23,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     ID, `NAME`, WEBSITE, ADVERTISING, COUNTRY, NAME_CRC, WEBSITE_CRC, COUPON_COUNT, COUPON_COUNT_VALID, 
-    IN_TYPE, APPROVAL, CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME
+    IN_TYPE, APPROVAL,UUID, DES,LOGO_URL,CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -89,6 +92,17 @@
       <if test="updateTime != null">
         UPDATE_TIME,
       </if>
+      
+      <if test="uuid != null">
+        UUID,
+      </if>
+      <if test="des != null">
+        DES,
+      </if>
+      <if test="logoUrl != null">
+        LOGO_URL,
+      </if>
+  
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -133,6 +147,18 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+
+      <if test="des != null">
+        #{des,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="logoUrl != null">
+        #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.CpStore">
@@ -180,6 +206,16 @@
       <if test="updateTime != null">
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+        <if test="uuid != null">
+        UUID = #{uuid,jdbcType=VARCHAR},
+      </if>
+        <if test="des != null">
+        DES = #{des,jdbcType=VARCHAR},
+      </if>
+            <if test="logoUrl != null">
+        LOGO_URL = #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
@@ -195,10 +231,23 @@
       COUPON_COUNT_VALID = #{couponCountValid,jdbcType=INTEGER},
       IN_TYPE = #{inType,jdbcType=INTEGER},
       APPROVAL = #{approval,jdbcType=INTEGER},
+       UUID = #{uuid,jdbcType=VARCHAR},
+       DES = #{des,jdbcType=VARCHAR},
+       LOGO_URL = #{logoUrl,jdbcType=VARCHAR},
       CREATE_USER = #{createUser,jdbcType=INTEGER},
       UPDATE_USER = #{updateUser,jdbcType=INTEGER},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  
+    <select id="getBeanByWebSite" parameterType="String" resultType="com.gopher.system.model.CpStore">
+    select 
+    <include refid="Base_Column_List" />
+    from CP_STORE
+    where WEBSITE = #{website,jdbcType=VARCHAR} limit 1
+  </select>
+  
+  
+  
 </mapper>
