@@ -1,13 +1,10 @@
 package com.gopher.system.util;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.alibaba.fastjson.JSON;
 
 public class CookieUtils {
 	/**
@@ -38,6 +35,11 @@ public class CookieUtils {
 		addCookie(response, value, DEFAULT_TOKEN_ALIVE);
 	}
 	
+	public static void  deleteCookie(HttpServletResponse response,Cookie cookie) {
+		cookie.setMaxAge(0);
+		cookie.setValue(null);
+		response.addCookie(cookie);
+	}
 	/**
 	 * 
 	 * @param response
@@ -65,19 +67,5 @@ public class CookieUtils {
 		response.addCookie(cookie);
 	}
     
-	/**
-	 * 删除客户端cookie
-	 * @param request
-	 */
-	public static void removeCookie(HttpServletRequest request) {
-		Cookie[] cookies = request.getCookies();
-		if(null != cookies){
-			LOG.info("被清除的cookie:{}",JSON.toJSONString(cookies));
-			for (Cookie cookie : cookies) {
-				cookie.setValue(null);
-				cookie.setMaxAge(0);
-			}
-		}
-	}
 
 }

@@ -7,11 +7,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.alibaba.fastjson.JSON;
 import com.gopher.system.exception.BusinessRuntimeException;
 import com.gopher.system.model.User;
 import com.gopher.system.model.vo.request.LoginRequest;
@@ -24,6 +27,7 @@ import com.gopher.system.util.MD5Utils;
 
 @Service(value = "loginService")
 public class LoginServiceImpl implements LoginService {
+    private final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
 	@Resource
 	private UserService userService;
 	@Resource
@@ -76,13 +80,16 @@ public class LoginServiceImpl implements LoginService {
 		// 3 销毁缓存
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
+		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getResponse();
 		Cookie[] cookies = request.getCookies();
+		logger.info(JSON.toJSONString(cookies));
 		if (null != cookies) {
 			for (Cookie cookie : cookies) {
 				if (Objects.equals(cookie.getName(), CookieUtils.COOKIE_KEY)) {
 					final String sessionKey = cookie.getValue();
 					cacheService.delete(sessionKey);
-					CookieUtils.removeCookie(request);
+					CookieUtils.deleteCookie(response, cookie);
 					break;
 				}
 
