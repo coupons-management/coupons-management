@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gopher.system.controller.model.Result;
-import com.gopher.system.model.vo.request.StoreRequest;
+import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.service.StoreService;
 
 @RestController
@@ -17,7 +17,7 @@ public class StoreController {
 	private StoreService storeService;
 	
 	@GetMapping(path="/getPage")
-	public Result getPage(@ModelAttribute StoreRequest storeRequest) {
+	public Result getPage(@ModelAttribute StorePageRequst storeRequest) {
 		Result result = new Result();
 		result.setData(storeService.getPage(storeRequest));
 		return result;

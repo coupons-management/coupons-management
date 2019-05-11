@@ -14,8 +14,6 @@ public class Page<T> {
 
 	private List<T> list;
 
-	private T query;
-
 	private int pageSize = DEFAULT_PAGE_SIZE;
 
 	private int pageNumber = 1;
@@ -23,15 +21,6 @@ public class Page<T> {
 	private int totalCount;
 
 	private int totalPage;
-	/**
-	 * 分页开始位置
-	 */
-	private int beginIndex;
-
-	public int getBeginIndex() {
-		this.beginIndex = (pageNumber-1)* pageSize;
-		return beginIndex;
-	}
     
 	public List<T> getList() {
 		return list;
@@ -39,14 +28,6 @@ public class Page<T> {
 
 	public void setList(List<T> list) {
 		this.list = list;
-	}
-
-	public T getQuery() {
-		return query;
-	}
-
-	public void setQuery(T query) {
-		this.query = query;
 	}
 
 	public int getPageSize() {
@@ -85,8 +66,6 @@ public class Page<T> {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Page [list=");
 		builder.append(list);
-		builder.append(", query=");
-		builder.append(query);
 		builder.append(", pageSize=");
 		builder.append(pageSize);
 		builder.append(", pageNumber=");

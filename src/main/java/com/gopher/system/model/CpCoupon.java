@@ -61,8 +61,18 @@ public class CpCoupon implements Serializable {
     private String siteUrl;
 
     private String storeUrl;
+    
+    private String scrapy;
 
-    private static final long serialVersionUID = 1L;
+    public String getScrapy() {
+		return scrapy;
+	}
+
+	public void setScrapy(String scrapy) {
+		this.scrapy = scrapy;
+	}
+
+	private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
