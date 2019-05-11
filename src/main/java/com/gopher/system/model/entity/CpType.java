@@ -1,18 +1,22 @@
-package com.gopher.system.model;
+package com.gopher.system.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * cp_out_site_store
+ * cp_type
  * @author 
  */
-public class CpOutSiteStore implements Serializable {
+public class CpType implements Serializable {
     private Integer id;
 
-    private Integer outId;
+    private Integer outSiteId;
 
-    private Integer storeId;
+    private String name;
+
+    private String des;
+
+    private String inType;
 
     /**
      * 创建人
@@ -44,20 +48,36 @@ public class CpOutSiteStore implements Serializable {
         this.id = id;
     }
 
-    public Integer getOutId() {
-        return outId;
+    public Integer getOutSiteId() {
+        return outSiteId;
     }
 
-    public void setOutId(Integer outId) {
-        this.outId = outId;
+    public void setOutSiteId(Integer outSiteId) {
+        this.outSiteId = outSiteId;
     }
 
-    public Integer getStoreId() {
-        return storeId;
+    public String getName() {
+        return name;
     }
 
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
+    }
+
+    public String getInType() {
+        return inType;
+    }
+
+    public void setInType(String inType) {
+        this.inType = inType;
     }
 
     public Integer getCreateUser() {
@@ -103,10 +123,12 @@ public class CpOutSiteStore implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        CpOutSiteStore other = (CpOutSiteStore) that;
+        CpType other = (CpType) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getOutId() == null ? other.getOutId() == null : this.getOutId().equals(other.getOutId()))
-            && (this.getStoreId() == null ? other.getStoreId() == null : this.getStoreId().equals(other.getStoreId()))
+            && (this.getOutSiteId() == null ? other.getOutSiteId() == null : this.getOutSiteId().equals(other.getOutSiteId()))
+            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getDes() == null ? other.getDes() == null : this.getDes().equals(other.getDes()))
+            && (this.getInType() == null ? other.getInType() == null : this.getInType().equals(other.getInType()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -118,8 +140,10 @@ public class CpOutSiteStore implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getOutId() == null) ? 0 : getOutId().hashCode());
-        result = prime * result + ((getStoreId() == null) ? 0 : getStoreId().hashCode());
+        result = prime * result + ((getOutSiteId() == null) ? 0 : getOutSiteId().hashCode());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getDes() == null) ? 0 : getDes().hashCode());
+        result = prime * result + ((getInType() == null) ? 0 : getInType().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -134,8 +158,10 @@ public class CpOutSiteStore implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", outId=").append(outId);
-        sb.append(", storeId=").append(storeId);
+        sb.append(", outSiteId=").append(outSiteId);
+        sb.append(", name=").append(name);
+        sb.append(", des=").append(des);
+        sb.append(", inType=").append(inType);
         sb.append(", createUser=").append(createUser);
         sb.append(", updateUser=").append(updateUser);
         sb.append(", createTime=").append(createTime);

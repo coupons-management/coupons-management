@@ -7,7 +7,7 @@ import org.springframework.util.StringUtils;
 
 import com.gopher.system.dao.mysql.UserDAO;
 import com.gopher.system.exception.BusinessRuntimeException;
-import com.gopher.system.model.User;
+import com.gopher.system.model.entity.User;
 import com.gopher.system.service.UserService;
 @Service(value="userService")
 public class UserServiceImpl implements UserService{

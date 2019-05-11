@@ -12,7 +12,7 @@ import com.gopher.system.dao.mysql.CpCouponDAO;
 import com.gopher.system.dao.mysql.CpScrapyStoreDAO;
 import com.gopher.system.dao.mysql.CpSiteStoreDAO;
 import com.gopher.system.dao.mysql.CpStoreDAO;
-import com.gopher.system.model.CpStore;
+import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.model.vo.response.StoreResponse;

@@ -6,7 +6,7 @@
 
 
 	<select id="getCouPonMessages"
-		resultType="com.gopher.system.model.TMessage">
+		resultType="com.gopher.system.model.entity.TMessage">
 		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
 		FROM T_MESSAGE_COUPON  where status=0 limit 2000
 	</select>
@@ -32,7 +32,7 @@
 	</delete>
 	
 	<select id="getScrapyeMessages"
-		resultType="com.gopher.system.model.TMessage">
+		resultType="com.gopher.system.model.entity.TMessage">
 		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
 		FROM T_MESSAGE_CATEGORY  WHERE STATUS=0
 	</select>
@@ -71,7 +71,7 @@
   
   
   
-    <insert id="insertType" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpType" useGeneratedKeys="true">
+    <insert id="insertType" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpType" useGeneratedKeys="true">
     insert into CP_TYPE (OUT_SITE_ID, `NAME`, DES, 
       CREATE_USER, UPDATE_USER, CREATE_TIME, 
       UPDATE_TIME)
@@ -82,7 +82,7 @@
 	
 	
 	<select id="getStoreMessages"
-		resultType="com.gopher.system.model.TMessage">
+		resultType="com.gopher.system.model.entity.TMessage">
 		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
 		FROM T_MESSAGE_STORE  WHERE STATUS=0
 		

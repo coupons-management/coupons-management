@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gopher.system.dao.mysql.UserDAO">
-  <resultMap id="BaseResultMap" type="com.gopher.system.model.User">
+  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="gender" jdbcType="INTEGER" property="gender" />
@@ -37,7 +37,7 @@
     delete from USER
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.gopher.system.model.User" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.gopher.system.model.entity.User" useGeneratedKeys="true">
     insert into USER (`name`, gender, account, 
       `password`, heard_img_url, age, 
       create_time, update_time, create_user, 
@@ -47,7 +47,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
       #{updateUser,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.gopher.system.model.User" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.gopher.system.model.entity.User" useGeneratedKeys="true">
     insert into USER
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -114,7 +114,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.User">
+  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.User">
     update USER
     <set>
       <if test="name != null">
@@ -150,7 +150,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.User">
+  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.User">
     update USER
     set `name` = #{name,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=INTEGER},

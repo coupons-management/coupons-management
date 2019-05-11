@@ -1,18 +1,18 @@
-package com.gopher.system.model;
+package com.gopher.system.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * cp_scrapy_store
+ * cp_out_site_store
  * @author 
  */
-public class CpScrapyStore implements Serializable {
+public class CpOutSiteStore implements Serializable {
     private Integer id;
 
-    private Integer storeId;
+    private Integer outId;
 
-    private Integer scrapyId;
+    private Integer storeId;
 
     /**
      * 创建人
@@ -44,20 +44,20 @@ public class CpScrapyStore implements Serializable {
         this.id = id;
     }
 
+    public Integer getOutId() {
+        return outId;
+    }
+
+    public void setOutId(Integer outId) {
+        this.outId = outId;
+    }
+
     public Integer getStoreId() {
         return storeId;
     }
 
     public void setStoreId(Integer storeId) {
         this.storeId = storeId;
-    }
-
-    public Integer getScrapyId() {
-        return scrapyId;
-    }
-
-    public void setScrapyId(Integer scrapyId) {
-        this.scrapyId = scrapyId;
     }
 
     public Integer getCreateUser() {
@@ -103,10 +103,10 @@ public class CpScrapyStore implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        CpScrapyStore other = (CpScrapyStore) that;
+        CpOutSiteStore other = (CpOutSiteStore) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getOutId() == null ? other.getOutId() == null : this.getOutId().equals(other.getOutId()))
             && (this.getStoreId() == null ? other.getStoreId() == null : this.getStoreId().equals(other.getStoreId()))
-            && (this.getScrapyId() == null ? other.getScrapyId() == null : this.getScrapyId().equals(other.getScrapyId()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -118,8 +118,8 @@ public class CpScrapyStore implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getOutId() == null) ? 0 : getOutId().hashCode());
         result = prime * result + ((getStoreId() == null) ? 0 : getStoreId().hashCode());
-        result = prime * result + ((getScrapyId() == null) ? 0 : getScrapyId().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -134,8 +134,8 @@ public class CpScrapyStore implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", outId=").append(outId);
         sb.append(", storeId=").append(storeId);
-        sb.append(", scrapyId=").append(scrapyId);
         sb.append(", createUser=").append(createUser);
         sb.append(", updateUser=").append(updateUser);
         sb.append(", createTime=").append(createTime);

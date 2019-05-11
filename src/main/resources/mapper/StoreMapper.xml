@@ -6,7 +6,7 @@
 
 
 	<select id="getStoreMessages"
-		resultType="com.gopher.system.model.TMessageStore">
+		resultType="com.gopher.system.model.entity.TMessageStore">
 	
 		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
 		FROM T_MESSAGE_STORE  where status=0
@@ -15,7 +15,7 @@
 	</select>
 	
 	<!-- 	<select id="getStoreMessages"
-		resultType="com.gopher.system.model.TMessageStore">
+		resultType="com.gopher.system.model.entity.TMessageStore">
 	
 		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
 		FROM t_message_coupon 
@@ -26,7 +26,7 @@
 	
 	
 		<select id="getCategoryMessages"
-		resultType="com.gopher.system.model.TMessageStore">
+		resultType="com.gopher.system.model.entity.TMessageStore">
 	
 		 SELECT pk_id  pkId,MESSAGE_BODY MESSAGEBODY,CREATE_TIME CREATETIME
 		FROM T_MESSAGE_CATEGORY 

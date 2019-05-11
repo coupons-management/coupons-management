@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gopher.system.dao.mysql.CpCouponDAO">
-  <resultMap id="BaseResultMap" type="com.gopher.system.model.CpCoupon">
+  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.CpCoupon">
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
     <result column="IN_SITE_ID" jdbcType="INTEGER" property="inSiteId" />
@@ -41,7 +41,7 @@
     delete from cp_coupon
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpCoupon" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpCoupon" useGeneratedKeys="true">
     insert into cp_coupon (STORE_ID, IN_SITE_ID, `NAME`, 
       CODE, EXPIRE_AT, STORE_WEBSITE_CRC, 
       STORE_NAME_CRC, IS_PASS, FINAL_WEBSITE, 
@@ -57,7 +57,7 @@
       #{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{siteUrl,jdbcType=VARCHAR}, #{storeUrl,jdbcType=VARCHAR},#{scrapy})
   </insert>
-  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpCoupon" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpCoupon" useGeneratedKeys="true">
     insert into cp_coupon
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="storeId != null">
@@ -184,7 +184,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.CpCoupon">
+  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpCoupon">
     update cp_coupon
     <set>
       <if test="storeId != null">
@@ -250,7 +250,7 @@
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.CpCoupon">
+  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpCoupon">
     update cp_coupon
     set STORE_ID = #{storeId,jdbcType=INTEGER},
       IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
@@ -275,7 +275,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   
-     <select id="getBeanByName" parameterType="com.gopher.system.model.CpCoupon" resultType="com.gopher.system.model.CpCoupon">
+     <select id="getBeanByName" parameterType="com.gopher.system.model.entity.CpCoupon" resultType="com.gopher.system.model.entity.CpCoupon">
    select 
     <include refid="Base_Column_List" /> 
     from CP_COUPON 
