@@ -16,6 +16,8 @@ public class CpType implements Serializable {
 
     private String des;
 
+    private String inType;
+
     /**
      * 创建人
      */
@@ -70,6 +72,14 @@ public class CpType implements Serializable {
         this.des = des;
     }
 
+    public String getInType() {
+        return inType;
+    }
+
+    public void setInType(String inType) {
+        this.inType = inType;
+    }
+
     public Integer getCreateUser() {
         return createUser;
     }
@@ -118,6 +128,7 @@ public class CpType implements Serializable {
             && (this.getOutSiteId() == null ? other.getOutSiteId() == null : this.getOutSiteId().equals(other.getOutSiteId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getDes() == null ? other.getDes() == null : this.getDes().equals(other.getDes()))
+            && (this.getInType() == null ? other.getInType() == null : this.getInType().equals(other.getInType()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -132,6 +143,7 @@ public class CpType implements Serializable {
         result = prime * result + ((getOutSiteId() == null) ? 0 : getOutSiteId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getDes() == null) ? 0 : getDes().hashCode());
+        result = prime * result + ((getInType() == null) ? 0 : getInType().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -149,6 +161,7 @@ public class CpType implements Serializable {
         sb.append(", outSiteId=").append(outSiteId);
         sb.append(", name=").append(name);
         sb.append(", des=").append(des);
+        sb.append(", inType=").append(inType);
         sb.append(", createUser=").append(createUser);
         sb.append(", updateUser=").append(updateUser);
         sb.append(", createTime=").append(createTime);
