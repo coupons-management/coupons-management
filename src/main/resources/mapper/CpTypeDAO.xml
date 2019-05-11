@@ -130,4 +130,11 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="getBeanByName" parameterType="String" resultType="com.gopher.system.model.CpType">
+    select 
+    <include refid="Base_Column_List" />
+    from CP_TYPE
+    where NAME = #{name,jdbcType=VARCHAR} limit 1
+  </select>
 </mapper>

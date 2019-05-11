@@ -261,4 +261,11 @@
       TITLE = #{title,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+      <select id="getBeanByWebSite" parameterType="String" resultType="com.gopher.system.model.CpStore">
+    select 
+    <include refid="Base_Column_List" />
+    from CP_STORE
+    where WEBSITE = #{website,jdbcType=VARCHAR} limit 1
+  </select>
+  
 </mapper>
