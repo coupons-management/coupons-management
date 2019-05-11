@@ -98,6 +98,7 @@ public class CouPonJson {
 	private String uuid;
 
 	private String verify;
+	
 	    
 	   /* 
 	    {

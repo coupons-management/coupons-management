@@ -5,6 +5,10 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 public class StoreJson {
 	private String id;
+	/**
+	 * 类型标识
+	 */
+	@JSONField(name = "category")
 	private String category;
 	private String country;
     @JSONField(name = "coupon_count")
@@ -12,17 +16,39 @@ public class StoreJson {
     @JSONField(name = "created_at")
 	private String createdAt;
 	private String description;
+	  /**
+	   *  商家域名
+	   */
     @JSONField(name = "final_website")
 	private String finalWebsite;
+    /**
+         * 商家logo地址
+     */
     @JSONField(name = "logo_url")
 	private String logoUrl;
+    /**
+            * 名称
+     */
 	private String name;
+	/**
+	 * 来源爬虫，该商家源自哪个爬虫
+	 */
 	private String site;
-	private String title;;
+	/**
+	 * 标题
+	 */
+	private String title;
+	/**
+	 * 类型标识
+	 */
 	private String type;
+	
     @JSONField(name = "url_name")
 	private String urlName;
 	private String uuid;
+	/**
+	 * 商家原站点地址
+	 */
 	private String website;
 
 	

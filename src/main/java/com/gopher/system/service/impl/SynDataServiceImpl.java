@@ -102,7 +102,7 @@ public class SynDataServiceImpl implements SynDataService {
 						cpStore.setCountry(stu.getCountry());
 						cpStore.setCouponCount(Integer.parseInt(stu.getCouponCount()));
 						cpStore.setLogoUrl(stu.getLogoUrl());
-						cpStore.setDec(stu.getDescription());
+						cpStore.setDes(stu.getDescription());
 						cpStore.setUuid(stu.getUuid());
 						cpStoreDAO.insert(cpStore);
 						//synMessageDataMapper.insertStoreByMessage(stu);

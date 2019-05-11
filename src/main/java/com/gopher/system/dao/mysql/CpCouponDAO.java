@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CpCouponDAO extends MyBatisBaseDao<CpCoupon, Integer> {
+	CpCoupon getBeanByName(CpCoupon cou);
 }
