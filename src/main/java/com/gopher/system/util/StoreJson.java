@@ -62,7 +62,7 @@ public class StoreJson {
 		"final_website":"http://www.9fuda.com",
 		"logo_url":"https://sgi.offerscdn.net/i/zdcs-merchants/06aat7p7zNJ2josNX6O7Xj2.h90.w170.flpad.v24.bffffff.jpg",
 		"name":"9FUDA",
-		"site":"offers",站点
+		"site":"offers",爬虫
 		"title":"9FUDA",标题
 		"type":"store",类型
 		"url_name":"https://www.offers.com/9fuda/",

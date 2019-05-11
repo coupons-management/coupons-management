@@ -31,6 +31,7 @@ import com.gopher.system.model.TMessage;
 import com.gopher.system.service.SynDataService;
 import com.gopher.system.util.CateGoryJson;
 import com.gopher.system.util.CouPonJson;
+import com.gopher.system.util.DateUtils;
 import com.gopher.system.util.StoreJson;
 @Service
 public class SynDataServiceImpl implements SynDataService {
@@ -76,20 +77,24 @@ public class SynDataServiceImpl implements SynDataService {
 						StoreJson stu = (StoreJson) JSONObject.toJavaObject(jsonObject, StoreJson.class);
 						//先加站点
 						CpInSite site=new CpInSite();
-						CpInSite siteObj=cpInSiteDAO.getSiteByName(stu.getSite());
+						CpInSite siteObj=cpInSiteDAO.getSiteByUrl(stu.getWebsite());
 						if(siteObj==null)
 						{	
+						//stu.getWebsite().indexOf("//")
 						site.setName(stu.getSite());
-						site.setCreateTime(new Date());   
+						site.setUrl(stu.getWebsite());
+						site.setCreateTime(new Date());  
 						cpInSiteDAO.insert(site);	
 						}else {
 							site=siteObj;
-							site.setName(stu.getSite());
-							site.setCreateTime(new Date());
+							site.setUrl(stu.getWebsite());
+							site.setUpdateTime(new Date());
 							cpInSiteDAO.updateByPrimaryKey(site);
 						}
 							
-					
+				//增加爬虫
+						
+						//增加商家
 					CpStore cpStore=cpStoreDAO.getBeanByWebSite(stu.getFinalWebsite());
 						if(cpStore==null)
 						{
@@ -99,17 +104,34 @@ public class SynDataServiceImpl implements SynDataService {
 					    //以后做属性拷贝，暂时一个个设值
 					    cpStore.setName(stu.getName());
 						cpStore.setWebsite(stu.getFinalWebsite());
+						cpStore.setTitle(stu.getTitle());
 						cpStore.setCountry(stu.getCountry());
 						cpStore.setCouponCount(Integer.parseInt(stu.getCouponCount()));
 						cpStore.setLogoUrl(stu.getLogoUrl());
 						cpStore.setDes(stu.getDescription());
 						cpStore.setUuid(stu.getUuid());
+						//0同步入库 1人工入库
+						cpStore.setInType("0");
+						cpStore.setCreatedAt(DateUtils.getDateTime(stu.getCreatedAt()));
 						cpStoreDAO.insert(cpStore);
 						//synMessageDataMapper.insertStoreByMessage(stu);
 						
 						}else {
-						//后面做修改
+							 cpStore.setName(stu.getName());
+								cpStore.setWebsite(stu.getFinalWebsite());
+								cpStore.setCountry(stu.getCountry());
+								cpStore.setTitle(stu.getTitle());
+								cpStore.setCouponCount(Integer.parseInt(stu.getCouponCount()));
+								cpStore.setLogoUrl(stu.getLogoUrl());
+								cpStore.setDes(stu.getDescription());
+								cpStore.setUuid(stu.getUuid());
+								//0同步入库 1人工入库
+								cpStore.setInType("0");
+								cpStore.setCreatedAt(DateUtils.getDateTime(stu.getCreatedAt()));
+								cpStoreDAO.updateByPrimaryKey(cpStore);
 						}
+						
+						
 						CpSiteStore cpSiteStore=new CpSiteStore();
 						cpSiteStore.setInSiteId(site.getId());
 						cpSiteStore.setStoreId(cpStore.getId());
@@ -119,10 +141,13 @@ public class SynDataServiceImpl implements SynDataService {
 						cpSiteStoreDAO.insert(cpSiteStore);
 						}
 						
+						
+						
 						CpType cpType= cpTypeDAO.getBeanByName(stu.getCategory());
 						if(cpType==null)
 						{  cpType=new CpType();
 						   cpType.setName(stu.getCategory());
+						   cpType.setInType("0");
 						   cpTypeDAO.insert(cpType);
 						   CpStoreType cpStoreType=new CpStoreType();
 						   cpStoreType.setStoreId(cpStore.getId());
@@ -168,7 +193,6 @@ public class SynDataServiceImpl implements SynDataService {
 						String objectStr = message.getMessageBody();
 						JSONObject jsonObject = JSONObject.parseObject(objectStr);
 						CouPonJson stu = (CouPonJson) JSONObject.toJavaObject(jsonObject, CouPonJson.class);
-						System.out.println(stu.getStoreWebsite().trim());
 						CpStore cpStore=cpStoreDAO.getBeanByWebSite(stu.getStoreWebsite().trim());
 						if(cpStore==null)
 						{
@@ -197,6 +221,11 @@ public class SynDataServiceImpl implements SynDataService {
 						cpCoupon.setCode(stu.getCode());
 						cpCoupon.setExpireAt(stu.getExpire());
 						cpCoupon.setFinalWebsite(stu.getFinalWebsite());
+						cpCoupon.setLink(stu.getLink());
+						cpCoupon.setStoreUrl(stu.getFinalWebsite());
+						cpCoupon.setInType("0");
+						cpCoupon.setScrapy(stu.getSite());
+						cpCoupon.setCouponType(stu.getCouponType());
 						cpCouponDAO.insert(cpCoupon);
 						}else {
 							cpCoupon.setStoreId(cpStore.getId());
