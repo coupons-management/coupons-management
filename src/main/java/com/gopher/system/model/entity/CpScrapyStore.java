@@ -1,22 +1,18 @@
-package com.gopher.system.model;
+package com.gopher.system.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * cp_scrapy
+ * cp_scrapy_store
  * @author 
  */
-public class CpScrapy implements Serializable {
+public class CpScrapyStore implements Serializable {
     private Integer id;
 
-    private Integer outSiteId;
+    private Integer storeId;
 
-    private String name;
-
-    private String enable;
-
-    private String project;
+    private Integer scrapyId;
 
     /**
      * 创建人
@@ -48,36 +44,20 @@ public class CpScrapy implements Serializable {
         this.id = id;
     }
 
-    public Integer getOutSiteId() {
-        return outSiteId;
+    public Integer getStoreId() {
+        return storeId;
     }
 
-    public void setOutSiteId(Integer outSiteId) {
-        this.outSiteId = outSiteId;
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
     }
 
-    public String getName() {
-        return name;
+    public Integer getScrapyId() {
+        return scrapyId;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEnable() {
-        return enable;
-    }
-
-    public void setEnable(String enable) {
-        this.enable = enable;
-    }
-
-    public String getProject() {
-        return project;
-    }
-
-    public void setProject(String project) {
-        this.project = project;
+    public void setScrapyId(Integer scrapyId) {
+        this.scrapyId = scrapyId;
     }
 
     public Integer getCreateUser() {
@@ -123,12 +103,10 @@ public class CpScrapy implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        CpScrapy other = (CpScrapy) that;
+        CpScrapyStore other = (CpScrapyStore) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getOutSiteId() == null ? other.getOutSiteId() == null : this.getOutSiteId().equals(other.getOutSiteId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getEnable() == null ? other.getEnable() == null : this.getEnable().equals(other.getEnable()))
-            && (this.getProject() == null ? other.getProject() == null : this.getProject().equals(other.getProject()))
+            && (this.getStoreId() == null ? other.getStoreId() == null : this.getStoreId().equals(other.getStoreId()))
+            && (this.getScrapyId() == null ? other.getScrapyId() == null : this.getScrapyId().equals(other.getScrapyId()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -140,10 +118,8 @@ public class CpScrapy implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getOutSiteId() == null) ? 0 : getOutSiteId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getEnable() == null) ? 0 : getEnable().hashCode());
-        result = prime * result + ((getProject() == null) ? 0 : getProject().hashCode());
+        result = prime * result + ((getStoreId() == null) ? 0 : getStoreId().hashCode());
+        result = prime * result + ((getScrapyId() == null) ? 0 : getScrapyId().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -158,10 +134,8 @@ public class CpScrapy implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", outSiteId=").append(outSiteId);
-        sb.append(", name=").append(name);
-        sb.append(", enable=").append(enable);
-        sb.append(", project=").append(project);
+        sb.append(", storeId=").append(storeId);
+        sb.append(", scrapyId=").append(scrapyId);
         sb.append(", createUser=").append(createUser);
         sb.append(", updateUser=").append(updateUser);
         sb.append(", createTime=").append(createTime);

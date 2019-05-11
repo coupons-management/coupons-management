@@ -16,7 +16,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
 import com.gopher.system.exception.BusinessRuntimeException;
-import com.gopher.system.model.User;
+import com.gopher.system.model.entity.User;
 import com.gopher.system.model.vo.request.LoginRequest;
 import com.gopher.system.model.vo.response.LoginResponse;
 import com.gopher.system.service.CacheService;

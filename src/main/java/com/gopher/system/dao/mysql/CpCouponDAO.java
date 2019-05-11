@@ -1,7 +1,8 @@
 package com.gopher.system.dao.mysql;
 
-import com.gopher.system.model.CpCoupon;
 import org.springframework.stereotype.Repository;
+
+import com.gopher.system.model.entity.CpCoupon;
 
 /**
  * CpCouponDAO继承基类

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gopher.system.dao.mysql.CpSiteStoreDAO">
-  <resultMap id="BaseResultMap" type="com.gopher.system.model.CpSiteStore">
+  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.CpSiteStore">
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="IN_SITE_ID" jdbcType="INTEGER" property="inSiteId" />
     <result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
@@ -23,7 +23,7 @@
     delete from cp_site_store
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpSiteStore" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpSiteStore" useGeneratedKeys="true">
     insert into cp_site_store (IN_SITE_ID, STORE_ID, CREATE_USER, 
       UPDATE_USER, CREATE_TIME, UPDATE_TIME
       )
@@ -31,7 +31,7 @@
       #{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpSiteStore" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpSiteStore" useGeneratedKeys="true">
     insert into cp_site_store
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="inSiteId != null">
@@ -74,7 +74,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.CpSiteStore">
+  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpSiteStore">
     update cp_site_store
     <set>
       <if test="inSiteId != null">
@@ -98,7 +98,7 @@
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.CpSiteStore">
+  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpSiteStore">
     update cp_site_store
     set IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
       STORE_ID = #{storeId,jdbcType=INTEGER},
@@ -109,7 +109,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   
-   <select id="getBeanByOutKey" parameterType="com.gopher.system.model.CpSiteStore" resultType="com.gopher.system.model.CpSiteStore">
+   <select id="getBeanByOutKey" parameterType="com.gopher.system.model.entity.CpSiteStore" resultType="com.gopher.system.model.entity.CpSiteStore">
     select 
     <include refid="Base_Column_List" />
     from CP_SITE_STORE

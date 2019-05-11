@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gopher.system.dao.mysql.CpStoreDAO">
-  <resultMap id="BaseResultMap" type="com.gopher.system.model.CpStore">
+  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.CpStore">
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="WEBSITE" jdbcType="VARCHAR" property="website" />
@@ -38,7 +38,7 @@
     delete from cp_store
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpStore" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpStore" useGeneratedKeys="true">
     insert into cp_store (`NAME`, WEBSITE, LOGO_URL, 
       ADVERTISING, CREATED_AT, UUID, 
       DES, COUNTRY, NAME_CRC, 
@@ -54,7 +54,7 @@
       #{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{title,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpStore" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpStore" useGeneratedKeys="true">
     insert into cp_store
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -175,7 +175,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.CpStore">
+  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpStore">
     update cp_store
     <set>
       <if test="name != null">
@@ -238,7 +238,7 @@
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.CpStore">
+  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpStore">
     update cp_store
     set `NAME` = #{name,jdbcType=VARCHAR},
       WEBSITE = #{website,jdbcType=VARCHAR},
@@ -261,7 +261,7 @@
       TITLE = #{title,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
-      <select id="getBeanByWebSite" parameterType="String" resultType="com.gopher.system.model.CpStore">
+      <select id="getBeanByWebSite" parameterType="String" resultType="com.gopher.system.model.entity.CpStore">
     select 
     <include refid="Base_Column_List" />
     from CP_STORE

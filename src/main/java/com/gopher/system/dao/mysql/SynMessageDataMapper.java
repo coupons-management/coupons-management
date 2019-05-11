@@ -2,8 +2,8 @@ package com.gopher.system.dao.mysql;
 
 import java.util.List;
 
-import com.gopher.system.model.CpType;
-import com.gopher.system.model.TMessage;
+import com.gopher.system.model.entity.CpType;
+import com.gopher.system.model.entity.TMessage;
 import com.gopher.system.util.CateGoryJson;
 import com.gopher.system.util.CouPonJson;
 import com.gopher.system.util.StoreJson;

@@ -46,7 +46,7 @@
         <!-- 数据源 -->
         <property name="dataSource" ref="dataSource"></property>
         <!-- 实体对象路径-->
-        <property name="typeAliasesPackage" value="com.gopher.system.model"></property>
+        <property name="typeAliasesPackage" value="com.gopher.system.model.entity"></property>
         <!-- sql映射文件路径 -->
         <property name="mapperLocations" value="classpath:/mapper/*.xml"></property>
     </bean>

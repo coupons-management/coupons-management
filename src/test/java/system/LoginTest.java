@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
-import com.gopher.system.model.User;
+import com.gopher.system.model.entity.User;
 import com.gopher.system.model.vo.request.LoginRequest;
 import com.gopher.system.model.vo.response.LoginResponse;
 import com.gopher.system.service.CacheService;

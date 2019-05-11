@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.gopher.system.controller.model.Result;
-import com.gopher.system.model.User;
+import com.gopher.system.model.entity.User;
 import com.gopher.system.service.CacheService;
 import com.gopher.system.util.CookieUtils;
 import com.gopher.system.util.ThreadLocalUtils;

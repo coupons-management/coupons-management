@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gopher.system.dao.mysql.CpScrapyDAO">
-  <resultMap id="BaseResultMap" type="com.gopher.system.model.CpScrapy">
+  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.CpScrapy">
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="OUT_SITE_ID" jdbcType="INTEGER" property="outSiteId" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
@@ -26,7 +26,7 @@
     delete from cp_scrapy
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpScrapy" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpScrapy" useGeneratedKeys="true">
     insert into cp_scrapy (OUT_SITE_ID, `NAME`, `ENABLE`, 
       PROJECT, CREATE_USER, UPDATE_USER, 
       CREATE_TIME, UPDATE_TIME)
@@ -34,7 +34,7 @@
       #{project,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateUser,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpScrapy" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpScrapy" useGeneratedKeys="true">
     insert into cp_scrapy
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="outSiteId != null">
@@ -89,7 +89,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.CpScrapy">
+  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpScrapy">
     update cp_scrapy
     <set>
       <if test="outSiteId != null">
@@ -119,7 +119,7 @@
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.CpScrapy">
+  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpScrapy">
     update cp_scrapy
     set OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
       `NAME` = #{name,jdbcType=VARCHAR},
@@ -133,7 +133,7 @@
   </update>
   
   
-    <select id="getBeanByName" parameterType="String" resultType="com.gopher.system.model.CpScrapy">
+    <select id="getBeanByName" parameterType="String" resultType="com.gopher.system.model.entity.CpScrapy">
     select 
     <include refid="Base_Column_List" />
     from CP_SCRAPY

@@ -1,22 +1,22 @@
-package com.gopher.system.model;
+package com.gopher.system.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * cp_type
+ * cp_scrapy
  * @author 
  */
-public class CpType implements Serializable {
+public class CpScrapy implements Serializable {
     private Integer id;
 
     private Integer outSiteId;
 
     private String name;
 
-    private String des;
+    private String enable;
 
-    private String inType;
+    private String project;
 
     /**
      * 创建人
@@ -64,20 +64,20 @@ public class CpType implements Serializable {
         this.name = name;
     }
 
-    public String getDes() {
-        return des;
+    public String getEnable() {
+        return enable;
     }
 
-    public void setDes(String des) {
-        this.des = des;
+    public void setEnable(String enable) {
+        this.enable = enable;
     }
 
-    public String getInType() {
-        return inType;
+    public String getProject() {
+        return project;
     }
 
-    public void setInType(String inType) {
-        this.inType = inType;
+    public void setProject(String project) {
+        this.project = project;
     }
 
     public Integer getCreateUser() {
@@ -123,12 +123,12 @@ public class CpType implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        CpType other = (CpType) that;
+        CpScrapy other = (CpScrapy) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getOutSiteId() == null ? other.getOutSiteId() == null : this.getOutSiteId().equals(other.getOutSiteId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getDes() == null ? other.getDes() == null : this.getDes().equals(other.getDes()))
-            && (this.getInType() == null ? other.getInType() == null : this.getInType().equals(other.getInType()))
+            && (this.getEnable() == null ? other.getEnable() == null : this.getEnable().equals(other.getEnable()))
+            && (this.getProject() == null ? other.getProject() == null : this.getProject().equals(other.getProject()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -142,8 +142,8 @@ public class CpType implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getOutSiteId() == null) ? 0 : getOutSiteId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getDes() == null) ? 0 : getDes().hashCode());
-        result = prime * result + ((getInType() == null) ? 0 : getInType().hashCode());
+        result = prime * result + ((getEnable() == null) ? 0 : getEnable().hashCode());
+        result = prime * result + ((getProject() == null) ? 0 : getProject().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -160,8 +160,8 @@ public class CpType implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", outSiteId=").append(outSiteId);
         sb.append(", name=").append(name);
-        sb.append(", des=").append(des);
-        sb.append(", inType=").append(inType);
+        sb.append(", enable=").append(enable);
+        sb.append(", project=").append(project);
         sb.append(", createUser=").append(createUser);
         sb.append(", updateUser=").append(updateUser);
         sb.append(", createTime=").append(createTime);
