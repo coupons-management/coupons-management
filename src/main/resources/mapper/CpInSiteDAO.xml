@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.gopher.system.model.CpInSite">
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="DSC" jdbcType="VARCHAR" property="dsc" />
+    <result column="DES" jdbcType="VARCHAR" property="des" />
     <result column="URL" jdbcType="VARCHAR" property="url" />
     <result column="LANGUAGE" jdbcType="VARCHAR" property="language" />
     <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
@@ -13,7 +13,7 @@
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, `NAME`, DSC, URL, `LANGUAGE`, CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME
+    ID, `NAME`, DES, URL, `LANGUAGE`, CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -26,10 +26,10 @@
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpInSite" useGeneratedKeys="true">
-    insert into cp_in_site (`NAME`, DSC, URL, 
+    insert into cp_in_site (`NAME`, DES, URL, 
       `LANGUAGE`, CREATE_USER, UPDATE_USER, 
       CREATE_TIME, UPDATE_TIME)
-    values (#{name,jdbcType=VARCHAR}, #{dsc,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+    values (#{name,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
       #{language,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateUser,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -39,8 +39,8 @@
       <if test="name != null">
         `NAME`,
       </if>
-      <if test="dsc != null">
-        DSC,
+      <if test="des != null">
+        DES,
       </if>
       <if test="url != null">
         URL,
@@ -65,8 +65,8 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="dsc != null">
-        #{dsc,jdbcType=VARCHAR},
+      <if test="des != null">
+        #{des,jdbcType=VARCHAR},
       </if>
       <if test="url != null">
         #{url,jdbcType=VARCHAR},
@@ -94,8 +94,8 @@
       <if test="name != null">
         `NAME` = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="dsc != null">
-        DSC = #{dsc,jdbcType=VARCHAR},
+      <if test="des != null">
+        DES = #{des,jdbcType=VARCHAR},
       </if>
       <if test="url != null">
         URL = #{url,jdbcType=VARCHAR},
@@ -121,7 +121,7 @@
   <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.CpInSite">
     update cp_in_site
     set `NAME` = #{name,jdbcType=VARCHAR},
-      DSC = #{dsc,jdbcType=VARCHAR},
+      DES = #{des,jdbcType=VARCHAR},
       URL = #{url,jdbcType=VARCHAR},
       `LANGUAGE` = #{language,jdbcType=VARCHAR},
       CREATE_USER = #{createUser,jdbcType=INTEGER},
