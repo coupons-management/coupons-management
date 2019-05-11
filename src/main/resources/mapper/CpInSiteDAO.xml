@@ -18,15 +18,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from CP_IN_SITE
+    from cp_in_site
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from CP_IN_SITE
+    delete from cp_in_site
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpInSite" useGeneratedKeys="true">
-    insert into CP_IN_SITE (`NAME`, DSC, URL, 
+    insert into cp_in_site (`NAME`, DSC, URL, 
       `LANGUAGE`, CREATE_USER, UPDATE_USER, 
       CREATE_TIME, UPDATE_TIME)
     values (#{name,jdbcType=VARCHAR}, #{dsc,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
@@ -34,7 +34,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpInSite" useGeneratedKeys="true">
-    insert into CP_IN_SITE
+    insert into cp_in_site
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="name != null">
         `NAME`,
@@ -89,7 +89,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.CpInSite">
-    update CP_IN_SITE
+    update cp_in_site
     <set>
       <if test="name != null">
         `NAME` = #{name,jdbcType=VARCHAR},
@@ -119,7 +119,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.CpInSite">
-    update CP_IN_SITE
+    update cp_in_site
     set `NAME` = #{name,jdbcType=VARCHAR},
       DSC = #{dsc,jdbcType=VARCHAR},
       URL = #{url,jdbcType=VARCHAR},
@@ -130,11 +130,4 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  
-   <select id="getSiteByName" parameterType="String" resultType="com.gopher.system.model.CpInSite">
-    select 
-    <include refid="Base_Column_List" />
-    from CP_IN_SITE
-    where NAME = #{name,jdbcType=VARCHAR} limit 1
-  </select>
 </mapper>

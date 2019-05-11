@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 商家信息
- * CP_STORE
+ * cp_store
  * @author 
  */
 public class CpStore implements Serializable {
@@ -21,10 +20,18 @@ public class CpStore implements Serializable {
      */
     private String website;
 
+    private String logoUrl;
+
     /**
      * 广告 网站地址
      */
     private String advertising;
+
+    private Date createdAt;
+
+    private String uuid;
+
+    private String des;
 
     /**
      * 国家
@@ -54,26 +61,12 @@ public class CpStore implements Serializable {
     /**
      * 入库方式
      */
-    private Integer inType;
-    /**
-     * logo地址
-     */
-    private String logoUrl;
-    /**
-     * 描述
-     */
-    private String dec;
-    
-    /**
-     * uuid
-     */
-    private String uuid;
-    
+    private String inType;
 
     /**
      * 审核方式
      */
-    private Integer approval;
+    private String approval;
 
     /**
      * 创建人
@@ -95,33 +88,11 @@ public class CpStore implements Serializable {
      */
     private Date updateTime;
 
+    private String title;
+
     private static final long serialVersionUID = 1L;
 
-    public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-
-	public String getLogoUrl() {
-		return logoUrl;
-	}
-
-	public void setLogoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-	}
-
-	public String getDec() {
-		return dec;
-	}
-
-	public void setDec(String dec) {
-		this.dec = dec;
-	}
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -145,12 +116,44 @@ public class CpStore implements Serializable {
         this.website = website;
     }
 
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
     public String getAdvertising() {
         return advertising;
     }
 
     public void setAdvertising(String advertising) {
         this.advertising = advertising;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
     }
 
     public String getCountry() {
@@ -193,19 +196,19 @@ public class CpStore implements Serializable {
         this.couponCountValid = couponCountValid;
     }
 
-    public Integer getInType() {
+    public String getInType() {
         return inType;
     }
 
-    public void setInType(Integer inType) {
+    public void setInType(String inType) {
         this.inType = inType;
     }
 
-    public Integer getApproval() {
+    public String getApproval() {
         return approval;
     }
 
-    public void setApproval(Integer approval) {
+    public void setApproval(String approval) {
         this.approval = approval;
     }
 
@@ -241,6 +244,14 @@ public class CpStore implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -256,7 +267,11 @@ public class CpStore implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getWebsite() == null ? other.getWebsite() == null : this.getWebsite().equals(other.getWebsite()))
+            && (this.getLogoUrl() == null ? other.getLogoUrl() == null : this.getLogoUrl().equals(other.getLogoUrl()))
             && (this.getAdvertising() == null ? other.getAdvertising() == null : this.getAdvertising().equals(other.getAdvertising()))
+            && (this.getCreatedAt() == null ? other.getCreatedAt() == null : this.getCreatedAt().equals(other.getCreatedAt()))
+            && (this.getUuid() == null ? other.getUuid() == null : this.getUuid().equals(other.getUuid()))
+            && (this.getDes() == null ? other.getDes() == null : this.getDes().equals(other.getDes()))
             && (this.getCountry() == null ? other.getCountry() == null : this.getCountry().equals(other.getCountry()))
             && (this.getNameCrc() == null ? other.getNameCrc() == null : this.getNameCrc().equals(other.getNameCrc()))
             && (this.getWebsiteCrc() == null ? other.getWebsiteCrc() == null : this.getWebsiteCrc().equals(other.getWebsiteCrc()))
@@ -267,7 +282,8 @@ public class CpStore implements Serializable {
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+            && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()));
     }
 
     @Override
@@ -277,7 +293,11 @@ public class CpStore implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getWebsite() == null) ? 0 : getWebsite().hashCode());
+        result = prime * result + ((getLogoUrl() == null) ? 0 : getLogoUrl().hashCode());
         result = prime * result + ((getAdvertising() == null) ? 0 : getAdvertising().hashCode());
+        result = prime * result + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
+        result = prime * result + ((getUuid() == null) ? 0 : getUuid().hashCode());
+        result = prime * result + ((getDes() == null) ? 0 : getDes().hashCode());
         result = prime * result + ((getCountry() == null) ? 0 : getCountry().hashCode());
         result = prime * result + ((getNameCrc() == null) ? 0 : getNameCrc().hashCode());
         result = prime * result + ((getWebsiteCrc() == null) ? 0 : getWebsiteCrc().hashCode());
@@ -289,6 +309,7 @@ public class CpStore implements Serializable {
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
+        result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
         return result;
     }
 
@@ -301,7 +322,11 @@ public class CpStore implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", website=").append(website);
+        sb.append(", logoUrl=").append(logoUrl);
         sb.append(", advertising=").append(advertising);
+        sb.append(", createdAt=").append(createdAt);
+        sb.append(", uuid=").append(uuid);
+        sb.append(", des=").append(des);
         sb.append(", country=").append(country);
         sb.append(", nameCrc=").append(nameCrc);
         sb.append(", websiteCrc=").append(websiteCrc);
@@ -313,6 +338,7 @@ public class CpStore implements Serializable {
         sb.append(", updateUser=").append(updateUser);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
+        sb.append(", title=").append(title);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -43,7 +43,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 		}
 		if(!valid) {
 			httpServletResponse.getWriter().write(JSON.toJSONString(new Result(-1, "您还没登录,或会话已过期,请重新登录", false)));
-			return valid;
 		}
 		return valid;
 	}

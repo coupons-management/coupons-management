@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * CP_IN_SITE
+ * cp_in_site
  * @author 
  */
 public class CpInSite implements Serializable {

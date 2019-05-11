@@ -3,7 +3,7 @@
 <mapper namespace="com.gopher.system.dao.mysql.CpScrapyDAO">
   <resultMap id="BaseResultMap" type="com.gopher.system.model.CpScrapy">
     <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="OUT_SITE_ID" jdbcType="VARCHAR" property="outSiteId" />
+    <result column="OUT_SITE_ID" jdbcType="INTEGER" property="outSiteId" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="ENABLE" jdbcType="VARCHAR" property="enable" />
     <result column="PROJECT" jdbcType="VARCHAR" property="project" />
@@ -19,23 +19,23 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from CP_SCRAPY
+    from cp_scrapy
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from CP_SCRAPY
+    delete from cp_scrapy
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpScrapy" useGeneratedKeys="true">
-    insert into CP_SCRAPY (OUT_SITE_ID, `NAME`, `ENABLE`, 
+    insert into cp_scrapy (OUT_SITE_ID, `NAME`, `ENABLE`, 
       PROJECT, CREATE_USER, UPDATE_USER, 
       CREATE_TIME, UPDATE_TIME)
-    values (#{outSiteId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{enable,jdbcType=VARCHAR}, 
+    values (#{outSiteId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{enable,jdbcType=VARCHAR}, 
       #{project,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{updateUser,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.CpScrapy" useGeneratedKeys="true">
-    insert into CP_SCRAPY
+    insert into cp_scrapy
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="outSiteId != null">
         OUT_SITE_ID,
@@ -64,7 +64,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="outSiteId != null">
-        #{outSiteId,jdbcType=VARCHAR},
+        #{outSiteId,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -90,10 +90,10 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.CpScrapy">
-    update CP_SCRAPY
+    update cp_scrapy
     <set>
       <if test="outSiteId != null">
-        OUT_SITE_ID = #{outSiteId,jdbcType=VARCHAR},
+        OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         `NAME` = #{name,jdbcType=VARCHAR},
@@ -120,8 +120,8 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.CpScrapy">
-    update CP_SCRAPY
-    set OUT_SITE_ID = #{outSiteId,jdbcType=VARCHAR},
+    update cp_scrapy
+    set OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
       `NAME` = #{name,jdbcType=VARCHAR},
       `ENABLE` = #{enable,jdbcType=VARCHAR},
       PROJECT = #{project,jdbcType=VARCHAR},

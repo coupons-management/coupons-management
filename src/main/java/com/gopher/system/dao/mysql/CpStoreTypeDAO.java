@@ -8,5 +8,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CpStoreTypeDAO extends MyBatisBaseDao<CpStoreType, Integer> {
-	CpStoreType getBeanByOutKey(CpStoreType cpStoreType);
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * CP_SITE_STORE
+ * cp_site_store
  * @author 
  */
 public class CpSiteStore implements Serializable {
@@ -20,12 +20,12 @@ public class CpSiteStore implements Serializable {
     /**
      * 创建人
      */
-    private String createUser;
+    private Integer createUser;
 
     /**
      * 修改人
      */
-    private String updateUser;
+    private Integer updateUser;
 
     /**
      * 创建时间
@@ -63,19 +63,19 @@ public class CpSiteStore implements Serializable {
         this.storeId = storeId;
     }
 
-    public String getCreateUser() {
+    public Integer getCreateUser() {
         return createUser;
     }
 
-    public void setCreateUser(String createUser) {
+    public void setCreateUser(Integer createUser) {
         this.createUser = createUser;
     }
 
-    public String getUpdateUser() {
+    public Integer getUpdateUser() {
         return updateUser;
     }
 
-    public void setUpdateUser(String updateUser) {
+    public void setUpdateUser(Integer updateUser) {
         this.updateUser = updateUser;
     }
 

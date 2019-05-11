@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * CP_SCRAPY
+ * cp_scrapy
  * @author 
  */
 public class CpScrapy implements Serializable {
     private Integer id;
 
-    private String outSiteId;
+    private Integer outSiteId;
 
     private String name;
 
@@ -48,11 +48,11 @@ public class CpScrapy implements Serializable {
         this.id = id;
     }
 
-    public String getOutSiteId() {
+    public Integer getOutSiteId() {
         return outSiteId;
     }
 
-    public void setOutSiteId(String outSiteId) {
+    public void setOutSiteId(Integer outSiteId) {
         this.outSiteId = outSiteId;
     }
 

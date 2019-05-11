@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * CP_STORE_TYPE
+ * cp_store_type
  * @author 
  */
 public class CpStoreType implements Serializable {
-	
     private Integer id;
 
     private Integer storeId;
@@ -37,23 +36,7 @@ public class CpStoreType implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getStoreId() {
-		return storeId;
-	}
-
-	public void setStoreId(Integer storeId) {
-		this.storeId = storeId;
-	}
-
-	public Integer getTypeId() {
-		return typeId;
-	}
-
-	public void setTypeId(Integer typeId) {
-		this.typeId = typeId;
-	}
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -61,7 +44,22 @@ public class CpStoreType implements Serializable {
         this.id = id;
     }
 
-    
+    public Integer getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
+    }
+
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
+    }
+
     public Integer getCreateUser() {
         return createUser;
     }
@@ -94,7 +92,7 @@ public class CpStoreType implements Serializable {
         this.updateTime = updateTime;
     }
 
-   /* @Override
+    @Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -127,7 +125,7 @@ public class CpStoreType implements Serializable {
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         return result;
-    }*/
+    }
 
     @Override
     public String toString() {
