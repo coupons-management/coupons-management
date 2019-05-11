@@ -23,7 +23,7 @@
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="SITE_URL" jdbcType="VARCHAR" property="siteUrl" />
     <result column="STORE_URL" jdbcType="VARCHAR" property="storeUrl" />
-      <result column="SCRAPY" jdbcType="VARCHAR" property=scrapy />
+      <result column="SCRAPY" jdbcType="VARCHAR" property="scrapy" />
     
   </resultMap>
   <sql id="Base_Column_List">
