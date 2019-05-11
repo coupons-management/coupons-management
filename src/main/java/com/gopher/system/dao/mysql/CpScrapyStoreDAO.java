@@ -1,7 +1,8 @@
 package com.gopher.system.dao.mysql;
 
-import com.gopher.system.model.CpScrapyStore;
 import org.springframework.stereotype.Repository;
+
+import com.gopher.system.model.entity.CpScrapyStore;
 
 /**
  * CpScrapyStoreDAO继承基类

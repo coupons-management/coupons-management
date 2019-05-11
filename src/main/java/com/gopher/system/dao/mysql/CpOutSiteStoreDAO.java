@@ -1,7 +1,8 @@
 package com.gopher.system.dao.mysql;
 
-import com.gopher.system.model.CpOutSiteStore;
 import org.springframework.stereotype.Repository;
+
+import com.gopher.system.model.entity.CpOutSiteStore;
 
 /**
  * CpOutSiteStoreDAO继承基类

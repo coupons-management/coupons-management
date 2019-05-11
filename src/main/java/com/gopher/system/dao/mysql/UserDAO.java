@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.gopher.system.model.User;
+import com.gopher.system.model.entity.User;
 import com.gopher.system.model.vo.request.UserPageRequst;
 
 /**
