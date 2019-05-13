@@ -108,4 +108,12 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  <select id="selectByOutKey" parameterType="com.gopher.system.model.entity.CpScrapyStore" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cp_scrapy_store
+    where STORE_ID = #{storeId,jdbcType=INTEGER} and SCRAPY_ID = #{scrapyId,jdbcType=INTEGER}
+  </select>
 </mapper>

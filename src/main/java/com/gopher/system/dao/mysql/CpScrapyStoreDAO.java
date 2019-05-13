@@ -9,4 +9,5 @@ import com.gopher.system.model.entity.CpScrapyStore;
  */
 @Repository
 public interface CpScrapyStoreDAO extends MyBatisBaseDao<CpScrapyStore, Integer> {
+	CpScrapyStore selectByOutKey(CpScrapyStore obj);
 }
