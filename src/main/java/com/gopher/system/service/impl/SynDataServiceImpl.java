@@ -7,6 +7,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -77,17 +78,26 @@ public class SynDataServiceImpl implements SynDataService {
 						StoreJson stu = (StoreJson) JSONObject.toJavaObject(jsonObject, StoreJson.class);
 						//先加站点
 						CpInSite site=new CpInSite();
-						CpInSite siteObj=cpInSiteDAO.getSiteByUrl(stu.getWebsite());
+						String url=getUrl(stu.getWebsite());
+						//CpInSite siteObj=cpInSiteDAO.getSiteByUrl(stu.getWebsite());
+						CpInSite siteObj=cpInSiteDAO.getSiteByUrl(url);
 						if(siteObj==null)
 						{	
 						//stu.getWebsite().indexOf("//")
-						site.setName(stu.getSite());
-						site.setUrl(stu.getWebsite());
+						/*	String  webSite= stu.getWebsite();
+							if(webSite.startsWith("https://www."))
+							*/
+					
+						
+						site.setUrl(url);
+						
+						site.setName(getName(url));
 						site.setCreateTime(new Date());  
 						cpInSiteDAO.insert(site);	
 						}else {
 							site=siteObj;
-							site.setUrl(stu.getWebsite());
+							//site.setUrl(stu.getWebsite());
+							site.setUrl(url);
 							site.setUpdateTime(new Date());
 							cpInSiteDAO.updateByPrimaryKey(site);
 						}
@@ -181,6 +191,15 @@ public class SynDataServiceImpl implements SynDataService {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public void synCouponData() {
 		try {
@@ -200,12 +219,15 @@ public class SynDataServiceImpl implements SynDataService {
 							cpStore=new CpStore();
 							 //以后做属性拷贝，暂时一个个设值
 						    cpStore.setName(stu.getStore());
-							cpStore.setWebsite(stu.getStoreWebsite());
+							//cpStore.setWebsite(stu.getStoreWebsite());
+							cpStore.setWebsite(stu.getFinalWebsite());
 							cpStore.setCountry(stu.getStoreCountry());
-							//cpStore.setCouponCount(Integer.parseInt(stu.getStoreCountry()));
+							//cpStore.setCouponCount(1);
 							cpStore.setLogoUrl(stu.getStorePicture());
 							//cpStore.setDec(stu.getDescription());
 							//cpStore.setUuid(stu.getUuid());
+							cpStore.setInType("0");
+							//cpStore.setCreatedAt(DateUtils.getDateTime(stu.getCreatedAt()));
 							cpStoreDAO.insert(cpStore);
 						}
 						CpCoupon qcpCoupon=new CpCoupon();
@@ -226,12 +248,15 @@ public class SynDataServiceImpl implements SynDataService {
 						cpCoupon.setInType("0");
 						cpCoupon.setScrapy(stu.getSite());
 						cpCoupon.setCouponType(stu.getCouponType());
+						
 						cpCouponDAO.insert(cpCoupon);
 						}else {
 							cpCoupon.setStoreId(cpStore.getId());
 							cpCoupon.setName(stu.getName());
 							cpCoupon.setCode(stu.getCode());
 							cpCoupon.setExpireAt(stu.getExpire());
+							cpCoupon.setLink(stu.getLink());
+							cpCoupon.setStoreUrl(stu.getFinalWebsite());
 							cpCoupon.setFinalWebsite(stu.getFinalWebsite());	
 						
 						cpCouponDAO.updateByPrimaryKey(cpCoupon);	
@@ -315,17 +340,21 @@ public class SynDataServiceImpl implements SynDataService {
 								.toJavaObject(jsonObject, CateGoryJson.class);
 						//BeanUtils.copyProperties(source, target);
 						CpType cpType= cpTypeDAO.getBeanByName(json.getName());
+						
 						if(cpType==null)
 						{
 							cpType=new CpType();
+							cpType.setInType("0");
 							cpType.setName(json.getName());
 							cpType.setDes(json.getDescription());
+							cpType.setCreateTime(new Date());
 							cpTypeDAO.insert(cpType);
 							//synMessageDataMapper.insertType(type);
 						}else {
-							
+							cpType.setInType("0");
 							cpType.setName(json.getName());
 							cpType.setDes(json.getDescription());
+							cpType.setUpdateTime(new Date());
 							cpTypeDAO.updateByPrimaryKey(cpType);
 							//synMessageDataMapper.insertType(type);
 						}
@@ -342,5 +371,35 @@ public class SynDataServiceImpl implements SynDataService {
 
 		
 	}
-
+	static String  getUrl(String name){
+		  int beginIndex=0;
+		  int endIndex=0;
+		  if(StringUtils.isEmpty(name))
+		  {
+		  return null;
+		  }
+		  if(name.startsWith("https://"))
+		  { 
+			  beginIndex="https://".length();
+			  endIndex=name.substring(beginIndex).indexOf("/");
+			  return name.substring(beginIndex, beginIndex+endIndex)  ;
+		  }
+		  if(name.startsWith("http://"))
+		  { 
+			  beginIndex="http://".length();
+			  endIndex=name.substring(beginIndex).indexOf("/");
+			  return name.substring(beginIndex, endIndex)  ;
+		  }
+		  return null; 
+	   }
+		
+		
+		static String  getName(String url){
+			  if(StringUtils.isEmpty(url))
+			  {
+			  return null;
+			  }
+			  return url.split("\\.", -1)[1];
+			 
+		   }
 }

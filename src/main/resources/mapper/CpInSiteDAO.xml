@@ -130,7 +130,7 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getSiteByUrl" parameterType="String" resultType="com.gopher.system.model.CpInSite">
+  <select id="getSiteByUrl" parameterType="String" resultType="com.gopher.system.model.entity.CpInSite">
   select 
     <include refid="Base_Column_List" />
     from CP_IN_SITE

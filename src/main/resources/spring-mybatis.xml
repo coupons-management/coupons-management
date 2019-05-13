@@ -58,7 +58,6 @@
         <!-- 指定要自动扫描接口的基础包，实现接口 -->
         <property name="basePackage" value="com.gopher.system.dao.mysql"></property>
     </bean>
-    
     <!--4 声明式事务管理 -->
     <!--定义事物管理器，由spring管理事务 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

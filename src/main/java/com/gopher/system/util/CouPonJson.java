@@ -76,7 +76,7 @@ public class CouPonJson {
 	@JSONField(name = "store_description")
 	private String storeDescription;
 	/**
-	 * 商家价格
+	 * 商家图片
 	 */
 	@JSONField(name = "store_picture")
 	private String storePicture;

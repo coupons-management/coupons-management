@@ -131,7 +131,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   
-  <select id="getBeanByName" parameterType="String" resultType="com.gopher.system.model.entity.CpType">
+  <select id="getBeanByName" parameterType="String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from CP_TYPE

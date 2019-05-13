@@ -84,7 +84,7 @@
 	<select id="getStoreMessages"
 		resultType="com.gopher.system.model.entity.TMessage">
 		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
-		FROM T_MESSAGE_STORE  WHERE STATUS=0
+		FROM T_MESSAGE_STORE  
 		
 	</select>
 	
