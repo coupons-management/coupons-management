@@ -6,7 +6,7 @@ package com.gopher.system.model.vo.response;
  */
 public class StoreResponse {
 	
-	private long id;
+	private Integer id;
 	
 	private String name;
 	
@@ -28,11 +28,11 @@ public class StoreResponse {
 	
 	private String couponUpdateTime;
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

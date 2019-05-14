@@ -1,5 +1,7 @@
 package com.gopher.system.model.vo.request;
 
+import com.gopher.system.model.vo.PageRequestBase;
+
 public class StorePageRequst extends PageRequestBase{
 	/**
 	 * 查询关键字

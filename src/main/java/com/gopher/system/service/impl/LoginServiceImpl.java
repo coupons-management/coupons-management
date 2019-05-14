@@ -14,7 +14,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.alibaba.fastjson.JSON;
 import com.gopher.system.exception.BusinessRuntimeException;
 import com.gopher.system.model.entity.User;
 import com.gopher.system.model.vo.request.LoginRequest;
@@ -27,7 +26,7 @@ import com.gopher.system.util.MD5Utils;
 
 @Service(value = "loginService")
 public class LoginServiceImpl implements LoginService {
-    private final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
 	@Resource
 	private UserService userService;
 	@Resource
@@ -65,8 +64,7 @@ public class LoginServiceImpl implements LoginService {
 
 	private void loginSuccessHandle(final String sessionKey, final User user) {
 		// 从当前线程中获取response
-		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
-				.getResponse();
+		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
 		// 写入cookie
 		CookieUtils.addCookie(response, sessionKey, CookieUtils.DEFAULT_TOKEN_ALIVE);
 		// 写入缓存
@@ -83,7 +81,6 @@ public class LoginServiceImpl implements LoginService {
 		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getResponse();
 		Cookie[] cookies = request.getCookies();
-		logger.info(JSON.toJSONString(cookies));
 		if (null != cookies) {
 			for (Cookie cookie : cookies) {
 				if (Objects.equals(cookie.getName(), CookieUtils.COOKIE_KEY)) {

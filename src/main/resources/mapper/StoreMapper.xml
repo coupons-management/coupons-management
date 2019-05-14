@@ -56,5 +56,4 @@
 	   WHERE PK_ID=#{id}
 
 	</update>
-
 </mapper>

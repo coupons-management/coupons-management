@@ -16,7 +16,7 @@ public class LoginController {
 	private LoginService loginService;
 	
 	@RequestMapping(path="/login")
-	public Result login(@RequestBody LoginRequest loginRequest) {
+	public Result login( LoginRequest loginRequest) {
 		Result result = new Result();
 		result.setData(loginService.login(loginRequest));
 		return result;
