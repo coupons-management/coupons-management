@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.gopher.system.dao.mysql.CpCouponDAO;
@@ -13,11 +12,13 @@ import com.gopher.system.dao.mysql.CpScrapyStoreDAO;
 import com.gopher.system.dao.mysql.CpSiteStoreDAO;
 import com.gopher.system.dao.mysql.CpStoreDAO;
 import com.gopher.system.exception.BusinessRuntimeException;
+import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.model.vo.response.StoreResponse;
 import com.gopher.system.service.StoreService;
+import com.gopher.system.util.DateUtils;
 
 @Service
 public class StoreServiceImpl implements StoreService {
@@ -44,13 +45,27 @@ public class StoreServiceImpl implements StoreService {
 			rspList = new ArrayList<>(list.size());
 			for (CpStore cpStore : list) {
 				StoreResponse rsp = new StoreResponse();
-				BeanUtils.copyProperties(cpStore, rsp);
+				rsp.setId(cpStore.getId());
+				rsp.setName(cpStore.getName());
+				rsp.setWebsite(cpStore.getWebsite());
+                rsp.setLogo(cpStore.getLogoUrl());
+                //TODO 
+                // 在展示站
+                // 在爬虫站
+                // 有效优惠券数量
+                CpCoupon coupon = new CpCoupon();
+                coupon.setStoreId(cpStore.getId());
+                // 当前商家所有的优惠券
+				rsp.setCreateTime(DateUtils.getDatetimeString(cpStore.getCreateTime()));
+				rsp.setUpdateTime(DateUtils.getDatetimeString(cpStore.getUpdateTime()));
+				// 优惠券最后新增时间
 				rspList.add(rsp);
 			}
 		}
 		reuslt.setList(rspList);
 		return reuslt;
 	}
+	
 
 	@Override
 	public void edit(CpStore cpStore) {

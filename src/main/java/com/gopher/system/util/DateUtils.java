@@ -55,16 +55,25 @@ public class DateUtils {
 	}
 
 	public static String getDateString(Date date) {
+		if(null == date) {
+			return "";
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FMT);
 		return sdf.format(date);
 	}
 
 	public static String getYearMonthString(Long timeMillis) {
+		if(null == timeMillis || timeMillis<=0) {
+			return "";
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 		return sdf.format(new Date(timeMillis));
 	}
 
 	public static String getDateString(Long timeMillis) {
+		if(null == timeMillis || timeMillis<=0) {
+			return "";
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FMT);
 		return sdf.format(new Date(timeMillis));
 	}
@@ -173,17 +182,26 @@ public class DateUtils {
 	}
 	
 	public static String getDatetimeString(long timestamp) {
+		if( timestamp<=0) {
+			return "";
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FMT);
 		return sdf.format(new Date(timestamp));
 	}
 
 	
 	public static String getDatetimeString(Date date) {
+		if(null == date) {
+			return "";
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FMT);
 		return sdf.format(date);
 	}
 
 	public static String getTimeString(Date date) {
+		if(null == date) {
+			return "";
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat(TIME_FMT);
 		return sdf.format(date);
 	}

@@ -352,7 +352,12 @@
 		resultType="java.lang.Integer">
 		SELECT COUNT(1) FROM CP_COUPON
 		<where>
-
+         <if test="storeId != null and storeId >0 ">
+             store_id = #{storeId}
+         </if>
+         <if test="expiryTime != null">
+            AND EXPIRE_AT &gt;= #{expiryTime}
+         </if>
 		</where>
 	</select>
 

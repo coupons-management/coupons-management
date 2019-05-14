@@ -18,4 +18,10 @@ public class CouponTest extends BaseTest {
 		Page<CouponResponse> result = couponService.getPage(couponPageRequest);
 		System.out.println(JSON.toJSONString(result));
 	}
+	
+	@Test
+	public void getCount() {
+		System.out.println(couponService.getTotalCountByStore(1));
+		System.out.println(couponService.getValidCountByStore(1));
+	}
 }

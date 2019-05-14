@@ -6,6 +6,8 @@ public class CouponResponse {
 	
 	private String storeName;
 	
+	private String title;
+	
 	private String type;
 	
 	private String description;
@@ -70,6 +72,14 @@ public class CouponResponse {
 
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 }

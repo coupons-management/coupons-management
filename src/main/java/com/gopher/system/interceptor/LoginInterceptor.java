@@ -12,6 +12,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.gopher.system.constant.CodeAndMsg;
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.User;
 import com.gopher.system.service.CacheService;
@@ -42,9 +43,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 			}
 		}
 		if(!valid) {
-			httpServletResponse.getWriter().write(JSON.toJSONString(new Result(-1, "您还没登录,或会话已过期,请重新登录", false)));
+			httpServletResponse.getWriter().write(JSON.toJSONString(new Result(CodeAndMsg.NEED_LOGIN.getCode(), "您还没登录,或会话已过期,请重新登录", false)));
 		}
-		return valid;
+		return true;
 	}
     
 	public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o,
