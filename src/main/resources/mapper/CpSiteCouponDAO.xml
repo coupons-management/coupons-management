@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gopher.system.dao.mysql.CpSiteCouponDAO">
+  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.CpSiteCoupon">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="COUPON_ID" jdbcType="INTEGER" property="couponId" />
+    <result column="OUT_SITE_ID" jdbcType="INTEGER" property="outSiteId" />
+    <result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="HOT_SORT" jdbcType="INTEGER" property="hotSort" />
+    <result column="ADVISE_SORT" jdbcType="INTEGER" property="adviseSort" />
+    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
+    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, COUPON_ID, OUT_SITE_ID, STORE_ID, TITLE, HOT_SORT, ADVISE_SORT, CREATE_USER, 
+    UPDATE_USER, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cp_site_coupon
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cp_site_coupon
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpSiteCoupon" useGeneratedKeys="true">
+    insert into cp_site_coupon (COUPON_ID, OUT_SITE_ID, STORE_ID, 
+      TITLE, HOT_SORT, ADVISE_SORT, 
+      CREATE_USER, UPDATE_USER, CREATE_TIME, 
+      UPDATE_TIME)
+    values (#{couponId,jdbcType=INTEGER}, #{outSiteId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{hotSort,jdbcType=INTEGER}, #{adviseSort,jdbcType=INTEGER}, 
+      #{createUser,jdbcType=INTEGER}, #{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpSiteCoupon" useGeneratedKeys="true">
+    insert into cp_site_coupon
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="couponId != null">
+        COUPON_ID,
+      </if>
+      <if test="outSiteId != null">
+        OUT_SITE_ID,
+      </if>
+      <if test="storeId != null">
+        STORE_ID,
+      </if>
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="hotSort != null">
+        HOT_SORT,
+      </if>
+      <if test="adviseSort != null">
+        ADVISE_SORT,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="couponId != null">
+        #{couponId,jdbcType=INTEGER},
+      </if>
+      <if test="outSiteId != null">
+        #{outSiteId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null">
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="hotSort != null">
+        #{hotSort,jdbcType=INTEGER},
+      </if>
+      <if test="adviseSort != null">
+        #{adviseSort,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpSiteCoupon">
+    update cp_site_coupon
+    <set>
+      <if test="couponId != null">
+        COUPON_ID = #{couponId,jdbcType=INTEGER},
+      </if>
+      <if test="outSiteId != null">
+        OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null">
+        STORE_ID = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="hotSort != null">
+        HOT_SORT = #{hotSort,jdbcType=INTEGER},
+      </if>
+      <if test="adviseSort != null">
+        ADVISE_SORT = #{adviseSort,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpSiteCoupon">
+    update cp_site_coupon
+    set COUPON_ID = #{couponId,jdbcType=INTEGER},
+      OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
+      STORE_ID = #{storeId,jdbcType=INTEGER},
+      TITLE = #{title,jdbcType=VARCHAR},
+      HOT_SORT = #{hotSort,jdbcType=INTEGER},
+      ADVISE_SORT = #{adviseSort,jdbcType=INTEGER},
+      CREATE_USER = #{createUser,jdbcType=INTEGER},
+      UPDATE_USER = #{updateUser,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
