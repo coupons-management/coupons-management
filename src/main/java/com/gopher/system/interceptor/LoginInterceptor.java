@@ -29,7 +29,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		boolean valid = false;
 		if(null !=cookies && cookies.length > 0) {
 			for (Cookie cookie : cookies) {
-				if(Objects.equals(cookie.getName(),CookieUtils.COOKIE_KEY)) {
+				if(Objects.equals(cookie.getName(),CookieUtils.DEFAULT_NAME)) {
 					final String TOKEN = cookie.getValue();
 					if(StringUtils.hasText(TOKEN)) {
 						User user = cacheService.get(TOKEN);
@@ -42,9 +42,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 				}
 			}
 		}
-		if(!valid) {
-			httpServletResponse.getWriter().write(JSON.toJSONString(new Result(CodeAndMsg.NEED_LOGIN.getCode(), "您还没登录,或会话已过期,请重新登录", false)));
-		}
+//		if(!valid) {
+//			httpServletResponse.getWriter().write(JSON.toJSONString(new Result(CodeAndMsg.NEED_LOGIN.getCode(), "您还没登录,或会话已过期,请重新登录", false)));
+//		}
 		return true;
 	}
     

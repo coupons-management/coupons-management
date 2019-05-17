@@ -38,7 +38,8 @@
 		<result column="STORE_URL" jdbcType="VARCHAR"
 			property="storeUrl" />
 		<result column="SCRAPY" jdbcType="VARCHAR" property="scrapy" />
-
+		<result column="TITLE" jdbcType="VARCHAR" property="title" />
+		<result column="DES" jdbcType="VARCHAR" property="des" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID, STORE_ID, IN_SITE_ID, `NAME`, CODE, EXPIRE_AT,
@@ -47,7 +48,7 @@
 		IS_PASS, FINAL_WEBSITE,
 		STORE_WEBSITE, LINK, OUT_SITE_ID, COUPON_TYPE,
 		IN_TYPE, CREATE_USER,
-		UPDATE_USER, CREATE_TIME, UPDATE_TIME, SITE_URL, STORE_URL,SCRAPY
+		UPDATE_USER, CREATE_TIME, UPDATE_TIME, SITE_URL, STORE_URL,SCRAPY,TITLE,DES
 	</sql>
 	<select id="selectByPrimaryKey"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -65,15 +66,26 @@
 		parameterType="com.gopher.system.model.entity.CpCoupon"
 		useGeneratedKeys="true">
 		insert into cp_coupon (STORE_ID, IN_SITE_ID, `NAME`,
-		CODE, EXPIRE_AT, STORE_WEBSITE_CRC,
-		STORE_NAME_CRC, IS_PASS,
+		CODE, 
+		EXPIRE_AT, 
+		STORE_WEBSITE_CRC,
+		STORE_NAME_CRC, 
+		IS_PASS,
 		FINAL_WEBSITE,
-		STORE_WEBSITE, LINK, OUT_SITE_ID,
-		COUPON_TYPE, IN_TYPE,
+		STORE_WEBSITE, 
+		LINK, 
+		OUT_SITE_ID,
+		COUPON_TYPE, 
+		IN_TYPE,
 		CREATE_USER,
-		UPDATE_USER, CREATE_TIME, UPDATE_TIME,
+		UPDATE_USER, 
+		CREATE_TIME, 
+		UPDATE_TIME,
 		SITE_URL,
-		STORE_URL,SCRAPY)
+		STORE_URL,
+		SCRAPY,
+		TITLE,
+		DES)
 		values (#{storeId,jdbcType=INTEGER},
 		#{inSiteId,jdbcType=INTEGER},
 		#{name,jdbcType=VARCHAR},
@@ -90,7 +102,12 @@
 		#{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
 		#{updateTime,jdbcType=TIMESTAMP},
 		#{siteUrl,jdbcType=VARCHAR},
-		#{storeUrl,jdbcType=VARCHAR},#{scrapy})
+		#{storeUrl,jdbcType=VARCHAR},
+		#{scrapy},
+		#{title},
+		#{des}
+		)
+		
 	</insert>
 	<insert id="insertSelective" keyColumn="ID" keyProperty="id"
 		parameterType="com.gopher.system.model.entity.CpCoupon"

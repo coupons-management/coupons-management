@@ -58,7 +58,7 @@ public class LoginServiceImpl implements LoginService {
 		this.loginSuccessHandle(sessionKey, user);
 		LoginResponse result = new LoginResponse();
 		result.setSessionKey(sessionKey);
-		result.setExpiryTime(System.currentTimeMillis()+CookieUtils.DEFAULT_TOKEN_ALIVE*1000L);
+		result.setExpiryTime(System.currentTimeMillis()+CookieUtils.DEFAULT_AGE*1000L);
 		return result;
 	}
 
@@ -66,9 +66,9 @@ public class LoginServiceImpl implements LoginService {
 		// 从当前线程中获取response
 		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
 		// 写入cookie
-		CookieUtils.addCookie(response, sessionKey, CookieUtils.DEFAULT_TOKEN_ALIVE);
+		CookieUtils.addCookie(response, sessionKey, CookieUtils.DEFAULT_AGE);
 		// 写入缓存
-		cacheService.set(sessionKey, user, CookieUtils.DEFAULT_TOKEN_ALIVE);
+		cacheService.set(sessionKey, user, CookieUtils.DEFAULT_AGE);
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class LoginServiceImpl implements LoginService {
 		Cookie[] cookies = request.getCookies();
 		if (null != cookies) {
 			for (Cookie cookie : cookies) {
-				if (Objects.equals(cookie.getName(), CookieUtils.COOKIE_KEY)) {
+				if (Objects.equals(cookie.getName(), CookieUtils.DEFAULT_NAME)) {
 					final String sessionKey = cookie.getValue();
 					cacheService.delete(sessionKey);
 					CookieUtils.deleteCookie(response, cookie);

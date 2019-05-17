@@ -63,8 +63,33 @@ public class CpCoupon implements Serializable {
     private String storeUrl;
     
     private String scrapy;
+    /**
+     * 标题
+     */
+    private String title;
+    
+    /**
+     * 描述
+     */
+    private String des;
 
-    public String getScrapy() {
+    public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDes() {
+		return des;
+	}
+
+	public void setDes(String des) {
+		this.des = des;
+	}
+
+	public String getScrapy() {
 		return scrapy;
 	}
 

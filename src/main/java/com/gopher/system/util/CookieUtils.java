@@ -10,11 +10,11 @@ public class CookieUtils {
 	/**
 	 * 默认 cookie 生命周期 7*24小时(单位秒)
 	 */
-	public static final int DEFAULT_TOKEN_ALIVE = 7 * 24 * 60 * 60;
+	public static final int DEFAULT_AGE = 7 * 24 * 60 * 60;
 	/**
 	 * cookie 的键
 	 */
-	public static final String COOKIE_KEY = "TOKEN";
+	public static final String DEFAULT_NAME = "TOKEN";
 	/**
 	 * 默认路径
 	 */
@@ -32,7 +32,7 @@ public class CookieUtils {
      * @param value cookie值
      */
 	public static void addCookie(HttpServletResponse response, String value) {
-		addCookie(response, value, DEFAULT_TOKEN_ALIVE);
+		addCookie(response, value, DEFAULT_AGE);
 	}
 	
 	public static void  deleteCookie(HttpServletResponse response,Cookie cookie) {
@@ -47,7 +47,7 @@ public class CookieUtils {
 	 * @param alive cookie生命周期
 	 */
 	public static void addCookie(HttpServletResponse response, String value, int alive) {
-		addCookie(response, COOKIE_KEY, value, alive, DEFAULT_PATH, DEFAULT_DOMAIN);
+		addCookie(response, DEFAULT_NAME, value, alive, DEFAULT_PATH, DEFAULT_DOMAIN);
 	}
     /**
      * 

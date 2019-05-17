@@ -28,6 +28,7 @@ public class CouponServiceImpl implements CouponService{
 		List<CpCoupon> couponList   = cpCouponDAO.getPageList(couponPageRequest);
 		final int totalCount        = cpCouponDAO.getCount(couponPageRequest);
 		List<CouponResponse> list   = null;
+		final long current_time_milllis = System.currentTimeMillis();
 		if(null != couponList) {
 			list = new ArrayList<>(couponList.size());
 			for (CpCoupon cpCoupon : couponList) {
@@ -37,10 +38,15 @@ public class CouponServiceImpl implements CouponService{
 				if(null != storeDB) {
 					rsp.setStoreName(storeDB.getName());
 				}
-				rsp.setTitle("TODO");
+				rsp.setTitle(cpCoupon.getTitle());
 				rsp.setType(cpCoupon.getCouponType());
-				rsp.setDescription("TODO");
-				rsp.setExpired(true);
+				rsp.setDescription(cpCoupon.getDes());
+				final Date experityAt = cpCoupon.getExpireAt();
+				if(null != experityAt) {
+					rsp.setExpired(experityAt.getTime()>current_time_milllis);
+				}else {
+					rsp.setExpired(true);
+				}
 				rsp.setExpiryTime(DateUtils.getDateString(cpCoupon.getExpireAt()));
 				rsp.setCreateTime(DateUtils.getDateString(cpCoupon.getCreateTime()));
 				list.add(rsp);

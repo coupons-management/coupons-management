@@ -1,7 +1,8 @@
 package com.gopher.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,8 +15,8 @@ import com.gopher.system.service.CouponService;
 public class CouponController {
 	@Autowired
 	private CouponService couponService;
-	@GetMapping(path="/getPage")
-	public Result getPage(CouponPageRequest couponPageRequest) {
+	@PostMapping(path="/getPage")
+	public Result getPage(@RequestBody CouponPageRequest couponPageRequest) {
 		Result result = new Result();
 		result.setData(couponService.getPage(couponPageRequest));
 		return result;

@@ -4,6 +4,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.gopher.system.constant.CodeAndMsg;
 import com.gopher.system.controller.model.Result;
 	
 @RestControllerAdvice( value = {"com.gopher.system.controller"})
@@ -20,6 +21,6 @@ public class ControllerExceptionHandler {
 	@ExceptionHandler(value = { Exception.class })
 	public Result unknownException(Exception e) {
 		LOG.error(e.getMessage(), e);
-		return new Result(500,"系统繁忙,请联系管理员或稍后再试!", false);
+		return new Result(CodeAndMsg.SYSTEM_EXCEPTION.getCode(),"系统繁忙,请联系管理员或稍后再试!", false);
 	}
 }

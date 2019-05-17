@@ -1,8 +1,6 @@
 package com.gopher.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +17,8 @@ public class StoreController {
 	@Autowired
 	private StoreService storeService;
 	
-	@GetMapping(path="/getPage")
-	public Result getPage(@ModelAttribute StorePageRequst storeRequest) {
+	@PostMapping(path="/getPage")
+	public Result getPage(@RequestBody StorePageRequst storeRequest) {
 		Result result = new Result();
 		result.setData(storeService.getPage(storeRequest));
 		return result;

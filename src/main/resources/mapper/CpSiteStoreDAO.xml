@@ -1,119 +1,301 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gopher.system.dao.mysql.CpSiteStoreDAO">
-  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.CpSiteStore">
-    <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="IN_SITE_ID" jdbcType="INTEGER" property="inSiteId" />
-    <result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
-    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
-    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    ID, IN_SITE_ID, STORE_ID, CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from cp_site_store
-    where ID = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cp_site_store
-    where ID = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpSiteStore" useGeneratedKeys="true">
-    insert into cp_site_store (IN_SITE_ID, STORE_ID, CREATE_USER, 
-      UPDATE_USER, CREATE_TIME, UPDATE_TIME
-      )
-    values (#{inSiteId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, 
-      #{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpSiteStore" useGeneratedKeys="true">
-    insert into cp_site_store
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="inSiteId != null">
-        IN_SITE_ID,
-      </if>
-      <if test="storeId != null">
-        STORE_ID,
-      </if>
-      <if test="createUser != null">
-        CREATE_USER,
-      </if>
-      <if test="updateUser != null">
-        UPDATE_USER,
-      </if>
-      <if test="createTime != null">
-        CREATE_TIME,
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="inSiteId != null">
-        #{inSiteId,jdbcType=INTEGER},
-      </if>
-      <if test="storeId != null">
-        #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="createUser != null">
-        #{createUser,jdbcType=INTEGER},
-      </if>
-      <if test="updateUser != null">
-        #{updateUser,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpSiteStore">
-    update cp_site_store
-    <set>
-      <if test="inSiteId != null">
-        IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
-      </if>
-      <if test="storeId != null">
-        STORE_ID = #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="createUser != null">
-        CREATE_USER = #{createUser,jdbcType=INTEGER},
-      </if>
-      <if test="updateUser != null">
-        UPDATE_USER = #{updateUser,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpSiteStore">
-    update cp_site_store
-    set IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
-      STORE_ID = #{storeId,jdbcType=INTEGER},
-      CREATE_USER = #{createUser,jdbcType=INTEGER},
-      UPDATE_USER = #{updateUser,jdbcType=INTEGER},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
-    where ID = #{id,jdbcType=INTEGER}
-  </update>
-  
-   <select id="getBeanByOutKey" parameterType="com.gopher.system.model.entity.CpSiteStore" resultType="com.gopher.system.model.entity.CpSiteStore">
-    select 
-    <include refid="Base_Column_List" />
-    from CP_SITE_STORE
-    where IN_SITE_ID = #{inSiteId,jdbcType=INTEGER}  and STORE_ID = #{storeId,jdbcType=INTEGER} limit 1
-  </select>
-  
+	<resultMap id="BaseResultMap"
+		type="com.gopher.system.model.entity.CpSiteStore">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="IN_SITE_ID" jdbcType="INTEGER"
+			property="inSiteId" />
+		<result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
+		<result column="CREATE_USER" jdbcType="INTEGER"
+			property="createUser" />
+		<result column="UPDATE_USER" jdbcType="INTEGER"
+			property="updateUser" />
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="UPDATE_TIME" jdbcType="TIMESTAMP"
+			property="updateTime" />
+		<result column="STORE_COUNT" jdbcType="INTEGER"
+			property="storeCount" />
+		<result column="COUPON_COUNT" jdbcType="INTEGER"
+			property="couponCount" />
+		<result column="AD_ADDRESS" jdbcType="VARCHAR"
+			property="adAddress" />
+		<result column="MARK" jdbcType="VARCHAR" property="mark" />
+		<result column="IS_MANUAL" jdbcType="VARCHAR"
+			property="isManual" />
+		<result column="TITLE" jdbcType="VARCHAR" property="title" />
+		<result column="KEYWORDS" jdbcType="VARCHAR"
+			property="keywords" />
+		<result column="DES" jdbcType="VARCHAR" property="des" />
+		<result column="SHOW_NAME" jdbcType="VARCHAR"
+			property="showName" />
+		<result column="STORE_DES" jdbcType="VARCHAR"
+			property="storeDes" />
+		<result column="HEADER_DES" jdbcType="VARCHAR"
+			property="headerDes" />
+		<result column="HOT_SORT" jdbcType="INTEGER" property="hotSort" />
+		<result column="ADVISE_SORT" jdbcType="INTEGER"
+			property="adviseSort" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, IN_SITE_ID, STORE_ID, CREATE_USER, UPDATE_USER, CREATE_TIME,
+		UPDATE_TIME, STORE_COUNT,
+		COUPON_COUNT, AD_ADDRESS, MARK, IS_MANUAL, TITLE, KEYWORDS, DES, SHOW_NAME,
+		STORE_DES,
+		HEADER_DES, HOT_SORT, ADVISE_SORT
+	</sql>
+	<select id="getBeanByOutKey"
+		parameterType="com.gopher.system.model.entity.CpSiteStore"
+		resultType="com.gopher.system.model.entity.CpSiteStore">
+		select
+		<include refid="Base_Column_List" />
+		from CP_SITE_STORE
+		where IN_SITE_ID = #{inSiteId,jdbcType=INTEGER} and STORE_ID =
+		#{storeId,jdbcType=INTEGER} limit 1
+	</select>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from cp_site_store
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from cp_site_store
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" keyColumn="ID" keyProperty="id"
+		parameterType="com.gopher.system.model.entity.CpSiteStore"
+		useGeneratedKeys="true">
+		insert into cp_site_store (IN_SITE_ID, STORE_ID, CREATE_USER,
+		UPDATE_USER, CREATE_TIME, UPDATE_TIME,
+		STORE_COUNT, COUPON_COUNT, AD_ADDRESS,
+		MARK, IS_MANUAL, TITLE,
+		KEYWORDS, DES, SHOW_NAME,
+		STORE_DES, HEADER_DES, HOT_SORT,
+		ADVISE_SORT)
+		values (#{inSiteId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER},
+		#{createUser,jdbcType=INTEGER},
+		#{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{storeCount,jdbcType=INTEGER}, #{couponCount,jdbcType=INTEGER},
+		#{adAddress,jdbcType=VARCHAR},
+		#{mark,jdbcType=VARCHAR}, #{isManual,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+		#{keywords,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR},
+		#{showName,jdbcType=VARCHAR},
+		#{storeDes,jdbcType=VARCHAR}, #{headerDes,jdbcType=VARCHAR}, #{hotSort,jdbcType=INTEGER},
+		#{adviseSort,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" keyColumn="ID" keyProperty="id"
+		parameterType="com.gopher.system.model.entity.CpSiteStore"
+		useGeneratedKeys="true">
+		insert into cp_site_store
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="inSiteId != null">
+				IN_SITE_ID,
+			</if>
+			<if test="storeId != null">
+				STORE_ID,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="updateUser != null">
+				UPDATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="storeCount != null">
+				STORE_COUNT,
+			</if>
+			<if test="couponCount != null">
+				COUPON_COUNT,
+			</if>
+			<if test="adAddress != null">
+				AD_ADDRESS,
+			</if>
+			<if test="mark != null">
+				MARK,
+			</if>
+			<if test="isManual != null">
+				IS_MANUAL,
+			</if>
+			<if test="title != null">
+				TITLE,
+			</if>
+			<if test="keywords != null">
+				KEYWORDS,
+			</if>
+			<if test="des != null">
+				DES,
+			</if>
+			<if test="showName != null">
+				SHOW_NAME,
+			</if>
+			<if test="storeDes != null">
+				STORE_DES,
+			</if>
+			<if test="headerDes != null">
+				HEADER_DES,
+			</if>
+			<if test="hotSort != null">
+				HOT_SORT,
+			</if>
+			<if test="adviseSort != null">
+				ADVISE_SORT,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="inSiteId != null">
+				#{inSiteId,jdbcType=INTEGER},
+			</if>
+			<if test="storeId != null">
+				#{storeId,jdbcType=INTEGER},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=INTEGER},
+			</if>
+			<if test="updateUser != null">
+				#{updateUser,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="storeCount != null">
+				#{storeCount,jdbcType=INTEGER},
+			</if>
+			<if test="couponCount != null">
+				#{couponCount,jdbcType=INTEGER},
+			</if>
+			<if test="adAddress != null">
+				#{adAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="mark != null">
+				#{mark,jdbcType=VARCHAR},
+			</if>
+			<if test="isManual != null">
+				#{isManual,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="keywords != null">
+				#{keywords,jdbcType=VARCHAR},
+			</if>
+			<if test="des != null">
+				#{des,jdbcType=VARCHAR},
+			</if>
+			<if test="showName != null">
+				#{showName,jdbcType=VARCHAR},
+			</if>
+			<if test="storeDes != null">
+				#{storeDes,jdbcType=VARCHAR},
+			</if>
+			<if test="headerDes != null">
+				#{headerDes,jdbcType=VARCHAR},
+			</if>
+			<if test="hotSort != null">
+				#{hotSort,jdbcType=INTEGER},
+			</if>
+			<if test="adviseSort != null">
+				#{adviseSort,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.gopher.system.model.entity.CpSiteStore">
+		update cp_site_store
+		<set>
+			<if test="inSiteId != null">
+				IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
+			</if>
+			<if test="storeId != null">
+				STORE_ID = #{storeId,jdbcType=INTEGER},
+			</if>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser,jdbcType=INTEGER},
+			</if>
+			<if test="updateUser != null">
+				UPDATE_USER = #{updateUser,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="storeCount != null">
+				STORE_COUNT = #{storeCount,jdbcType=INTEGER},
+			</if>
+			<if test="couponCount != null">
+				COUPON_COUNT = #{couponCount,jdbcType=INTEGER},
+			</if>
+			<if test="adAddress != null">
+				AD_ADDRESS = #{adAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="mark != null">
+				MARK = #{mark,jdbcType=VARCHAR},
+			</if>
+			<if test="isManual != null">
+				IS_MANUAL = #{isManual,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				TITLE = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="keywords != null">
+				KEYWORDS = #{keywords,jdbcType=VARCHAR},
+			</if>
+			<if test="des != null">
+				DES = #{des,jdbcType=VARCHAR},
+			</if>
+			<if test="showName != null">
+				SHOW_NAME = #{showName,jdbcType=VARCHAR},
+			</if>
+			<if test="storeDes != null">
+				STORE_DES = #{storeDes,jdbcType=VARCHAR},
+			</if>
+			<if test="headerDes != null">
+				HEADER_DES = #{headerDes,jdbcType=VARCHAR},
+			</if>
+			<if test="hotSort != null">
+				HOT_SORT = #{hotSort,jdbcType=INTEGER},
+			</if>
+			<if test="adviseSort != null">
+				ADVISE_SORT = #{adviseSort,jdbcType=INTEGER},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.gopher.system.model.entity.CpSiteStore">
+		update cp_site_store
+		set IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
+		STORE_ID = #{storeId,jdbcType=INTEGER},
+		CREATE_USER = #{createUser,jdbcType=INTEGER},
+		UPDATE_USER = #{updateUser,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		STORE_COUNT = #{storeCount,jdbcType=INTEGER},
+		COUPON_COUNT = #{couponCount,jdbcType=INTEGER},
+		AD_ADDRESS = #{adAddress,jdbcType=VARCHAR},
+		MARK = #{mark,jdbcType=VARCHAR},
+		IS_MANUAL = #{isManual,jdbcType=VARCHAR},
+		TITLE = #{title,jdbcType=VARCHAR},
+		KEYWORDS = #{keywords,jdbcType=VARCHAR},
+		DES = #{des,jdbcType=VARCHAR},
+		SHOW_NAME = #{showName,jdbcType=VARCHAR},
+		STORE_DES = #{storeDes,jdbcType=VARCHAR},
+		HEADER_DES = #{headerDes,jdbcType=VARCHAR},
+		HOT_SORT = #{hotSort,jdbcType=INTEGER},
+		ADVISE_SORT = #{adviseSort,jdbcType=INTEGER}
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>

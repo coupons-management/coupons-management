@@ -1,8 +1,7 @@
 package com.gopher.system.dao.mysql;
 
-import org.springframework.stereotype.Repository;
-
 import com.gopher.system.model.entity.CpSiteStore;
+import org.springframework.stereotype.Repository;
 
 /**
  * CpSiteStoreDAO继承基类
