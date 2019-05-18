@@ -17,7 +17,7 @@ public class CpCoupon implements Serializable {
     private String name;
 
     private String code;
-
+    
     private Date expireAt;
 
     private String storeWebsiteCrc;

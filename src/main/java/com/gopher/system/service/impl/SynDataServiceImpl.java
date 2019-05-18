@@ -340,7 +340,7 @@ public class SynDataServiceImpl implements SynDataService {
 
 			}
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			logger.debug(e.getMessage(),e);
 		}
 
 	}
@@ -443,9 +443,13 @@ public class SynDataServiceImpl implements SynDataService {
 			endIndex = name.substring(beginIndex).indexOf("/");
 			return name.substring(beginIndex, beginIndex + endIndex);
 		}
+		
 		if (name.startsWith("http://")) {
 			beginIndex = "http://".length();
 			endIndex = name.substring(beginIndex).indexOf("/");
+			if(name.substring(beginIndex).contains("?")) {
+				endIndex = name.substring(beginIndex).indexOf("?");
+			}
 			return name.substring(beginIndex, endIndex);
 		}
 		return null;

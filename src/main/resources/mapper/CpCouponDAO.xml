@@ -54,18 +54,21 @@
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from cp_coupon
+		from CP_COUPON
 		where ID = #{id,jdbcType=INTEGER}
 	</select>
 	<delete id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">
-		delete from cp_coupon
+		delete from CP_COUPON
 		where ID = #{id,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" keyColumn="ID" keyProperty="id"
 		parameterType="com.gopher.system.model.entity.CpCoupon"
 		useGeneratedKeys="true">
-		insert into cp_coupon (STORE_ID, IN_SITE_ID, `NAME`,
+		insert into CP_COUPON (
+		STORE_ID, 
+		IN_SITE_ID, 
+		`NAME`,
 		CODE, 
 		EXPIRE_AT, 
 		STORE_WEBSITE_CRC,
@@ -112,7 +115,7 @@
 	<insert id="insertSelective" keyColumn="ID" keyProperty="id"
 		parameterType="com.gopher.system.model.entity.CpCoupon"
 		useGeneratedKeys="true">
-		insert into cp_coupon
+		insert into CP_COUPON
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="storeId != null">
 				STORE_ID,
@@ -240,7 +243,7 @@
 	</insert>
 	<update id="updateByPrimaryKeySelective"
 		parameterType="com.gopher.system.model.entity.CpCoupon">
-		update cp_coupon
+		update CP_COUPON
 		<set>
 			<if test="storeId != null">
 				STORE_ID = #{storeId,jdbcType=INTEGER},
@@ -307,7 +310,7 @@
 	</update>
 	<update id="updateByPrimaryKey"
 		parameterType="com.gopher.system.model.entity.CpCoupon">
-		update cp_coupon
+		update CP_COUPON
 		set STORE_ID =
 		#{storeId,jdbcType=INTEGER},
 		IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
@@ -358,7 +361,27 @@
 		FROM
 		CP_COUPON
 		<where>
-
+         <if test="storeId != null and storeId >0 ">
+             store_id = #{storeId}
+         </if>
+         <if test="expiryTime != null">
+            AND EXPIRE_AT &gt;= #{expiryTime}
+         </if>
+         <if test="scrapyStr != null and scrapyStr !=''">
+            AND SCRAPY = #{scrapyStr}
+         </if>
+          <if test="expired == 1">
+            AND EXPIRE_AT &lt;= NOW()
+         </if>
+          <if test="expired == 2">
+            AND EXPIRE_AT &gt;= NOW() 
+         </if>
+          <if test="type != null and type !=''">
+            AND COUPON_TYPE = #{type} 
+         </if>
+          <if test="title != null and title !=''">
+            AND TITLE = #{title} 
+         </if>
 		</where>
 		ORDER BY CREATE_TIME DESC
 		limit #{beginIndex},#{pageSize}
@@ -375,6 +398,21 @@
          <if test="expiryTime != null">
             AND EXPIRE_AT &gt;= #{expiryTime}
          </if>
+         <if test="scrapyStr != null and scrapyStr !=''">
+            AND SCRAPY = #{scrapyStr}
+         </if>
+          <if test="expired == 1">
+            AND EXPIRE_AT &lt;= NOW()
+         </if>
+          <if test="expired == 2">
+            AND EXPIRE_AT &gt;= NOW() 
+         </if>
+          <if test="type != null and type !=''">
+            AND COUPON_TYPE = #{type} 
+         </if>
+          <if test="title != null and title !=''">
+            AND TITLE = #{title} 
+         </if>
 		</where>
 	</select>
 
@@ -387,7 +425,8 @@
 		FROM
 		CP_COUPON
 		<where>
-
+		<if test="storeId!=null and storeId>0"></if>
+         STORE_ID = #{storeId}
 		</where>
 		ORDER BY CREATE_TIME DESC
 	</select>

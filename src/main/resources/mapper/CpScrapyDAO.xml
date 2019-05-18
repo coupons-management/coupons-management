@@ -19,15 +19,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cp_scrapy
+    from CP_SCRAPY
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cp_scrapy
+    delete from CP_SCRAPY
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpScrapy" useGeneratedKeys="true">
-    insert into cp_scrapy (OUT_SITE_ID, `NAME`, `ENABLE`, 
+    insert into CP_SCRAPY (OUT_SITE_ID, `NAME`, `ENABLE`, 
       PROJECT, CREATE_USER, UPDATE_USER, 
       CREATE_TIME, UPDATE_TIME)
     values (#{outSiteId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{enable,jdbcType=VARCHAR}, 
@@ -35,7 +35,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpScrapy" useGeneratedKeys="true">
-    insert into cp_scrapy
+    insert into CP_SCRAPY
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="outSiteId != null">
         OUT_SITE_ID,
@@ -90,7 +90,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpScrapy">
-    update cp_scrapy
+    update CP_SCRAPY
     <set>
       <if test="outSiteId != null">
         OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
@@ -120,7 +120,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpScrapy">
-    update cp_scrapy
+    update CP_SCRAPY
     set OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
       `NAME` = #{name,jdbcType=VARCHAR},
       `ENABLE` = #{enable,jdbcType=VARCHAR},
@@ -138,5 +138,11 @@
     <include refid="Base_Column_List" />
     from CP_SCRAPY
     where NAME = #{name,jdbcType=VARCHAR} limit 1
+  </select>
+  
+  <select id="getList"  resultMap="BaseResultMap">
+   select 
+    <include refid="Base_Column_List" />
+    from CP_SCRAPY
   </select>
 </mapper>
