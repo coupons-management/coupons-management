@@ -1,5 +1,7 @@
 package com.gopher.system.dao.mysql;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.gopher.system.model.entity.CpOutSite;
@@ -9,4 +11,5 @@ import com.gopher.system.model.entity.CpOutSite;
  */
 @Repository
 public interface CpOutSiteDAO extends MyBatisBaseDao<CpOutSite, Integer> {
+	List<CpOutSite> getList();
 }

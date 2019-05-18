@@ -31,15 +31,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cp_out_site_store
+    from CP_OUT_SITE_STORE
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cp_out_site_store
+    delete from CP_OUT_SITE_STORE
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpOutSiteStore" useGeneratedKeys="true">
-    insert into cp_out_site_store (OUT_ID, STORE_ID, CREATE_USER, 
+    insert into CP_OUT_SITE_STORE (OUT_ID, STORE_ID, CREATE_USER, 
       UPDATE_USER, CREATE_TIME, UPDATE_TIME, 
       STORE_COUNT, COUPON_COUNT, AD_ADDRESS, 
       MARK, IS_MANUAL, TITLE, 
@@ -55,7 +55,7 @@
       #{adviseSort,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpOutSiteStore" useGeneratedKeys="true">
-    insert into cp_out_site_store
+    insert into CP_OUT_SITE_STORE
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="outId != null">
         OUT_ID,
@@ -176,7 +176,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpOutSiteStore">
-    update cp_out_site_store
+    update CP_OUT_SITE_STORE
     <set>
       <if test="outId != null">
         OUT_ID = #{outId,jdbcType=INTEGER},
@@ -239,7 +239,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpOutSiteStore">
-    update cp_out_site_store
+    update CP_OUT_SITE_STORE
     set OUT_ID = #{outId,jdbcType=INTEGER},
       STORE_ID = #{storeId,jdbcType=INTEGER},
       CREATE_USER = #{createUser,jdbcType=INTEGER},
