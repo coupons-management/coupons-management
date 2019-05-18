@@ -58,7 +58,10 @@ public class ShowSiteTypeServiceImpl implements ShowSiteTypeService{
 		cpSitestoreTypeDAO.insert(cpSitestoreType);
 		
 	}
-
+	
+    public void delete(final int id) {
+    	
+    }
 	@Override
 	public void edit(CpSitestoreType cpSitestoreType) {
 		if(null == cpSitestoreType) {

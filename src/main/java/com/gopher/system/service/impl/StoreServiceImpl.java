@@ -103,7 +103,6 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public void addSite(List<CpSiteStore> siteStoreList) {
-		// TODO Auto-generated method stub
 		
 	}
 	

@@ -16,6 +16,4 @@ public interface StoreService {
 	
 	void addSite(List<CpSiteStore> siteStoreList);
 	
-	
-
 }
