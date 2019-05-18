@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gopher.system.dao.mysql.CpTypeDAO">
-  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.CpType">
+<mapper namespace="com.gopher.system.dao.mysql.CpTypeStoreDAO">
+  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.CpTypeStore">
     <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="DES" jdbcType="VARCHAR" property="des" />
+    <result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
+    <result column="TYPE_ID" jdbcType="INTEGER" property="typeId" />
     <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
     <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="IN_TYPE" jdbcType="CHAR" property="inType" />
+    <result column="OUT_SITE_ID" jdbcType="INTEGER" property="outSiteId" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, `NAME`, DES, CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME, IN_TYPE
+    ID, STORE_ID, TYPE_ID, CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME, OUT_SITE_ID
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cp_type
+    from cp_type_store
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cp_type
+    delete from cp_type_store
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpType" useGeneratedKeys="true">
-    insert into cp_type (`NAME`, DES, CREATE_USER, 
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpTypeStore" useGeneratedKeys="true">
+    insert into cp_type_store (STORE_ID, TYPE_ID, CREATE_USER, 
       UPDATE_USER, CREATE_TIME, UPDATE_TIME, 
-      IN_TYPE)
-    values (#{name,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
+      OUT_SITE_ID)
+    values (#{storeId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, 
       #{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{inType,jdbcType=CHAR})
+      #{outSiteId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpType" useGeneratedKeys="true">
-    insert into cp_type
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpTypeStore" useGeneratedKeys="true">
+    insert into cp_type_store
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        `NAME`,
+      <if test="storeId != null">
+        STORE_ID,
       </if>
-      <if test="des != null">
-        DES,
+      <if test="typeId != null">
+        TYPE_ID,
       </if>
       <if test="createUser != null">
         CREATE_USER,
@@ -53,16 +53,16 @@
       <if test="updateTime != null">
         UPDATE_TIME,
       </if>
-      <if test="inType != null">
-        IN_TYPE,
+      <if test="outSiteId != null">
+        OUT_SITE_ID,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="storeId != null">
+        #{storeId,jdbcType=INTEGER},
       </if>
-      <if test="des != null">
-        #{des,jdbcType=VARCHAR},
+      <if test="typeId != null">
+        #{typeId,jdbcType=INTEGER},
       </if>
       <if test="createUser != null">
         #{createUser,jdbcType=INTEGER},
@@ -76,19 +76,19 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="inType != null">
-        #{inType,jdbcType=CHAR},
+      <if test="outSiteId != null">
+        #{outSiteId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpType">
-    update cp_type
+  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpTypeStore">
+    update cp_type_store
     <set>
-      <if test="name != null">
-        `NAME` = #{name,jdbcType=VARCHAR},
+      <if test="storeId != null">
+        STORE_ID = #{storeId,jdbcType=INTEGER},
       </if>
-      <if test="des != null">
-        DES = #{des,jdbcType=VARCHAR},
+      <if test="typeId != null">
+        TYPE_ID = #{typeId,jdbcType=INTEGER},
       </if>
       <if test="createUser != null">
         CREATE_USER = #{createUser,jdbcType=INTEGER},
@@ -102,28 +102,21 @@
       <if test="updateTime != null">
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="inType != null">
-        IN_TYPE = #{inType,jdbcType=CHAR},
+      <if test="outSiteId != null">
+        OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
       </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpType">
-    update cp_type
-    set `NAME` = #{name,jdbcType=VARCHAR},
-      DES = #{des,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpTypeStore">
+    update cp_type_store
+    set STORE_ID = #{storeId,jdbcType=INTEGER},
+      TYPE_ID = #{typeId,jdbcType=INTEGER},
       CREATE_USER = #{createUser,jdbcType=INTEGER},
       UPDATE_USER = #{updateUser,jdbcType=INTEGER},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      IN_TYPE = #{inType,jdbcType=CHAR}
+      OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  
-  <select id="getBeanByName" parameterType="String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from CP_TYPE
-    where NAME = #{name,jdbcType=VARCHAR} limit 1
-  </select>
 </mapper>

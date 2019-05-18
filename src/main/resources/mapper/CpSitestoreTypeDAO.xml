@@ -3,6 +3,7 @@
 <mapper namespace="com.gopher.system.dao.mysql.CpSitestoreTypeDAO">
   <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.CpSitestoreType">
     <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="OUT_SITE_ID" jdbcType="INTEGER" property="outSiteId" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="PID" jdbcType="INTEGER" property="pid" />
     <result column="LEVEL" jdbcType="INTEGER" property="level" />
@@ -12,7 +13,7 @@
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, `NAME`, PID, `LEVEL`, CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME
+    ID, OUT_SITE_ID, `NAME`, PID, `LEVEL`, CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -25,16 +26,19 @@
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpSitestoreType" useGeneratedKeys="true">
-    insert into cp_sitestore_type (`NAME`, PID, `LEVEL`, 
-      CREATE_USER, UPDATE_USER, CREATE_TIME, 
-      UPDATE_TIME)
-    values (#{name,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
-      #{createUser,jdbcType=INTEGER}, #{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+    insert into cp_sitestore_type (OUT_SITE_ID, `NAME`, PID, 
+      `LEVEL`, CREATE_USER, UPDATE_USER, 
+      CREATE_TIME, UPDATE_TIME)
+    values (#{outSiteId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, #{updateUser,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpSitestoreType" useGeneratedKeys="true">
     insert into cp_sitestore_type
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="outSiteId != null">
+        OUT_SITE_ID,
+      </if>
       <if test="name != null">
         `NAME`,
       </if>
@@ -58,6 +62,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="outSiteId != null">
+        #{outSiteId,jdbcType=INTEGER},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -84,6 +91,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpSitestoreType">
     update cp_sitestore_type
     <set>
+      <if test="outSiteId != null">
+        OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
+      </if>
       <if test="name != null">
         `NAME` = #{name,jdbcType=VARCHAR},
       </if>
@@ -110,7 +120,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpSitestoreType">
     update cp_sitestore_type
-    set `NAME` = #{name,jdbcType=VARCHAR},
+    set OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
+      `NAME` = #{name,jdbcType=VARCHAR},
       PID = #{pid,jdbcType=INTEGER},
       `LEVEL` = #{level,jdbcType=INTEGER},
       CREATE_USER = #{createUser,jdbcType=INTEGER},

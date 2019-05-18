@@ -161,6 +161,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpStoreTypeDAO.insert(cpStoreType);
 
 				} else {
+					//TODO 一个商家一个类型 一个类型多个商家
 					CpStoreType cpStoreType = new CpStoreType();
 					cpStoreType.setStoreId(cpStore.getId());
 					cpStoreType.setTypeId(cpType.getId());

@@ -11,6 +11,11 @@ public class CpStore implements Serializable {
     private Integer id;
 
     /**
+     * 分类ID
+     */
+    private Integer typeId;
+
+    /**
      * 商家名称
      */
     private String name;
@@ -19,6 +24,8 @@ public class CpStore implements Serializable {
      * 商家网站
      */
     private String website;
+
+    private String typeName;
 
     private String logoUrl;
 
@@ -68,6 +75,8 @@ public class CpStore implements Serializable {
      */
     private String approval;
 
+    private String title;
+
     /**
      * 创建人
      */
@@ -88,8 +97,6 @@ public class CpStore implements Serializable {
      */
     private Date updateTime;
 
-    private String title;
-
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -98,6 +105,14 @@ public class CpStore implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 
     public String getName() {
@@ -114,6 +129,14 @@ public class CpStore implements Serializable {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     public String getLogoUrl() {
@@ -212,6 +235,14 @@ public class CpStore implements Serializable {
         this.approval = approval;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Integer getCreateUser() {
         return createUser;
     }
@@ -244,14 +275,6 @@ public class CpStore implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -265,8 +288,10 @@ public class CpStore implements Serializable {
         }
         CpStore other = (CpStore) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getTypeId() == null ? other.getTypeId() == null : this.getTypeId().equals(other.getTypeId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getWebsite() == null ? other.getWebsite() == null : this.getWebsite().equals(other.getWebsite()))
+            && (this.getTypeName() == null ? other.getTypeName() == null : this.getTypeName().equals(other.getTypeName()))
             && (this.getLogoUrl() == null ? other.getLogoUrl() == null : this.getLogoUrl().equals(other.getLogoUrl()))
             && (this.getAdvertising() == null ? other.getAdvertising() == null : this.getAdvertising().equals(other.getAdvertising()))
             && (this.getCreatedAt() == null ? other.getCreatedAt() == null : this.getCreatedAt().equals(other.getCreatedAt()))
@@ -279,11 +304,11 @@ public class CpStore implements Serializable {
             && (this.getCouponCountValid() == null ? other.getCouponCountValid() == null : this.getCouponCountValid().equals(other.getCouponCountValid()))
             && (this.getInType() == null ? other.getInType() == null : this.getInType().equals(other.getInType()))
             && (this.getApproval() == null ? other.getApproval() == null : this.getApproval().equals(other.getApproval()))
+            && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()));
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
 
     @Override
@@ -291,8 +316,10 @@ public class CpStore implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getTypeId() == null) ? 0 : getTypeId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getWebsite() == null) ? 0 : getWebsite().hashCode());
+        result = prime * result + ((getTypeName() == null) ? 0 : getTypeName().hashCode());
         result = prime * result + ((getLogoUrl() == null) ? 0 : getLogoUrl().hashCode());
         result = prime * result + ((getAdvertising() == null) ? 0 : getAdvertising().hashCode());
         result = prime * result + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
@@ -305,11 +332,11 @@ public class CpStore implements Serializable {
         result = prime * result + ((getCouponCountValid() == null) ? 0 : getCouponCountValid().hashCode());
         result = prime * result + ((getInType() == null) ? 0 : getInType().hashCode());
         result = prime * result + ((getApproval() == null) ? 0 : getApproval().hashCode());
+        result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
         return result;
     }
 
@@ -320,8 +347,10 @@ public class CpStore implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", typeId=").append(typeId);
         sb.append(", name=").append(name);
         sb.append(", website=").append(website);
+        sb.append(", typeName=").append(typeName);
         sb.append(", logoUrl=").append(logoUrl);
         sb.append(", advertising=").append(advertising);
         sb.append(", createdAt=").append(createdAt);
@@ -334,11 +363,11 @@ public class CpStore implements Serializable {
         sb.append(", couponCountValid=").append(couponCountValid);
         sb.append(", inType=").append(inType);
         sb.append(", approval=").append(approval);
+        sb.append(", title=").append(title);
         sb.append(", createUser=").append(createUser);
         sb.append(", updateUser=").append(updateUser);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
-        sb.append(", title=").append(title);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

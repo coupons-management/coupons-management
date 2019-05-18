@@ -10,6 +10,8 @@ import java.util.Date;
 public class CpSitestoreType implements Serializable {
     private Integer id;
 
+    private Integer outSiteId;
+
     /**
      * 类型名称
      */
@@ -53,6 +55,14 @@ public class CpSitestoreType implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getOutSiteId() {
+        return outSiteId;
+    }
+
+    public void setOutSiteId(Integer outSiteId) {
+        this.outSiteId = outSiteId;
     }
 
     public String getName() {
@@ -124,6 +134,7 @@ public class CpSitestoreType implements Serializable {
         }
         CpSitestoreType other = (CpSitestoreType) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getOutSiteId() == null ? other.getOutSiteId() == null : this.getOutSiteId().equals(other.getOutSiteId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getPid() == null ? other.getPid() == null : this.getPid().equals(other.getPid()))
             && (this.getLevel() == null ? other.getLevel() == null : this.getLevel().equals(other.getLevel()))
@@ -138,6 +149,7 @@ public class CpSitestoreType implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getOutSiteId() == null) ? 0 : getOutSiteId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getPid() == null) ? 0 : getPid().hashCode());
         result = prime * result + ((getLevel() == null) ? 0 : getLevel().hashCode());
@@ -155,6 +167,7 @@ public class CpSitestoreType implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", outSiteId=").append(outSiteId);
         sb.append(", name=").append(name);
         sb.append(", pid=").append(pid);
         sb.append(", level=").append(level);

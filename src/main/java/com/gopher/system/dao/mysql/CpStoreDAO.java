@@ -28,5 +28,7 @@ public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
 	 * @param storePageRequest
 	 * @return
 	 */
-	int getCount(StorePageRequst storePageRequest);
+	int getCount(StorePageRequst storePageRequest);	
+	
 }
+
