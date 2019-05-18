@@ -21,8 +21,7 @@ public class ShowSiteTypeServiceTest extends BaseTest{
 	}
 	@Test
 	public void getTree() {
-		showSiteTypeService.getTree();
-		System.out.println(JSON.toJSONString(showSiteTypeService.getTree()));
+		System.out.println(JSON.toJSONString(showSiteTypeService.getTree(1)));
 	}
 
 }

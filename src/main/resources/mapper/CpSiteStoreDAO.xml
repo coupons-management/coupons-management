@@ -145,21 +145,4 @@
 		#{storeId,jdbcType=INTEGER} limit 1
 	</select>
 
-	<select id="getList"
-		parameterType="com.gopher.system.model.entity.CpSiteStore"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from CP_SITE_STORE
-		<where>
-			<if test="outSiteId > 0">
-				OUT_SITE_ID = #{outSiteId}
-			</if>
-			<if test="level > 0">
-				AND LEVEL = #{level}
-			</if>
-		</where>
-	</select>
-
-
 </mapper>

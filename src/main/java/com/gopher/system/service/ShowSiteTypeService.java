@@ -26,6 +26,6 @@ public interface ShowSiteTypeService {
      * 获得分类的树形结构
      * @return
      */
-    SitestoreTypeTree getTree();
+    SitestoreTypeTree getTree(final int siteId);
     
 }

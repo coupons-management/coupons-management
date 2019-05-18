@@ -12,5 +12,7 @@ public interface ShowSiteService {
 	
     List<CpOutSite> getSiteList();
     
+    void addStoreToSite(final int siteId ,final int storeId);
     
+    void deleteStoreInSite(final int siteId,final int storeId);
 }

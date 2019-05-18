@@ -86,13 +86,15 @@ public class ShowSiteTypeServiceImpl implements ShowSiteTypeService{
 
 
 	@Override
-	public SitestoreTypeTree getTree() {
+	public SitestoreTypeTree getTree(final int siteId) {
 		SitestoreTypeTree result = new SitestoreTypeTree();
 		result.setName("ROOT");
 		result.setLevel(0);
 		result.setId(0);
 		result.setPid(0);
-		List<CpSitestoreType> list = cpSitestoreTypeDAO.getList(new CpSitestoreType());
+		CpSitestoreType query = new CpSitestoreType();
+		query.setOutSiteId(siteId);
+		List<CpSitestoreType> list = cpSitestoreTypeDAO.getList(query);
 		if(null != list) {
 			List<SitestoreTypeTree> level1_all = new ArrayList<>();
 			List<SitestoreTypeTree> level2_all = new ArrayList<>();
