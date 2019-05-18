@@ -12,11 +12,13 @@ import com.gopher.system.dao.mysql.CpScrapyStoreDAO;
 import com.gopher.system.dao.mysql.CpSiteStoreDAO;
 import com.gopher.system.dao.mysql.CpStoreDAO;
 import com.gopher.system.exception.BusinessRuntimeException;
-import com.gopher.system.model.entity.CpCoupon;
+import com.gopher.system.model.entity.CpScrapyStore;
+import com.gopher.system.model.entity.CpSiteStore;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.model.vo.response.StoreResponse;
+import com.gopher.system.service.CouponService;
 import com.gopher.system.service.StoreService;
 import com.gopher.system.util.DateUtils;
 
@@ -30,10 +32,25 @@ public class StoreServiceImpl implements StoreService {
 	private CpScrapyStoreDAO cpScrapyStoreDAO;
 	@Resource
 	private CpCouponDAO cpCouponDAO;
+	@Resource
+	private CouponService couponService;
 
 	@Override
 	public Page<StoreResponse> getPage(StorePageRequst storePageRequest) {
-		List<CpStore> list = cpStoreDAO.getPage(storePageRequest);
+		//爬虫站
+		final Integer spider_id = storePageRequest.getScrapy();
+		if(null != spider_id && spider_id > 0) {
+			List<CpScrapyStore> list = cpScrapyStoreDAO.getListByScrapy(spider_id);
+			if(null!=list && !list.isEmpty()) {
+				List<Integer> storeIdList = new ArrayList<>(list.size());
+				for (CpScrapyStore cpScrapyStore : list) {
+					storeIdList.add(cpScrapyStore.getStoreId());
+				}
+				storePageRequest.setStoreIdList(storeIdList);
+			}
+		}
+		//TODO 优惠券数量筛选 
+		List<CpStore> list = cpStoreDAO.getPageList(storePageRequest);
 		final int totalCount = cpStoreDAO.getCount(storePageRequest);
 		Page<StoreResponse> reuslt = new Page<StoreResponse>();
 		reuslt.setPageNumber(storePageRequest.getPageNumber());
@@ -44,6 +61,7 @@ public class StoreServiceImpl implements StoreService {
 		if (null != list) {
 			rspList = new ArrayList<>(list.size());
 			for (CpStore cpStore : list) {
+				final int storeId = cpStore.getId();
 				StoreResponse rsp = new StoreResponse();
 				rsp.setId(cpStore.getId());
 				rsp.setName(cpStore.getName());
@@ -52,10 +70,9 @@ public class StoreServiceImpl implements StoreService {
                 //TODO 
                 // 在展示站
                 // 在爬虫站
+                
                 // 有效优惠券数量
-                CpCoupon coupon = new CpCoupon();
-                coupon.setStoreId(cpStore.getId());
-                // 当前商家所有的优惠券
+                rsp.setValidCouponsCount(couponService.getValidCountByStore(storeId)+"/"+couponService.getTotalCountByStore(storeId));
 				rsp.setCreateTime(DateUtils.getDatetimeString(cpStore.getCreateTime()));
 				rsp.setUpdateTime(DateUtils.getDatetimeString(cpStore.getUpdateTime()));
 				// 优惠券最后新增时间
@@ -79,7 +96,17 @@ public class StoreServiceImpl implements StoreService {
 		final String name = cpStore.getName();
 		final String country = cpStore.getCountry();
 		final String logoUrl = cpStore.getLogoUrl();
+		
 		cpStoreDAO.updateByPrimaryKeySelective(cpStore);
 	}
+
+
+	@Override
+	public void addSite(List<CpSiteStore> siteStoreList) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 
 }

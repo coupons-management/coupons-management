@@ -16,15 +16,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cp_scrapy_store
+    from CP_SCRAPY_STORE
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cp_scrapy_store
+    delete from CP_SCRAPY_STORE
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpScrapyStore" useGeneratedKeys="true">
-    insert into cp_scrapy_store (STORE_ID, SCRAPY_ID, CREATE_USER, 
+    insert into CP_SCRAPY_STORE (STORE_ID, SCRAPY_ID, CREATE_USER, 
       UPDATE_USER, CREATE_TIME, UPDATE_TIME
       )
     values (#{storeId,jdbcType=INTEGER}, #{scrapyId,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, 
@@ -32,7 +32,7 @@
       )
   </insert>
   <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpScrapyStore" useGeneratedKeys="true">
-    insert into cp_scrapy_store
+    insert into CP_SCRAPY_STORE
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="storeId != null">
         STORE_ID,
@@ -75,7 +75,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpScrapyStore">
-    update cp_scrapy_store
+    update CP_SCRAPY_STORE
     <set>
       <if test="storeId != null">
         STORE_ID = #{storeId,jdbcType=INTEGER},
@@ -99,7 +99,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpScrapyStore">
-    update cp_scrapy_store
+    update CP_SCRAPY_STORE
     set STORE_ID = #{storeId,jdbcType=INTEGER},
       SCRAPY_ID = #{scrapyId,jdbcType=INTEGER},
       CREATE_USER = #{createUser,jdbcType=INTEGER},
@@ -113,7 +113,15 @@
   <select id="selectByOutKey" parameterType="com.gopher.system.model.entity.CpScrapyStore" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cp_scrapy_store
+    from CP_SCRAPY_STORE
     where STORE_ID = #{storeId,jdbcType=INTEGER} and SCRAPY_ID = #{scrapyId,jdbcType=INTEGER}
   </select>
+  
+  <select id="getListByScrapy" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CP_SCRAPY_STORE
+    where SCRAPY_ID = #{scrapyId,jdbcType=INTEGER}
+  </select>
+  
 </mapper>

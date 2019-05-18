@@ -1,7 +1,10 @@
 package com.gopher.system.dao.mysql;
 
-import com.gopher.system.model.entity.CpType;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
+
+import com.gopher.system.model.entity.CpType;
 
 /**
  * CpTypeDAO继承基类
@@ -9,4 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CpTypeDAO extends MyBatisBaseDao<CpType, Integer> {
 	CpType getBeanByName(String name);
+	
+	List<CpType> getList();
 }

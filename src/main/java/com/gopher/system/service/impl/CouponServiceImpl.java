@@ -3,7 +3,6 @@ package com.gopher.system.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,7 +59,7 @@ public class CouponServiceImpl implements CouponService{
 				rsp.setDescription(cpCoupon.getDes());
 				final Date experityAt = cpCoupon.getExpireAt();
 				if(null != experityAt) {
-					rsp.setExpired(experityAt.getTime()>current_time_milllis);
+					rsp.setExpired(experityAt.getTime() > current_time_milllis);
 				}else {
 					rsp.setExpired(true);
 				}

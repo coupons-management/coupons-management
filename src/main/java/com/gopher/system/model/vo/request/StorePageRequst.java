@@ -1,8 +1,14 @@
 package com.gopher.system.model.vo.request;
 
+import java.util.List;
+
 import com.gopher.system.model.vo.PageRequestBase;
 
 public class StorePageRequst extends PageRequestBase{
+	/**
+	 * 爬虫站
+	 */
+	private Integer scrapy;
 	/**
 	 * 查询关键字
 	 */
@@ -19,7 +25,23 @@ public class StorePageRequst extends PageRequestBase{
 	 * 有效优惠券数量
 	 */
 	private Integer validCouponsCount;
+	/**
+	 * 根据爬虫ID 获取的商家id集合
+	 */
+	private List<Integer> storeIdList;
 	
+	public Integer getScrapy() {
+		return scrapy;
+	}
+	public void setScrapy(Integer scrapy) {
+		this.scrapy = scrapy;
+	}
+	public List<Integer> getStoreIdList() {
+		return storeIdList;
+	}
+	public void setStoreIdList(List<Integer> storeIdList) {
+		this.storeIdList = storeIdList;
+	}
 	public String getSearch() {
 		return search;
 	}

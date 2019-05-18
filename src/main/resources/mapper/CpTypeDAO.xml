@@ -1,129 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gopher.system.dao.mysql.CpTypeDAO">
-  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.CpType">
-    <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="DES" jdbcType="VARCHAR" property="des" />
-    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
-    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="IN_TYPE" jdbcType="CHAR" property="inType" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    ID, `NAME`, DES, CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME, IN_TYPE
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from cp_type
-    where ID = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cp_type
-    where ID = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpType" useGeneratedKeys="true">
-    insert into cp_type (`NAME`, DES, CREATE_USER, 
-      UPDATE_USER, CREATE_TIME, UPDATE_TIME, 
-      IN_TYPE)
-    values (#{name,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
-      #{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{inType,jdbcType=CHAR})
-  </insert>
-  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpType" useGeneratedKeys="true">
-    insert into cp_type
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        `NAME`,
-      </if>
-      <if test="des != null">
-        DES,
-      </if>
-      <if test="createUser != null">
-        CREATE_USER,
-      </if>
-      <if test="updateUser != null">
-        UPDATE_USER,
-      </if>
-      <if test="createTime != null">
-        CREATE_TIME,
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME,
-      </if>
-      <if test="inType != null">
-        IN_TYPE,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="des != null">
-        #{des,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null">
-        #{createUser,jdbcType=INTEGER},
-      </if>
-      <if test="updateUser != null">
-        #{updateUser,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="inType != null">
-        #{inType,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpType">
-    update cp_type
-    <set>
-      <if test="name != null">
-        `NAME` = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="des != null">
-        DES = #{des,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null">
-        CREATE_USER = #{createUser,jdbcType=INTEGER},
-      </if>
-      <if test="updateUser != null">
-        UPDATE_USER = #{updateUser,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="inType != null">
-        IN_TYPE = #{inType,jdbcType=CHAR},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpType">
-    update cp_type
-    set `NAME` = #{name,jdbcType=VARCHAR},
-      DES = #{des,jdbcType=VARCHAR},
-      CREATE_USER = #{createUser,jdbcType=INTEGER},
-      UPDATE_USER = #{updateUser,jdbcType=INTEGER},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      IN_TYPE = #{inType,jdbcType=CHAR}
-    where ID = #{id,jdbcType=INTEGER}
-  </update>
-  
-  <select id="getBeanByName" parameterType="String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from CP_TYPE
-    where NAME = #{name,jdbcType=VARCHAR} limit 1
-  </select>
+	<resultMap id="BaseResultMap"
+		type="com.gopher.system.model.entity.CpType">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+		<result column="DES" jdbcType="VARCHAR" property="des" />
+		<result column="CREATE_USER" jdbcType="INTEGER"
+			property="createUser" />
+		<result column="UPDATE_USER" jdbcType="INTEGER"
+			property="updateUser" />
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="UPDATE_TIME" jdbcType="TIMESTAMP"
+			property="updateTime" />
+		<result column="IN_TYPE" jdbcType="CHAR" property="inType" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, `NAME`, DES, CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME,
+		IN_TYPE
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from cp_type
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from cp_type
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" keyColumn="ID" keyProperty="id"
+		parameterType="com.gopher.system.model.entity.CpType"
+		useGeneratedKeys="true">
+		insert into cp_type (`NAME`, DES, CREATE_USER,
+		UPDATE_USER, CREATE_TIME, UPDATE_TIME,
+		IN_TYPE)
+		values (#{name,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR},
+		#{createUser,jdbcType=INTEGER},
+		#{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{inType,jdbcType=CHAR})
+	</insert>
+	<insert id="insertSelective" keyColumn="ID" keyProperty="id"
+		parameterType="com.gopher.system.model.entity.CpType"
+		useGeneratedKeys="true">
+		insert into cp_type
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				`NAME`,
+			</if>
+			<if test="des != null">
+				DES,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="updateUser != null">
+				UPDATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="inType != null">
+				IN_TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="des != null">
+				#{des,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=INTEGER},
+			</if>
+			<if test="updateUser != null">
+				#{updateUser,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="inType != null">
+				#{inType,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.gopher.system.model.entity.CpType">
+		update cp_type
+		<set>
+			<if test="name != null">
+				`NAME` = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="des != null">
+				DES = #{des,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser,jdbcType=INTEGER},
+			</if>
+			<if test="updateUser != null">
+				UPDATE_USER = #{updateUser,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="inType != null">
+				IN_TYPE = #{inType,jdbcType=CHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.gopher.system.model.entity.CpType">
+		update cp_type
+		set `NAME` = #{name,jdbcType=VARCHAR},
+		DES = #{des,jdbcType=VARCHAR},
+		CREATE_USER = #{createUser,jdbcType=INTEGER},
+		UPDATE_USER = #{updateUser,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		IN_TYPE = #{inType,jdbcType=CHAR}
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="getBeanByName" parameterType="String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CP_TYPE
+		where NAME = #{name,jdbcType=VARCHAR} limit 1
+	</select>
+
+	<select id="getList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CP_TYPE
+	</select>
+
 </mapper>

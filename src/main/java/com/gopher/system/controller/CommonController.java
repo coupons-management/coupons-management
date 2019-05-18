@@ -1,7 +1,6 @@
 package com.gopher.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,25 +18,46 @@ import com.gopher.system.service.CommonService;
 public class CommonController {
 	@Autowired
 	private CommonService commonService;
-	@GetMapping("/getSpiderList")
+	@RequestMapping("/getSpiderList")
 	public Result getSpiderList() {
 		Result result = new Result();
 		result.setData(commonService.getSpiderList());
 		return result;
 	}
 	
-	@GetMapping("/getCouponTypeList")
+	@RequestMapping("/getCouponTypeList")
 	public Result getCouponTypeList() {
 		Result result = new Result();
 		result.setData(commonService.getCouponTypeList());
 		return result;
 	}
 	
-	@GetMapping("/getExpiryList")
+	@RequestMapping("/getExpiryList")
 	public Result getExpiryList() {
 		Result result = new Result();
 		result.setData(commonService.getExpiryList());
 		return result;
 	}
-
+	
+	@RequestMapping("/getTypeList")
+	public Result getTypeList() {
+		Result result = new Result();
+		result.setData(commonService.getTypeList());
+		return result;
+	}
+	
+	@RequestMapping("/getHasSpiderTypeDict")
+	public Result getHasSpiderTypeDict() {
+		Result result = new Result();
+		result.setData(commonService.getHasSpiderTypeDict());
+		return result;
+	}
+	
+	@RequestMapping("/getCountryDict")
+	public Result getCountryDict() {
+		Result result = new Result();
+		result.setData(commonService.getCountryDict());
+		return result;
+	}
+	
 }

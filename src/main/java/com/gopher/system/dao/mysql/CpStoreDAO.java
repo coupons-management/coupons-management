@@ -20,7 +20,7 @@ public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
 	 * @param storePageRequest
 	 * @return
 	 */
-	List<CpStore> getPage(StorePageRequst storePageRequest);
+	List<CpStore> getPageList(StorePageRequst storePageRequest);
 
 	/**
 	 * 获得总数

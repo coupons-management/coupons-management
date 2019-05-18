@@ -8,7 +8,11 @@ public enum SystemConstants {
 	
 	EXPIRY_ALL(0,"全部"),
 	EXPIRY_EXPERID(1,"已过期"),
-	EXPIRY_NOT(2,"未过期");
+	EXPIRY_NOT(2,"未过期"),
+	
+	SPIDER_TYPE_ALL(0,"全部"),
+	SPIDER_TYPE_REQUIRED(1,"是"),
+	SPIDER_TYPE_NOT_REQUIRED(2,"否");
 	
 	
 	private Integer value;

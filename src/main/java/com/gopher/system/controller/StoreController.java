@@ -1,7 +1,6 @@
 package com.gopher.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,13 +16,13 @@ public class StoreController {
 	@Autowired
 	private StoreService storeService;
 	
-	@PostMapping(path="/getPage")
+	@RequestMapping(path="/getPage")
 	public Result getPage(@RequestBody StorePageRequst storeRequest) {
 		Result result = new Result();
 		result.setData(storeService.getPage(storeRequest));
 		return result;
 	}
-	@PostMapping(path="/edit")
+	@RequestMapping(path="/edit")
 	public Result edit(@RequestBody CpStore cpStore) {
 		Result result = new Result();
 		storeService.edit(cpStore);
