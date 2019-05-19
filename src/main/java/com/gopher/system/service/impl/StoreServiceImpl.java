@@ -127,6 +127,7 @@ public class StoreServiceImpl implements StoreService {
 				rsp.setCreateTime(DateUtils.getDatetimeString(cpStore.getCreateTime()));
 				rsp.setUpdateTime(DateUtils.getDatetimeString(cpStore.getUpdateTime()));
 				rsp.setApproval(cpStore.getApproval());
+				rsp.setCountry(cpStore.getCountry());
 				// 优惠券最后新增时间
 				rspList.add(rsp);
 			}

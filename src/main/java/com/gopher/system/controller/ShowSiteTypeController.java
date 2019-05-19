@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.CpSitestoreType;
+import com.gopher.system.model.vo.request.SourceTypeRequest;
+import com.gopher.system.model.vo.request.TypeMapRequest;
 import com.gopher.system.service.ShowSiteTypeService;
 
 @RestController
@@ -34,6 +36,20 @@ public class ShowSiteTypeController {
 	public Result getPage(int id) {
 		Result result = new Result();
 		showSiteTypeService.delete(id);
+		return result;
+	}
+	
+	@RequestMapping(path="/addTypeMap")
+	public Result addTypeMap(@RequestBody TypeMapRequest typeMapRequest) {
+		Result result = new Result();
+		showSiteTypeService.addTypeMap(typeMapRequest);
+		return result;
+	}
+	
+	@RequestMapping(path="/getSourceTypeList")
+	public Result getSourceTypeList(@RequestBody SourceTypeRequest sourceTypeRequest) {
+		Result result = new Result();
+		result.setData(showSiteTypeService.getSourceTypeList(sourceTypeRequest));
 		return result;
 	}
 

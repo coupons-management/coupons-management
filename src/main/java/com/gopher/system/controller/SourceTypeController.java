@@ -23,14 +23,21 @@ public class SourceTypeController {
 	}
 	
 	@RequestMapping(path="/create")
-	public Result getPage(@RequestBody CpType cpType) {
+	public Result create(@RequestBody CpType cpType) {
 		Result result = new Result();
 		typerService.create(cpType);
 		return result;
 	}
 	
+	@RequestMapping(path="/edit")
+	public Result edit(@RequestBody CpType cpType) {
+		Result result = new Result();
+		typerService.edit(cpType);
+		return result;
+	}
+	
 	@RequestMapping(path="/delete")
-	public Result getPage(int id) {
+	public Result delete(int id) {
 		Result result = new Result();
 		typerService.delete(id);
 		return result;

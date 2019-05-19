@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.gopher.system.constant.SystemConstants;
 import com.gopher.system.dao.mysql.CpTypeDAO;
@@ -52,6 +53,22 @@ public class TypeServiceImpl implements TypeService{
 			throw new BusinessRuntimeException("id不能为空");
 		}
 		cpTypeDAO.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public void edit(CpType cpType) {
+		if(null == cpType) {
+			throw new BusinessRuntimeException("参数不能为空");
+		}
+		final Integer id  = cpType.getId();
+		final String name = cpType.getName();
+		if(null == id || id<=0) {
+			throw new BusinessRuntimeException("ID不能为空");
+		}
+		if(!StringUtils.hasText(name)) {
+			throw new BusinessRuntimeException("名称不能为空");
+		}
+		cpTypeDAO.updateByPrimaryKeySelective(cpType);
 	}
 
 }

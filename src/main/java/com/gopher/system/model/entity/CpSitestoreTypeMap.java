@@ -11,14 +11,19 @@ public class CpSitestoreTypeMap implements Serializable {
     private Integer id;
 
     /**
-     * 站点商家类型ID
+     * 展示站点ID
      */
-    private Integer siteStoreId;
+    private Integer outSiteId;
 
     /**
-     * 商家类型ID
+     * 展示站点商家类型ID
      */
-    private Integer storeTypeId;
+    private Integer siteTypeId;
+
+    /**
+     * 原始类型
+     */
+    private Integer sourceTypeId;
 
     /**
      * 创建人
@@ -50,20 +55,28 @@ public class CpSitestoreTypeMap implements Serializable {
         this.id = id;
     }
 
-    public Integer getSiteStoreId() {
-        return siteStoreId;
+    public Integer getOutSiteId() {
+        return outSiteId;
     }
 
-    public void setSiteStoreId(Integer siteStoreId) {
-        this.siteStoreId = siteStoreId;
+    public void setOutSiteId(Integer outSiteId) {
+        this.outSiteId = outSiteId;
     }
 
-    public Integer getStoreTypeId() {
-        return storeTypeId;
+    public Integer getSiteTypeId() {
+        return siteTypeId;
     }
 
-    public void setStoreTypeId(Integer storeTypeId) {
-        this.storeTypeId = storeTypeId;
+    public void setSiteTypeId(Integer siteTypeId) {
+        this.siteTypeId = siteTypeId;
+    }
+
+    public Integer getSourceTypeId() {
+        return sourceTypeId;
+    }
+
+    public void setSourceTypeId(Integer sourceTypeId) {
+        this.sourceTypeId = sourceTypeId;
     }
 
     public Integer getCreateUser() {
@@ -111,8 +124,9 @@ public class CpSitestoreTypeMap implements Serializable {
         }
         CpSitestoreTypeMap other = (CpSitestoreTypeMap) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getSiteStoreId() == null ? other.getSiteStoreId() == null : this.getSiteStoreId().equals(other.getSiteStoreId()))
-            && (this.getStoreTypeId() == null ? other.getStoreTypeId() == null : this.getStoreTypeId().equals(other.getStoreTypeId()))
+            && (this.getOutSiteId() == null ? other.getOutSiteId() == null : this.getOutSiteId().equals(other.getOutSiteId()))
+            && (this.getSiteTypeId() == null ? other.getSiteTypeId() == null : this.getSiteTypeId().equals(other.getSiteTypeId()))
+            && (this.getSourceTypeId() == null ? other.getSourceTypeId() == null : this.getSourceTypeId().equals(other.getSourceTypeId()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -124,8 +138,9 @@ public class CpSitestoreTypeMap implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getSiteStoreId() == null) ? 0 : getSiteStoreId().hashCode());
-        result = prime * result + ((getStoreTypeId() == null) ? 0 : getStoreTypeId().hashCode());
+        result = prime * result + ((getOutSiteId() == null) ? 0 : getOutSiteId().hashCode());
+        result = prime * result + ((getSiteTypeId() == null) ? 0 : getSiteTypeId().hashCode());
+        result = prime * result + ((getSourceTypeId() == null) ? 0 : getSourceTypeId().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -140,8 +155,9 @@ public class CpSitestoreTypeMap implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", siteStoreId=").append(siteStoreId);
-        sb.append(", storeTypeId=").append(storeTypeId);
+        sb.append(", outSiteId=").append(outSiteId);
+        sb.append(", siteTypeId=").append(siteTypeId);
+        sb.append(", sourceTypeId=").append(sourceTypeId);
         sb.append(", createUser=").append(createUser);
         sb.append(", updateUser=").append(updateUser);
         sb.append(", createTime=").append(createTime);

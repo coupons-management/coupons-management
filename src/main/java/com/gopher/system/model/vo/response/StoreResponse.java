@@ -36,7 +36,17 @@ public class StoreResponse {
 	private List<String> spiderSiteNameList;
 	
 	private String approval;
+	
+	private String country;
     
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
 	public String getApproval() {
 		return approval;
 	}

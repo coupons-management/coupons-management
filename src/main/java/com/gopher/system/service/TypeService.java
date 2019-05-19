@@ -9,6 +9,8 @@ public interface TypeService {
 	
 	void create(CpType cpType);
 	
+	void edit(CpType cpType);
+	
 	void delete(final int id);
 
 }

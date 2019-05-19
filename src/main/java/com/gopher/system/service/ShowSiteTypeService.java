@@ -3,6 +3,9 @@ package com.gopher.system.service;
 import java.util.List;
 
 import com.gopher.system.model.entity.CpSitestoreType;
+import com.gopher.system.model.vo.request.SourceTypeRequest;
+import com.gopher.system.model.vo.request.TypeMapRequest;
+import com.gopher.system.model.vo.response.CpTypeResponse;
 import com.gopher.system.model.vo.response.SitestoreTypeTree;
 
 /**
@@ -38,4 +41,18 @@ public interface ShowSiteTypeService {
 	 */
 	void delete(int id);
 
+	/**
+	 * 添加 原始类型和站点分类映射关系
+	 * 
+	 * @param typeMapRequest
+	 */
+	void addTypeMap(TypeMapRequest typeMapRequest);
+
+	/**
+	 * 找到当前站点的所有映射列表
+	 * 
+	 * @param siteTypeId
+	 * @return
+	 */
+	List<CpTypeResponse> getSourceTypeList(SourceTypeRequest sourceTypeRequest);
 }
