@@ -15,4 +15,5 @@ public interface ShowSiteService {
     void addStoreToSite(final int siteId ,final int storeId);
     
     void deleteStoreInSite(final int siteId,final int storeId);
+    
 }

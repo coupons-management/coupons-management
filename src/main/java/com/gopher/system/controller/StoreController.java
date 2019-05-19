@@ -22,8 +22,16 @@ public class StoreController {
 		result.setData(storeService.getPage(storeRequest));
 		return result;
 	}
+	
 	@RequestMapping(path="/edit")
 	public Result edit(@RequestBody CpStore cpStore) {
+		Result result = new Result();
+		storeService.edit(cpStore);
+		return result;
+	}
+	
+	@RequestMapping(path="/verify")
+	public Result verify(@RequestBody CpStore cpStore) {
 		Result result = new Result();
 		storeService.edit(cpStore);
 		return result;

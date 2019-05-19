@@ -33,6 +33,8 @@ public class CouponServiceImpl implements CouponService{
 	public Page<CouponResponse> getPage(CouponPageRequest couponPageRequest) {
 		Page<CouponResponse> result = new Page<CouponResponse>();
 		// 爬虫站ID
+		result.setPageNumber(couponPageRequest.getPageNumber());
+		result.setPageSize(couponPageRequest.getPageSize());
 		final Integer sipder_id = couponPageRequest.getScrapy();
 		if(null != sipder_id) {
 			CpScrapy cpScrap = cpScrapyDAO.selectByPrimaryKey(sipder_id);

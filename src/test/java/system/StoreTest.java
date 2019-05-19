@@ -4,9 +4,10 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
-import com.gopher.system.constant.SystemConstants;
 import com.gopher.system.model.entity.CpStore;
+import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.StorePageRequst;
+import com.gopher.system.model.vo.response.StoreResponse;
 import com.gopher.system.service.StoreService;
 
 public class StoreTest extends BaseTest{
@@ -17,10 +18,10 @@ public class StoreTest extends BaseTest{
 	public void getPage() {
 		StorePageRequst request = new StorePageRequst();
 		request.setCountry("US");
-		request.setScrapy(2);
-		request.setScrapyType(SystemConstants.SPIDER_TYPE_NOT_REQUIRED.getValue());
-		request.setSearch("Cynthia Rowley");
-		System.out.println(JSON.toJSONString(storeService.getPage(request)));
+		request.setPageNumber(1);
+		request.setPageSize(1);
+		Page<StoreResponse> page = storeService.getPage(request);
+		System.out.println(JSON.toJSONString(page));
 	}
 	
 	@Test

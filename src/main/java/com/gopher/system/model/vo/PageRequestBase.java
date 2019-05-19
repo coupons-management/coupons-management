@@ -25,7 +25,7 @@ public class PageRequestBase {
 	}
     
 	public int getPageSize() {
-		return pageSize;
+		return pageSize >0? pageSize:DEFAULT_PAGE_SIZE;
 	}
 
 	public void setPageSize(int pageSize) {
@@ -35,7 +35,7 @@ public class PageRequestBase {
 	}
 
 	public int getPageNumber() {
-		return pageNumber;
+		return pageNumber > 0 ? pageNumber:1;
 	}
 
 	public void setPageNumber(int pageNumber) {

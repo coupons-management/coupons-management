@@ -1,4 +1,7 @@
 package com.gopher.system.model.vo.response;
+
+import java.util.List;
+
 /**
  * 商家返回信息
  * @author dongyangyang
@@ -27,6 +30,36 @@ public class StoreResponse {
 	private String updateTime;
 	
 	private String couponUpdateTime;
+	
+	private List<String> showSiteNameList;
+	
+	private List<String> spiderSiteNameList;
+	
+	private String approval;
+    
+	public String getApproval() {
+		return approval;
+	}
+
+	public void setApproval(String approval) {
+		this.approval = approval;
+	}
+
+	public List<String> getShowSiteNameList() {
+		return showSiteNameList;
+	}
+
+	public void setShowSiteNameList(List<String> showSiteNameList) {
+		this.showSiteNameList = showSiteNameList;
+	}
+
+	public List<String> getSpiderSiteNameList() {
+		return spiderSiteNameList;
+	}
+
+	public void setSpiderSiteNameList(List<String> spiderSiteNameList) {
+		this.spiderSiteNameList = spiderSiteNameList;
+	}
 
 	public Integer getId() {
 		return id;

@@ -58,10 +58,14 @@ public class ShowSiteTypeServiceImpl implements ShowSiteTypeService{
 		cpSitestoreTypeDAO.insert(cpSitestoreType);
 		
 	}
-	
+	@Override
     public void delete(final int id) {
-    	
+		if(id<=0) {
+			throw new BusinessRuntimeException("无效的ID");
+		}
+    	cpSitestoreTypeDAO.deleteByPrimaryKey(id);
     }
+    
 	@Override
 	public void edit(CpSitestoreType cpSitestoreType) {
 		if(null == cpSitestoreType) {

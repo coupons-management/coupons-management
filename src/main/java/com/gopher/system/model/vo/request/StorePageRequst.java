@@ -8,7 +8,7 @@ public class StorePageRequst extends PageRequestBase{
 	/**
 	 * 爬虫站
 	 */
-	private Integer scrapy;
+	private Integer scrapyId;
 	/**
 	 * 查询关键字
 	 */
@@ -30,11 +30,11 @@ public class StorePageRequst extends PageRequestBase{
 	 */
 	private List<Integer> storeIdList;
 	
-	public Integer getScrapy() {
-		return scrapy;
+	public Integer getScrapyId() {
+		return scrapyId;
 	}
-	public void setScrapy(Integer scrapy) {
-		this.scrapy = scrapy;
+	public void setScrapyId(Integer scrapyId) {
+		this.scrapyId = scrapyId;
 	}
 	public List<Integer> getStoreIdList() {
 		return storeIdList;
