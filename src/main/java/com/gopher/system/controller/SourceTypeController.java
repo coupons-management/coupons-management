@@ -37,9 +37,9 @@ public class SourceTypeController {
 	}
 	
 	@RequestMapping(path="/delete")
-	public Result delete(int id) {
+	public Result delete(@RequestBody CpType cpType) {
 		Result result = new Result();
-		typerService.delete(id);
+		typerService.delete(cpType.getId());
 		return result;
 	}
 

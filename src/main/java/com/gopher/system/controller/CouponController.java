@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.vo.request.CouponPageRequest;
+import com.gopher.system.model.vo.request.CouponRequest;
 import com.gopher.system.service.CouponService;
 
 @RestController
@@ -53,16 +54,16 @@ public class CouponController {
 	 * @return
 	 */
 	@RequestMapping(path="/getOne")
-	public Result getOne(@RequestParam(name="couponId",defaultValue="0") int couponId) {
+	public Result getOne(@RequestBody CouponRequest couponRequest) {
 		Result result = new Result();
-		result.setData(couponService.getCoupon(couponId));
+		result.setData(couponService.getCoupon(couponRequest.getCouponId()));
 		return result;
 	}
 	
 	@RequestMapping(path="/delete")
-	public Result delete(@RequestParam(name="couponId",defaultValue="0") int couponId) {
+	public Result delete(@RequestBody CouponRequest couponRequest) {
 		Result result = new Result();
-		couponService.deleteCoupon(couponId);
+		couponService.deleteCoupon(couponRequest.getCouponId());
 		return result;
 	}
 

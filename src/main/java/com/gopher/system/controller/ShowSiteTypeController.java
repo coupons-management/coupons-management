@@ -26,16 +26,16 @@ public class ShowSiteTypeController {
 	}
 	
 	@RequestMapping(path="/create")
-	public Result getPage(@RequestBody CpSitestoreType cpSitestoreType) {
+	public Result create(@RequestBody CpSitestoreType cpSitestoreType) {
 		Result result = new Result();
 		showSiteTypeService.create(cpSitestoreType);
 		return result;
 	}
 	
 	@RequestMapping(path="/delete")
-	public Result getPage(int id) {
+	public Result delete(@RequestBody CpSitestoreType cpSitestoreType) {
 		Result result = new Result();
-		showSiteTypeService.delete(id);
+		showSiteTypeService.delete(cpSitestoreType.getId());
 		return result;
 	}
 	

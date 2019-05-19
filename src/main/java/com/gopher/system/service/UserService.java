@@ -7,5 +7,7 @@ public interface UserService {
 	User findByAccount(final String account);
 	
 	User findById(final Integer id);
+	
+	User getCurrentUser();
 
 }

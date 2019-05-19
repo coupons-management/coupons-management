@@ -3,8 +3,9 @@ package com.gopher.system.constant;
 import java.util.Objects;
 
 public enum SystemConstants {
+	
 	IN_TEYE_MANUAL(1,"人工"),
-	IN_TEYE_SPIDER(2,"爬虫"),
+	IN_TEYE_SPIDER(0,"爬虫"),
 	
 	EXPIRY_ALL(0,"全部"),
 	EXPIRY_EXPERID(1,"已过期"),
