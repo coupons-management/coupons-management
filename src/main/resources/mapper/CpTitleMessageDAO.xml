@@ -108,4 +108,11 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  
+   <select id="getAllList"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cp_title_message
+  
+  </select>
 </mapper>
