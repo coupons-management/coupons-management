@@ -5,8 +5,6 @@
 		type="com.gopher.system.model.entity.CpCoupon">
 		<id column="ID" jdbcType="INTEGER" property="id" />
 		<result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
-		<result column="IN_SITE_ID" jdbcType="INTEGER"
-			property="inSiteId" />
 		<result column="NAME" jdbcType="VARCHAR" property="name" />
 		<result column="CODE" jdbcType="VARCHAR" property="code" />
 		<result column="EXPIRE_AT" jdbcType="TIMESTAMP"
@@ -21,8 +19,7 @@
 		<result column="STORE_WEBSITE" jdbcType="VARCHAR"
 			property="storeWebsite" />
 		<result column="LINK" jdbcType="VARCHAR" property="link" />
-		<result column="OUT_SITE_ID" jdbcType="VARCHAR"
-			property="outSiteId" />
+		<result column="OUT_SITE_ID" jdbcType="VARCHAR" property="outSiteId" />
 		<result column="COUPON_TYPE" jdbcType="VARCHAR"
 			property="couponType" />
 		<result column="IN_TYPE" jdbcType="VARCHAR" property="inType" />
@@ -42,7 +39,7 @@
 		<result column="DES" jdbcType="VARCHAR" property="des" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		ID, STORE_ID, IN_SITE_ID, `NAME`, CODE, EXPIRE_AT,
+		ID, STORE_ID, `NAME`, CODE, EXPIRE_AT,
 		STORE_WEBSITE_CRC,
 		STORE_NAME_CRC,
 		IS_PASS, FINAL_WEBSITE,
@@ -67,7 +64,7 @@
 		useGeneratedKeys="true">
 		insert into CP_COUPON (
 		STORE_ID, 
-		IN_SITE_ID, 
+		
 		`NAME`,
 		CODE, 
 		EXPIRE_AT, 
@@ -90,7 +87,6 @@
 		TITLE,
 		DES)
 		values (#{storeId,jdbcType=INTEGER},
-		#{inSiteId,jdbcType=INTEGER},
 		#{name,jdbcType=VARCHAR},
 		#{code,jdbcType=VARCHAR}, #{expireAt,jdbcType=TIMESTAMP},
 		#{storeWebsiteCrc,jdbcType=VARCHAR},
@@ -120,9 +116,7 @@
 			<if test="storeId != null">
 				STORE_ID,
 			</if>
-			<if test="inSiteId != null">
-				IN_SITE_ID,
-			</if>
+		
 			<if test="name != null">
 				`NAME`,
 			</if>
@@ -182,9 +176,7 @@
 			<if test="storeId != null">
 				#{storeId,jdbcType=INTEGER},
 			</if>
-			<if test="inSiteId != null">
-				#{inSiteId,jdbcType=INTEGER},
-			</if>
+		
 			<if test="name != null">
 				#{name,jdbcType=VARCHAR},
 			</if>
@@ -248,9 +240,7 @@
 			<if test="storeId != null">
 				STORE_ID = #{storeId,jdbcType=INTEGER},
 			</if>
-			<if test="inSiteId != null">
-				IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
-			</if>
+			
 			<if test="name != null">
 				`NAME` = #{name,jdbcType=VARCHAR},
 			</if>
@@ -313,7 +303,7 @@
 		update CP_COUPON
 		set STORE_ID =
 		#{storeId,jdbcType=INTEGER},
-		IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
+		
 		`NAME` = #{name,jdbcType=VARCHAR},
 		CODE = #{code,jdbcType=VARCHAR},
 		EXPIRE_AT = #{expireAt,jdbcType=TIMESTAMP},

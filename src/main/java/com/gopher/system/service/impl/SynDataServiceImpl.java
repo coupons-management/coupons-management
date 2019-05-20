@@ -214,7 +214,26 @@ public class SynDataServiceImpl implements SynDataService {
 				JSONObject jsonObject = JSONObject.parseObject(objectStr);
 				CouPonJson stu = (CouPonJson) JSONObject.toJavaObject(jsonObject, CouPonJson.class);
 				CpStore cpStore = cpStoreDAO.getBeanByWebSite(stu.getStoreWebsite().trim());
-				// 1、增加商家
+				
+				// 1、增加类型与商家关系
+			/*	CpStoreType cpStoreType = new CpStoreType();
+				cpStoreType.setStoreId(cpStore.getId());
+				cpStoreType.setTypeId(cpType.getId());
+				CpStoreType st = cpStoreTypeDAO.getBeanByOutKey(cpStoreType);
+				if (st == null) {
+					cpStoreTypeDAO.insert(cpStoreType);
+				}*/
+				
+				CpType cpType = cpTypeDAO.getBeanByName(stu.getStoreCategory());
+				if (cpType == null) {
+					cpType = new CpType();
+					cpType.setName(stu.getStoreCategory());
+					cpType.setInType("0");
+					cpTypeDAO.insert(cpType);
+
+				}
+				
+				// 2、增加商家
 				if (cpStore == null) {
 
 					cpStore = new CpStore();
@@ -225,32 +244,21 @@ public class SynDataServiceImpl implements SynDataService {
 					cpStore.setCountry(stu.getStoreCountry());
 					// cpStore.setCouponCount(1);
 					cpStore.setLogoUrl(stu.getStorePicture());
+					cpStore.setCreateTime(new Date());
 					// cpStore.setDec(stu.getDescription());
 					// cpStore.setUuid(stu.getUuid());
 					cpStore.setInType("0");
+					cpStore.setTypeName(cpType.getName());
+					cpStore.setTypeId(cpType.getId());
 					// cpStore.setCreatedAt(DateUtils.getDateTime(stu.getCreatedAt()));
 					cpStoreDAO.insert(cpStore);
 				}
 
-				// 2、增加商家类型
-				CpType cpType = cpTypeDAO.getBeanByName(stu.getStoreCategory());
-				if (cpType == null) {
-					cpType = new CpType();
-					cpType.setName(stu.getStoreCategory());
-					cpType.setInType("0");
-					cpTypeDAO.insert(cpType);
-				}
+			
 
-				// 3、增加类型与商家关系
-				CpStoreType cpStoreType = new CpStoreType();
-				cpStoreType.setStoreId(cpStore.getId());
-				cpStoreType.setTypeId(cpType.getId());
-				CpStoreType st = cpStoreTypeDAO.getBeanByOutKey(cpStoreType);
-				if (st == null) {
-					cpStoreTypeDAO.insert(cpStoreType);
-				}
+				
 
-				// 4、增加优惠卷
+				// 3、增加优惠卷
 				CpCoupon qcpCoupon = new CpCoupon();
 				qcpCoupon.setStoreId(cpStore.getId());
 				qcpCoupon.setName(stu.getName());
@@ -266,8 +274,10 @@ public class SynDataServiceImpl implements SynDataService {
 					cpCoupon.setLink(stu.getLink());
 					cpCoupon.setStoreUrl(stu.getFinalWebsite());
 					cpCoupon.setInType("0");
+					cpCoupon.setSiteUrl(stu.getSite());
 					cpCoupon.setScrapy(stu.getSite());
 					cpCoupon.setCouponType(stu.getCouponType());
+					cpCoupon.setCreateTime(new Date());
 					cpCouponDAO.insert(cpCoupon);
 				} else {
 					cpCoupon.setStoreId(cpStore.getId());
@@ -277,10 +287,13 @@ public class SynDataServiceImpl implements SynDataService {
 					cpCoupon.setLink(stu.getLink());
 					cpCoupon.setStoreUrl(stu.getFinalWebsite());
 					cpCoupon.setFinalWebsite(stu.getFinalWebsite());
-
+					cpCoupon.setScrapy(stu.getSite());
+					cpCoupon.setSiteUrl(stu.getSite());
+					cpCoupon.setCouponType(stu.getCouponType());
+					cpCoupon.setUpdateTime(new Date());
 					cpCouponDAO.updateByPrimaryKey(cpCoupon);
 				}
-				// 5、增加爬虫
+				// 4、增加爬虫
 
 				CpScrapy cpScrapy = cpScrapyDAO.getBeanByName(stu.getSite());
 				if (cpScrapy == null) {
@@ -290,7 +303,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpScrapyDAO.insert(cpScrapy);
 				}
 
-				// 6、增加爬虫商家关系
+				// 5、增加爬虫商家关系
 				CpScrapyStore scrapyStore = new CpScrapyStore();
 				scrapyStore.setStoreId(cpStore.getId());
 				scrapyStore.setScrapyId(cpScrapy.getId());
@@ -304,19 +317,19 @@ public class SynDataServiceImpl implements SynDataService {
 
 				}
 
-				// 7、增加站点
-				CpInSite site = new CpInSite();
-				String url = getUrl(stu.getStoreWebsite());
-				CpInSite siteObj = cpInSiteDAO.getSiteName(stu.getSite());
-				if (siteObj == null) {
-
-					site.setUrl(url);
-					site.setName(getName(url));
+				// 6、增加站点
+	
+				//String url = getUrl(stu.getStoreWebsite());
+				CpInSite site = cpInSiteDAO.getSiteName(stu.getSite());
+				if (site == null) {
+					site = new CpInSite();
+					site.setUrl(stu.getSite());
+					site.setName(stu.getSite());
 					site.setCreateTime(new Date());
 					cpInSiteDAO.insert(site);
 				}
 
-				// 8、增加站点商家关系
+				// 7、增加站点商家关系
 				CpSiteStore cpSiteStore = new CpSiteStore();
 				cpSiteStore.setInSiteId(site.getId());
 				cpSiteStore.setStoreId(cpStore.getId());

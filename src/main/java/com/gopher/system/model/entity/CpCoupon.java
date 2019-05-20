@@ -12,8 +12,6 @@ public class CpCoupon implements Serializable {
 
     private Integer storeId;
 
-    private Integer inSiteId;
-
     private String name;
 
     private String code;
@@ -115,13 +113,7 @@ public class CpCoupon implements Serializable {
         this.storeId = storeId;
     }
 
-    public Integer getInSiteId() {
-        return inSiteId;
-    }
-
-    public void setInSiteId(Integer inSiteId) {
-        this.inSiteId = inSiteId;
-    }
+   
 
     public String getName() {
         return name;
@@ -267,68 +259,7 @@ public class CpCoupon implements Serializable {
         this.storeUrl = storeUrl;
     }
 
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        CpCoupon other = (CpCoupon) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getStoreId() == null ? other.getStoreId() == null : this.getStoreId().equals(other.getStoreId()))
-            && (this.getInSiteId() == null ? other.getInSiteId() == null : this.getInSiteId().equals(other.getInSiteId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
-            && (this.getExpireAt() == null ? other.getExpireAt() == null : this.getExpireAt().equals(other.getExpireAt()))
-            && (this.getStoreWebsiteCrc() == null ? other.getStoreWebsiteCrc() == null : this.getStoreWebsiteCrc().equals(other.getStoreWebsiteCrc()))
-            && (this.getStoreNameCrc() == null ? other.getStoreNameCrc() == null : this.getStoreNameCrc().equals(other.getStoreNameCrc()))
-            && (this.getIsPass() == null ? other.getIsPass() == null : this.getIsPass().equals(other.getIsPass()))
-            && (this.getFinalWebsite() == null ? other.getFinalWebsite() == null : this.getFinalWebsite().equals(other.getFinalWebsite()))
-            && (this.getStoreWebsite() == null ? other.getStoreWebsite() == null : this.getStoreWebsite().equals(other.getStoreWebsite()))
-            && (this.getLink() == null ? other.getLink() == null : this.getLink().equals(other.getLink()))
-            && (this.getOutSiteId() == null ? other.getOutSiteId() == null : this.getOutSiteId().equals(other.getOutSiteId()))
-            && (this.getCouponType() == null ? other.getCouponType() == null : this.getCouponType().equals(other.getCouponType()))
-            && (this.getInType() == null ? other.getInType() == null : this.getInType().equals(other.getInType()))
-            && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
-            && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getSiteUrl() == null ? other.getSiteUrl() == null : this.getSiteUrl().equals(other.getSiteUrl()))
-            && (this.getStoreUrl() == null ? other.getStoreUrl() == null : this.getStoreUrl().equals(other.getStoreUrl()));
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getStoreId() == null) ? 0 : getStoreId().hashCode());
-        result = prime * result + ((getInSiteId() == null) ? 0 : getInSiteId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
-        result = prime * result + ((getExpireAt() == null) ? 0 : getExpireAt().hashCode());
-        result = prime * result + ((getStoreWebsiteCrc() == null) ? 0 : getStoreWebsiteCrc().hashCode());
-        result = prime * result + ((getStoreNameCrc() == null) ? 0 : getStoreNameCrc().hashCode());
-        result = prime * result + ((getIsPass() == null) ? 0 : getIsPass().hashCode());
-        result = prime * result + ((getFinalWebsite() == null) ? 0 : getFinalWebsite().hashCode());
-        result = prime * result + ((getStoreWebsite() == null) ? 0 : getStoreWebsite().hashCode());
-        result = prime * result + ((getLink() == null) ? 0 : getLink().hashCode());
-        result = prime * result + ((getOutSiteId() == null) ? 0 : getOutSiteId().hashCode());
-        result = prime * result + ((getCouponType() == null) ? 0 : getCouponType().hashCode());
-        result = prime * result + ((getInType() == null) ? 0 : getInType().hashCode());
-        result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
-        result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getSiteUrl() == null) ? 0 : getSiteUrl().hashCode());
-        result = prime * result + ((getStoreUrl() == null) ? 0 : getStoreUrl().hashCode());
-        return result;
-    }
+   
 
     @Override
     public String toString() {
@@ -338,7 +269,7 @@ public class CpCoupon implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", storeId=").append(storeId);
-        sb.append(", inSiteId=").append(inSiteId);
+        sb.append(", outSiteId=").append(outSiteId);
         sb.append(", name=").append(name);
         sb.append(", code=").append(code);
         sb.append(", expireAt=").append(expireAt);
