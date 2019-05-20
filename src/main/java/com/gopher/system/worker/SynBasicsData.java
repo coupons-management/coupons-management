@@ -15,11 +15,11 @@ public class SynBasicsData {
 	@SuppressWarnings("unchecked")
 	public void synDate(){
 		//同步类型
-		synDataService.synTypeData();
+		//synDataService.synTypeData();
 		//同步商家
 		synDataService.synStoreData();
 		//同步优惠卷
-		synDataService.synCouponData();
+		//synDataService.synCouponData();
 	
     
 	}
@@ -36,8 +36,9 @@ public class SynBasicsData {
         return format.format(zero);
 		
 	}
-	@SuppressWarnings("unchecked")
-	public void test2(){
-		System.out.println("============================");
-	}
+	 @SuppressWarnings("unchecked")
+		public void initData(){
+			synDataService.initData();
+			
+		}
 }

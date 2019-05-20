@@ -89,21 +89,32 @@ public class SynDataServiceImpl implements SynDataService {
 				JSONObject jsonObject = JSONObject.parseObject(objectStr);
 				StoreJson stu = (StoreJson) JSONObject.toJavaObject(jsonObject, StoreJson.class);
 				// 先加站点
-				CpInSite site = new CpInSite();
-				String url = getUrl(stu.getWebsite());
-				CpInSite siteObj = cpInSiteDAO.getSiteByUrl(url);
-				if (siteObj == null) {
-					site.setUrl(url);
-					site.setName(getName(url));
+			
+				//String url = getUrl(stu.getWebsite());
+				CpInSite site = cpInSiteDAO.getSiteName(stu.getSite());
+				if (site == null) {
+					site = new CpInSite();
+					site.setUrl(stu.getSite());
+					site.setName(stu.getSite());
 					site.setCreateTime(new Date());
 					cpInSiteDAO.insert(site);
-				} else {
+				} /*else {
+					//名字一样了，修改就没有意义了
 					site = siteObj;
 					site.setUrl(url);
 					site.setUpdateTime(new Date());
 					cpInSiteDAO.updateByPrimaryKey(site);
-				}
+				}*/
 
+				
+				CpType cpType = cpTypeDAO.getBeanByName(stu.getCategory());
+				if (cpType == null) {
+					cpType = new CpType();
+					cpType.setName(stu.getCategory());
+					cpType.setInType("0");
+					cpTypeDAO.insert(cpType);
+
+				}
 				// 增加爬虫
 
 				// 增加商家
@@ -122,6 +133,8 @@ public class SynDataServiceImpl implements SynDataService {
 					cpStore.setUuid(stu.getUuid());
 					// 0同步入库 1人工入库
 					cpStore.setInType("0");
+					cpStore.setTypeId(cpType.getId());
+					cpStore.setTypeName(cpType.getName());
 					cpStore.setCreatedAt(DateUtils.getDateTime(stu.getCreatedAt()));
 					cpStoreDAO.insert(cpStore);
 					// synMessageDataMapper.insertStoreByMessage(stu);
@@ -135,6 +148,8 @@ public class SynDataServiceImpl implements SynDataService {
 					cpStore.setLogoUrl(stu.getLogoUrl());
 					cpStore.setDes(stu.getDescription());
 					cpStore.setUuid(stu.getUuid());
+					cpStore.setTypeId(cpType.getId());
+					cpStore.setTypeName(cpType.getName());
 					// 0同步入库 1人工入库
 					cpStore.setInType("0");
 					cpStore.setCreatedAt(DateUtils.getDateTime(stu.getCreatedAt()));
@@ -149,28 +164,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpSiteStoreDAO.insert(cpSiteStore);
 				}
 
-				CpType cpType = cpTypeDAO.getBeanByName(stu.getCategory());
-				if (cpType == null) {
-					cpType = new CpType();
-					cpType.setName(stu.getCategory());
-					cpType.setInType("0");
-					cpTypeDAO.insert(cpType);
-					CpStoreType cpStoreType = new CpStoreType();
-					cpStoreType.setStoreId(cpStore.getId());
-					cpStoreType.setTypeId(cpType.getId());
-					cpStoreTypeDAO.insert(cpStoreType);
-
-				} else {
-					//TODO 一个商家一个类型 一个类型多个商家
-					CpStoreType cpStoreType = new CpStoreType();
-					cpStoreType.setStoreId(cpStore.getId());
-					cpStoreType.setTypeId(cpType.getId());
-					CpStoreType st = cpStoreTypeDAO.getBeanByOutKey(cpStoreType);
-					if (st == null) {
-						cpStoreTypeDAO.insert(cpStoreType);
-					}
-
-				}
+				
 
 				CpScrapy cpScrapy = cpScrapyDAO.getBeanByName(stu.getSite());
 				if (cpScrapy == null) {
@@ -313,7 +307,7 @@ public class SynDataServiceImpl implements SynDataService {
 				// 7、增加站点
 				CpInSite site = new CpInSite();
 				String url = getUrl(stu.getStoreWebsite());
-				CpInSite siteObj = cpInSiteDAO.getSiteByUrl(url);
+				CpInSite siteObj = cpInSiteDAO.getSiteName(stu.getSite());
 				if (siteObj == null) {
 
 					site.setUrl(url);
@@ -346,7 +340,7 @@ public class SynDataServiceImpl implements SynDataService {
 	}
 
 	@Override
-	public void synInSiteData() {
+	public void initData() {
 		/*
 		 * try { List<TMessageStore> list = storeMapper.getStoreMessages(); for
 		 * (TMessageStore message : list) { String objectStr = message.getMessageBody();
@@ -360,7 +354,7 @@ public class SynDataServiceImpl implements SynDataService {
 	}
 
 	// 同步当天的数据，同步完成后，删除当前信息，到备份表
-	@Override
+	/*@Override
 	public void synScrapyData() {
 		try {
 
@@ -383,7 +377,7 @@ public class SynDataServiceImpl implements SynDataService {
 			logger.debug(e.getMessage());
 		}
 
-	}
+	}*/
 
 	@Override
 	public void synTypeData() {

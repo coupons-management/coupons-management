@@ -12,15 +12,18 @@ public interface SynDataService {
 	/**
 	 * 同步站点
 	 */
-	void synInSiteData();
+	//void synInSiteData();
 	/**
 	 * 同步爬虫
 	 */
-	void synScrapyData();
+	//void synScrapyData();
 	/**
 	 * 同步爬虫
 	 */
 	void synTypeData();
+	
+	
+	void initData();
 	
 
 

@@ -41,6 +41,7 @@
 		</property>
 	</bean>
 	
+	
 	<!--2 会话工厂bean sqlSessionFactoryBean -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!-- 数据源 -->
