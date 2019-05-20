@@ -1,5 +1,6 @@
 package com.gopher.system.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,7 @@ import com.gopher.system.dao.mysql.CpScrapyStoreDAO;
 import com.gopher.system.dao.mysql.CpSiteStoreDAO;
 import com.gopher.system.dao.mysql.CpStoreDAO;
 import com.gopher.system.dao.mysql.CpStoreTypeDAO;
+import com.gopher.system.dao.mysql.CpTitleMessageDAO;
 import com.gopher.system.dao.mysql.CpTypeDAO;
 import com.gopher.system.dao.mysql.StoreMapper;
 import com.gopher.system.dao.mysql.SynMessageDataMapper;
@@ -32,6 +34,7 @@ import com.gopher.system.model.entity.CpScrapyStore;
 import com.gopher.system.model.entity.CpSiteStore;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.CpStoreType;
+import com.gopher.system.model.entity.CpTitleMessage;
 import com.gopher.system.model.entity.CpType;
 import com.gopher.system.model.entity.TMessage;
 import com.gopher.system.service.SynDataService;
@@ -39,6 +42,7 @@ import com.gopher.system.util.CateGoryJson;
 import com.gopher.system.util.CouPonJson;
 import com.gopher.system.util.DateUtils;
 import com.gopher.system.util.StoreJson;
+import com.gopher.system.util.TitleUtils;
 
 @Service
 public class SynDataServiceImpl implements SynDataService {
@@ -65,7 +69,8 @@ public class SynDataServiceImpl implements SynDataService {
 
 	@Autowired
 	CpScrapyStoreDAO cpScrapyStoreDAO;
-
+	@Autowired
+	CpTitleMessageDAO cpTitleMessageDAO;
 	ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 200, TimeUnit.MILLISECONDS,
 			new LinkedBlockingDeque<Runnable>(5));
 
@@ -354,15 +359,26 @@ public class SynDataServiceImpl implements SynDataService {
 
 	@Override
 	public void initData() {
-		/*
-		 * try { List<TMessageStore> list = storeMapper.getStoreMessages(); for
-		 * (TMessageStore message : list) { String objectStr = message.getMessageBody();
-		 * JSONObject jsonObject = JSONObject.parseObject(objectStr); StoreJson stu =
-		 * (StoreJson) JSONObject.toJavaObject(jsonObject, StoreJson.class);
-		 * storeMapper.insert(stu); System.out.println("0000000000000000" +
-		 * stu.getCouponCount() + "================="); } } catch (Exception e) {
-		 * e.printStackTrace(); }
-		 */
+		List<CpTitleMessage> list=	cpTitleMessageDAO.getAllList();
+		
+		if(list!=null&&list.size()>0)
+		{
+			for(CpTitleMessage  message:list)
+			{
+				if(TitleUtils.messageMap.get(message.getTitle())==null)
+				{
+					List<String>dataList=new ArrayList<String>();
+					dataList.add(message.getMessage());
+					TitleUtils.messageMap.put(message.getTitle(), dataList);
+				}else {
+					List<String>dataList=TitleUtils.messageMap.get(message.getTitle());
+					dataList.add(message.getMessage());
+					TitleUtils.messageMap.put(message.getTitle(), dataList);	
+				}
+			}
+			
+		}
+		System.out.println(TitleUtils.messageMap.get("A1"));
 
 	}
 
