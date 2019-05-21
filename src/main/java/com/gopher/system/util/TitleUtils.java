@@ -12,7 +12,7 @@ import org.springframework.util.StringUtils;
 public class TitleUtils {
 	static List<String> list=new ArrayList<String>();
 	public static Map<String,List<String>> messageMap=new HashMap<String,List<String>>();
-	static Map<String,String> keyWordsMap=new HashMap<String,String>();
+	public static Map<String,String> keyWordsMap=new HashMap<String,String>();
 	static String mark="$";
 	static final String PERCENT ="%";
 	static String type=null;
@@ -71,6 +71,10 @@ public class TitleUtils {
 		
 	
 		List<String> messageList=messageMap.get(key);
+		if(messageList==null||messageList.size()<1)
+		{
+			return title;
+		}
 		String newMessage=messageList.get(getRandom(messageList.size()));
 		if(key.equals("A4"))
 		{

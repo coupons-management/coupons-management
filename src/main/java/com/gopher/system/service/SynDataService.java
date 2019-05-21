@@ -14,9 +14,9 @@ public interface SynDataService {
 	 */
 	//void synInSiteData();
 	/**
-	 * 同步爬虫
+	 * 清除前一天数据
 	 */
-	//void synScrapyData();
+	void clearData();
 	/**
 	 * 同步爬虫
 	 */

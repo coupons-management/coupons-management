@@ -26,7 +26,7 @@ import com.gopher.system.dao.mysql.CpStoreTypeDAO;
 import com.gopher.system.dao.mysql.CpTitleMessageDAO;
 import com.gopher.system.dao.mysql.CpTypeDAO;
 import com.gopher.system.dao.mysql.StoreMapper;
-import com.gopher.system.dao.mysql.SynMessageDataMapper;
+import com.gopher.system.dao.mysql.SynMessageDataDao;
 import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpInSite;
 import com.gopher.system.model.entity.CpScrapy;
@@ -49,7 +49,7 @@ public class SynDataServiceImpl implements SynDataService {
 	private final Logger logger = LoggerFactory.getLogger(SynDataServiceImpl.class);
 
 	@Autowired
-	SynMessageDataMapper synMessageDataMapper;
+	SynMessageDataDao synMessageDataDao;
 	@Autowired
 	CpInSiteDAO cpInSiteDAO;
 	@Autowired
@@ -82,7 +82,7 @@ public class SynDataServiceImpl implements SynDataService {
 		// 4、建立商家跟类型关系
 		// 5
 		try {
-			List<TMessage> list = synMessageDataMapper.getStoreMessages();
+			List<TMessage> list = synMessageDataDao.getStoreMessages();
 			for (final TMessage message : list) {
 				/*
 				 * executor.execute(new Thread(new Runnable() {
@@ -192,7 +192,7 @@ public class SynDataServiceImpl implements SynDataService {
 
 				}
 
-				storeMapper.updateStoreMessageStatus(message.getPkId());
+				synMessageDataDao.updateStoreMessageStatus(message.getPkId());
 
 				/*
 				 * } }, "name"));
@@ -207,7 +207,7 @@ public class SynDataServiceImpl implements SynDataService {
 	@Override
 	public void synCouponData() {
 		try {
-			List<TMessage> list = synMessageDataMapper.getCouPonMessages();
+			List<TMessage> list = synMessageDataDao.getCouPonMessages();
 			for (final TMessage message : list) {
 
 				/*
@@ -283,6 +283,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpCoupon.setScrapy(stu.getSite());
 					cpCoupon.setCouponType(stu.getCouponType());
 					cpCoupon.setCreateTime(new Date());
+					cpCoupon.setTitle(TitleUtils.getMessage(stu.getName()));
 					cpCouponDAO.insert(cpCoupon);
 				} else {
 					cpCoupon.setStoreId(cpStore.getId());
@@ -296,6 +297,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpCoupon.setSiteUrl(stu.getSite());
 					cpCoupon.setCouponType(stu.getCouponType());
 					cpCoupon.setUpdateTime(new Date());
+					cpCoupon.setTitle(TitleUtils.getMessage(stu.getName()));
 					cpCouponDAO.updateByPrimaryKey(cpCoupon);
 				}
 				// 4、增加爬虫
@@ -344,7 +346,7 @@ public class SynDataServiceImpl implements SynDataService {
 				}
 
 				// synMessageDataMapper.insert(stu);
-				synMessageDataMapper.updateCouPonMessageStatus(message.getPkId());
+				synMessageDataDao.updateCouPonMessageStatus(message.getPkId());
 
 				/*
 				 * } }, "name"));
@@ -412,7 +414,7 @@ public class SynDataServiceImpl implements SynDataService {
 	public void synTypeData() {
 		try {
 
-			List<TMessage> list = synMessageDataMapper.getScrapyeMessages();
+			List<TMessage> list = synMessageDataDao.getScrapyeMessages();
 			for (final TMessage message : list) {
 				/*
 				 * executor.execute(new Thread(new Runnable() {
@@ -442,7 +444,7 @@ public class SynDataServiceImpl implements SynDataService {
 					// synMessageDataMapper.insertType(type);
 				}
 
-				synMessageDataMapper.updateScMessageStatus(message.getPkId());
+				synMessageDataDao.updateCategoryMessageStatus(message.getPkId());
 
 				/*
 				 * } }, "name"));
@@ -484,5 +486,13 @@ public class SynDataServiceImpl implements SynDataService {
 		}
 		return url.split("\\.", -1)[1];
 
+	}
+
+	@Override
+	public void clearData() {
+		synMessageDataDao.deleteCategoryMessage();
+		synMessageDataDao.deleteCouPonMessages();
+		synMessageDataDao.deleteStoreMessage();
+		
 	}
 }

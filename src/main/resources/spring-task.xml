@@ -15,10 +15,12 @@
 	<bean id="synBasicsData" class="com.gopher.system.worker.SynBasicsData"> </bean> 
     <!-- 配置相关类中方法的执行时间-->
     <task:scheduled-tasks scheduler="taskScheduler" > 
-        <!-- 每隔 2秒执行一次 -->
-    	<task:scheduled ref="synBasicsData" method="synDate" cron="*/20 * * * * ?"/>
+      <!-- 每隔 2秒执行一次 -->
+    	<!-- <task:scheduled ref="synBasicsData" method="synDate" cron="*/20 * * * * ?"/> -->
+    	<task:scheduled ref="synBasicsData"  method="synDate" initial-delay="20000" fixed-delay="90000000"/>  
     	<!-- 每天凌晨 01:00 执行一次 -->  
-        <task:scheduled ref="synBasicsData" method="test2" cron="0 0 1 * * *"/>  
+        <task:scheduled ref="synBasicsData"  method="initData" initial-delay="20000" fixed-delay="90000000"/>  
+       <task:scheduled ref="synBasicsData"   method="clearDatd" cron="0 0 1 * * ?"/>
     </task:scheduled-tasks>
  
  </beans>
