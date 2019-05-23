@@ -301,4 +301,16 @@
 			</if>
 		</where>
 	</select>
+	
+	<delete id="deleteByBean" parameterType="com.gopher.system.model.entity.CpOutSiteStore">
+	   DELETE FROM CP_OUT_SITE_STORE 
+	   <where>
+	      <if test="outId != null and outId > 0">
+	         OUT_ID = #{outId}
+	      </if>
+	      <if test="outId != null and outId > 0">
+	        AND STORE_ID = #{storeId}
+	      </if>
+	   </where>
+	</delete>
 </mapper>

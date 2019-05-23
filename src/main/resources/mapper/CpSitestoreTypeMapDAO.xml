@@ -151,4 +151,14 @@
 		<include refid="Base_Column_List" />
 		from CP_SITESTORE_TYPE_MAP WHERE OUT_SITE_ID = #{outSiteId}
 	</select>
+	
+	<select id="getBySiteAndSourceType" parameterType="com.gopher.system.model.entity.CpSitestoreTypeMap" resultMap="BaseResultMap">
+	    select
+		<include refid="Base_Column_List" />
+		from CP_SITESTORE_TYPE_MAP 
+		WHERE 
+		  OUT_SITE_ID    = #{outSiteId}
+		AND
+		  SOURCE_TYPE_ID = #{sourceTypeId}
+	</select>
 </mapper>

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * 展示站点类型表
  * cp_sitestore_type
  * @author 
  */

@@ -12,7 +12,6 @@ import com.gopher.system.model.vo.request.CouponPageRequest;
  */
 @Repository
 public interface CpCouponDAO extends MyBatisBaseDao<CpCoupon, Integer> {
-	
 	CpCoupon getBeanByName(CpCoupon cou);
 	
 	List<CpCoupon> getPageList(CouponPageRequest couponPageRequest);
