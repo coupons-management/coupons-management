@@ -13,7 +13,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.gopher.system.service.SynDataService;
 import com.gopher.system.util.HttpRequest;
 import com.gopher.system.util.Message;
-import com.gopher.system.util.Test;
 import com.gopher.system.util.TitleUtils;
 
 public class SynBasicsData {
@@ -66,7 +65,7 @@ public class SynBasicsData {
 	 //读取keyword消息
 		 String initKeyWords(){
 		     Properties properties = new Properties();
-		     InputStream in = Test.class.getClassLoader().getResourceAsStream("keyword.properties");
+		     InputStream in = SynBasicsData.class.getClassLoader().getResourceAsStream("keyword.properties");
 		     try {
 				properties.load(in);
 			} catch (IOException e) {
