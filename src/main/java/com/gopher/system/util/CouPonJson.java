@@ -49,9 +49,17 @@ public class CouPonJson {
 	 */
 	private String name;
 	/**
+	 * 爬虫
+	 */
+	@JSONField(name = "spider_name")
+	private String spiderName;
+	/* * 
 	 * 站点
 	 */
-	private String site;
+	@JSONField(name = "source_site")
+	private String sourceSite;
+	
+    
 	/**
 	 * 状态
 	 */
@@ -96,10 +104,41 @@ public class CouPonJson {
 	private String type;
 
 	private String uuid;
+	/**
+	 * 是优惠卷在商家页面的序列
+	 */
+	private int index;
 
 	private String verify;
 	
-	    
+	
+
+/*		 
+		{
+		    "index": 7,
+		    "type": "coupon_spider",
+		    "name": "No Hidden Fees",
+		    "spider_name": "offer",
+		    "source_site": "https://www.offers.com/",
+		    "description": "",
+		    "verify": "Y",
+		    "link": "https://www.offers.com/exit/outbound/offer_id/6069153/ld/offerstrip/c/null/a/null/vb/1634331005354902584/",
+		    "expire_at": "2099-12-30 00:00:00+00",
+		    "coupon_type": "DEAL",
+		    "code": "",
+		    "final_website": "https://www.firstrade.com",
+		    "store": "Firstrade",
+		    "store_url_name": "https://www.offers.com/firstrade/",
+		    "store_description": "Award-winning discount broker Firstrade offers its clients “low costs, high standards” when it comes to investment and retirement accounts, trades, and transfers.",
+		    "store_category": "Online Trading",
+		    "store_website": "https://www.firstrade.com/content/mobile/en-us/welcome",
+		    "store_picture": "https://sgi.offerscdn.net/i/zdcs-merchants/05jUxNqiDeGqMWUGJZMYxk4.h90.w170.flpad.v21.bffffff.png",
+		    "store_country": "US",
+		    "created_at": "2019-05-23 13:51:45",
+		    "status": "0",
+		    "uuid": "e72d9712-7d61-11e9-b983-124b7a0b6b46"
+		}*/
+ 
 	   /* 
 	    {
 	        "code":"",
@@ -123,6 +162,14 @@ public class CouPonJson {
 	        "uuid":"38718368-3b5b-11e9-b459-f40f241a9d6c",
 	        "verify":"Y"
 	    }*/
+
+		public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
 
 		public Timestamp  getExpire() {
 			//this.expire=Timestamp.parse(createdAt); 
@@ -207,12 +254,22 @@ public class CouPonJson {
 			this.name = name;
 		}
 
-		public String getSite() {
-			return site;
+	
+
+		public String getSpiderName() {
+			return spiderName;
 		}
 
-		public void setSite(String site) {
-			this.site = site;
+		public void setSpiderName(String spiderName) {
+			this.spiderName = spiderName;
+		}
+
+		public String getSourceSite() {
+			return sourceSite;
+		}
+
+		public void setSourceSite(String sourceSite) {
+			this.sourceSite = sourceSite;
 		}
 
 		public String getStatus() {
