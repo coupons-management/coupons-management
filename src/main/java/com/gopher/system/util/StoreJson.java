@@ -31,13 +31,23 @@ public class StoreJson {
      */
 	private String name;
 	/**
-	 * 来源爬虫，该商家源自哪个爬虫
+	 * 来源爬虫
 	 */
-	private String site;
+	
+	 @JSONField(name = "spider_name")
+	private String spiderName;
+	 /**
+		爬虫站
+		 */
+		
+	 @JSONField(name = "source_site")
+	private String sourceSite;
 	/**
 	 * 标题
 	 */
 	private String title;
+	
+	
 	/**
 	 * 类型标识
 	 */
@@ -53,22 +63,29 @@ public class StoreJson {
 
 	
 	
-/*	{
-		"category":"Outerwear",类别
-		"country":"US",国家
-		"coupon_count":"10",优惠卷数量
-		"created_at":"2019-02-28 13:35:00",创建时间
-		"description":"Get the very best in Eastern style for less at 9FUDA.",
-		"final_website":"http://www.9fuda.com",
-		"logo_url":"https://sgi.offerscdn.net/i/zdcs-merchants/06aat7p7zNJ2josNX6O7Xj2.h90.w170.flpad.v24.bffffff.jpg",
-		"name":"9FUDA",
-		"site":"offers",爬虫
-		"title":"9FUDA",标题
+	/*
+	{
 		"type":"store",类型
-		"url_name":"https://www.offers.com/9fuda/",
-		"uuid":"a5303ab4-3b5d-11e9-a9e1-f40f241a9d6c",
-		"website":"http://www.9fuda.com/"
+		"title":"FLUXMOB",标题
+		"logo_url":"https://sgi.offerscdn.net/i/zdcs-merchants/04PtXMIruSkLWA3CIv8ffDD.h90.w170.flpad.v26.bffffff.png",
+		"name":"FLUXMOB",
+		"spider_name":"offer",爬虫
+		"source_site":"https://www.offers.com/",爬虫站
+		"url_name":"https://www.offers.com/fluxmob/",
+		"description":"Charge on the go with FluxMob's range of portable charges.",描述
+		"category":"Electronics Accessories",类别
+		"website":"https://www.fluxmob.com/",
+		"country":"US",
+		"picture":{
+		},
+		"coupon_count":"15",优惠卷数量
+		"created_at":"2019-05-23 13:46:46",创建时间
+		"final_website":"https://www.fluxmob.com",//商家网站
+		"uuid":"34ee5269-7d61-11e9-b983-124b7a0b6b46"
 		}*/
+	
+	
+
 	
 	public String getId() {
 		return id;
@@ -124,11 +141,18 @@ public class StoreJson {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getSite() {
-		return site;
+	
+	public String getSpiderName() {
+		return spiderName;
 	}
-	public void setSite(String site) {
-		this.site = site;
+	public void setSpiderName(String spiderName) {
+		this.spiderName = spiderName;
+	}
+	public String getSourceSite() {
+		return sourceSite;
+	}
+	public void setSourceSite(String sourceSite) {
+		this.sourceSite = sourceSite;
 	}
 	public String getTitle() {
 		return title;

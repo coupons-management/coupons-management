@@ -9,7 +9,10 @@ import java.util.Properties;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.fastjson.JSONObject;
 import com.gopher.system.service.SynDataService;
+import com.gopher.system.util.HttpRequest;
+import com.gopher.system.util.Message;
 import com.gopher.system.util.Test;
 import com.gopher.system.util.TitleUtils;
 
@@ -21,9 +24,9 @@ public class SynBasicsData {
 	@SuppressWarnings("unchecked")
 	public void synDate(){
 		//同步类型
-		//synDataService.synTypeData();
+		synDataService.synTypeData();
 		//同步商家
-		//synDataService.synStoreData();
+		synDataService.synStoreData();
 		//同步优惠卷
 		synDataService.synCouponData();
 		
@@ -81,4 +84,51 @@ public class SynBasicsData {
 				synDataService.clearData();
 		    
 			}
+			
+			
+			 @SuppressWarnings("unchecked")
+				public void initScrapy(){
+			
+			        String sr=HttpRequest.sendPost("http://18.234.205.204:6800/schedule.json", "project=coupon_spider&spider=offer");
+			        JSONObject jsonObject = JSONObject.parseObject(sr);
+			        Message json = (Message) JSONObject.toJavaObject(jsonObject, Message.class);
+			        if("ok".equals(json.getStatus()))
+			        {
+			        	 System.out.println("=========================================爬虫 offer 启动成功=================================================================");	
+			        }else {
+			        	 System.out.println("=========================================爬虫 offer 启动失败=================================================================");	
+			        }
+			        
+			        
+			        String s=HttpRequest.sendPost("http://18.234.205.204:6800/schedule.json", "project=coupon_spider&spider=ccouponchief");
+			        JSONObject couObject = JSONObject.parseObject(s);
+			        Message coujson = (Message) JSONObject.toJavaObject(jsonObject, Message.class);
+			        if("ok".equals(coujson.getStatus()))
+			        {
+			        	 System.out.println("=========================================爬虫 ccouponchief 启动成功=================================================================");	
+			        }else {
+			        	 System.out.println("=========================================爬虫 ccouponchief 启动失败=================================================================");	
+			        }
+			        
+			        String m=HttpRequest.sendPost("http://18.234.205.204:6800/cancel.json", "project=coupon_spider&job=6487ec79947edab326d6db28a2d86511e8247444");
+			        System.out.println(m);
+
+				}
+			 
+
+			 @SuppressWarnings("unchecked")
+				public void initStopScrapy(){
+			        
+			        String msg=HttpRequest.sendPost("http://18.234.205.204:6800/cancel.json", "project=coupon_spider&job=6487ec79947edab326d6db28a2d86511e8247444");
+			      
+			        JSONObject jsonObject = JSONObject.parseObject(msg);
+			        Message json = (Message) JSONObject.toJavaObject(jsonObject, Message.class);
+			        if("ok".equals(json.getStatus()))
+			        {
+			        	 System.out.println("=========================================爬虫停止成功=================================================================");	
+			        }else {
+			        	 System.out.println("=========================================爬虫停止失败=================================================================");	
+			        }
+
+				}
 }

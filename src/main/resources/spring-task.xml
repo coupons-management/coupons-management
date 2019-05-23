@@ -20,6 +20,7 @@
     	<task:scheduled ref="synBasicsData"  method="synDate" initial-delay="20000" fixed-delay="90000000"/>  
     	<!-- 每天凌晨 01:00 执行一次 -->  
         <task:scheduled ref="synBasicsData"  method="initData" initial-delay="20000" fixed-delay="90000000"/>  
+        <task:scheduled ref="synBasicsData"  method="initScrapy" initial-delay="90000" fixed-delay="900000000"/>  
        <task:scheduled ref="synBasicsData"   method="clearDatd" cron="0 0 1 * * ?"/>
     </task:scheduled-tasks>
  
