@@ -13,4 +13,6 @@ import com.gopher.system.model.entity.CpOutSiteStore;
 public interface CpOutSiteStoreDAO extends MyBatisBaseDao<CpOutSiteStore, Integer> {
 	
 	List<CpOutSiteStore> getList(CpOutSiteStore  cpOutSiteStore);
+	
+	void deleteByBean(CpOutSiteStore cpOutSiteStore);
 }

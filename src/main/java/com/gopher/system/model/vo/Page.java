@@ -78,10 +78,5 @@ public class Page<T> {
 		return builder.toString();
 	}
 
-	public static void main(String[] args) {
-		Page<String> page = new Page<>();
-		page.setPageSize(0);
-		page.setTotalCount(101);
-		System.out.println(page.getTotalPage());
-	}
+
 }

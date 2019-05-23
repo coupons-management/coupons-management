@@ -3,6 +3,7 @@ package com.gopher.system.service;
 import java.util.List;
 
 import com.gopher.system.model.entity.CpOutSite;
+import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 /**
  *  在展示站点
  * @author dongyangyang
@@ -12,8 +13,10 @@ public interface ShowSiteService {
 	
     List<CpOutSite> getSiteList();
     
-    void addStoreToSite(final int siteId ,final int storeId);
+    void addStoreToSite(ShowSiteStoreRequest showSiteStoreRequest);
     
-    void deleteStoreInSite(final int siteId,final int storeId);
+    void addStoreToSiteBatch(List<ShowSiteStoreRequest> showSiteStoreList);
+    
+    void deleteStoreInSite(ShowSiteStoreRequest showSiteStoreRequest);
     
 }

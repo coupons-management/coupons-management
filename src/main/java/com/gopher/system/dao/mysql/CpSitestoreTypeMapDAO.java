@@ -16,4 +16,6 @@ public interface CpSitestoreTypeMapDAO extends MyBatisBaseDao<CpSitestoreTypeMap
 	
 	List<CpSitestoreTypeMap> getListBySite(final int outSiteId);
 	
+	CpSitestoreTypeMap getBySiteAndSourceType(CpSitestoreTypeMap query);
+	
 }

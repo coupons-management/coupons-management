@@ -1,19 +1,25 @@
 package com.gopher.system.filter;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @WebFilter(urlPatterns = "/*" )
 public class CommonsFilter implements Filter {
-    private final Logger logger = LoggerFactory.getLogger("[PARAM IN]");
+    private static final Logger logger = LoggerFactory.getLogger("[PARAM IN]");
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setHeader("Access-Control-Allow-Origin", "*");
@@ -21,6 +27,7 @@ public class CommonsFilter implements Filter {
         httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
         httpResponse.setHeader("Content-type", "text/html;charset=UTF-8");
         httpResponse.setCharacterEncoding("UTF-8");
+ 
         try {
             logger.info("=============================================================================");
             StringBuffer msg = new StringBuffer(200);
