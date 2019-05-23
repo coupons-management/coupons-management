@@ -17,8 +17,6 @@ public class CouponTest extends BaseTest {
 	public void getPage() {
 		CouponPageRequest couponPageRequest = new CouponPageRequest();
 		couponPageRequest.setPageNumber(2);
-		couponPageRequest.setExpired(1);
-		couponPageRequest.setScrapy(2);
 		Page<CouponResponse> result = couponService.getPage(couponPageRequest);
 		System.out.println(JSON.toJSONString(result));
 	}

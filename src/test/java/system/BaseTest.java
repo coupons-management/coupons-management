@@ -21,8 +21,6 @@ import com.gopher.system.model.vo.request.UserPageRequst;
 public class BaseTest {
 	@Autowired
 	private UserDAO userDAO;
-//	@Autowired
-//	private RedisTemplate<String,User> redisTemplate;
 	@Test
 	public void getUserPage() {
 		UserPageRequst userPageRequst = new UserPageRequst();
@@ -39,10 +37,4 @@ public class BaseTest {
 		user.setCreateTime(new Date());
 		userDAO.insert(user);
 	}
-//	@Test
-//	public void set() {
-//		redisTemplate.opsForValue().set("TEST",new User(), 100,TimeUnit.SECONDS);
-//	}
-
-
 }
