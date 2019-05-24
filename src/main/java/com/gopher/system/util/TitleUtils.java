@@ -24,8 +24,8 @@ public class TitleUtils {
 		list.add("Rs.");
 		list.add("FR ");
 		List<String> a1List=new ArrayList<String>();
-		a1List.add("Save $ Any Oder");
-		messageMap.put("A1", a1List);
+		//a1List.add("Save $ Any Oder");
+		//messageMap.put("A1", a1List);
 		
 		
 		
