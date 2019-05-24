@@ -8,6 +8,6 @@ public interface MessageDataService {
 	public List<TMessage> getStoreMessages() ;
 	public void insertStoreMessages(TMessage message) ;
 	public void insertCouponMessages(TMessage message) ;
-	public void insertScrapyeMessages(TMessage message) ;
+	public void insertCategoryMessages(TMessage message) ;
 
 }

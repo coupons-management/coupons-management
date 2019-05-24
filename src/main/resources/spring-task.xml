@@ -23,7 +23,5 @@
         <task:scheduled ref="synBasicsData"  method="initScrapy" initial-delay="90000" fixed-delay="900000000"/>  
        <task:scheduled ref="synBasicsData"   method="clearDatd" cron="0 0 1 * * ?"/>
     </task:scheduled-tasks>
- 	<bean id="SpringContextUtil" class="com.gopher.system.util.SpringContextUtil"> </bean> 
- <bean id="messageDataService" class="com.gopher.system.service.impl.MessageDataServiceImpl"> </bean> 
-   
+ 
  </beans>

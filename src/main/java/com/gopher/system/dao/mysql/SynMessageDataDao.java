@@ -12,7 +12,7 @@ public interface SynMessageDataDao {
 	public List<TMessage> getStoreMessages() ;
 	public void insertStoreMessages(TMessage message) ;
 	public void insertCouponMessages(TMessage message) ;
-	public void insertScrapyeMessages(TMessage message) ;
+	public void insertCategoryMessages(TMessage message) ;
 	
 /*	public void insertScrapye(CateGoryJson json) ;
 	public void insertStoreByMessage(StoreJson json) ;*/

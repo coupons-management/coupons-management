@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
@@ -33,7 +32,6 @@ import com.gopher.system.model.entity.CpScrapy;
 import com.gopher.system.model.entity.CpScrapyStore;
 import com.gopher.system.model.entity.CpSiteStore;
 import com.gopher.system.model.entity.CpStore;
-import com.gopher.system.model.entity.CpStoreType;
 import com.gopher.system.model.entity.CpTitleMessage;
 import com.gopher.system.model.entity.CpType;
 import com.gopher.system.model.entity.TMessage;
@@ -96,11 +94,11 @@ public class SynDataServiceImpl implements SynDataService {
 				// 先加站点
 			
 				//String url = getUrl(stu.getWebsite());
-				CpInSite site = cpInSiteDAO.getSiteName(stu.getSpiderName());
+				CpInSite site = cpInSiteDAO.getSiteName(stu.getSourceSite());
 				if (site == null) {
 					site = new CpInSite();
-					site.setUrl(stu.getSpiderName());
-					site.setName(stu.getSpiderName());
+					site.setUrl(stu.getSourceSite());
+					site.setName(stu.getSourceSite());
 					site.setCreateTime(new Date());
 					cpInSiteDAO.insert(site);
 				} /*else {
@@ -174,10 +172,10 @@ public class SynDataServiceImpl implements SynDataService {
 
 				
 
-				CpScrapy cpScrapy = cpScrapyDAO.getBeanByName(stu.getSourceSite());
+				CpScrapy cpScrapy = cpScrapyDAO.getBeanByName(stu.getSpiderName());
 				if (cpScrapy == null) {
 					cpScrapy = new CpScrapy();
-					cpScrapy.setName(stu.getSourceSite());
+					cpScrapy.setName(stu.getSpiderName());
 					cpScrapy.setCreateTime(new Date());
 					cpScrapyDAO.insert(cpScrapy);
 				}

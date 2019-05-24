@@ -44,7 +44,7 @@ public class MessageListener implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent sce)  { 
-    	this.synCategory();
+     	this.synCategory();
         this.synStore();
         this.synCoupon();
 
@@ -72,7 +72,7 @@ public class MessageListener implements ServletContextListener {
 						msg = new String(body, "utf-8");
 						TMessage message=new TMessage();
 						message.setMessageBody(msg);
-						messageDataService.insertScrapyeMessages(message);
+						messageDataService.insertCategoryMessages(message);
 					} catch (UnsupportedEncodingException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

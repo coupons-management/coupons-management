@@ -30,8 +30,8 @@ public class CpCoupon implements Serializable {
 
     private String link;
 
-    private String outSiteId;
-
+    private Integer outSiteId;
+    private Integer inSiteId;
     private String couponType;
 
     private String inType;
@@ -196,15 +196,24 @@ public class CpCoupon implements Serializable {
         this.link = link;
     }
 
-    public String getOutSiteId() {
-        return outSiteId;
-    }
+    
+    public Integer getOutSiteId() {
+		return outSiteId;
+	}
 
-    public void setOutSiteId(String outSiteId) {
-        this.outSiteId = outSiteId;
-    }
+	public void setOutSiteId(Integer outSiteId) {
+		this.outSiteId = outSiteId;
+	}
 
-    public String getCouponType() {
+	public Integer getInSiteId() {
+		return inSiteId;
+	}
+
+	public void setInSiteId(Integer inSiteId) {
+		this.inSiteId = inSiteId;
+	}
+
+	public String getCouponType() {
         return couponType;
     }
 

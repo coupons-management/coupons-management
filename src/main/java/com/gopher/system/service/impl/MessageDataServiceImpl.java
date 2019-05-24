@@ -26,8 +26,8 @@ public class MessageDataServiceImpl implements MessageDataService {
 		
 	}
 	@Override
-	public void insertScrapyeMessages(TMessage message) {
-		synMessageDataDao.insertScrapyeMessages(message);
+	public void insertCategoryMessages(TMessage message) {
+		synMessageDataDao.insertCategoryMessages(message);
 		
 	}
 
