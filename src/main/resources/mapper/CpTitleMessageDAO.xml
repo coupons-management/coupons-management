@@ -16,15 +16,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cp_title_message
+    from CP_TITLE_MESSAGE
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cp_title_message
+    delete from CP_TITLE_MESSAGE
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpTitleMessage" useGeneratedKeys="true">
-    insert into cp_title_message (TITLE, MESSAGE, CREATE_USER, 
+    insert into CP_TITLE_MESSAGE (TITLE, MESSAGE, CREATE_USER, 
       UPDATE_USER, CREATE_TIME, UPDATE_TIME
       )
     values (#{title,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
@@ -32,7 +32,7 @@
       )
   </insert>
   <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpTitleMessage" useGeneratedKeys="true">
-    insert into cp_title_message
+    insert into CP_TITLE_MESSAGE
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="title != null">
         TITLE,
@@ -75,7 +75,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpTitleMessage">
-    update cp_title_message
+    update CP_TITLE_MESSAGE
     <set>
       <if test="title != null">
         TITLE = #{title,jdbcType=VARCHAR},
@@ -99,7 +99,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpTitleMessage">
-    update cp_title_message
+    update CP_TITLE_MESSAGE
     set TITLE = #{title,jdbcType=VARCHAR},
       MESSAGE = #{message,jdbcType=VARCHAR},
       CREATE_USER = #{createUser,jdbcType=INTEGER},
@@ -112,7 +112,7 @@
    <select id="getAllList"  resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cp_title_message
+    from CP_TITLE_MESSAGE
   
   </select>
 </mapper>
