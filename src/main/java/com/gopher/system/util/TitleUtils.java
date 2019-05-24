@@ -37,6 +37,10 @@ public class TitleUtils {
 		
 	}
 	public static String getMessage(String title) {
+		if(StringUtils.isEmpty(title))
+		{
+			return null;
+		}
 		String key=null;
 		if(A4(title))
 		{
