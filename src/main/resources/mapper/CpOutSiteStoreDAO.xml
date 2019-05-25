@@ -299,6 +299,9 @@
 			<if test="storeId != null and storeId>0">
 				STORE_ID = #{storeId}
 			</if>
+			<if test="showName != null and showName!=''">
+				SHOW_NAME like  "%"#{showName}"%"
+			</if>
 		</where>
 	</select>
 	
@@ -313,4 +316,27 @@
 	      </if>
 	   </where>
 	</delete>
+	
+	<update id="updateHotSort"
+		parameterType="com.gopher.system.model.entity.CpOutSiteStore">
+		update CP_OUT_SITE_STORE
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		HOT_SORT = #{hotSort,jdbcType=INTEGER}
+		where ID = #{id,jdbcType=INTEGER}
+		<!-- where STORE_ID = #{storeId,jdbcType=INTEGER} -->
+	</update>
+	
+	<update id="updateAdviseSort"
+		parameterType="com.gopher.system.model.entity.CpOutSiteStore">
+		update CP_OUT_SITE_STORE
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		ADVISE_SORT = #{adviseSort,jdbcType=INTEGER}
+		where ID = #{id,jdbcType=INTEGER}
+		<!-- where STORE_ID = #{storeId,jdbcType=INTEGER} -->
+	</update>
+	
+	
+	
+
+	
 </mapper>

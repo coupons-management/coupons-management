@@ -15,4 +15,14 @@ public interface CpOutSiteStoreDAO extends MyBatisBaseDao<CpOutSiteStore, Intege
 	List<CpOutSiteStore> getList(CpOutSiteStore  cpOutSiteStore);
 	
 	void deleteByBean(CpOutSiteStore cpOutSiteStore);
+	/**
+	 * 修改热门排序
+	 * @param cpSiteStore
+	 */
+	void updateHotSort(CpOutSiteStore cpOutSiteStore);
+	/**
+	 * 修改热门推荐
+	 * @param cpSiteStore
+	 */
+	void updateAdviseSort(CpOutSiteStore cpOutSiteStore);
 }

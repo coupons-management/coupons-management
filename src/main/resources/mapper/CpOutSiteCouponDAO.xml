@@ -5,8 +5,7 @@
 	<resultMap id="BaseResultMap"
 		type="com.gopher.system.model.entity.CpOutSiteCoupon">
 		<id column="ID" jdbcType="INTEGER" property="id" />
-		<result column="COUPON_ID" jdbcType="INTEGER"
-			property="couponId" />
+		<result column="COUPON_ID" jdbcType="INTEGER" property="couponId" />
 		<result column="OUT_SITE_ID" jdbcType="INTEGER"
 			property="outSiteId" />
 		<result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
@@ -23,6 +22,29 @@
 		<result column="UPDATE_TIME" jdbcType="TIMESTAMP"
 			property="updateTime" />
 	</resultMap>
+	
+	<resultMap id="BaseResultVoMap"
+		type="com.gopher.system.model.entity.CpOutSiteCouponVo">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="COUPON_ID" jdbcType="INTEGER" property="couponId" />
+		<result column="OUT_SITE_ID" jdbcType="INTEGER"	property="outSiteId" />
+		<result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
+		<result column="TITLE" jdbcType="VARCHAR" property="title" />
+		<result column="STORENAME" jdbcType="VARCHAR" property="storeName" />
+		<result column="HOT_SORT" jdbcType="INTEGER" property="hotSort" />
+		<result column="ADVISE_SORT" jdbcType="INTEGER"
+			property="adviseSort" />
+		<result column="CREATE_USER" jdbcType="INTEGER"
+			property="createUser" />
+		<result column="UPDATE_USER" jdbcType="INTEGER"
+			property="updateUser" />
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="UPDATE_TIME" jdbcType="TIMESTAMP"
+			property="updateTime" />
+	</resultMap>
+	
+	
 	<sql id="Base_Column_List">
 		ID, COUPON_ID, OUT_SITE_ID, STORE_ID, TITLE, HOT_SORT, ADVISE_SORT,
 		CREATE_USER,
@@ -188,4 +210,27 @@
 			</if>
 		</where>
 	</delete>
+	
+	<update id="updateHotSort"
+		parameterType="com.gopher.system.model.entity.CpOutSiteCoupon">
+		update CP_OUT_SITE_COUPON
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		HOT_SORT = #{hotSort,jdbcType=INTEGER}
+	<!-- 	where ID = #{id,jdbcType=INTEGER} -->
+		 where STORE_ID = #{storeId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateAdviseSort"
+		parameterType="com.gopher.system.model.entity.CpOutSiteCoupon">
+		update CP_OUT_SITE_COUPON
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		ADVISE_SORT = #{adviseSort,jdbcType=INTEGER}
+		<!-- where ID = #{id,jdbcType=INTEGER} -->
+		 where STORE_ID = #{storeId,jdbcType=INTEGER} 
+	</update>
+	
+
+	
+	
+
 </mapper>
