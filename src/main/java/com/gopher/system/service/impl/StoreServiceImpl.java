@@ -77,7 +77,7 @@ public class StoreServiceImpl implements StoreService {
     	CpOutSiteStore query = new CpOutSiteStore();
     	query.setOutId(siteId);
     	List<CpOutSiteStore> list = cpOutSiteStoreDAO.getList(query);
-    	if(null != list) {
+    	if(null != list && !list.isEmpty()) {
     		result  = new ArrayList<>(list.size());
     		for (CpOutSiteStore cpOutSiteStore : list) {
     			result.add(cpOutSiteStore.getStoreId());

@@ -46,5 +46,10 @@ public interface CommonService {
 	 */
 	List<KV<String, String>> getIsComplete();
 	
+	/**
+	 * 获取数据创建类型字典
+	 * @return
+	 */
+	List<KV<String, String>> getCreateType();
 	
 }

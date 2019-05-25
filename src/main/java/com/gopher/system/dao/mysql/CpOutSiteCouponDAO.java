@@ -1,11 +1,13 @@
 package com.gopher.system.dao.mysql;
 
-import com.gopher.system.model.entity.CpOutSiteCoupon;
-import com.gopher.system.model.vo.CpOutSiteCouponVo;
-
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+
+import com.gopher.system.model.entity.CpOutSiteCoupon;
+import com.gopher.system.model.vo.CpOutSiteCouponVo;
+import com.gopher.system.model.vo.request.ShowSiteCouponPageRequest;
+import com.gopher.system.model.vo.response.ShowSiteCouponResponse;
 
 /**
  * CpOutSiteCouponDAO继承基类
@@ -39,4 +41,16 @@ public interface CpOutSiteCouponDAO extends MyBatisBaseDao<CpOutSiteCoupon, Inte
 	
 
 	void deleteByBean(CpOutSiteCoupon cpOutSiteCoupon);
+	/**
+	 *     获取当前站点下的优惠券的分页列表
+	 * @param showSiteCouponRequest
+	 * @return
+	 */
+	List<ShowSiteCouponResponse> getPageList(ShowSiteCouponPageRequest showSiteCouponRequest);
+	/**
+	 * 获取总数
+	 * @param showSiteCouponRequest
+	 * @return
+	 */
+	int getTotalCount(ShowSiteCouponPageRequest showSiteCouponRequest);
 }

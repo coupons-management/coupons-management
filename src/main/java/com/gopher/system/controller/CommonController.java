@@ -65,10 +65,17 @@ public class CommonController {
 		result.setData(commonService.getApprovalDict());
 		return result;
 	}
-	@RequestMapping("/getIsComplete")
+	@RequestMapping("/getIsCompleteDict")
 	public Result getIsComplete() {
 		Result result = new Result();
 		result.setData(commonService.getApprovalDict());
+		return result;
+	}
+	
+	@RequestMapping("getCreateTypeDict")
+	public Result getCreateTypeDict() {
+		Result result = new Result();
+		result.setData(commonService.getCreateType());
 		return result;
 	}
 	

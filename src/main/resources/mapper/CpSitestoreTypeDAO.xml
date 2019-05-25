@@ -169,8 +169,7 @@
 		</where>
 	</select>
 	
-	<select id="getSonList"parameterType="java.lang.Integer"
-		resultMap="BaseResultMap">
+	<select id="getSonList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
 	  select
 		<include refid="Base_Column_List" />
 		from CP_SITESTORE_TYPE

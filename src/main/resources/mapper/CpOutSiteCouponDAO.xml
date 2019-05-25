@@ -5,7 +5,8 @@
 	<resultMap id="BaseResultMap"
 		type="com.gopher.system.model.entity.CpOutSiteCoupon">
 		<id column="ID" jdbcType="INTEGER" property="id" />
-		<result column="COUPON_ID" jdbcType="INTEGER" property="couponId" />
+		<result column="COUPON_ID" jdbcType="INTEGER"
+			property="couponId" />
 		<result column="OUT_SITE_ID" jdbcType="INTEGER"
 			property="outSiteId" />
 		<result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
@@ -22,15 +23,18 @@
 		<result column="UPDATE_TIME" jdbcType="TIMESTAMP"
 			property="updateTime" />
 	</resultMap>
-	
+
 	<resultMap id="BaseResultVoMap"
 		type="com.gopher.system.model.vo.CpOutSiteCouponVo">
 		<id column="ID" jdbcType="INTEGER" property="id" />
-		<result column="COUPON_ID" jdbcType="INTEGER" property="couponId" />
-		<result column="OUT_SITE_ID" jdbcType="INTEGER"	property="outSiteId" />
+		<result column="COUPON_ID" jdbcType="INTEGER"
+			property="couponId" />
+		<result column="OUT_SITE_ID" jdbcType="INTEGER"
+			property="outSiteId" />
 		<result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
 		<result column="TITLE" jdbcType="VARCHAR" property="title" />
-		<result column="STORENAME" jdbcType="VARCHAR" property="storeName" />
+		<result column="STORENAME" jdbcType="VARCHAR"
+			property="storeName" />
 		<result column="HOT_SORT" jdbcType="INTEGER" property="hotSort" />
 		<result column="ADVISE_SORT" jdbcType="INTEGER"
 			property="adviseSort" />
@@ -43,10 +47,11 @@
 		<result column="UPDATE_TIME" jdbcType="TIMESTAMP"
 			property="updateTime" />
 	</resultMap>
-	
-	
+
+
 	<sql id="Base_Column_List">
-		ID, COUPON_ID, OUT_SITE_ID, STORE_ID, TITLE, HOT_SORT, ADVISE_SORT,
+		ID, COUPON_ID, OUT_SITE_ID, STORE_ID, TITLE, HOT_SORT,
+		ADVISE_SORT,
 		CREATE_USER,
 		UPDATE_USER, CREATE_TIME, UPDATE_TIME
 	</sql>
@@ -60,18 +65,23 @@
 	<delete id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">
 		delete from CP_OUT_SITE_COUPON
-		where ID = #{id,jdbcType=INTEGER}
+		where ID =
+		#{id,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" keyColumn="ID" keyProperty="id"
 		parameterType="com.gopher.system.model.entity.CpOutSiteCoupon"
 		useGeneratedKeys="true">
-		insert into CP_OUT_SITE_COUPON (COUPON_ID, OUT_SITE_ID, STORE_ID,
+		insert into CP_OUT_SITE_COUPON (COUPON_ID,
+		OUT_SITE_ID, STORE_ID,
 		TITLE, HOT_SORT, ADVISE_SORT,
-		CREATE_USER, UPDATE_USER, CREATE_TIME,
+		CREATE_USER,
+		UPDATE_USER, CREATE_TIME,
 		UPDATE_TIME)
-		values (#{couponId,jdbcType=INTEGER}, #{outSiteId,jdbcType=INTEGER},
+		values
+		(#{couponId,jdbcType=INTEGER}, #{outSiteId,jdbcType=INTEGER},
 		#{storeId,jdbcType=INTEGER},
-		#{title,jdbcType=VARCHAR}, #{hotSort,jdbcType=INTEGER}, #{adviseSort,jdbcType=INTEGER},
+		#{title,jdbcType=VARCHAR},
+		#{hotSort,jdbcType=INTEGER}, #{adviseSort,jdbcType=INTEGER},
 		#{createUser,jdbcType=INTEGER}, #{updateUser,jdbcType=INTEGER},
 		#{createTime,jdbcType=TIMESTAMP},
 		#{updateTime,jdbcType=TIMESTAMP})
@@ -185,16 +195,24 @@
 	<update id="updateByPrimaryKey"
 		parameterType="com.gopher.system.model.entity.CpOutSiteCoupon">
 		update CP_OUT_SITE_COUPON
-		set COUPON_ID = #{couponId,jdbcType=INTEGER},
-		OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
+		set COUPON_ID =
+		#{couponId,jdbcType=INTEGER},
+		OUT_SITE_ID =
+		#{outSiteId,jdbcType=INTEGER},
 		STORE_ID = #{storeId,jdbcType=INTEGER},
 		TITLE = #{title,jdbcType=VARCHAR},
-		HOT_SORT = #{hotSort,jdbcType=INTEGER},
-		ADVISE_SORT = #{adviseSort,jdbcType=INTEGER},
-		CREATE_USER = #{createUser,jdbcType=INTEGER},
-		UPDATE_USER = #{updateUser,jdbcType=INTEGER},
-		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		HOT_SORT =
+		#{hotSort,jdbcType=INTEGER},
+		ADVISE_SORT =
+		#{adviseSort,jdbcType=INTEGER},
+		CREATE_USER =
+		#{createUser,jdbcType=INTEGER},
+		UPDATE_USER =
+		#{updateUser,jdbcType=INTEGER},
+		CREATE_TIME =
+		#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME =
+		#{updateTime,jdbcType=TIMESTAMP}
 		where ID = #{id,jdbcType=INTEGER}
 	</update>
 
@@ -210,41 +228,107 @@
 			</if>
 		</where>
 	</delete>
-	
+
 	<update id="updateHotSort"
 		parameterType="com.gopher.system.model.entity.CpOutSiteCoupon">
 		update CP_OUT_SITE_COUPON
-		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-		HOT_SORT = #{hotSort,jdbcType=INTEGER}
-	<!-- 	where ID = #{id,jdbcType=INTEGER} -->
-		 where STORE_ID = #{storeId,jdbcType=INTEGER}
+		UPDATE_TIME =
+		#{updateTime,jdbcType=TIMESTAMP},
+		HOT_SORT =
+		#{hotSort,jdbcType=INTEGER}
+		<!-- where ID = #{id,jdbcType=INTEGER} -->
+		where STORE_ID = #{storeId,jdbcType=INTEGER}
 	</update>
-	
+
 	<update id="updateAdviseSort"
 		parameterType="com.gopher.system.model.entity.CpOutSiteCoupon">
 		update CP_OUT_SITE_COUPON
-		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-		ADVISE_SORT = #{adviseSort,jdbcType=INTEGER}
+		UPDATE_TIME =
+		#{updateTime,jdbcType=TIMESTAMP},
+		ADVISE_SORT =
+		#{adviseSort,jdbcType=INTEGER}
 		<!-- where ID = #{id,jdbcType=INTEGER} -->
-		 where STORE_ID = #{storeId,jdbcType=INTEGER} 
+		where STORE_ID = #{storeId,jdbcType=INTEGER}
 	</update>
-	
-<select id="getHotList"
-		resultMap="BaseResultVoMap">
-		select 
-SITECOUPON.ID, COUPON_ID, OUT_SITE_ID, SITECOUPON.STORE_ID, SITECOUPON.TITLE, HOT_SORT, ADVISE_SORT,SITECOUPON.CREATE_USER,
-	SITECOUPON.UPDATE_USER, 	SITECOUPON.CREATE_TIME, 	SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME 
-FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE  WHERE SITECOUPON.COUPON_ID=STORE.ID AND HOT_SORT=0
+
+	<select id="getHotList" resultMap="BaseResultVoMap">
+		select
+		SITECOUPON.ID,
+		COUPON_ID, OUT_SITE_ID, SITECOUPON.STORE_ID, SITECOUPON.TITLE,
+		HOT_SORT, ADVISE_SORT,SITECOUPON.CREATE_USER,
+		SITECOUPON.UPDATE_USER,
+		SITECOUPON.CREATE_TIME, SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME
+		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE WHERE
+		SITECOUPON.COUPON_ID=STORE.ID AND HOT_SORT=0
+	</select>
+
+	<select id="getAdvisEList" resultMap="BaseResultVoMap">
+		select
+		SITECOUPON.ID,
+		COUPON_ID, OUT_SITE_ID, SITECOUPON.STORE_ID, SITECOUPON.TITLE,
+		HOT_SORT, ADVISE_SORT,SITECOUPON.CREATE_USER,
+		SITECOUPON.UPDATE_USER,
+		SITECOUPON.CREATE_TIME, SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME
+		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE WHERE
+		SITECOUPON.COUPON_ID=STORE.ID AND ADVISE_SORT=0
 	</select>
 	
-	<select id="getAdvisEList"
-		resultMap="BaseResultVoMap">
-		select 
-SITECOUPON.ID, COUPON_ID, OUT_SITE_ID, SITECOUPON.STORE_ID, SITECOUPON.TITLE, HOT_SORT, ADVISE_SORT,SITECOUPON.CREATE_USER,
-	SITECOUPON.UPDATE_USER, 	SITECOUPON.CREATE_TIME, 	SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME 
-FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE  WHERE SITECOUPON.COUPON_ID=STORE.ID AND ADVISE_SORT=0
+	<select id="getPageList"
+		resultType="com.gopher.system.model.vo.response.ShowSiteCouponResponse"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteCouponPageRequest">
+		SELECT
+		osp.ID AS mapId,
+		cp.ID as id,
+		cp.TITLE AS sourceTile,
+		osp.TITLE AS currentTitle,
+		cp.COUPON_TYPE AS couponType,
+		cp.`CODE` AS code,
+		cp.DES AS description,
+		cp.EXPIRE_AT AS expiryTime,
+		cp.IS_PASS AS isPass,
+		cp.CREATE_TIME AS createTime,
+		osp.CREATE_TIME AS joinTime,
+		cp.IN_TYPE AS inType
+		FROM
+		CP_COUPON cp
+		INNER JOIN 
+		CP_OUT_SITE_COUPON osp ON cp.ID = osp.COUPON_ID
+		<where>
+		osp.OUT_SITE_ID = #{siteId} 
+		<if test="search != null and search != '' ">
+		    AND cp.TITLE LIKE #{search}"%" OR osp.TITLE LIKE #{search}"%"
+		</if>
+		<if test="couponType != null and couponType !='' ">
+		   AND cp.COUPON_TYPE = #{couponType}
+		</if>
+		<if test="state != null and state !='' ">
+		   AND cp.IS_PASS = #{state}
+		</if>
+		</where>
+		ORDER BY id ASC
+		LIMIT  #{beginIndex},#{pageSize}
 	</select>
 	
-	
+	<select id="getTotalCount"
+		resultType="java.lang.Integer"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteCouponRequest">
+		SELECT
+		 count(1)
+		FROM
+		CP_COUPON cp
+		INNER JOIN CP_OUT_SITE_COUPON osp ON cp.ID = osp.COUPON_ID
+		<where>
+		osp.OUT_SITE_ID = #{siteId} 
+		<if test="search != null and search != '' ">
+		    AND cp.TITLE LIKE #{search}"%" OR osp.TITLE LIKE #{search}"%"
+		</if>
+		<if test="couponType != null and couponType !='' ">
+		   AND cp.COUPON_TYPE = #{couponType}
+		</if>
+		<if test="state != null and state !='' ">
+		   AND cp.IS_PASS = #{state}
+		</if>
+		</where>
+	</select>
 
 </mapper>
