@@ -3,21 +3,13 @@ package com.gopher.system.model.vo;
 import java.util.List;
 
 public class Page<T> {
-	/**
-	 * 最大页容
-	 */
-	public static final int MAX_PAGE_SIZE = 100; 
-	/**
-	 * 默认页容
-	 */
-	public static final int DEFAULT_PAGE_SIZE = 10;
 
 	private List<T> list;
 
-	private int pageSize = DEFAULT_PAGE_SIZE;
+	private int pageSize;
 
-	private int pageNumber = 1;
-
+	private int pageNumber;
+	
 	private int totalCount;
 
 	private int totalPage;
@@ -35,8 +27,6 @@ public class Page<T> {
 	}
 
 	public void setPageSize(int pageSize) {
-		pageSize = pageSize > MAX_PAGE_SIZE ? pageSize : pageSize;
-		pageSize = pageSize <= 0 ? DEFAULT_PAGE_SIZE:pageSize;
 		this.pageSize = pageSize;
 	}
 
