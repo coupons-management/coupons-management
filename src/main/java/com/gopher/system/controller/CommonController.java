@@ -59,5 +59,17 @@ public class CommonController {
 		result.setData(commonService.getCountryDict());
 		return result;
 	}
+	@RequestMapping("/getApprovalDict")
+	public Result getApprovalDict() {
+		Result result = new Result();
+		result.setData(commonService.getApprovalDict());
+		return result;
+	}
+	@RequestMapping("/getIsComplete")
+	public Result getIsComplete() {
+		Result result = new Result();
+		result.setData(commonService.getApprovalDict());
+		return result;
+	}
 	
 }
