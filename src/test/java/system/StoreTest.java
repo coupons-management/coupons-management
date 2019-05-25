@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
+import com.gopher.system.dao.mysql.CpStoreDAO;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.StorePageRequst;
@@ -13,6 +14,8 @@ import com.gopher.system.service.StoreService;
 public class StoreTest extends BaseTest{
 	@Autowired
     private StoreService storeService;
+	@Autowired
+	private CpStoreDAO cpStoreDAO;
 	
 	@Test
 	public void getPage() {
@@ -23,7 +26,14 @@ public class StoreTest extends BaseTest{
 		Page<StoreResponse> page = storeService.getPage(request);
 		System.out.println(JSON.toJSONString(page));
 	}
-	
+	@Test
+	public void getList() {
+		StorePageRequst request = new StorePageRequst();
+		request.setCountry("US");
+		request.setPageNumber(1);
+		request.setPageSize(1);
+		System.out.println(JSON.toJSONString(cpStoreDAO.getPageList(request)));
+	}
 	@Test
 	public void edit() {
 		CpStore cpStore  = new CpStore();

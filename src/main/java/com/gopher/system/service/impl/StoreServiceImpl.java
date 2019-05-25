@@ -68,6 +68,7 @@ public class StoreServiceImpl implements StoreService {
 		}
 		return result;
 	}
+	
     private List<Integer> getExcludeSiteIdList(Integer siteId){
     	List<Integer> result = null;
     	if(siteId == null) {

@@ -169,6 +169,16 @@
 		</where>
 	</select>
 	
+	<select id="getSonList"parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+	  select
+		<include refid="Base_Column_List" />
+		from CP_SITESTORE_TYPE
+		<where>
+		     PID = #{pid}
+		</where>
+	</select>
+	
 	<delete id="deleteByPid">
 	DELETE FORM CP_SITESTORE_TYPE WHERE PID = #{pid}
 	</delete>

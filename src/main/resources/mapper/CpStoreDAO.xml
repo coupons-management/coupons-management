@@ -407,12 +407,19 @@
 		resultType="java.lang.Integer">
 		SELECT COUNT(1) FROM CP_STORE
 		<where>
-			<if test="search != null and search!=''">
+						<if test="search != null and search!=''">
 				NAME = #{search} OR WEBSITE =#{search}
 			</if>
 			<if test="storeIdList != null ">
 				AND ID IN
 				<foreach collection="list" item="id" index="index" open="("
+					close=")" separator=",">
+					#{id}
+				</foreach>
+			</if>
+			<if test="excludeStoreIdList != null ">
+				AND ID NOT IN
+				<foreach collection="excludeStoreIdList" item="id" index="index" open="("
 					close=")" separator=",">
 					#{id}
 				</foreach>
@@ -425,6 +432,12 @@
 			</if>
 			<if test="scrapyType != null and scrapyType == 2">
 				AND TYPE_ID IS NULL
+			</if>
+			<if test ="approval != null and approval != ''">
+			    AND approval = #{approval}
+			</if>
+		    <if test ="isComplete != null and isComplete != ''">
+			    AND isComplete = #{isComplete}
 			</if>
 		</where>
 	</select>

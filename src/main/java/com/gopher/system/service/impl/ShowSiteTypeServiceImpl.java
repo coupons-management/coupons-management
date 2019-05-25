@@ -74,6 +74,7 @@ public class ShowSiteTypeServiceImpl implements ShowSiteTypeService {
 
 	@Override
 	public void delete(final int id) {
+		// 删除映射关系表 
 		if (id <= 0) {
 			throw new BusinessRuntimeException("无效的ID");
 		}
@@ -81,10 +82,19 @@ public class ShowSiteTypeServiceImpl implements ShowSiteTypeService {
 		if(null == cpSitestoreType) {
 			throw new BusinessRuntimeException("根据ID找不到对应的记录");
 		}
+		List<CpSitestoreType> sonList = cpSitestoreTypeDAO.getSonList(id);
+		if(null != sonList) {
+			//删除映射表
+			for (CpSitestoreType cpSitestoreType2 : sonList) {
+				cpSitestoreTypeMapDAO.deleteBySiteTypeId(cpSitestoreType2.getOutSiteId());
+			}
+		}
 		if(cpSitestoreType.getLevel() < 2) {
 			cpSitestoreTypeDAO.deleteByPid(id);
 		}
+		cpSitestoreTypeMapDAO.deleteBySiteTypeId(id);
 		cpSitestoreTypeDAO.deleteByPrimaryKey(id);
+		
 	}
 
 	@Override

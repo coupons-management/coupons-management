@@ -18,6 +18,8 @@ public interface CpSitestoreTypeDAO extends MyBatisBaseDao<CpSitestoreType, Inte
 	 * @return
 	 */
 	List<CpSitestoreType> getList(CpSitestoreType cpSitestoreType);
+	
+	List<CpSitestoreType> getSonList(int pid);
 
 	/**
 	 * 根据父ID删除分类
