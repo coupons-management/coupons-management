@@ -97,6 +97,20 @@ public class CpStore implements Serializable {
 	 * 修改时间
 	 */
 	private Date updateTime;
+	/**
+	 * 是否完整
+	 */
+	private String isComplete;
+	
+	
+	
+	public String getIsComplete() {
+		return isComplete;
+	}
+
+	public void setIsComplete(String isComplete) {
+		this.isComplete = isComplete;
+	}
 
 	private static final long serialVersionUID = 1L;
 

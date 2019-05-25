@@ -136,6 +136,12 @@ public class SynDataServiceImpl implements SynDataService {
 					cpStore.setTypeName(cpType.getName());
 					cpStore.setCreatedAt(DateUtils.getDateTime(stu.getCreatedAt()));
 					cpStore.setCreateTime(new Date());
+					if(StringUtils.isNotEmpty(stu.getName())&&StringUtils.isNotEmpty(stu.getFinalWebsite())&&StringUtils.isNotEmpty(cpType.getName())&&StringUtils.isNotEmpty(stu.getLogoUrl()))
+					{
+						cpStore.setIsComplete("1");	
+					}else {
+						cpStore.setIsComplete("0");		
+					}
 					cpStoreDAO.insert(cpStore);
 					// synMessageDataMapper.insertStoreByMessage(stu);
 
@@ -154,6 +160,12 @@ public class SynDataServiceImpl implements SynDataService {
 					cpStore.setInType("0");
 					cpStore.setCreatedAt(DateUtils.getDateTime(stu.getCreatedAt()));
 					cpStore.setUpdateTime(new Date());
+					if(StringUtils.isNotEmpty(stu.getName())&&StringUtils.isNotEmpty(stu.getFinalWebsite())&&StringUtils.isNotEmpty(cpType.getName())&&StringUtils.isNotEmpty(stu.getLogoUrl()))
+					{
+						cpStore.setIsComplete("1");	
+					}else {
+						cpStore.setIsComplete("0");		
+					}
 					cpStoreDAO.updateByPrimaryKeySelective(cpStore);
 					
 				}
@@ -253,6 +265,12 @@ public class SynDataServiceImpl implements SynDataService {
 					cpStore.setTypeName(cpType.getName());
 					cpStore.setTypeId(cpType.getId());
 					// cpStore.setCreatedAt(DateUtils.getDateTime(stu.getCreatedAt()));
+					if(StringUtils.isNotEmpty(stu.getStore())&&StringUtils.isNotEmpty(stu.getFinalWebsite())&&StringUtils.isNotEmpty(cpType.getName())&&StringUtils.isNotEmpty(stu.getStorePicture()))
+					{
+						cpStore.setIsComplete("1");	
+					}else {
+						cpStore.setIsComplete("0");		
+					}
 					cpStoreDAO.insert(cpStore);
 				}
 
@@ -279,6 +297,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpCoupon.setSiteUrl(stu.getSourceSite());
 					cpCoupon.setScrapy(stu.getSpiderName());
 					cpCoupon.setCouponType(stu.getCouponType());
+					cpCoupon.setDes(stu.getDescription());
 					cpCoupon.setCreateTime(new Date());
 					cpCoupon.setTitle(TitleUtils.getMessage(stu.getName()));
 					cpCouponDAO.insert(cpCoupon);
@@ -293,6 +312,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpCoupon.setScrapy(stu.getSpiderName());
 					cpCoupon.setSiteUrl(stu.getSourceSite());
 					cpCoupon.setCouponType(stu.getCouponType());
+					cpCoupon.setDes(stu.getDescription());
 					cpCoupon.setUpdateTime(new Date());
 					cpCoupon.setIndex(stu.getIndex());
 

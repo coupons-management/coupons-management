@@ -22,6 +22,9 @@
 			property="websiteCrc" />
 		<result column="COUPON_COUNT" jdbcType="INTEGER"
 			property="couponCount" />
+		<result column="IS_COMPLETE" jdbcType="VARCHAR"
+			property="isComplete" />
+			
 		<result column="COUPON_COUNT_VALID" jdbcType="INTEGER"
 			property="couponCountValid" />
 		<result column="IN_TYPE" jdbcType="CHAR" property="inType" />
@@ -43,7 +46,7 @@
 		DES, COUNTRY, NAME_CRC, WEBSITE_CRC,
 		COUPON_COUNT, COUPON_COUNT_VALID,
 		IN_TYPE, APPROVAL,
-		TITLE, CREATE_USER,
+		TITLE, CREATE_USER,IS_COMPLETE,
 		UPDATE_USER, CREATE_TIME, UPDATE_TIME
 	</sql>
 	<select id="selectByPrimaryKey"
@@ -68,7 +71,7 @@
 		NAME_CRC, WEBSITE_CRC,
 		COUPON_COUNT, COUPON_COUNT_VALID, IN_TYPE,
 		APPROVAL, TITLE, CREATE_USER,
-		UPDATE_USER, CREATE_TIME, UPDATE_TIME
+		UPDATE_USER, CREATE_TIME, UPDATE_TIME,IS_COMPLETE
 		)
 		values (#{typeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
 		#{website,jdbcType=VARCHAR},
@@ -83,7 +86,7 @@
 		#{approval,jdbcType=CHAR},
 		#{title,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER},
 		#{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
-		#{updateTime,jdbcType=TIMESTAMP}
+		#{updateTime,jdbcType=TIMESTAMP},#{isComplete,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" keyColumn="ID" keyProperty="id"
@@ -154,6 +157,11 @@
 			<if test="updateTime != null">
 				UPDATE_TIME,
 			</if>
+			<if test="isComplete != null">
+				IS_COMPLETE,
+			</if>
+			
+			
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="typeId != null">
@@ -219,6 +227,10 @@
 			<if test="updateTime != null">
 				#{updateTime,jdbcType=TIMESTAMP},
 			</if>
+			<if test="isComplete != null">
+				#{isComplete,jdbcType=VARCHAR},
+			</if>
+			
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective"
@@ -289,6 +301,10 @@
 			<if test="updateTime != null">
 				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
 			</if>
+			<if test="isComplete != null">
+				IS_COMPLETE = #{isComplete,jdbcType=VARCHAR},
+			</if>
+			
 		</set>
 		where ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -327,8 +343,10 @@
 		#{updateUser,jdbcType=INTEGER},
 		CREATE_TIME =
 		#{createTime,jdbcType=TIMESTAMP},
+		IS_COMPLETE = #{isComplete,jdbcType=VARCHAR},
 		UPDATE_TIME =
 		#{updateTime,jdbcType=TIMESTAMP}
+		
 		where ID = #{id,jdbcType=INTEGER}
 	</update>
 	<select id="getBeanByWebSite" parameterType="String"
