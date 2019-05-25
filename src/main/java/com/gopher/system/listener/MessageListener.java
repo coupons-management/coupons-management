@@ -9,9 +9,13 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.gopher.system.model.entity.TMessage;
 import com.gopher.system.service.MessageDataService;
 import com.gopher.system.util.JmsConsumer;
+import com.gopher.system.util.MqPropertiesUtils;
 import com.gopher.system.util.SpringContextUtil;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.DefaultConsumer;
@@ -23,8 +27,8 @@ import com.rabbitmq.client.Envelope;
  */
 @WebListener
 public class MessageListener implements ServletContextListener {
-	ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 200, TimeUnit.MILLISECONDS,
-			new LinkedBlockingDeque<Runnable>(5));
+	private Log logger=LogFactory.getLog(MessageListener.class);
+	ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 200, TimeUnit.MILLISECONDS,new LinkedBlockingDeque<Runnable>(5));
 
 	/**
      * Default constructor. 
@@ -51,12 +55,22 @@ public class MessageListener implements ServletContextListener {
     }
     
     
-    
+    /**
+     * 联接MQ，接收商家类型消息
+     */
     public  void synCategory() {
     	MessageDataService messageDataService=(MessageDataService) SpringContextUtil.getBean("messageDataService");
 		try {
 			
-			JmsConsumer jmsConsumer=new JmsConsumer("18.234.205.204", "coupon", "Ppp12345", 5672,"online_category_queue","scrapy","category");
+			//JmsConsumer jmsConsumer=new JmsConsumer("18.234.205.204", "coupon", "Ppp12345", 5672,"online_category_queue","scrapy","category");
+			String borkUrl=(String) MqPropertiesUtils.pro.get("category_borkUrl");
+			String userName=(String) MqPropertiesUtils.pro.get("category_userName");
+			String password=(String) MqPropertiesUtils.pro.get("category_password");
+			int port=Integer.parseInt( MqPropertiesUtils.pro.get("category_port").toString());
+			String queue=(String) MqPropertiesUtils.pro.get("category_queue");
+			String exchange=(String) MqPropertiesUtils.pro.get("category_exchange");
+			String key=(String) MqPropertiesUtils.pro.get("category_key");
+			JmsConsumer jmsConsumer=new JmsConsumer(borkUrl, userName, password, port,queue,exchange,key);
 			jmsConsumer.start();
 			
 			//定义消费者
@@ -72,10 +86,10 @@ public class MessageListener implements ServletContextListener {
 						msg = new String(body, "utf-8");
 						TMessage message=new TMessage();
 						message.setMessageBody(msg);
+						
 						messageDataService.insertCategoryMessages(message);
 					} catch (UnsupportedEncodingException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						logger.debug(e);
 					}
 		              
 				 }}));
@@ -86,7 +100,8 @@ public class MessageListener implements ServletContextListener {
 	        jmsConsumer.getChannel().basicConsume(jmsConsumer.getQueue(),true,consumer);
 	        
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.debug(e);
 		}
 	
 
@@ -96,8 +111,15 @@ public class MessageListener implements ServletContextListener {
     public  void synCoupon() {
     	MessageDataService messageDataService=(MessageDataService) SpringContextUtil.getBean("messageDataService");
 		try {
+			String borkUrl=(String) MqPropertiesUtils.pro.get("coupon_borkUrl");
+			String userName=(String) MqPropertiesUtils.pro.get("coupon_userName");
+			String password=(String) MqPropertiesUtils.pro.get("coupon_password");
+			int port=Integer.parseInt( MqPropertiesUtils.pro.get("coupon_port").toString());
+			String queue=(String) MqPropertiesUtils.pro.get("coupon_queue");
+			String exchange=(String) MqPropertiesUtils.pro.get("coupon_exchange");
+			String key=(String) MqPropertiesUtils.pro.get("coupon_key");
 			
-			JmsConsumer jmsConsumer=new JmsConsumer("18.234.205.204", "coupon", "Ppp12345", 5672,"online_coupon_queue","scrapy","coupon");
+			JmsConsumer jmsConsumer=new JmsConsumer(borkUrl, userName, password, port,queue,exchange,key);
 			jmsConsumer.start();
 			
 			//定义消费者
@@ -135,8 +157,15 @@ public class MessageListener implements ServletContextListener {
     public  void synStore() {
     	MessageDataService messageDataService=(MessageDataService) SpringContextUtil.getBean("messageDataService");
 		try {
-			
-			JmsConsumer jmsConsumer=new JmsConsumer("18.234.205.204", "coupon", "Ppp12345", 5672,"online_store_queue","scrapy","store");
+			String borkUrl=(String) MqPropertiesUtils.pro.get("store_borkUrl");
+			String userName=(String) MqPropertiesUtils.pro.get("store_userName");
+			String password=(String) MqPropertiesUtils.pro.get("store_password");
+			int port=Integer.parseInt( MqPropertiesUtils.pro.get("store_port").toString());
+			String queue=(String) MqPropertiesUtils.pro.get("store_queue");
+			String exchange=(String) MqPropertiesUtils.pro.get("store_exchange");
+			String key=(String) MqPropertiesUtils.pro.get("store_key");
+			//JmsConsumer jmsConsumer=new JmsConsumer("18.234.205.204", "coupon", "Ppp12345", 5672,"online_store_queue","scrapy","store");
+			JmsConsumer jmsConsumer=new JmsConsumer(borkUrl, userName, password, port,queue,exchange,key);
 			jmsConsumer.start();
 			
 			//定义消费者

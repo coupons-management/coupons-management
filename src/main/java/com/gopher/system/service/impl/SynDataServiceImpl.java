@@ -219,7 +219,7 @@ public class SynDataServiceImpl implements SynDataService {
 				String objectStr = message.getMessageBody();
 				JSONObject jsonObject = JSONObject.parseObject(objectStr);
 				CouPonJson stu = (CouPonJson) JSONObject.toJavaObject(jsonObject, CouPonJson.class);
-				CpStore cpStore = cpStoreDAO.getBeanByWebSite(stu.getStoreWebsite().trim());
+				
 				
 				// 1、增加类型与商家关系
 			/*	CpStoreType cpStoreType = new CpStoreType();
@@ -238,7 +238,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpTypeDAO.insert(cpType);
 
 				}
-				
+				CpStore cpStore = cpStoreDAO.getBeanByWebSite(stu.getFinalWebsite());
 				// 2、增加商家
 				if (cpStore == null) {
 

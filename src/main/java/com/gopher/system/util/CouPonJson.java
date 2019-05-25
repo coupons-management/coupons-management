@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class CouPonJson {
@@ -173,7 +175,10 @@ public class CouPonJson {
 
 		public Timestamp  getExpire() {
 			//this.expire=Timestamp.parse(createdAt); 
+			if(StringUtils.isNotEmpty(createdAt))
+			{
 			this.expire = Timestamp.valueOf(createdAt);
+			}
 		return expire;
 	}
 
