@@ -34,8 +34,38 @@ public class StorePageRequst extends PageRequestBase{
 	 */
 	private List<Integer> excludeStoreIdList;
 	
+	//======================商家审核的一些参数===========================
+	/**
+	 * 展示站点ID
+	 */
+	private Integer siteId;
+	/**
+	   * 审核状态
+	 */
+	private String approval;
+	/**
+	 * 信息是否完整
+	 */
+	private String isComplete;
 	
-	
+	public Integer getSiteId() {
+		return siteId;
+	}
+	public void setSiteId(Integer siteId) {
+		this.siteId = siteId;
+	}
+	public String getApproval() {
+		return approval;
+	}
+	public void setApproval(String approval) {
+		this.approval = approval;
+	}
+	public String getIsComplete() {
+		return isComplete;
+	}
+	public void setIsComplete(String isComplete) {
+		this.isComplete = isComplete;
+	}
 	public List<Integer> getExcludeStoreIdList() {
 		return excludeStoreIdList;
 	}

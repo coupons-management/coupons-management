@@ -302,6 +302,9 @@
 			<if test="showName != null and showName!=''">
 				SHOW_NAME like  "%"#{showName}"%"
 			</if>
+			<if test="outId != null and outId >0">
+				OUT_ID = #{outId}
+			</if>
 		</where>
 	</select>
 	

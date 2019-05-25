@@ -35,6 +35,16 @@ public interface CommonService {
 	 * @return
 	 */
 	List<KV<String,String>> getCountryDict();
+	/**
+	 * 获取审核状态字典
+	 * @return
+	 */
+	List<KV<String, String>> getApprovalDict();
+	/**
+	 * 获取信息是否完整字典
+	 * @return
+	 */
+	List<KV<String, String>> getIsComplete();
 	
 	
 }

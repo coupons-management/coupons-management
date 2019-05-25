@@ -375,6 +375,13 @@
 					#{id}
 				</foreach>
 			</if>
+			<if test="excludeStoreIdList != null ">
+				AND ID NOT IN
+				<foreach collection="excludeStoreIdList" item="id" index="index" open="("
+					close=")" separator=",">
+					#{id}
+				</foreach>
+			</if>
 			<if test="country != null and country != ''">
 				AND COUNTRY = #{country}
 			</if>
@@ -383,6 +390,12 @@
 			</if>
 			<if test="scrapyType != null and scrapyType == 2">
 				AND TYPE_ID IS NULL
+			</if>
+			<if test ="approval != null and approval != ''">
+			    AND approval = #{approval}
+			</if>
+		    <if test ="isComplete != null and isComplete != ''">
+			    AND isComplete = #{isComplete}
 			</if>
 		</where>
 		ORDER BY CREATE_TIME DESC

@@ -26,6 +26,7 @@ import com.gopher.system.model.entity.CpTypeStore;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.model.vo.response.StoreResponse;
 import com.gopher.system.service.ShowSiteService;
+import com.gopher.system.util.TitleUtils;
 /**
  * 展示站点接口(内站)
  * @author dongyangyang
@@ -93,6 +94,7 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 		final Date now = new Date();
 		outSiteStore.setOutId(siteId);
 		outSiteStore.setStoreId(storeId);
+		outSiteStore.setShowName(cpStore.getName());
 		outSiteStore.setCreateTime(now);
 		outSiteStore.setUpdateTime(now);
 		cpOutSiteStoreDAO.insert(outSiteStore);
@@ -105,7 +107,7 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 				CpOutSiteCoupon coupon = new CpOutSiteCoupon();
 				coupon.setCouponId(cpCoupon.getId());//优惠券ID
 				coupon.setOutSiteId(siteId);//在展示站ID
-				//TODO 生成对应站点的标题
+				coupon.setTitle(TitleUtils.getMessage(cpCoupon.getTitle()));
 				coupon.setTitle(cpCoupon.getTitle());
 				coupon.setStoreId(storeId);
 				cpOutSiteCouponDAO.insert(coupon);

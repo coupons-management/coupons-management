@@ -68,7 +68,22 @@ public class StoreServiceImpl implements StoreService {
 		}
 		return result;
 	}
-
+    private List<Integer> getExcludeSiteIdList(Integer siteId){
+    	List<Integer> result = null;
+    	if(siteId == null) {
+    		return result;
+    	}
+    	CpOutSiteStore query = new CpOutSiteStore();
+    	query.setOutId(siteId);
+    	List<CpOutSiteStore> list = cpOutSiteStoreDAO.getList(query);
+    	if(null != list) {
+    		result  = new ArrayList<>(list.size());
+    		for (CpOutSiteStore cpOutSiteStore : list) {
+    			result.add(cpOutSiteStore.getStoreId());
+			}
+    	}
+    	return result;
+    }
 	/**
 	 * 获取商家来源爬虫站点名称
 	 * 
@@ -115,8 +130,8 @@ public class StoreServiceImpl implements StoreService {
 				return result;
 			}
 		}
-		// TODO 1.优惠券数量筛选
-		// 2.爬虫分类筛选
+		// 排除商家的列表
+		storePageRequest.setExcludeStoreIdList(this.getExcludeSiteIdList(storePageRequest.getSiteId()));
 		List<CpStore> list = cpStoreDAO.getPageList(storePageRequest);
 		final int totalCount = cpStoreDAO.getCount(storePageRequest);
 		result.setTotalCount(totalCount);
@@ -137,7 +152,7 @@ public class StoreServiceImpl implements StoreService {
 				rsp.setSpiderSiteNameList(this.getSpiderSiteNameList(storeId));
 				// 有效优惠券数量
 				rsp.setValidCouponsCount(couponService.getValidCountByStore(storeId) + "/"
-						+ couponService.getTotalCountByStore(storeId));
+						+cpStore.getCouponCount());
 				rsp.setCreateTime(DateUtils.getDatetimeString(cpStore.getCreateTime()));
 				rsp.setUpdateTime(DateUtils.getDatetimeString(cpStore.getUpdateTime()));
 				rsp.setApproval(cpStore.getApproval());
