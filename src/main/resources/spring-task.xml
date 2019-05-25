@@ -22,7 +22,7 @@
     	<!-- 初始化标题规则数据 -->  
         <task:scheduled ref="synBasicsData"  method="initData" initial-delay="20000" fixed-delay="90000000"/>  
         <!-- 启动爬虫 -->
-        <task:scheduled ref="synBasicsData"  method="initScrapy" initial-delay="90000" fixed-delay="900000000"/>  
+       <!--  <task:scheduled ref="synBasicsData"  method="initScrapy" initial-delay="90000" fixed-delay="900000000"/>   -->
         <!-- 删除2天前数据-->
        <task:scheduled ref="synBasicsData"   method="clearDatd" cron="0 0 1 * * ?"/>
     </task:scheduled-tasks>

@@ -42,4 +42,16 @@ void deleteAdviseSort(CpOutSiteStore cpOutSiteStore);
  */
 List<CpOutSiteStore> getOutSitleList(CpOutSiteStore cpOutSiteStore);
 
+/**
+ * 查询热门商家列表
+ * @return
+ */
+List<CpOutSiteStore> getOutSitleHotList(CpOutSiteStore cpOutSiteStore);
+
+/**
+ * 查询推荐商家列表
+ * @return
+ */
+List<CpOutSiteStore> getOutSitleAdviseList(CpOutSiteStore cpOutSiteStore);
+
 }

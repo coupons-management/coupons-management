@@ -1,11 +1,13 @@
 package com.gopher.system.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
 import com.gopher.system.model.entity.CpOutSiteCoupon;
+import com.gopher.system.model.vo.CpOutSiteCouponVo;
 import com.gopher.system.service.CpOutSiteCouponService;
 @Service
 public class CpOutSiteCouponServiceImpl implements CpOutSiteCouponService {
@@ -38,6 +40,18 @@ public class CpOutSiteCouponServiceImpl implements CpOutSiteCouponService {
 		cpOutSiteCoupon.setAdviseSort(0);
 		cpOutSiteCouponDAO.updateAdviseSort(cpOutSiteCoupon);
 		
+	}
+
+	@Override
+	public List<CpOutSiteCouponVo> getHotList() {
+		// TODO Auto-generated method stub
+		return cpOutSiteCouponDAO.getHotList();
+	}
+
+	@Override
+	public List<CpOutSiteCouponVo> getAdvisEList() {
+		// TODO Auto-generated method stub
+		return cpOutSiteCouponDAO.getAdvisEList();
 	}
 	
 

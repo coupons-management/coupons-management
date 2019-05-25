@@ -69,6 +69,31 @@ public class StoreAuditController {
 		//result.setData(storeAuditService.addSite(cpSiteStore));
 		return result;
 	}
+	@RequestMapping(path="/getHotCouponList")
+	public Result getHotCouponList(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
+		Result result = new Result();
+		result.setData(cpOutSiteCouponService.getHotList());
+		return result;
+	}
+	@RequestMapping(path="/getAdviseCouponList")
+	public Result getAdviseCouponList(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
+		Result result = new Result();
+		result.setData(cpOutSiteCouponService.getAdvisEList());
+		return result;
+	}
 	
 	
+	
+	@RequestMapping(path="/getHotCouponList")
+	public Result getHotCouponList(@RequestBody CpOutSiteStore cpOutSiteStore) {
+		Result result = new Result();
+		result.setData(storeAuditService.getOutSitleHotList(cpOutSiteStore));
+		return result;
+	}
+	@RequestMapping(path="/getAdviseCouponList")
+	public Result getAdviseCouponList(@RequestBody CpOutSiteStore cpOutSiteStore) {
+		Result result = new Result();
+		result.setData(storeAuditService.getOutSitleAdviseList(cpOutSiteStore));
+		return result;
+	}
 }

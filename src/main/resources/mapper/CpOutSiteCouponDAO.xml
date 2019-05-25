@@ -24,7 +24,7 @@
 	</resultMap>
 	
 	<resultMap id="BaseResultVoMap"
-		type="com.gopher.system.model.entity.CpOutSiteCouponVo">
+		type="com.gopher.system.model.vo.CpOutSiteCouponVo">
 		<id column="ID" jdbcType="INTEGER" property="id" />
 		<result column="COUPON_ID" jdbcType="INTEGER" property="couponId" />
 		<result column="OUT_SITE_ID" jdbcType="INTEGER"	property="outSiteId" />
@@ -229,7 +229,21 @@
 		 where STORE_ID = #{storeId,jdbcType=INTEGER} 
 	</update>
 	
-
+<select id="getHotList"
+		resultMap="BaseResultVoMap">
+		select 
+SITECOUPON.ID, COUPON_ID, OUT_SITE_ID, SITECOUPON.STORE_ID, SITECOUPON.TITLE, HOT_SORT, ADVISE_SORT,SITECOUPON.CREATE_USER,
+	SITECOUPON.UPDATE_USER, 	SITECOUPON.CREATE_TIME, 	SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME 
+FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE  WHERE SITECOUPON.COUPON_ID=STORE.ID AND HOT_SORT=0
+	</select>
+	
+	<select id="getAdvisEList"
+		resultMap="BaseResultVoMap">
+		select 
+SITECOUPON.ID, COUPON_ID, OUT_SITE_ID, SITECOUPON.STORE_ID, SITECOUPON.TITLE, HOT_SORT, ADVISE_SORT,SITECOUPON.CREATE_USER,
+	SITECOUPON.UPDATE_USER, 	SITECOUPON.CREATE_TIME, 	SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME 
+FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE  WHERE SITECOUPON.COUPON_ID=STORE.ID AND ADVISE_SORT=0
+	</select>
 	
 	
 

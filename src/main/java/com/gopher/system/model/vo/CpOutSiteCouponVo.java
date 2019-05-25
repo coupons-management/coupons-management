@@ -1,4 +1,4 @@
-package com.gopher.system.model.entity;
+package com.gopher.system.model.vo;
 
 import java.io.Serializable;
 import java.util.Date;
