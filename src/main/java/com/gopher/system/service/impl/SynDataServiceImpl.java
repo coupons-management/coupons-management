@@ -158,7 +158,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpStore.setInType("0");
 					cpStore.setCreatedAt(DateUtils.getDateTime(stu.getCreatedAt()));
 					cpStore.setUpdateTime(new Date());
-					cpStoreDAO.updateByPrimaryKey(cpStore);
+					cpStoreDAO.updateByPrimaryKeySelective(cpStore);
 					
 				}
 
