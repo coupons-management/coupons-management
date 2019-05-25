@@ -4,9 +4,19 @@ import java.util.List;
 
 public class TypeMapRequest {
 	
+	private int siteId;
+	
 	private int siteTypeId;
 	
 	private List<Integer> sourceTypeIdList;
+
+	public int getSiteId() {
+		return siteId;
+	}
+
+	public void setSiteId(int siteId) {
+		this.siteId = siteId;
+	}
 
 	public int getSiteTypeId() {
 		return siteTypeId;

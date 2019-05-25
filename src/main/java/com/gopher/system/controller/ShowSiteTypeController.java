@@ -34,6 +34,13 @@ public class ShowSiteTypeController {
 		return result;
 	}
 	
+	@RequestMapping(path="/edit")
+	public Result edit(@RequestBody CpSitestoreType cpSitestoreType) {
+		Result result = new Result();
+		showSiteTypeService.edit(cpSitestoreType);
+		return result;
+	}
+	
 	@RequestMapping(path="/delete")
 	public Result delete(@RequestBody CpSitestoreType cpSitestoreType) {
 		Result result = new Result();

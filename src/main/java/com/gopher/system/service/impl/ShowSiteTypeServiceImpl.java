@@ -77,6 +77,13 @@ public class ShowSiteTypeServiceImpl implements ShowSiteTypeService {
 		if (id <= 0) {
 			throw new BusinessRuntimeException("无效的ID");
 		}
+		CpSitestoreType cpSitestoreType = cpSitestoreTypeDAO.selectByPrimaryKey(id);
+		if(null == cpSitestoreType) {
+			throw new BusinessRuntimeException("根据ID找不到对应的记录");
+		}
+		if(cpSitestoreType.getLevel() < 2) {
+			cpSitestoreTypeDAO.deleteByPid(id);
+		}
 		cpSitestoreTypeDAO.deleteByPrimaryKey(id);
 	}
 
@@ -149,19 +156,23 @@ public class ShowSiteTypeServiceImpl implements ShowSiteTypeService {
 		if (null == typeMapRequest) {
 			throw new BusinessRuntimeException("参数不能为空");
 		}
+		final int siteId = typeMapRequest.getSiteId();
 		final int siteTypeId = typeMapRequest.getSiteTypeId();
 		// 清除之前的关系
 		cpSitestoreTypeMapDAO.deleteBySiteTypeId(siteTypeId);
-
+        if(siteId <= 0) {
+        	throw new BusinessRuntimeException("站点ID不能为空");
+        }
 		final List<Integer> sourceTypeIdList = typeMapRequest.getSourceTypeIdList();
 		if (siteTypeId <= 0) {
 			throw new BusinessRuntimeException("站点分类ID不能为空");
 		}
-		if (null != sourceTypeIdList && sourceTypeIdList.isEmpty()) {
+		if (null != sourceTypeIdList && !sourceTypeIdList.isEmpty()) {
 			final Date now = new Date();
 			for (Integer sourceTypeId : sourceTypeIdList) {
 				CpSitestoreTypeMap map = new CpSitestoreTypeMap();
 				map.setSiteTypeId(siteTypeId);
+				map.setOutSiteId(siteId);
 				map.setSourceTypeId(sourceTypeId);
 				map.setCreateTime(now);
 				map.setUpdateTime(now);

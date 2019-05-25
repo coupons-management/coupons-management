@@ -29,7 +29,19 @@ public class StorePageRequst extends PageRequestBase{
 	 * 根据爬虫ID 获取的商家id集合
 	 */
 	private List<Integer> storeIdList;
+	/**
+	 * 排除的商家列表
+	 */
+	private List<Integer> excludeStoreIdList;
 	
+	
+	
+	public List<Integer> getExcludeStoreIdList() {
+		return excludeStoreIdList;
+	}
+	public void setExcludeStoreIdList(List<Integer> excludeStoreIdList) {
+		this.excludeStoreIdList = excludeStoreIdList;
+	}
 	public Integer getScrapyId() {
 		return scrapyId;
 	}

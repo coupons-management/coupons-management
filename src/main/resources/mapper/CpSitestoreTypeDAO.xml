@@ -163,6 +163,13 @@
 			<if test="level > 0">
 				AND LEVEL = #{level}
 			</if>
+			<if test="id != null and id > 0">
+				AND PID = #{id}
+			</if>
 		</where>
 	</select>
+	
+	<delete id="deleteByPid">
+	DELETE FORM CP_SITESTORE_TYPE WHERE PID = #{pid}
+	</delete>
 </mapper>
