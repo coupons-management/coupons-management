@@ -2,9 +2,7 @@ package com.gopher.system.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -14,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.alibaba.fastjson.JSONObject;
 import com.gopher.system.dao.mysql.CpCouponDAO;
 import com.gopher.system.dao.mysql.CpInSiteDAO;
@@ -21,7 +20,6 @@ import com.gopher.system.dao.mysql.CpScrapyDAO;
 import com.gopher.system.dao.mysql.CpScrapyStoreDAO;
 import com.gopher.system.dao.mysql.CpSiteStoreDAO;
 import com.gopher.system.dao.mysql.CpStoreDAO;
-import com.gopher.system.dao.mysql.CpStoreTypeDAO;
 import com.gopher.system.dao.mysql.CpTitleMessageDAO;
 import com.gopher.system.dao.mysql.CpTypeDAO;
 import com.gopher.system.dao.mysql.StoreMapper;
@@ -54,8 +52,6 @@ public class SynDataServiceImpl implements SynDataService {
 	CpStoreDAO cpStoreDAO;
 	@Autowired
 	CpTypeDAO cpTypeDAO;
-	@Autowired
-	CpStoreTypeDAO cpStoreTypeDAO;
 	@Autowired
 	CpSiteStoreDAO cpSiteStoreDAO;
 	@Autowired

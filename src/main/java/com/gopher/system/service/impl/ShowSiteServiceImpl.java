@@ -12,7 +12,7 @@ import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
 import com.gopher.system.dao.mysql.CpOutSiteDAO;
 import com.gopher.system.dao.mysql.CpOutSiteStoreDAO;
 import com.gopher.system.dao.mysql.CpSitestoreTypeMapDAO;
-import com.gopher.system.dao.mysql.CpStoreTypeDAO;
+import com.gopher.system.dao.mysql.CpStoreDAO;
 import com.gopher.system.dao.mysql.CpTypeStoreDAO;
 import com.gopher.system.exception.BusinessRuntimeException;
 import com.gopher.system.model.entity.CpCoupon;
@@ -21,7 +21,7 @@ import com.gopher.system.model.entity.CpOutSiteCoupon;
 import com.gopher.system.model.entity.CpOutSiteStore;
 import com.gopher.system.model.entity.CpSitestoreType;
 import com.gopher.system.model.entity.CpSitestoreTypeMap;
-import com.gopher.system.model.entity.CpStoreType;
+import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.CpTypeStore;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.model.vo.response.StoreResponse;
@@ -46,7 +46,7 @@ public class ShowSiteServiceImpl implements ShowSiteService{
     @Autowired
     private CpCouponDAO cpCouponDAO;
     @Autowired
-    private CpStoreTypeDAO cpStoreTypeDAO;
+    private CpStoreDAO cpStoreDAO;
 	@Override
 	public List<CpOutSite> getSiteList() {
 		return cpOutSiteDAO.getList();
@@ -71,15 +71,13 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 		if(siteId<=0) {
 			throw new BusinessRuntimeException("展示站点ID不能为空");
 		}
-		CpStoreType cpStoreType = new CpStoreType();
-		cpStoreType.setStoreId(storeId);
-		cpStoreType = cpStoreTypeDAO.getBeanByOutKey(cpStoreType);
+		CpStore cpStore = cpStoreDAO.selectByPrimaryKey(storeId);
 		int siteTypeId = 0;
-		if(null != cpStoreType) {
+		if(null != cpStore) {
 			// 当前商家存在原始分类
 			CpSitestoreTypeMap query = new CpSitestoreTypeMap();
 			query.setOutSiteId(siteId);
-			query.setSourceTypeId(cpStoreType.getTypeId());
+			query.setSourceTypeId(cpStore.getTypeId());
 			CpSitestoreTypeMap cpSitestoreTypeMap = cpSitestoreTypeMapDAO.getBySiteAndSourceType(query);
 			siteTypeId = cpSitestoreTypeMap.getSiteTypeId();
 		}
