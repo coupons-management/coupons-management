@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.vo.request.StorePageRequst;
+import com.gopher.system.model.vo.request.StoreVerifyRequest;
 import com.gopher.system.service.StoreService;
 /**
  * 商家基础管理
@@ -38,6 +39,13 @@ public class StoreController {
 	public Result verify(@RequestBody CpStore cpStore) {
 		Result result = new Result();
 		storeService.edit(cpStore);
+		return result;
+	}
+	
+	@RequestMapping(path="/verifyBatch")
+	public Result verifyBatch(@RequestBody StoreVerifyRequest storeVerifyRequest) {
+		Result result = new Result();
+		storeService.verifyBatch(storeVerifyRequest);
 		return result;
 	}
 	

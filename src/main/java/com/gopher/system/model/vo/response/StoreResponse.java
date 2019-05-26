@@ -38,6 +38,7 @@ public class StoreResponse {
 	private String approval;
 	
 	private String country;
+	
     
 	public String getCountry() {
 		return country;

@@ -73,16 +73,18 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 			throw new BusinessRuntimeException("展示站点ID不能为空");
 		}
 		CpStore cpStore = cpStoreDAO.selectByPrimaryKey(storeId);
-		int siteTypeId = 0;
+		Integer siteTypeId = null;
 		if(null != cpStore) {
 			// 当前商家存在原始分类
 			CpSitestoreTypeMap query = new CpSitestoreTypeMap();
 			query.setOutSiteId(siteId);
 			query.setSourceTypeId(cpStore.getTypeId());
 			CpSitestoreTypeMap cpSitestoreTypeMap = cpSitestoreTypeMapDAO.getBySiteAndSourceType(query);
-			siteTypeId = cpSitestoreTypeMap.getSiteTypeId();
+			if(null != cpSitestoreTypeMap) {
+				siteTypeId = cpSitestoreTypeMap.getSiteTypeId();
+			}
 		}
-        if(siteTypeId > 0) {
+        if(null != siteTypeId && siteTypeId > 0) {
         	//当前商家对应的展示站点分类ID
         	CpTypeStore cpTypeStore = new CpTypeStore();
         	cpTypeStore.setOutSiteId(siteId);
@@ -110,6 +112,8 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 				coupon.setTitle(TitleUtils.getMessage(cpCoupon.getTitle()));
 				coupon.setTitle(cpCoupon.getTitle());
 				coupon.setStoreId(storeId);
+				coupon.setCreateTime(now);
+				coupon.setUpdateTime(now);
 				cpOutSiteCouponDAO.insert(coupon);
 			}
 		}

@@ -2,6 +2,7 @@ package com.gopher.system.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.Resource;
 
@@ -21,6 +22,7 @@ import com.gopher.system.model.entity.CpScrapyStore;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.StorePageRequst;
+import com.gopher.system.model.vo.request.StoreVerifyRequest;
 import com.gopher.system.model.vo.response.StoreResponse;
 import com.gopher.system.service.CouponService;
 import com.gopher.system.service.StoreService;
@@ -151,13 +153,14 @@ public class StoreServiceImpl implements StoreService {
 				rsp.setShowSiteNameList(this.getInShowSiteNameList(storeId));
 				// 在爬虫站
 				rsp.setSpiderSiteNameList(this.getSpiderSiteNameList(storeId));
-				// 有效优惠券数量
+				//TODO 爬虫爬回来的不准 已实际入库的为准 有效优惠券数量
 				rsp.setValidCouponsCount(couponService.getValidCountByStore(storeId) + "/"
-						+cpStore.getCouponCount());
+						+couponService.getTotalCountByStore(storeId));
 				rsp.setCreateTime(DateUtils.getDatetimeString(cpStore.getCreateTime()));
 				rsp.setUpdateTime(DateUtils.getDatetimeString(cpStore.getUpdateTime()));
 				rsp.setApproval(cpStore.getApproval());
 				rsp.setCountry(cpStore.getCountry());
+				rsp.setScrapyType(cpStore.getTypeName());
 				// 优惠券最后新增时间
 				rspList.add(rsp);
 			}
@@ -175,7 +178,39 @@ public class StoreServiceImpl implements StoreService {
 		if (null == id || id <= 0) {
 			throw new BusinessRuntimeException("ID不能为空");
 		}
+		final String approval = cpStore.getApproval();
+		if(StringUtils.hasText(approval) && Objects.equals("2", approval)) {
+			//TODO 如果是审核 且当前商家未审核通过 同步当前商家下面的所有优惠券审核状态
+			
+		}
 		cpStoreDAO.updateByPrimaryKeySelective(cpStore);
+	}
+
+	@Override
+	public void verifyBatch(StoreVerifyRequest storeVerifyRequest) {
+        if(null == storeVerifyRequest ) {
+        	throw new BusinessRuntimeException("参数不能为空");
+        }	
+        final List<Integer> validList   = storeVerifyRequest.getValidList();
+        final List<Integer> invalidList = storeVerifyRequest.getInvalidList();
+        
+        if(null != validList) {
+        	for (Integer id : validList) {
+        		CpStore cpStore = new CpStore();
+        		cpStore.setId(id);
+        		cpStore.setApproval("1");
+        		cpStoreDAO.updateByPrimaryKeySelective(cpStore);
+			}
+        }
+        
+        if(null != invalidList) {
+        	for (Integer id : invalidList) {
+        		CpStore cpStore = new CpStore();
+        		cpStore.setId(id);
+        		cpStore.setApproval("2");
+        		cpStoreDAO.updateByPrimaryKeySelective(cpStore);
+			}
+        }
 	}
 
 }

@@ -196,8 +196,14 @@ public class ShowSiteTypeServiceImpl implements ShowSiteTypeService {
 		// 1.找到所有的分类
 		// 2.排除已经被其它映射的分类
 		// 3.选择被当前选中的分类
+		if(null == sourceTypeRequest) {
+			throw new BusinessRuntimeException("参数不能为空");
+		}
 		final int siteTypeId = sourceTypeRequest.getSiteTypeId();
 		final int siteId     = sourceTypeRequest.getSiteId();
+		if(siteId <= 0) {
+			throw new BusinessRuntimeException("站点ID不能为空");
+		}
 		List<CpTypeResponse> result = new ArrayList<>();
 		List<CpType> allList = cpTypeDAO.getList();
 		// 当前站点已经映射的列表
