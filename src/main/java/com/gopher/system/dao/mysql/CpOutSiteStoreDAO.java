@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpOutSiteStore;
+import com.gopher.system.model.vo.CpOutSiteStoreVo;
+import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 
 /**
  * CpOutSiteStoreDAO继承基类
@@ -36,5 +39,23 @@ public interface CpOutSiteStoreDAO extends MyBatisBaseDao<CpOutSiteStore, Intege
 	 * @return
 	 */
 	List<CpOutSiteStore> getOutSitleAdviseList(CpOutSiteStore cpOutSiteStore);
+	
+	/**
+	 * 查站点2中商家与站点关系
+	 * @param siteStore
+	 * @return
+	 */
+	List<CpOutSiteStoreVo> getOutSitleTwoList(ShowSiteStoreRequest siteStore);
+	
+	/**
+	 * 查看优惠卷
+	 * @return
+	 */
+    List<CpCoupon> getCouponList(CpOutSiteStore cpOutSiteStore);
+    /**
+	 * 查看新增的优惠卷
+	 * @return
+	 */
+    List<CpCoupon> getNewCouponList(CpOutSiteStore cpOutSiteStore);
 
 }

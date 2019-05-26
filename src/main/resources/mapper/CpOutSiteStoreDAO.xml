@@ -44,6 +44,42 @@
 		STORE_DES,
 		HEADER_DES, HOT_SORT, ADVISE_SORT
 	</sql>
+	
+	
+	  <resultMap id="BaseResultCountMap" type="com.gopher.system.model.entity.CpCoupon">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="EXPIRE_AT" jdbcType="TIMESTAMP" property="expireAt" />
+    <result column="STORE_WEBSITE_CRC" jdbcType="VARCHAR" property="storeWebsiteCrc" />
+    <result column="STORE_NAME_CRC" jdbcType="VARCHAR" property="storeNameCrc" />
+    <result column="IS_PASS" jdbcType="VARCHAR" property="isPass" />
+    <result column="FINAL_WEBSITE" jdbcType="VARCHAR" property="finalWebsite" />
+    <result column="STORE_WEBSITE" jdbcType="VARCHAR" property="storeWebsite" />
+    <result column="LINK" jdbcType="VARCHAR" property="link" />
+    <result column="IN_SITE_ID" jdbcType="INTEGER" property="inSiteId" />
+    <result column="INDEX" jdbcType="INTEGER" property="index" />
+    <result column="COUPON_TYPE" jdbcType="VARCHAR" property="couponType" />
+    <result column="IN_TYPE" jdbcType="VARCHAR" property="inType" />
+    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
+    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="SITE_URL" jdbcType="VARCHAR" property="siteUrl" />
+    <result column="STORE_URL" jdbcType="VARCHAR" property="storeUrl" />
+    <result column="SCRAPY" jdbcType="VARCHAR" property="scrapy" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="DES" jdbcType="VARCHAR" property="des" />
+  </resultMap>
+  <sql id="BaseCount_Column_List">
+    ID, STORE_ID, `NAME`, CODE, EXPIRE_AT, STORE_WEBSITE_CRC, STORE_NAME_CRC, IS_PASS, 
+    FINAL_WEBSITE, STORE_WEBSITE, LINK, IN_SITE_ID, `INDEX`, COUPON_TYPE, IN_TYPE, CREATE_USER, 
+    UPDATE_USER, CREATE_TIME, UPDATE_TIME, SITE_URL, STORE_URL, SCRAPY, TITLE, DES
+  </sql>
+  
+  
+  
 	<select id="selectByPrimaryKey"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		select
@@ -371,6 +407,79 @@
 	</where>
 	
 	</select>
+	
+	
+	
+	<select id="getOutSitleAdviseList"
+		parameterType="com.gopher.system.model.vo.CpOutSiteStoreVo"
+		resultMap="BaseResultMap">
+			select
+		<include refid="Base_Column_List" />
+		from CP_OUT_SITE_STORE WHERE ADVISE_SORT=0
+		<where>
+			<if test="showName != null and showName!=''">
+				SHOW_NAME LIKE  "%"#{showName}"%"
+			</if>
+	</where>
+	
+	</select>
+	
+	
+	
+
+	
+	<select id="getOutSitleTwoList"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
+		resultType="com.gopher.system.model.vo.CpOutSiteStoreVo">
+		
+			SELECT  STORE.NAME storeName,STORE.WEBSITE url,STORE.LOGO_URL logo, COUPON_COUNT_VALID,STORE.COUPON_COUNT toalCount,CREATED_AT addTime,
+(SELECT  MAX(EXPIRE_AT) FROM CP_COUPON WHERE STORE_ID=STORE.ID) endTime FROM  
+CP_OUT_SITE_STORE  OUTSTORE ,CP_STORE STORE  WHERE OUTSTORE.STORE_ID=STORE.ID
+
+
+	<!-- 		select
+		<include refid="Base_Column_List" />
+		from CP_OUT_SITE_STORE WHERE ADVISE_SORT=0
+		<where>
+			<if test="showName != null and showName!=''">
+				SHOW_NAME LIKE  "%"#{showName}"%"
+			</if>
+	</where>
+	 -->
+	</select>
+	
+		
+		
+	
+    
+    
+	<select id="getCouponList"
+		parameterType="com.gopher.system.model.entity.CpOutSiteStore"
+		resultMap="BaseResultCountMap">
+			SELECT
+		<include refid="BaseCount_Column_List" />
+		FROM CP_COUPON COUPON WHERE COUPON.STORE_ID=#{storeId}
+		
+	
+	</select>
+	
+		
+	<select id="getNewCouponList"
+		parameterType="com.gopher.system.model.entity.CpOutSiteStore"
+		resultMap="BaseResultCountMap">
+			SELECT
+		<include refid="BaseCount_Column_List" />
+		FROM CP_COUPON COUPON WHERE COUPON.STORE_ID=#{storeId} AND TO_DAYS(EXPIRE_AT) = TO_DAYS(NOW()) 
+	
+	</select>
+	
+
+	
+	
+	
+	
+	
+	
 	
 	
 </mapper>
