@@ -18,6 +18,11 @@ public class StoreAuditController {
 	private StoreAuditService storeAuditService;
 	@Autowired
 	private CpOutSiteCouponService cpOutSiteCouponService;
+	/**
+	 * 增加站点到
+	 * @param cpOutSiteStore
+	 * @return
+	 */
 	@RequestMapping(path="/addSite")
 	public Result addSite(@RequestBody CpOutSiteStore cpOutSiteStore) {
 		Result result = new Result();
@@ -32,36 +37,86 @@ public class StoreAuditController {
 		return result;
 	}
 	
-	
+	/**
+	 * 热门商家增加
+	 * @param cpOutSiteStore
+	 * @return  storeAudit/updateHotSort
+	 */
 	@RequestMapping(path="/updateHotSort")
 	public Result updateHotSort(@RequestBody CpOutSiteStore cpOutSiteStore) {
 		Result result = new Result();
 		storeAuditService.updateHotSort(cpOutSiteStore);
-		//result.setData(storeAuditService.addSite(cpSiteStore));
 		return result;
 	}
 	
-	
-	
+	/**
+	 * 删除热门商家增加
+	 * @param cpOutSiteStore
+	 * @return  storeAudit/updateHotSort
+	 */
+	@RequestMapping(path="/deleteHotSort")
+	public Result deleteHotSort(@RequestBody CpOutSiteStore cpOutSiteStore) {
+		Result result = new Result();
+		storeAuditService.deleteHotSort(cpOutSiteStore);
+		return result;
+	}
+	/**
+	 * 增加推荐商家
+	 * @param cpOutSiteStore
+	 * @return
+	 */
 	@RequestMapping(path="/updateAdviseSort")
 	public Result updateAdviseSort(@RequestBody CpOutSiteStore cpOutSiteStore) {
 		Result result = new Result();
 		storeAuditService.updateAdviseSort(cpOutSiteStore);
-		//result.setData(storeAuditService.addSite(cpSiteStore));
 		return result;
 	}
 	
-
+	/**
+	 * 删除推荐商家
+	 * @param cpOutSiteStore
+	 * @return
+	 */
+	@RequestMapping(path="/deleteAdviseSort")
+	public Result deleteAdviseSort(@RequestBody CpOutSiteStore cpOutSiteStore) {
+		Result result = new Result();
+		storeAuditService.deleteAdviseSort(cpOutSiteStore);
+		return result;
+	}
+	
+	
+	
+/**
+ * 增加热门优惠卷
+ * @param cpOutSiteCoupon
+ * @return
+ */
 	@RequestMapping(path="/updateCouponHotSort")
 	public Result updateCouponHotSort(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
 		Result result = new Result();
 		cpOutSiteCouponService.updateHotSort(cpOutSiteCoupon);
-		//result.setData(storeAuditService.addSite(cpSiteStore));
+		
 		return result;
 	}
 	
-	
-	
+	/**
+	 * 删除热门优惠卷
+	 * @param cpOutSiteCoupon
+	 * @return
+	 */
+		@RequestMapping(path="/deleteCouponHotSort")
+		public Result deleteCouponHotSort(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
+			Result result = new Result();
+			cpOutSiteCouponService.deleteHotSort(cpOutSiteCoupon);
+			//result.setData(storeAuditService.addSite(cpSiteStore));
+			return result;
+		}
+		
+	/**
+	 * 增加推荐优惠卷
+	 * @param cpOutSiteCoupon
+	 * @return
+	 */
 	@RequestMapping(path="/updateCouponAdviseSort")
 	public Result updateCouponAdviseSort(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
 		Result result = new Result();
@@ -69,13 +124,26 @@ public class StoreAuditController {
 		//result.setData(storeAuditService.addSite(cpSiteStore));
 		return result;
 	}
-	@RequestMapping(path="/getHotCouponList")
+	
+	/**
+	 * 删除推荐优惠卷
+	 * @param cpOutSiteCoupon
+	 * @return
+	 */
+	@RequestMapping(path="/deleteCouponAdviseSort")
+	public Result deleteCouponAdviseSort(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
+		Result result = new Result();
+		cpOutSiteCouponService.deleteAdviseSort(cpOutSiteCoupon);
+		//result.setData(storeAuditService.addSite(cpSiteStore));
+		return result;
+	}
+	/*@RequestMapping(path="/getHotCouponList")
 	public Result getHotCouponList(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
 		Result result = new Result();
 		result.setData(cpOutSiteCouponService.getHotList());
 		return result;
-	}
-	@RequestMapping(path="/getAdviseCouponList")
+	}*/
+	@RequestMapping(path="/getAdviseCouponList2")
 	public Result getAdviseCouponList(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
 		Result result = new Result();
 		result.setData(cpOutSiteCouponService.getAdvisEList());

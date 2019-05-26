@@ -232,23 +232,21 @@
 	<update id="updateHotSort"
 		parameterType="com.gopher.system.model.entity.CpOutSiteCoupon">
 		update CP_OUT_SITE_COUPON
-		UPDATE_TIME =
+		SET UPDATE_TIME =
 		#{updateTime,jdbcType=TIMESTAMP},
 		HOT_SORT =
 		#{hotSort,jdbcType=INTEGER}
-		<!-- where ID = #{id,jdbcType=INTEGER} -->
-		where STORE_ID = #{storeId,jdbcType=INTEGER}
+		where ID = #{id,jdbcType=INTEGER}
 	</update>
 
 	<update id="updateAdviseSort"
 		parameterType="com.gopher.system.model.entity.CpOutSiteCoupon">
 		update CP_OUT_SITE_COUPON
-		UPDATE_TIME =
+		SET UPDATE_TIME =
 		#{updateTime,jdbcType=TIMESTAMP},
 		ADVISE_SORT =
 		#{adviseSort,jdbcType=INTEGER}
-		<!-- where ID = #{id,jdbcType=INTEGER} -->
-		where STORE_ID = #{storeId,jdbcType=INTEGER}
+		where ID = #{id,jdbcType=INTEGER}
 	</update>
 
 	<select id="getHotList" resultMap="BaseResultVoMap">

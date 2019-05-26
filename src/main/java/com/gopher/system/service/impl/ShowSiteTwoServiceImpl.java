@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.gopher.system.constant.CodeAndMsg;
 import com.gopher.system.dao.mysql.CpCouponDAO;
@@ -27,7 +28,7 @@ import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.model.vo.response.StoreResponse;
 import com.gopher.system.service.ShowSiteTwoService;
 import com.gopher.system.util.TitleUtils;
-
+@Service
 public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 	    @Autowired
 	    private CpOutSiteDAO cpOutSiteDAO;

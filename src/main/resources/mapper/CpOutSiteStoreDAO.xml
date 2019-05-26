@@ -358,16 +358,17 @@
 	
 	<update id="updateHotSort"
 		parameterType="com.gopher.system.model.entity.CpOutSiteStore">
-		update CP_OUT_SITE_STORE
+		UPDATE CP_OUT_SITE_STORE
+		SET
 		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
 		HOT_SORT = #{hotSort,jdbcType=INTEGER}
-		where ID = #{id,jdbcType=INTEGER}
-		<!-- where STORE_ID = #{storeId,jdbcType=INTEGER} -->
+		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
 	
 	<update id="updateAdviseSort"
 		parameterType="com.gopher.system.model.entity.CpOutSiteStore">
 		update CP_OUT_SITE_STORE
+		SET
 		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
 		ADVISE_SORT = #{adviseSort,jdbcType=INTEGER}
 		where ID = #{id,jdbcType=INTEGER}
@@ -410,7 +411,7 @@
 	
 	
 	
-	<select id="getOutSitleAdviseList"
+	<!-- <select id="getOutSitleAdviseList"
 		parameterType="com.gopher.system.model.vo.CpOutSiteStoreVo"
 		resultMap="BaseResultMap">
 			select
@@ -422,7 +423,7 @@
 			</if>
 	</where>
 	
-	</select>
+	</select> -->
 	
 	
 	
