@@ -22,6 +22,7 @@ import com.gopher.system.model.entity.CpSitestoreType;
 import com.gopher.system.model.entity.CpSitestoreTypeMap;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.CpTypeStore;
+import com.gopher.system.model.vo.CpOutSiteStoreVo;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.model.vo.response.StoreResponse;
 import com.gopher.system.service.ShowSiteTwoService;
@@ -46,6 +47,12 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 		public List<CpOutSite> getSiteList() {
 			return cpOutSiteDAO.getList();
 		}
+		
+		
+		
+		
+		
+		
 		/**
 		 * 将审核通过的商家添加到展示站点中
 		 */
@@ -156,6 +163,60 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 				this.addStoreToSite(showSiteStoreRequest);
 			}
 			
+		}
+
+
+
+
+
+
+		@Override
+		public List<CpOutSiteStoreVo> getOutSitleTwoList(ShowSiteStoreRequest siteStore) {
+			return cpOutSiteStoreDAO.getOutSitleTwoList(siteStore);
+		}
+
+
+
+
+
+
+		@Override
+		public void updateOutSiteStore(CpOutSiteStore cpOutSiteStore) {
+			cpOutSiteStoreDAO.updateByPrimaryKey(cpOutSiteStore);
+			
+		}
+
+
+
+
+
+
+		@Override
+		public void deleteOutSiteStore(CpOutSiteStore cpOutSiteStore) {
+			cpOutSiteStoreDAO.deleteByPrimaryKey(cpOutSiteStore.getId());
+			
+		}
+
+
+
+
+
+
+		@Override
+		public List<CpCoupon> getCouponList(CpOutSiteStore cpOutSiteStore) {
+			// TODO Auto-generated method stub
+			return cpOutSiteStoreDAO.getCouponList(cpOutSiteStore);
+		}
+
+
+
+
+
+
+		@Override
+		public List<CpCoupon> getNewCouponList(CpOutSiteStore cpOutSiteStore) {
+			// TODO Auto-generated method stub
+			return cpOutSiteStoreDAO.getNewCouponList(cpOutSiteStore);
 		}
 
 	}
