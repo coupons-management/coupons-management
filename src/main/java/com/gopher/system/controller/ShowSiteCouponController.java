@@ -9,7 +9,11 @@ import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.vo.request.ShowSiteCouponPageRequest;
 import com.gopher.system.model.vo.request.ShowSiteCouponRequest;
 import com.gopher.system.service.ShowSiteCouponService;
-
+/**
+ * 展示站点优惠券接口
+ * @author dongyangyang
+ *
+ */
 @RestController
 @RequestMapping(path="/showSiteCoupon")
 public class ShowSiteCouponController {

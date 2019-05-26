@@ -82,7 +82,18 @@ public class CpCoupon implements Serializable {
 	 * 描述
 	 */
 	private String des;
+	
 	private int index;
+	
+	private int siteId;
+
+	public int getSiteId() {
+		return siteId;
+	}
+
+	public void setSiteId(int siteId) {
+		this.siteId = siteId;
+	}
 
 	public int getIndex() {
 		return index;

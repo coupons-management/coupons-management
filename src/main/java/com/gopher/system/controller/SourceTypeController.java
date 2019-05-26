@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.CpType;
 import com.gopher.system.service.TypeService;
-
+/**
+ * 原始分类
+ * @author dongyangyang
+ *
+ */
 @RestController
 @RequestMapping("/sourceType")
 public class SourceTypeController {

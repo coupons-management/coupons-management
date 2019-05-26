@@ -11,7 +11,11 @@ import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.CouponRequest;
 import com.gopher.system.service.CouponService;
-
+/**
+ * 优惠券
+ * @author dongyangyang
+ *
+ */
 @RestController
 @RequestMapping("/coupon")
 public class CouponController {

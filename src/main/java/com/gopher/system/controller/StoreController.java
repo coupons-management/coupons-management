@@ -9,7 +9,11 @@ import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.service.StoreService;
-
+/**
+ * 商家基础管理
+ * @author dongyangyang
+ *
+ */
 @RestController
 @RequestMapping(path="/store")
 public class StoreController {

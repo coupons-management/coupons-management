@@ -11,7 +11,11 @@ import com.gopher.system.model.vo.request.SiteTypeTreeRequest;
 import com.gopher.system.model.vo.request.SourceTypeRequest;
 import com.gopher.system.model.vo.request.TypeMapRequest;
 import com.gopher.system.service.ShowSiteTypeService;
-
+/**
+ * 展示站点分类
+ * @author dongyangyang
+ *
+ */
 @RestController
 @RequestMapping(path="/showSiteType")
 public class ShowSiteTypeController {

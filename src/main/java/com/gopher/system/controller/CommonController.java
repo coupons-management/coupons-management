@@ -68,7 +68,7 @@ public class CommonController {
 	@RequestMapping("/getIsCompleteDict")
 	public Result getIsComplete() {
 		Result result = new Result();
-		result.setData(commonService.getApprovalDict());
+		result.setData(commonService.getIsComplete());
 		return result;
 	}
 	

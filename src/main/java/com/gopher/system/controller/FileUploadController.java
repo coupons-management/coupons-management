@@ -17,7 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.service.impl.LoginServiceImpl;
-
+/**
+ * 文件上传
+ * @author dongyangyang
+ *
+ */
 @RestController
 @RequestMapping(path="/file")
 public class FileUploadController {

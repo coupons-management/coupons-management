@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.service.ShowSiteService;
-
+/**
+ * 展示站点接口
+ * @author dongyangyang
+ *
+ */
 @RestController
 @RequestMapping(path="/showSite")
 public class ShowSiteController {

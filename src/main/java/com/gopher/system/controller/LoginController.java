@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.vo.request.LoginRequest;
 import com.gopher.system.service.LoginService;
-
+/**
+ * 登录登出
+ * @author dongyangyang
+ *
+ */
 @RestController
 public class LoginController {
 	@Resource
