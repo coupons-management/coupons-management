@@ -1,6 +1,8 @@
 package com.gopher.system.model.vo.request;
 
-public class ShowSiteStoreRequest {
+import com.gopher.system.model.vo.PageRequestBase;
+
+public class ShowSiteStoreRequest extends PageRequestBase {
 	private int siteId;
 	
 	private int storeId;
@@ -126,6 +128,9 @@ public class ShowSiteStoreRequest {
 	public void setWeb(String web) {
 		this.web = web;
 	}
+
+	
+
 
 	public int getSiteId() {
 		return siteId;

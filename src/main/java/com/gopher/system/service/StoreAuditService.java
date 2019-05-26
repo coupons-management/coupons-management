@@ -46,12 +46,29 @@ List<CpOutSiteStore> getOutSitleList(CpOutSiteStore cpOutSiteStore);
  * 查询热门商家列表
  * @return
  */
-List<CpOutSiteStore> getOutSitleHotList(CpOutSiteStore cpOutSiteStore);
+List<CpOutSiteStore> getHotStoreList(CpOutSiteStore cpOutSiteStore);
 
 /**
  * 查询推荐商家列表
  * @return
  */
-List<CpOutSiteStore> getOutSitleAdviseList(CpOutSiteStore cpOutSiteStore);
+List<CpOutSiteStore> getAdviseStroreList(CpOutSiteStore cpOutSiteStore);
+
+/**
+ * 查询热门商家列表前10
+ * @return
+ */
+List<CpOutSiteStore> getTopHotStoreList(CpOutSiteStore cpOutSiteStore);
+
+/**
+ * 查询推荐商家列表前10
+ * @return
+ */
+List<CpOutSiteStore> getTopAdviseStroreList(CpOutSiteStore cpOutSiteStore);
+
+
+
+
+
 
 }

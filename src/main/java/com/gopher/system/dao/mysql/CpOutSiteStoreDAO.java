@@ -1,6 +1,7 @@
 package com.gopher.system.dao.mysql;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -32,20 +33,20 @@ public interface CpOutSiteStoreDAO extends MyBatisBaseDao<CpOutSiteStore, Intege
 	 * 查询热门商家列表
 	 * @return
 	 */
-	List<CpOutSiteStore> getOutSitleHotList(CpOutSiteStore cpOutSiteStore);
+	List<CpOutSiteStore> getHotStoreList(CpOutSiteStore cpOutSiteStore);
 
 	/**
 	 * 查询推荐商家列表
 	 * @return
 	 */
-	List<CpOutSiteStore> getOutSitleAdviseList(CpOutSiteStore cpOutSiteStore);
+	List<CpOutSiteStore> getAdviseStroreList(CpOutSiteStore cpOutSiteStore);
 	
 	/**
 	 * 查站点2中商家与站点关系
 	 * @param siteStore
 	 * @return
 	 */
-	List<CpOutSiteStoreVo> getOutSitleTwoList(ShowSiteStoreRequest siteStore);
+	List<CpOutSiteStoreVo> getTwoList(ShowSiteStoreRequest siteStore);
 	
 	/**
 	 * 查看优惠卷
@@ -57,5 +58,38 @@ public interface CpOutSiteStoreDAO extends MyBatisBaseDao<CpOutSiteStore, Intege
 	 * @return
 	 */
     List<CpCoupon> getNewCouponList(CpOutSiteStore cpOutSiteStore);
+    
+    /**
+     * 查询热门商家列表前10
+     * @return
+     */
+    List<CpOutSiteStore> getTopHotStoreList(CpOutSiteStore cpOutSiteStore);
+
+    /**
+     * 查询推荐商家列表前10
+     * @return
+     */
+    List<CpOutSiteStore> getTopAdviseStroreList(CpOutSiteStore cpOutSiteStore);
+    /**
+     * 查询家前爬虫
+     * @param id
+     * @return
+     */
+   Map getInScrapy(int id);
+   
+   /**
+    * 取得有效优惠卷
+    * @param id
+    * @return
+    */
+   int getValidCoupon(ShowSiteStoreRequest  Request);
+   
+   /**
+    * 取得总优惠卷
+    * @param id
+    * @return
+    */
+   int getToalCoupon(ShowSiteStoreRequest  Request);
+
 
 }

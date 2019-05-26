@@ -121,7 +121,6 @@ public class StoreAuditController {
 	public Result updateCouponAdviseSort(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
 		Result result = new Result();
 		cpOutSiteCouponService.updateAdviseSort(cpOutSiteCoupon);
-		//result.setData(storeAuditService.addSite(cpSiteStore));
 		return result;
 	}
 	
@@ -137,31 +136,83 @@ public class StoreAuditController {
 		//result.setData(storeAuditService.addSite(cpSiteStore));
 		return result;
 	}
-	/*@RequestMapping(path="/getHotCouponList")
-	public Result getHotCouponList(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
+	
+	/**
+	 * 查询所有进站商家
+	 * @param cpOutSiteStore
+	 * @return
+	 */
+	@RequestMapping(path="/getHotStroreList")
+	public Result getHotStroreList(@RequestBody CpOutSiteStore cpOutSiteStore) {
 		Result result = new Result();
-		result.setData(cpOutSiteCouponService.getHotList());
+		result.setData(storeAuditService.getHotStoreList(cpOutSiteStore));
 		return result;
-	}*/
-	@RequestMapping(path="/getAdviseCouponList2")
-	public Result getAdviseCouponList(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
+	}
+	
+	
+	/**
+	 *热门商家前10
+	 * @param cpOutSiteStore
+	 * @return  storeAudit/updateHotSort
+	 */
+	@RequestMapping(path="/getTopHotStroreList")
+	public Result topHotSort(@RequestBody CpOutSiteStore cpOutSiteStore) {
 		Result result = new Result();
-		result.setData(cpOutSiteCouponService.getAdvisEList());
+		result.setData(storeAuditService.getTopHotStoreList(cpOutSiteStore));
+		return result;
+	}
+	
+	/**
+	 * 查询进站推荐商家
+	 * @param cpOutSiteStore
+	 * @return
+	 */
+	@RequestMapping(path="/getAdviseStroreList")
+	public Result getAdviseStroreList(@RequestBody CpOutSiteStore cpOutSiteStore) {
+		Result result = new Result();
+		result.setData(storeAuditService.getAdviseStroreList(cpOutSiteStore));
+		return result;
+	}
+	
+	/**
+	 * 查询进站推荐商家前10
+	 * @param cpOutSiteStore
+	 * @return
+	 */
+	@RequestMapping(path="/getTopAdviseStroreList")
+	public Result getTopAdviseStroreList(@RequestBody CpOutSiteStore cpOutSiteStore) {
+		Result result = new Result();
+		result.setData(storeAuditService.getAdviseStroreList(cpOutSiteStore));
 		return result;
 	}
 	
 	
 	
 	@RequestMapping(path="/getHotCouponList")
-	public Result getHotCouponList(@RequestBody CpOutSiteStore cpOutSiteStore) {
+	public Result getHotCouponList(@RequestBody CpOutSiteCoupon obj) {
 		Result result = new Result();
-		result.setData(storeAuditService.getOutSitleHotList(cpOutSiteStore));
+		result.setData(cpOutSiteCouponService.getHotList(obj));
 		return result;
 	}
-	@RequestMapping(path="/getAdviseCouponList")
-	public Result getAdviseCouponList(@RequestBody CpOutSiteStore cpOutSiteStore) {
+	
+	@RequestMapping(path="/getTopHotCouponList")
+	public Result getTopHotCouponList(@RequestBody CpOutSiteCoupon obj) {
 		Result result = new Result();
-		result.setData(storeAuditService.getOutSitleAdviseList(cpOutSiteStore));
+		result.setData(cpOutSiteCouponService.getTopHotList(obj));
+		return result;
+	}
+	
+	@RequestMapping(path="/getAdviseCouponList")
+	public Result getAdviseCouponList(@RequestBody CpOutSiteCoupon obj) {
+		Result result = new Result();
+		result.setData(cpOutSiteCouponService.getAdviseList(obj));
+		return result;
+	}
+	
+	@RequestMapping(path="/getTopAdviseCouponList")
+	public Result getTopAdviseCouponList(@RequestBody CpOutSiteCoupon obj) {
+		Result result = new Result();
+		result.setData(cpOutSiteCouponService.getTopAdviseList(obj));
 		return result;
 	}
 }

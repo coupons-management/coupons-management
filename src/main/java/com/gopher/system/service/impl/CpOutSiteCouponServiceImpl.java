@@ -43,15 +43,27 @@ public class CpOutSiteCouponServiceImpl implements CpOutSiteCouponService {
 	}
 
 	@Override
-	public List<CpOutSiteCouponVo> getHotList() {
+	public List<CpOutSiteCouponVo> getHotList(CpOutSiteCoupon obj) {
 		// TODO Auto-generated method stub
-		return cpOutSiteCouponDAO.getHotList();
+		return cpOutSiteCouponDAO.getHotList(obj);
 	}
 
 	@Override
-	public List<CpOutSiteCouponVo> getAdvisEList() {
+	public List<CpOutSiteCouponVo> getAdviseList(CpOutSiteCoupon obj) {
 		// TODO Auto-generated method stub
-		return cpOutSiteCouponDAO.getAdvisEList();
+		return cpOutSiteCouponDAO.getAdviseList(obj);
+	}
+
+	@Override
+	public List<CpOutSiteCouponVo> getTopHotList(CpOutSiteCoupon obj) {
+		// TODO Auto-generated method stub
+		return cpOutSiteCouponDAO.getTopHotList(obj);
+	}
+
+	@Override
+	public List<CpOutSiteCouponVo> getTopAdviseList(CpOutSiteCoupon obj) {
+		// TODO Auto-generated method stub
+		return cpOutSiteCouponDAO.getTopAdviseList(obj);
 	}
 	
 

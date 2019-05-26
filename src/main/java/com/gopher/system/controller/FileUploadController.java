@@ -25,7 +25,7 @@ import com.gopher.system.service.impl.LoginServiceImpl;
 @RestController
 @RequestMapping(path="/file")
 public class FileUploadController {
-	private static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
+	/*private static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
 	@Value(value="${file.basePath}")
 	private String basePath;
 	@Value(value="${file.baseUrl}")
@@ -45,5 +45,5 @@ public class FileUploadController {
         // 返回文件的网路地址
         result.setData(baseUrl+fileName);
         return result;
-    }
+    }*/
 }

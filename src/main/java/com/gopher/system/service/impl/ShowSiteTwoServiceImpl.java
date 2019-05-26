@@ -2,6 +2,7 @@ package com.gopher.system.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -172,8 +173,24 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 
 
 		@Override
-		public List<CpOutSiteStoreVo> getOutSitleTwoList(ShowSiteStoreRequest siteStore) {
-			return cpOutSiteStoreDAO.getOutSitleTwoList(siteStore);
+		public List<CpOutSiteStoreVo> getTwoList(ShowSiteStoreRequest request) {
+			List<CpOutSiteStoreVo> list=cpOutSiteStoreDAO.getTwoList(request);
+			if(list!=null&&list.size()>0)
+			{
+				for(CpOutSiteStoreVo vo:list)
+				{
+					Map map=cpOutSiteStoreDAO.getInScrapy(vo.getId());
+					if(map!=null) {
+					vo.setScrapyMap(map);
+					vo.setScrapyCount(map==null?0:map.size());
+					}
+					request.setStoreId(vo.getId());
+					vo.setValidCount(cpOutSiteStoreDAO.getValidCoupon(request));
+					vo.setToalCount(cpOutSiteStoreDAO.getToalCoupon(request));
+					vo.setShowCount(vo.getValidCount()+"/"+vo.getToalCount());
+				}
+			}
+			return list;
 		}
 
 

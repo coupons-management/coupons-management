@@ -249,7 +249,7 @@
 		where ID = #{id,jdbcType=INTEGER}
 	</update>
 
-	<select id="getHotList" resultMap="BaseResultVoMap">
+	<select id="getHotList" parameterType="com.gopher.system.model.entity.CpOutSiteCoupon" resultMap="BaseResultVoMap">
 		select
 		SITECOUPON.ID,
 		COUPON_ID, OUT_SITE_ID, SITECOUPON.STORE_ID, SITECOUPON.TITLE,
@@ -257,10 +257,10 @@
 		SITECOUPON.UPDATE_USER,
 		SITECOUPON.CREATE_TIME, SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME
 		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE WHERE
-		SITECOUPON.COUPON_ID=STORE.ID AND HOT_SORT=0
+		SITECOUPON.STORE_ID=STORE.ID  AND HOT_SORT=0  AND 	OUT_SITE_ID = #{outSiteId}
 	</select>
 
-	<select id="getAdvisEList" resultMap="BaseResultVoMap">
+	<select id="getAdviseList" parameterType="com.gopher.system.model.entity.CpOutSiteCoupon" resultMap="BaseResultVoMap">
 		select
 		SITECOUPON.ID,
 		COUPON_ID, OUT_SITE_ID, SITECOUPON.STORE_ID, SITECOUPON.TITLE,
@@ -268,8 +268,34 @@
 		SITECOUPON.UPDATE_USER,
 		SITECOUPON.CREATE_TIME, SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME
 		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE WHERE
-		SITECOUPON.COUPON_ID=STORE.ID AND ADVISE_SORT=0
+		SITECOUPON.STORE_ID=STORE.ID AND ADVISE_SORT=0 AND 	OUT_SITE_ID = #{outSiteId}
 	</select>
+	
+	
+	
+	<select id="getTopHotList" parameterType="com.gopher.system.model.entity.CpOutSiteCoupon" resultMap="BaseResultVoMap">
+		select
+		SITECOUPON.ID,
+		COUPON_ID, OUT_SITE_ID, SITECOUPON.STORE_ID, SITECOUPON.TITLE,
+		HOT_SORT, ADVISE_SORT,SITECOUPON.CREATE_USER,
+		SITECOUPON.UPDATE_USER,
+		SITECOUPON.CREATE_TIME, SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME
+		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE WHERE
+		SITECOUPON.STORE_ID=STORE.ID  AND HOT_SORT<![CDATA[<>]]>0  AND 	OUT_SITE_ID = #{outSiteId}
+	</select>
+
+	<select id="getTopAdviseList" parameterType="com.gopher.system.model.entity.CpOutSiteCoupon" resultMap="BaseResultVoMap">
+		select
+		SITECOUPON.ID,
+		COUPON_ID, OUT_SITE_ID, SITECOUPON.STORE_ID, SITECOUPON.TITLE,
+		HOT_SORT, ADVISE_SORT,SITECOUPON.CREATE_USER,
+		SITECOUPON.UPDATE_USER,
+		SITECOUPON.CREATE_TIME, SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME
+		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE WHERE
+		SITECOUPON.STORE_ID=STORE.ID AND ADVISE_SORT <![CDATA[<>]]> 0 AND 	OUT_SITE_ID = #{outSiteId}
+	</select>
+	
+	
 	
 	<select id="getPageList"
 		resultType="com.gopher.system.model.vo.response.ShowSiteCouponResponse"

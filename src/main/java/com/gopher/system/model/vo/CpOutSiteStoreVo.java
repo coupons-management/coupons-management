@@ -2,9 +2,19 @@ package com.gopher.system.model.vo;
 import java.util.Map;
 
 public class CpOutSiteStoreVo {
+	/**
+	 * 商家ID
+	 */
 	    private Integer id;
+	    private Integer outSiteId;
 	    
-	    /**
+	    public Integer getOutSiteId() {
+			return outSiteId;
+		}
+		public void setOutSiteId(Integer outSiteId) {
+			this.outSiteId = outSiteId;
+		}
+		/**
 	     * 商家名
 	     */
 	    private String storeName;
@@ -19,15 +29,17 @@ public class CpOutSiteStoreVo {
 	    /**
 	     * 在爬虫统计
 	     */
-	    private String scrapyCount;
+	    private int scrapyCount;
 	    /**
 	     *在爬虫统计
 	     */
-	    private  Map<String,String>scrapyMap ;
+	    private  Map scrapyMap ;
+	  
 	    /**
-	     * 站点分类
+	     * 商家分类
 	     */
-	    private String siteType;
+	    private String storeType;
+	    
 	    
 	    /**
 	     *有效优惠卷
@@ -49,7 +61,15 @@ public class CpOutSiteStoreVo {
 	    /**
 	     *有效优惠卷最后新增时间
 	     */
+	    
+	    
 	    private String endTime;
+		public String getStoreType() {
+			return storeType;
+		}
+		public void setStoreType(String storeType) {
+			this.storeType = storeType;
+		}
 		public Integer getId() {
 			return id;
 		}
@@ -74,25 +94,19 @@ public class CpOutSiteStoreVo {
 		public void setLogo(String logo) {
 			this.logo = logo;
 		}
-		public String getScrapyCount() {
+	
+		public int getScrapyCount() {
 			return scrapyCount;
 		}
-		public void setScrapyCount(String scrapyCount) {
+		public void setScrapyCount(int scrapyCount) {
 			this.scrapyCount = scrapyCount;
 		}
-		public Map<String, String> getScrapyMap() {
+		public Map getScrapyMap() {
 			return scrapyMap;
 		}
-		public void setScrapyMap(Map<String, String> scrapyMap) {
+		public void setScrapyMap(Map scrapyMap) {
 			this.scrapyMap = scrapyMap;
 		}
-		public String getSiteType() {
-			return siteType;
-		}
-		public void setSiteType(String siteType) {
-			this.siteType = siteType;
-		}
-	
 		public int getValidCount() {
 			return validCount;
 		}

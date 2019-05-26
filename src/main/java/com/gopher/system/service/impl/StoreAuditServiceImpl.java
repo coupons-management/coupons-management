@@ -56,15 +56,25 @@ public class StoreAuditServiceImpl implements StoreAuditService {
 	}
 
 	@Override
-	public List<CpOutSiteStore> getOutSitleHotList(CpOutSiteStore cpOutSiteStore) {
+	public List<CpOutSiteStore> getHotStoreList(CpOutSiteStore cpOutSiteStore) {
 		// TODO Auto-generated method stub
-		return cpOutSiteStoreDAO.getOutSitleHotList(cpOutSiteStore);		
+		return cpOutSiteStoreDAO.getHotStoreList(cpOutSiteStore);		
 	}
 
 	@Override
-	public List<CpOutSiteStore> getOutSitleAdviseList(CpOutSiteStore cpOutSiteStore) {
+	public List<CpOutSiteStore> getAdviseStroreList(CpOutSiteStore cpOutSiteStore) {
 		// TODO Auto-generated method stub
-		return cpOutSiteStoreDAO.getOutSitleAdviseList(cpOutSiteStore);
+		return cpOutSiteStoreDAO.getAdviseStroreList(cpOutSiteStore);
+	}
+
+	@Override
+	public List<CpOutSiteStore> getTopHotStoreList(CpOutSiteStore cpOutSiteStore) {
+		return cpOutSiteStoreDAO.getTopHotStoreList(cpOutSiteStore);
+	}
+
+	@Override
+	public List<CpOutSiteStore> getTopAdviseStroreList(CpOutSiteStore cpOutSiteStore) {
+		return cpOutSiteStoreDAO.getTopAdviseStroreList(cpOutSiteStore);
 	}
 
 }

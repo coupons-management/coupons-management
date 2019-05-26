@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.gopher.system.controller.model.Result;
+import com.gopher.system.model.entity.CpOutSiteStore;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.service.ShowSiteTwoService;
 
@@ -22,6 +23,7 @@ public class ShowSiteTwoController {
 		result.setData(showSiteTwoService.getSiteList());
 		return result;
 	}
+	
 	
 	@RequestMapping(path="/addStoreToSiteBatch")
 	public Result addSiteStore(@RequestBody List<ShowSiteStoreRequest> showSiteStoreList) {
@@ -40,6 +42,43 @@ public class ShowSiteTwoController {
 	public Result addSiteStore(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
 		Result result = new Result();
 		showSiteTwoService.deleteStoreInSite(showSiteStoreRequest);;
+		return result;
+	}
+	
+	
+	
+	
+	@RequestMapping(path="/getTwoList")
+	public Result getTwoList(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
+		Result result = new Result();
+		result.setData(showSiteTwoService.getTwoList(showSiteStoreRequest));
+		return result;
+	}
+	
+	@RequestMapping(path="/updateSiteStore")
+	public Result updateSiteStore(@RequestBody CpOutSiteStore outSiteStore) {
+		Result result = new Result();
+		showSiteTwoService.updateOutSiteStore(outSiteStore);
+		return result;
+	}
+	@RequestMapping(path="/deleteSiteStore")
+	public Result deleteSiteStore(@RequestBody CpOutSiteStore outSiteStore) {
+		Result result = new Result();
+		showSiteTwoService.deleteOutSiteStore(outSiteStore);
+		return result;
+	}
+	
+	@RequestMapping(path="/getCouponList")
+	public Result getCouponList(@RequestBody CpOutSiteStore outSiteStore) {
+		Result result = new Result();
+		result.setData(showSiteTwoService.getCouponList(outSiteStore));
+		return result;
+	}
+	
+	@RequestMapping(path="/getNewCouponList")
+	public Result getNewCouponList(@RequestBody CpOutSiteStore outSiteStore) {
+		Result result = new Result();
+		result.setData(showSiteTwoService.getNewCouponList(outSiteStore));
 		return result;
 	}
 	

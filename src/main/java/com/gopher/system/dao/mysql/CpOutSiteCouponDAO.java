@@ -30,16 +30,29 @@ public interface CpOutSiteCouponDAO extends MyBatisBaseDao<CpOutSiteCoupon, Inte
 	 * @param cpOutSiteCoupon
 	 * @return
 	 */
-	List<CpOutSiteCouponVo> getHotList();
+	List<CpOutSiteCouponVo> getHotList(CpOutSiteCoupon obj);
 	/**
 	 * 
 	 * @param cpOutSiteCoupon
 	 * @return推荐优惠卷查询
 	 */
-	List<CpOutSiteCouponVo> getAdvisEList();
+	List<CpOutSiteCouponVo> getAdviseList(CpOutSiteCoupon obj);
 	
 	
-
+	/**
+	 * 查询热门优惠卷前10
+	 * @param cpOutSiteCoupon
+	 * @return
+	 */
+	List<CpOutSiteCouponVo> getTopHotList(CpOutSiteCoupon obj);
+	/**
+	 * 
+	 * @param cpOutSiteCoupon
+	 * @return推荐优惠卷查询前10
+	 */
+	List<CpOutSiteCouponVo> getTopAdviseList(CpOutSiteCoupon obj);
+	
+	
 	void deleteByBean(CpOutSiteCoupon cpOutSiteCoupon);
 	/**
 	 *     获取当前站点下的优惠券的分页列表

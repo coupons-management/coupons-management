@@ -15,7 +15,7 @@ public interface ShowSiteTwoService {
 	 * @param siteStore
 	 * @return
 	 */
-	List<CpOutSiteStoreVo> getOutSitleTwoList(ShowSiteStoreRequest siteStore);
+	List<CpOutSiteStoreVo> getTwoList(ShowSiteStoreRequest siteStore);
 	
 	/**
 	 * 修改外站商家关系
