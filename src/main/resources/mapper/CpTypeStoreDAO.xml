@@ -17,15 +17,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cp_type_store
+    from CP_TYPE_STORE
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cp_type_store
+    delete from CP_TYPE_STORE
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpTypeStore" useGeneratedKeys="true">
-    insert into cp_type_store (STORE_ID, TYPE_ID, CREATE_USER, 
+    insert into CP_TYPE_STORE (STORE_ID, TYPE_ID, CREATE_USER, 
       UPDATE_USER, CREATE_TIME, UPDATE_TIME, 
       OUT_SITE_ID)
     values (#{storeId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, 
@@ -33,7 +33,7 @@
       #{outSiteId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpTypeStore" useGeneratedKeys="true">
-    insert into cp_type_store
+    insert into CP_TYPE_STORE
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="storeId != null">
         STORE_ID,
@@ -82,7 +82,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpTypeStore">
-    update cp_type_store
+    update CP_TYPE_STORE
     <set>
       <if test="storeId != null">
         STORE_ID = #{storeId,jdbcType=INTEGER},
@@ -109,7 +109,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpTypeStore">
-    update cp_type_store
+    update CP_TYPE_STORE
     set STORE_ID = #{storeId,jdbcType=INTEGER},
       TYPE_ID = #{typeId,jdbcType=INTEGER},
       CREATE_USER = #{createUser,jdbcType=INTEGER},
