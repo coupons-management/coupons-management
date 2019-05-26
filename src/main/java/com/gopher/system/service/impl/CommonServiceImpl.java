@@ -115,6 +115,6 @@ public class CommonServiceImpl implements CommonService{
 		result.add(new KV<>("","全部"));
 		result.add(new KV<>("0","爬虫"));
 		result.add(new KV<>("1","人工"));
-		return null;
+		return result;
 	}
 }

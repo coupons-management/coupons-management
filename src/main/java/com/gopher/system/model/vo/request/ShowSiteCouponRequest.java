@@ -1,30 +1,21 @@
 package com.gopher.system.model.vo.request;
 
-import java.util.Date;
-
 public class ShowSiteCouponRequest {
 	
 	private int id;
 	
 	private int mapId;
 	
-	private String currentTile;
+	private String currentTitle;
+	
 	
 	private String description;
 	
 	private String code;
 	
-	private Date expriyTime;
+	private long expiryTime;
 	
 	private String isPass;
-
-	public String getIsPass() {
-		return isPass;
-	}
-
-	public void setIsPass(String isPass) {
-		this.isPass = isPass;
-	}
 
 	public int getId() {
 		return id;
@@ -42,12 +33,12 @@ public class ShowSiteCouponRequest {
 		this.mapId = mapId;
 	}
 
-	public String getCurrentTile() {
-		return currentTile;
+	public String getCurrentTitle() {
+		return currentTitle;
 	}
 
-	public void setCurrentTile(String currentTile) {
-		this.currentTile = currentTile;
+	public void setCurrentTitle(String currentTitle) {
+		this.currentTitle = currentTitle;
 	}
 
 	public String getDescription() {
@@ -66,14 +57,19 @@ public class ShowSiteCouponRequest {
 		this.code = code;
 	}
 
-	public Date getExpriyTime() {
-		return expriyTime;
+	public long getExpiryTime() {
+		return expiryTime;
 	}
 
-	public void setExpriyTime(Date expriyTime) {
-		this.expriyTime = expriyTime;
+	public void setExpiryTime(long expiryTime) {
+		this.expiryTime = expiryTime;
 	}
-	
-	
 
+	public String getIsPass() {
+		return isPass;
+	}
+
+	public void setIsPass(String isPass) {
+		this.isPass = isPass;
+	}
 }

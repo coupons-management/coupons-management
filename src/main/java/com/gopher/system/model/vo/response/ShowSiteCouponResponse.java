@@ -21,7 +21,7 @@ public class ShowSiteCouponResponse {
 	
 	private String description;
 	
-	private String expired;
+	private boolean expired;
 	
 	private Date expiryTime;
 	
@@ -118,11 +118,11 @@ public class ShowSiteCouponResponse {
 		this.description = description;
 	}
 
-	public String getExpired() {
+	public boolean getExpired() {
 		return expired;
 	}
 
-	public void setExpired(String expired) {
+	public void setExpired(boolean expired) {
 		this.expired = expired;
 	}
 

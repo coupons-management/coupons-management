@@ -3,10 +3,14 @@ package com.gopher.system.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.gopher.system.dao.mysql.CpCouponDAO;
 import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
 import com.gopher.system.exception.BusinessRuntimeException;
@@ -23,6 +27,9 @@ public class ShowSiteCouponServiceImpl implements ShowSiteCouponService{
     private CpOutSiteCouponDAO cpOutSiteCouponDAO;
 	@Autowired
 	private CpCouponDAO cpCouponDAO;
+	
+	private static final Logger LOG = LoggerFactory.getLogger(ShowSiteCouponServiceImpl.class);
+
 	@Override
 	public Page<ShowSiteCouponResponse> getCouponPage(ShowSiteCouponPageRequest showSiteCouponPageRequest) {
 		if(null == showSiteCouponPageRequest) {
@@ -37,12 +44,20 @@ public class ShowSiteCouponServiceImpl implements ShowSiteCouponService{
 		result.setPageSize(showSiteCouponPageRequest.getPageSize());
 		List<ShowSiteCouponResponse> list = cpOutSiteCouponDAO.getPageList(showSiteCouponPageRequest);
 		final int count = cpOutSiteCouponDAO.getTotalCount(showSiteCouponPageRequest);
+		if(null != list) {
+			for (ShowSiteCouponResponse showSiteCouponResponse : list) {
+				showSiteCouponResponse.setExpired(showSiteCouponResponse.getExpiryTime().getTime()<System.currentTimeMillis());
+			}
+		}
 		result.setList(list);
 		result.setTotalCount(count);
 		return result;
 	}
+	
+	@Transactional
 	@Override
 	public void edit(ShowSiteCouponRequest showSiteCouponRequest) {
+		LOG.info("接收到的参数:{}",JSON.toJSONString(showSiteCouponRequest));
 		if(null == showSiteCouponRequest) {
 			throw new BusinessRuntimeException("参数不能为空");
 		}
@@ -52,26 +67,28 @@ public class ShowSiteCouponServiceImpl implements ShowSiteCouponService{
 		if(id <=0 || mapId <=0) {
 			throw new BusinessRuntimeException("非法的ID");
 		}
-		
-		final String title = showSiteCouponRequest.getCurrentTile();
+		final String title = showSiteCouponRequest.getCurrentTitle();
 		if(StringUtils.hasText(title)) {
 			CpOutSiteCoupon record = new CpOutSiteCoupon();
 			record.setUpdateTime(new Date());
 			record.setTitle(title);
 			record.setId(mapId);
-			cpOutSiteCouponDAO.updateByPrimaryKeySelective(record);
+			int rows = cpOutSiteCouponDAO.updateByPrimaryKeySelective(record);
+			LOG.info("更新的记录:{}",rows);
 		}
-		final String code = showSiteCouponRequest.getCode();
-		final String isPass = showSiteCouponRequest.getIsPass();
-		final Date   expriyTime = showSiteCouponRequest.getExpriyTime();
-		final String desc   = showSiteCouponRequest.getDescription();
-		if(StringUtils.hasText(code)) { 
+		final String code       = showSiteCouponRequest.getCode();
+		final String isPass     = showSiteCouponRequest.getIsPass();
+		final long   expriyTime = showSiteCouponRequest.getExpiryTime();
+		final String desc       = showSiteCouponRequest.getDescription();
+		if(StringUtils.hasText(code) || expriyTime > 0) { 
 			CpCoupon cpCoupon = new CpCoupon();
 			cpCoupon.setCode(code);
 			cpCoupon.setIsPass(isPass);
-			cpCoupon.setExpireAt(expriyTime);
+			cpCoupon.setExpireAt(new Date(expriyTime));
 			cpCoupon.setDes(desc);
-			cpCouponDAO.updateByPrimaryKeySelective(cpCoupon);
+			cpCoupon.setId(id);
+			int rows = cpCouponDAO.updateByPrimaryKeySelective(cpCoupon);
+			LOG.info("更新的记录:{}",rows);
 		}
 		
 	}
