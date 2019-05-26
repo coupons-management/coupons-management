@@ -1,313 +1,340 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gopher.system.dao.mysql.CpCouponDAO">
-  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.CpCoupon">
-    <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="CODE" jdbcType="VARCHAR" property="code" />
-    <result column="EXPIRE_AT" jdbcType="TIMESTAMP" property="expireAt" />
-    <result column="STORE_WEBSITE_CRC" jdbcType="VARCHAR" property="storeWebsiteCrc" />
-    <result column="STORE_NAME_CRC" jdbcType="VARCHAR" property="storeNameCrc" />
-    <result column="IS_PASS" jdbcType="VARCHAR" property="isPass" />
-    <result column="FINAL_WEBSITE" jdbcType="VARCHAR" property="finalWebsite" />
-    <result column="STORE_WEBSITE" jdbcType="VARCHAR" property="storeWebsite" />
-    <result column="LINK" jdbcType="VARCHAR" property="link" />
-    <result column="IN_SITE_ID" jdbcType="INTEGER" property="inSiteId" />
-    <result column="INDEX" jdbcType="INTEGER" property="index" />
-    <result column="COUPON_TYPE" jdbcType="VARCHAR" property="couponType" />
-    <result column="IN_TYPE" jdbcType="VARCHAR" property="inType" />
-    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
-    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="SITE_URL" jdbcType="VARCHAR" property="siteUrl" />
-    <result column="STORE_URL" jdbcType="VARCHAR" property="storeUrl" />
-    <result column="SCRAPY" jdbcType="VARCHAR" property="scrapy" />
-    <result column="TITLE" jdbcType="VARCHAR" property="title" />
-    <result column="DES" jdbcType="VARCHAR" property="des" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    ID, STORE_ID, `NAME`, CODE, EXPIRE_AT, STORE_WEBSITE_CRC, STORE_NAME_CRC, IS_PASS, 
-    FINAL_WEBSITE, STORE_WEBSITE, LINK, IN_SITE_ID, `INDEX`, COUPON_TYPE, IN_TYPE, CREATE_USER, 
-    UPDATE_USER, CREATE_TIME, UPDATE_TIME, SITE_URL, STORE_URL, SCRAPY, TITLE, DES
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from CP_COUPON
-    where ID = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from CP_COUPON
-    where ID = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpCoupon" useGeneratedKeys="true">
-    insert into CP_COUPON (STORE_ID, `NAME`, CODE, 
-      EXPIRE_AT, STORE_WEBSITE_CRC, STORE_NAME_CRC, 
-      IS_PASS, FINAL_WEBSITE, STORE_WEBSITE, 
-      LINK, IN_SITE_ID, `INDEX`, 
-      COUPON_TYPE, IN_TYPE, CREATE_USER, 
-      UPDATE_USER, CREATE_TIME, UPDATE_TIME, 
-      SITE_URL, STORE_URL, SCRAPY, 
-      TITLE, DES)
-    values (#{storeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
-      #{expireAt,jdbcType=TIMESTAMP}, #{storeWebsiteCrc,jdbcType=VARCHAR}, #{storeNameCrc,jdbcType=VARCHAR}, 
-      #{isPass,jdbcType=VARCHAR}, #{finalWebsite,jdbcType=VARCHAR}, #{storeWebsite,jdbcType=VARCHAR}, 
-      #{link,jdbcType=VARCHAR}, #{inSiteId,jdbcType=INTEGER}, #{index,jdbcType=INTEGER}, 
-      #{couponType,jdbcType=VARCHAR}, #{inType,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, 
-      #{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{siteUrl,jdbcType=VARCHAR}, #{storeUrl,jdbcType=VARCHAR}, #{scrapy,jdbcType=VARCHAR}, 
-      #{title,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpCoupon" useGeneratedKeys="true">
-    insert into CP_COUPON
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="storeId != null">
-        STORE_ID,
-      </if>
-      <if test="name != null">
-        `NAME`,
-      </if>
-      <if test="code != null">
-        CODE,
-      </if>
-      <if test="expireAt != null">
-        EXPIRE_AT,
-      </if>
-      <if test="storeWebsiteCrc != null">
-        STORE_WEBSITE_CRC,
-      </if>
-      <if test="storeNameCrc != null">
-        STORE_NAME_CRC,
-      </if>
-      <if test="isPass != null">
-        IS_PASS,
-      </if>
-      <if test="finalWebsite != null">
-        FINAL_WEBSITE,
-      </if>
-      <if test="storeWebsite != null">
-        STORE_WEBSITE,
-      </if>
-      <if test="link != null">
-        LINK,
-      </if>
-      <if test="inSiteId != null">
-        IN_SITE_ID,
-      </if>
-      <if test="index != null">
-        `INDEX`,
-      </if>
-      <if test="couponType != null">
-        COUPON_TYPE,
-      </if>
-      <if test="inType != null">
-        IN_TYPE,
-      </if>
-      <if test="createUser != null">
-        CREATE_USER,
-      </if>
-      <if test="updateUser != null">
-        UPDATE_USER,
-      </if>
-      <if test="createTime != null">
-        CREATE_TIME,
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME,
-      </if>
-      <if test="siteUrl != null">
-        SITE_URL,
-      </if>
-      <if test="storeUrl != null">
-        STORE_URL,
-      </if>
-      <if test="scrapy != null">
-        SCRAPY,
-      </if>
-      <if test="title != null">
-        TITLE,
-      </if>
-      <if test="des != null">
-        DES,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="storeId != null">
-        #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="expireAt != null">
-        #{expireAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="storeWebsiteCrc != null">
-        #{storeWebsiteCrc,jdbcType=VARCHAR},
-      </if>
-      <if test="storeNameCrc != null">
-        #{storeNameCrc,jdbcType=VARCHAR},
-      </if>
-      <if test="isPass != null">
-        #{isPass,jdbcType=VARCHAR},
-      </if>
-      <if test="finalWebsite != null">
-        #{finalWebsite,jdbcType=VARCHAR},
-      </if>
-      <if test="storeWebsite != null">
-        #{storeWebsite,jdbcType=VARCHAR},
-      </if>
-      <if test="link != null">
-        #{link,jdbcType=VARCHAR},
-      </if>
-      <if test="inSiteId != null">
-        #{inSiteId,jdbcType=INTEGER},
-      </if>
-      <if test="index != null">
-        #{index,jdbcType=INTEGER},
-      </if>
-      <if test="couponType != null">
-        #{couponType,jdbcType=VARCHAR},
-      </if>
-      <if test="inType != null">
-        #{inType,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null">
-        #{createUser,jdbcType=INTEGER},
-      </if>
-      <if test="updateUser != null">
-        #{updateUser,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="siteUrl != null">
-        #{siteUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="storeUrl != null">
-        #{storeUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="scrapy != null">
-        #{scrapy,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="des != null">
-        #{des,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpCoupon">
-    update CP_COUPON
-    <set>
-      <if test="storeId != null">
-        STORE_ID = #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        `NAME` = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="code != null">
-        CODE = #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="expireAt != null">
-        EXPIRE_AT = #{expireAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="storeWebsiteCrc != null">
-        STORE_WEBSITE_CRC = #{storeWebsiteCrc,jdbcType=VARCHAR},
-      </if>
-      <if test="storeNameCrc != null">
-        STORE_NAME_CRC = #{storeNameCrc,jdbcType=VARCHAR},
-      </if>
-      <if test="isPass != null">
-        IS_PASS = #{isPass,jdbcType=VARCHAR},
-      </if>
-      <if test="finalWebsite != null">
-        FINAL_WEBSITE = #{finalWebsite,jdbcType=VARCHAR},
-      </if>
-      <if test="storeWebsite != null">
-        STORE_WEBSITE = #{storeWebsite,jdbcType=VARCHAR},
-      </if>
-      <if test="link != null">
-        LINK = #{link,jdbcType=VARCHAR},
-      </if>
-      <if test="inSiteId != null">
-        IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
-      </if>
-      <if test="index != null">
-        `INDEX` = #{index,jdbcType=INTEGER},
-      </if>
-      <if test="couponType != null">
-        COUPON_TYPE = #{couponType,jdbcType=VARCHAR},
-      </if>
-      <if test="inType != null">
-        IN_TYPE = #{inType,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null">
-        CREATE_USER = #{createUser,jdbcType=INTEGER},
-      </if>
-      <if test="updateUser != null">
-        UPDATE_USER = #{updateUser,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="siteUrl != null">
-        SITE_URL = #{siteUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="storeUrl != null">
-        STORE_URL = #{storeUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="scrapy != null">
-        SCRAPY = #{scrapy,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        TITLE = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="des != null">
-        DES = #{des,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpCoupon">
-    update CP_COUPON
-    set STORE_ID = #{storeId,jdbcType=INTEGER},
-      `NAME` = #{name,jdbcType=VARCHAR},
-      CODE = #{code,jdbcType=VARCHAR},
-      EXPIRE_AT = #{expireAt,jdbcType=TIMESTAMP},
-      STORE_WEBSITE_CRC = #{storeWebsiteCrc,jdbcType=VARCHAR},
-      STORE_NAME_CRC = #{storeNameCrc,jdbcType=VARCHAR},
-      IS_PASS = #{isPass,jdbcType=VARCHAR},
-      FINAL_WEBSITE = #{finalWebsite,jdbcType=VARCHAR},
-      STORE_WEBSITE = #{storeWebsite,jdbcType=VARCHAR},
-      LINK = #{link,jdbcType=VARCHAR},
-      IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
-      `INDEX` = #{index,jdbcType=INTEGER},
-      COUPON_TYPE = #{couponType,jdbcType=VARCHAR},
-      IN_TYPE = #{inType,jdbcType=VARCHAR},
-      CREATE_USER = #{createUser,jdbcType=INTEGER},
-      UPDATE_USER = #{updateUser,jdbcType=INTEGER},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      SITE_URL = #{siteUrl,jdbcType=VARCHAR},
-      STORE_URL = #{storeUrl,jdbcType=VARCHAR},
-      SCRAPY = #{scrapy,jdbcType=VARCHAR},
-      TITLE = #{title,jdbcType=VARCHAR},
-      DES = #{des,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=INTEGER}
-  </update>
-  
+	<resultMap id="BaseResultMap"
+		type="com.gopher.system.model.entity.CpCoupon">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+		<result column="CODE" jdbcType="VARCHAR" property="code" />
+		<result column="EXPIRE_AT" jdbcType="TIMESTAMP"
+			property="expireAt" />
+		<result column="STORE_WEBSITE_CRC" jdbcType="VARCHAR"
+			property="storeWebsiteCrc" />
+		<result column="STORE_NAME_CRC" jdbcType="VARCHAR"
+			property="storeNameCrc" />
+		<result column="IS_PASS" jdbcType="VARCHAR" property="isPass" />
+		<result column="FINAL_WEBSITE" jdbcType="VARCHAR"
+			property="finalWebsite" />
+		<result column="STORE_WEBSITE" jdbcType="VARCHAR"
+			property="storeWebsite" />
+		<result column="LINK" jdbcType="VARCHAR" property="link" />
+		<result column="IN_SITE_ID" jdbcType="INTEGER"
+			property="inSiteId" />
+		<result column="INDEX" jdbcType="INTEGER" property="index" />
+		<result column="COUPON_TYPE" jdbcType="VARCHAR"
+			property="couponType" />
+		<result column="IN_TYPE" jdbcType="VARCHAR" property="inType" />
+		<result column="CREATE_USER" jdbcType="INTEGER"
+			property="createUser" />
+		<result column="UPDATE_USER" jdbcType="INTEGER"
+			property="updateUser" />
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="UPDATE_TIME" jdbcType="TIMESTAMP"
+			property="updateTime" />
+		<result column="SITE_URL" jdbcType="VARCHAR" property="siteUrl" />
+		<result column="STORE_URL" jdbcType="VARCHAR"
+			property="storeUrl" />
+		<result column="SCRAPY" jdbcType="VARCHAR" property="scrapy" />
+		<result column="TITLE" jdbcType="VARCHAR" property="title" />
+		<result column="DES" jdbcType="VARCHAR" property="des" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, STORE_ID, `NAME`, CODE, EXPIRE_AT, STORE_WEBSITE_CRC, STORE_NAME_CRC,
+		IS_PASS,
+		FINAL_WEBSITE, STORE_WEBSITE, LINK, IN_SITE_ID, `INDEX`, COUPON_TYPE, IN_TYPE,
+		CREATE_USER,
+		UPDATE_USER, CREATE_TIME, UPDATE_TIME, SITE_URL, STORE_URL, SCRAPY, TITLE, DES
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CP_COUPON
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from CP_COUPON
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" keyColumn="ID" keyProperty="id"
+		parameterType="com.gopher.system.model.entity.CpCoupon"
+		useGeneratedKeys="true">
+		insert into CP_COUPON (STORE_ID, `NAME`, CODE,
+		EXPIRE_AT, STORE_WEBSITE_CRC, STORE_NAME_CRC,
+		IS_PASS, FINAL_WEBSITE, STORE_WEBSITE,
+		LINK, IN_SITE_ID, `INDEX`,
+		COUPON_TYPE, IN_TYPE, CREATE_USER,
+		UPDATE_USER, CREATE_TIME, UPDATE_TIME,
+		SITE_URL, STORE_URL, SCRAPY,
+		TITLE, DES)
+		values (#{storeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{code,jdbcType=VARCHAR},
+		#{expireAt,jdbcType=TIMESTAMP}, #{storeWebsiteCrc,jdbcType=VARCHAR},
+		#{storeNameCrc,jdbcType=VARCHAR},
+		#{isPass,jdbcType=VARCHAR}, #{finalWebsite,jdbcType=VARCHAR}, #{storeWebsite,jdbcType=VARCHAR},
+		#{link,jdbcType=VARCHAR}, #{inSiteId,jdbcType=INTEGER},
+		#{index,jdbcType=INTEGER},
+		#{couponType,jdbcType=VARCHAR}, #{inType,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER},
+		#{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{siteUrl,jdbcType=VARCHAR}, #{storeUrl,jdbcType=VARCHAR}, #{scrapy,jdbcType=VARCHAR},
+		#{title,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" keyColumn="ID" keyProperty="id"
+		parameterType="com.gopher.system.model.entity.CpCoupon"
+		useGeneratedKeys="true">
+		insert into CP_COUPON
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="storeId != null">
+				STORE_ID,
+			</if>
+			<if test="name != null">
+				`NAME`,
+			</if>
+			<if test="code != null">
+				CODE,
+			</if>
+			<if test="expireAt != null">
+				EXPIRE_AT,
+			</if>
+			<if test="storeWebsiteCrc != null">
+				STORE_WEBSITE_CRC,
+			</if>
+			<if test="storeNameCrc != null">
+				STORE_NAME_CRC,
+			</if>
+			<if test="isPass != null">
+				IS_PASS,
+			</if>
+			<if test="finalWebsite != null">
+				FINAL_WEBSITE,
+			</if>
+			<if test="storeWebsite != null">
+				STORE_WEBSITE,
+			</if>
+			<if test="link != null">
+				LINK,
+			</if>
+			<if test="inSiteId != null">
+				IN_SITE_ID,
+			</if>
+			<if test="index != null">
+				`INDEX`,
+			</if>
+			<if test="couponType != null">
+				COUPON_TYPE,
+			</if>
+			<if test="inType != null">
+				IN_TYPE,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="updateUser != null">
+				UPDATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="siteUrl != null">
+				SITE_URL,
+			</if>
+			<if test="storeUrl != null">
+				STORE_URL,
+			</if>
+			<if test="scrapy != null">
+				SCRAPY,
+			</if>
+			<if test="title != null">
+				TITLE,
+			</if>
+			<if test="des != null">
+				DES,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="storeId != null">
+				#{storeId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="expireAt != null">
+				#{expireAt,jdbcType=TIMESTAMP},
+			</if>
+			<if test="storeWebsiteCrc != null">
+				#{storeWebsiteCrc,jdbcType=VARCHAR},
+			</if>
+			<if test="storeNameCrc != null">
+				#{storeNameCrc,jdbcType=VARCHAR},
+			</if>
+			<if test="isPass != null">
+				#{isPass,jdbcType=VARCHAR},
+			</if>
+			<if test="finalWebsite != null">
+				#{finalWebsite,jdbcType=VARCHAR},
+			</if>
+			<if test="storeWebsite != null">
+				#{storeWebsite,jdbcType=VARCHAR},
+			</if>
+			<if test="link != null">
+				#{link,jdbcType=VARCHAR},
+			</if>
+			<if test="inSiteId != null">
+				#{inSiteId,jdbcType=INTEGER},
+			</if>
+			<if test="index != null">
+				#{index,jdbcType=INTEGER},
+			</if>
+			<if test="couponType != null">
+				#{couponType,jdbcType=VARCHAR},
+			</if>
+			<if test="inType != null">
+				#{inType,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=INTEGER},
+			</if>
+			<if test="updateUser != null">
+				#{updateUser,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="siteUrl != null">
+				#{siteUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="storeUrl != null">
+				#{storeUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="scrapy != null">
+				#{scrapy,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="des != null">
+				#{des,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.gopher.system.model.entity.CpCoupon">
+		update CP_COUPON
+		<set>
+			<if test="storeId != null">
+				STORE_ID = #{storeId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				`NAME` = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				CODE = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="expireAt != null">
+				EXPIRE_AT = #{expireAt,jdbcType=TIMESTAMP},
+			</if>
+			<if test="storeWebsiteCrc != null">
+				STORE_WEBSITE_CRC = #{storeWebsiteCrc,jdbcType=VARCHAR},
+			</if>
+			<if test="storeNameCrc != null">
+				STORE_NAME_CRC = #{storeNameCrc,jdbcType=VARCHAR},
+			</if>
+			<if test="isPass != null">
+				IS_PASS = #{isPass,jdbcType=VARCHAR},
+			</if>
+			<if test="finalWebsite != null">
+				FINAL_WEBSITE = #{finalWebsite,jdbcType=VARCHAR},
+			</if>
+			<if test="storeWebsite != null">
+				STORE_WEBSITE = #{storeWebsite,jdbcType=VARCHAR},
+			</if>
+			<if test="link != null">
+				LINK = #{link,jdbcType=VARCHAR},
+			</if>
+			<if test="inSiteId != null">
+				IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
+			</if>
+			<if test="index != null">
+				`INDEX` = #{index,jdbcType=INTEGER},
+			</if>
+			<if test="couponType != null">
+				COUPON_TYPE = #{couponType,jdbcType=VARCHAR},
+			</if>
+			<if test="inType != null">
+				IN_TYPE = #{inType,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser,jdbcType=INTEGER},
+			</if>
+			<if test="updateUser != null">
+				UPDATE_USER = #{updateUser,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="siteUrl != null">
+				SITE_URL = #{siteUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="storeUrl != null">
+				STORE_URL = #{storeUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="scrapy != null">
+				SCRAPY = #{scrapy,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				TITLE = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="des != null">
+				DES = #{des,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.gopher.system.model.entity.CpCoupon">
+		update CP_COUPON
+		set STORE_ID = #{storeId,jdbcType=INTEGER},
+		`NAME` = #{name,jdbcType=VARCHAR},
+		CODE = #{code,jdbcType=VARCHAR},
+		EXPIRE_AT = #{expireAt,jdbcType=TIMESTAMP},
+		STORE_WEBSITE_CRC = #{storeWebsiteCrc,jdbcType=VARCHAR},
+		STORE_NAME_CRC = #{storeNameCrc,jdbcType=VARCHAR},
+		IS_PASS = #{isPass,jdbcType=VARCHAR},
+		FINAL_WEBSITE = #{finalWebsite,jdbcType=VARCHAR},
+		STORE_WEBSITE = #{storeWebsite,jdbcType=VARCHAR},
+		LINK = #{link,jdbcType=VARCHAR},
+		IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
+		`INDEX` = #{index,jdbcType=INTEGER},
+		COUPON_TYPE = #{couponType,jdbcType=VARCHAR},
+		IN_TYPE = #{inType,jdbcType=VARCHAR},
+		CREATE_USER = #{createUser,jdbcType=INTEGER},
+		UPDATE_USER = #{updateUser,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		SITE_URL = #{siteUrl,jdbcType=VARCHAR},
+		STORE_URL = #{storeUrl,jdbcType=VARCHAR},
+		SCRAPY = #{scrapy,jdbcType=VARCHAR},
+		TITLE = #{title,jdbcType=VARCHAR},
+		DES = #{des,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+
 	<select id="getBeanByName"
 		parameterType="com.gopher.system.model.entity.CpCoupon"
 		resultType="com.gopher.system.model.entity.CpCoupon">
@@ -326,27 +353,27 @@
 		FROM
 		CP_COUPON
 		<where>
-         <if test="storeId != null and storeId >0 ">
-             store_id = #{storeId}
-         </if>
-         <if test="expiryTime != null">
-            AND EXPIRE_AT &gt;= #{expiryTime}
-         </if>
-         <if test="scrapyStr != null and scrapyStr !=''">
-            AND SCRAPY = #{scrapyStr}
-         </if>
-          <if test="expired == 1">
-            AND EXPIRE_AT &lt;= NOW()
-         </if>
-          <if test="expired == 2">
-            AND EXPIRE_AT &gt;= NOW() 
-         </if>
-          <if test="type != null and type !=''">
-            AND COUPON_TYPE = #{type} 
-         </if>
-          <if test="title != null and title !=''">
-            AND TITLE = #{title} 
-         </if>
+			<if test="storeId != null and storeId >0 ">
+				store_id = #{storeId}
+			</if>
+			<if test="expiryTime != null">
+				AND EXPIRE_AT &gt;= #{expiryTime}
+			</if>
+			<if test="scrapyStr != null and scrapyStr !=''">
+				AND SCRAPY = #{scrapyStr}
+			</if>
+			<if test="expired == 1">
+				AND EXPIRE_AT &lt;= NOW()
+			</if>
+			<if test="expired == 2">
+				AND EXPIRE_AT &gt;= NOW()
+			</if>
+			<if test="type != null and type !=''">
+				AND COUPON_TYPE = #{type}
+			</if>
+			<if test="title != null and title !=''">
+				AND TITLE = #{title}
+			</if>
 		</where>
 		ORDER BY ID ASC
 		limit #{beginIndex},#{pageSize}
@@ -357,27 +384,27 @@
 		resultType="java.lang.Integer">
 		SELECT COUNT(1) FROM CP_COUPON
 		<where>
-         <if test="storeId != null and storeId >0 ">
-             store_id = #{storeId}
-         </if>
-         <if test="expiryTime != null">
-            AND EXPIRE_AT &gt;= #{expiryTime}
-         </if>
-         <if test="scrapyStr != null and scrapyStr !=''">
-            AND SCRAPY = #{scrapyStr}
-         </if>
-          <if test="expired == 1">
-            AND EXPIRE_AT &lt;= NOW()
-         </if>
-          <if test="expired == 2">
-            AND EXPIRE_AT &gt;= NOW() 
-         </if>
-          <if test="type != null and type !=''">
-            AND COUPON_TYPE = #{type} 
-         </if>
-          <if test="title != null and title !=''">
-            AND TITLE = #{title} 
-         </if>
+			<if test="storeId != null and storeId >0 ">
+				store_id = #{storeId}
+			</if>
+			<if test="expiryTime != null">
+				AND EXPIRE_AT &gt;= #{expiryTime}
+			</if>
+			<if test="scrapyStr != null and scrapyStr !=''">
+				AND SCRAPY = #{scrapyStr}
+			</if>
+			<if test="expired == 1">
+				AND EXPIRE_AT &lt;= NOW()
+			</if>
+			<if test="expired == 2">
+				AND EXPIRE_AT &gt;= NOW()
+			</if>
+			<if test="type != null and type !=''">
+				AND COUPON_TYPE = #{type}
+			</if>
+			<if test="title != null and title !=''">
+				AND TITLE = #{title}
+			</if>
 		</where>
 	</select>
 
@@ -390,10 +417,11 @@
 		FROM
 		CP_COUPON
 		<where>
-		<if test="storeId!=null and storeId>0"></if>
-         STORE_ID = #{storeId}
+			<if test="storeId!=null and storeId > 0">
+				STORE_ID = #{storeId}
+			</if>
 		</where>
 		ORDER BY CREATE_TIME DESC
 	</select>
-  
+
 </mapper>
