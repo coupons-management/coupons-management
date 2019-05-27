@@ -372,7 +372,7 @@
 				AND COUPON_TYPE = #{type}
 			</if>
 			<if test="title != null and title !=''">
-				AND TITLE = #{title}
+				AND TITLE LIKE #{title}"%"
 			</if>
 		</where>
 		ORDER BY ID ASC
@@ -403,7 +403,7 @@
 				AND COUPON_TYPE = #{type}
 			</if>
 			<if test="title != null and title !=''">
-				AND TITLE = #{title}
+				AND TITLE LIKE #{title}%
 			</if>
 		</where>
 	</select>

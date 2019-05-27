@@ -24,7 +24,7 @@
 			property="couponCount" />
 		<result column="IS_COMPLETE" jdbcType="VARCHAR"
 			property="isComplete" />
-			
+
 		<result column="COUPON_COUNT_VALID" jdbcType="INTEGER"
 			property="couponCountValid" />
 		<result column="IN_TYPE" jdbcType="CHAR" property="inType" />
@@ -46,7 +46,8 @@
 		DES, COUNTRY, NAME_CRC, WEBSITE_CRC,
 		COUPON_COUNT, COUPON_COUNT_VALID,
 		IN_TYPE, APPROVAL,
-		TITLE, CREATE_USER,IS_COMPLETE,
+		TITLE,
+		CREATE_USER,IS_COMPLETE,
 		UPDATE_USER, CREATE_TIME, UPDATE_TIME
 	</sql>
 	<select id="selectByPrimaryKey"
@@ -71,21 +72,29 @@
 		NAME_CRC, WEBSITE_CRC,
 		COUPON_COUNT, COUPON_COUNT_VALID, IN_TYPE,
 		APPROVAL, TITLE, CREATE_USER,
-		UPDATE_USER, CREATE_TIME, UPDATE_TIME,IS_COMPLETE
+		UPDATE_USER, CREATE_TIME,
+		UPDATE_TIME,IS_COMPLETE
 		)
-		values (#{typeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		values (#{typeId,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR},
 		#{website,jdbcType=VARCHAR},
 		#{typeName,jdbcType=VARCHAR},
-		#{logoUrl,jdbcType=VARCHAR}, #{advertising,jdbcType=VARCHAR},
-		#{createdAt,jdbcType=TIMESTAMP}, #{uuid,jdbcType=VARCHAR},
+		#{logoUrl,jdbcType=VARCHAR},
+		#{advertising,jdbcType=VARCHAR},
+		#{createdAt,jdbcType=TIMESTAMP},
+		#{uuid,jdbcType=VARCHAR},
 		#{des,jdbcType=VARCHAR},
 		#{country,jdbcType=VARCHAR},
-		#{nameCrc,jdbcType=VARCHAR}, #{websiteCrc,jdbcType=VARCHAR},
-		#{couponCount,jdbcType=INTEGER}, #{couponCountValid,jdbcType=INTEGER},
+		#{nameCrc,jdbcType=VARCHAR},
+		#{websiteCrc,jdbcType=VARCHAR},
+		#{couponCount,jdbcType=INTEGER},
+		#{couponCountValid,jdbcType=INTEGER},
 		#{inType,jdbcType=CHAR},
 		#{approval,jdbcType=CHAR},
-		#{title,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER},
-		#{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+		#{title,jdbcType=VARCHAR},
+		#{createUser,jdbcType=INTEGER},
+		#{updateUser,jdbcType=INTEGER},
+		#{createTime,jdbcType=TIMESTAMP},
 		#{updateTime,jdbcType=TIMESTAMP},#{isComplete,jdbcType=VARCHAR}
 		)
 	</insert>
@@ -160,8 +169,8 @@
 			<if test="isComplete != null">
 				IS_COMPLETE,
 			</if>
-			
-			
+
+
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="typeId != null">
@@ -230,7 +239,7 @@
 			<if test="isComplete != null">
 				#{isComplete,jdbcType=VARCHAR},
 			</if>
-			
+
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective"
@@ -304,7 +313,7 @@
 			<if test="isComplete != null">
 				IS_COMPLETE = #{isComplete,jdbcType=VARCHAR},
 			</if>
-			
+
 		</set>
 		where ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -343,10 +352,11 @@
 		#{updateUser,jdbcType=INTEGER},
 		CREATE_TIME =
 		#{createTime,jdbcType=TIMESTAMP},
-		IS_COMPLETE = #{isComplete,jdbcType=VARCHAR},
+		IS_COMPLETE =
+		#{isComplete,jdbcType=VARCHAR},
 		UPDATE_TIME =
 		#{updateTime,jdbcType=TIMESTAMP}
-		
+
 		where ID = #{id,jdbcType=INTEGER}
 	</update>
 	<select id="getBeanByWebSite" parameterType="String"
@@ -366,7 +376,7 @@
 		FROM CP_STORE
 		<where>
 			<if test="search != null and search!=''">
-				NAME = #{search} OR WEBSITE =#{search}
+				NAME LIKE "%"#{search}"%" OR WEBSITE LIKE "%"#{search}"%"
 			</if>
 			<if test="storeIdList != null ">
 				AND ID IN
@@ -377,8 +387,8 @@
 			</if>
 			<if test="excludeStoreIdList != null ">
 				AND ID NOT IN
-				<foreach collection="excludeStoreIdList" item="id" index="index" open="("
-					close=")" separator=",">
+				<foreach collection="excludeStoreIdList" item="id"
+					index="index" open="(" close=")" separator=",">
 					#{id}
 				</foreach>
 			</if>
@@ -391,11 +401,11 @@
 			<if test="scrapyType != null and scrapyType == 2">
 				AND TYPE_ID IS NULL
 			</if>
-			<if test ="approval != null and approval != ''">
-			    AND approval = #{approval}
+			<if test="approval != null and approval != ''">
+				AND APPROVAL = #{approval}
 			</if>
-		    <if test ="isComplete != null and isComplete != ''">
-			    AND isComplete = #{isComplete}
+			<if test="isComplete != null and isComplete != ''">
+				AND IS_COMPLETE = #{isComplete}
 			</if>
 		</where>
 		ORDER BY ID ASC
@@ -407,8 +417,8 @@
 		resultType="java.lang.Integer">
 		SELECT COUNT(1) FROM CP_STORE
 		<where>
-						<if test="search != null and search!=''">
-				NAME = #{search} OR WEBSITE =#{search}
+			<if test="search != null and search!=''">
+				NAME LIKE "%"#{search}"%" OR WEBSITE LIKE "%"#{search}"%"
 			</if>
 			<if test="storeIdList != null ">
 				AND ID IN
@@ -419,8 +429,8 @@
 			</if>
 			<if test="excludeStoreIdList != null ">
 				AND ID NOT IN
-				<foreach collection="excludeStoreIdList" item="id" index="index" open="("
-					close=")" separator=",">
+				<foreach collection="excludeStoreIdList" item="id"
+					index="index" open="(" close=")" separator=",">
 					#{id}
 				</foreach>
 			</if>
@@ -433,11 +443,11 @@
 			<if test="scrapyType != null and scrapyType == 2">
 				AND TYPE_ID IS NULL
 			</if>
-			<if test ="approval != null and approval != ''">
-			    AND approval = #{approval}
+			<if test="approval != null and approval != ''">
+				AND APPROVAL = #{approval}
 			</if>
-		    <if test ="isComplete != null and isComplete != ''">
-			    AND isComplete = #{isComplete}
+			<if test="isComplete != null and isComplete != ''">
+				AND IS_COMPLETE = #{isComplete}
 			</if>
 		</where>
 	</select>
