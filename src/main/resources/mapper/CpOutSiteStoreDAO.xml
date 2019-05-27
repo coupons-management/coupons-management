@@ -380,36 +380,68 @@
 	
 	
 	<select id="getHotStoreList"
-		parameterType="com.gopher.system.model.entity.CpOutSiteStore"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from CP_OUT_SITE_STORE WHERE HOT_SORT=0 and   OUT_ID = #{outId}
+		from CP_OUT_SITE_STORE  
 		<where>
+		 HOT_SORT=0 and  
+		OUT_ID = #{outId}
 			<if test="showName != null and showName!=''">
 				SHOW_NAME LIKE  "%"#{showName}"%"
 			</if>
 	</where>
-	
+	LIMIT  #{beginIndex},#{pageSize}
 	</select>
 	
 	
+		<select id="getHotStoreCount"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
+		resultType="java.lang.Integer">
+		select
+		count(*)
+		from CP_OUT_SITE_STORE  
+		<where>
+		 HOT_SORT=0 and  
+		OUT_ID = #{outId}
+			<if test="showName != null and showName!=''">
+				SHOW_NAME LIKE  "%"#{showName}"%"
+			</if>
+	</where>
+
+	</select>
 	
 	<select id="getAdviseStroreList"
-		parameterType="com.gopher.system.model.entity.CpOutSiteStore"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultMap="BaseResultMap">
 			select
 		<include refid="Base_Column_List" />
-		from CP_OUT_SITE_STORE WHERE ADVISE_SORT=0 and   OUT_ID = #{outId}
+		from CP_OUT_SITE_STORE  
 		<where>
+		ADVISE_SORT=0 and   OUT_ID = #{outId}
 			<if test="showName != null and showName!=''">
 				SHOW_NAME LIKE  "%"#{showName}"%"
 			</if>
 	</where>
-	
+	LIMIT  #{beginIndex},#{pageSize}
 	</select>
 	
 	
+	<select id="getAdviseStroreCount"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
+		resultType="java.lang.Integer">
+			select
+		count(*)
+		from CP_OUT_SITE_STORE  
+		<where>
+		ADVISE_SORT=0 and   OUT_ID = #{outId}
+			<if test="showName != null and showName!=''">
+				SHOW_NAME LIKE  "%"#{showName}"%"
+			</if>
+	</where>
+
+	</select>
 	
 	
 	
@@ -464,38 +496,39 @@
 	
 	
 	
+	
 
+	
+	
 	
 	<select id="getTwoList"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultType="com.gopher.system.model.vo.CpOutSiteStoreVo">
-			SELECT STORE.ID id, STORE.NAME storeName,STORE.WEBSITE url,STORE.LOGO_URL logo, COUPON_COUNT_VALID,STORE.COUPON_COUNT toalCount,CREATED_AT addTime,
-(SELECT  MAX(EXPIRE_AT) FROM CP_COUPON WHERE STORE_ID=STORE.ID) endTime,STORE.TYPE_NAME storeType  FROM  
+	<!-- 	SELECT  *  FROM ( -->
+		SELECT DISTINCT OUTSTORE.ID outSiteId,STORE.ID id, STORE.NAME storeName,STORE.WEBSITE webSite,STORE.LOGO_URL logo, COUPON_COUNT_VALID couponCountValid,
+  (SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)toalCount, (SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID AND  EXPIRE_AT >=now())validCount,
+  CREATED_AT addTime,
+(SELECT  MAX(EXPIRE_AT) FROM CP_COUPON WHERE STORE_ID=STORE.ID) endTime,STORE.TYPE_NAME typeName ,STORE.TYPE_ID typeId  FROM  
 CP_OUT_SITE_STORE  OUTSTORE ,CP_STORE STORE  
 
 <where>
- OUTSTORE.STORE_ID=STORE.ID and
+        OUTSTORE.STORE_ID=STORE.ID and
 		OUTSTORE.OUT_ID = #{siteId} 
+		 <if test="search != null and search != '' ">
+		    AND STORE.NAME LIKE "%"#{search}"%" OR STORE.WEBSITE LIKE "%"#{search}"%"
+		</if>
 		<if test="country != null and country !=''">
 				COUNTRY like  "%"#{country}"%"
 		</if>
-		
-		<!-- <if test="country != null and country!=''">
-				COUNTRY like  "%"#{country}"%"
-		</if> -->
-			
-			
-		<!-- <if test="search != null and search != '' ">
-		    AND cp.TITLE LIKE #{search}"%" OR osp.TITLE LIKE #{search}"%"
+		<if test="typeId != null and typeId >0 ">
+				STORE.TYPE_ID =  #{typeId}
 		</if>
-		<if test="couponType != null and couponType !='' ">
-		   AND cp.COUPON_TYPE = #{couponType}
-		</if>
-		<if test="state != null and state !='' ">
-		   AND cp.IS_PASS = #{state}
-		</if> -->
+	
 		</where>
 		ORDER BY STORE.ID ASC
+	<!-- 	)TEMP  -->
+		
+
 		LIMIT  #{beginIndex},#{pageSize}
 
 
@@ -503,36 +536,84 @@ CP_OUT_SITE_STORE  OUTSTORE ,CP_STORE STORE
 	
 		
 		
+		<select id="getTwoCount"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM (
+		SELECT DISTINCT STORE.ID id, STORE.NAME storeName,STORE.WEBSITE webSite,STORE.LOGO_URL logo, COUPON_COUNT_VALID couponCountValid,
+  (SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)toalCount, (SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID AND  EXPIRE_AT >=now())validCount,
+  CREATED_AT addTime,
+(SELECT  MAX(EXPIRE_AT) FROM CP_COUPON WHERE STORE_ID=STORE.ID) endTime,STORE.TYPE_ID typeId  FROM  
+CP_OUT_SITE_STORE  OUTSTORE ,CP_STORE STORE  
+
+<where>
+        OUTSTORE.STORE_ID=STORE.ID and
+		OUTSTORE.OUT_ID = #{siteId} 
+		 <if test="search != null and search != '' ">
+		    AND STORE.NAME LIKE "%"#{search}"%" OR STORE.WEBSITE LIKE "%"#{search}"%"
+		</if>
+		<if test="country != null and country !=''">
+				COUNTRY like  "%"#{country}"%"
+		</if>
+		<if test="typeId != null and typeId >0 ">
+				STORE.TYPE_ID =  #{typeId}
+		</if>
+		
+		</where>
+		ORDER BY STORE.ID ASC
+		)TEMP 
+		
+	</select>
 	
     
     
 	<select id="getCouponList"
-		parameterType="com.gopher.system.model.entity.CpOutSiteStore"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultMap="BaseResultCountMap">
 			SELECT
 		<include refid="BaseCount_Column_List" />
 		FROM CP_COUPON COUPON WHERE COUPON.STORE_ID=#{storeId}
-		
+		LIMIT  #{beginIndex},#{pageSize}
+	
+	</select>
+	
+	<select id="getCouponCount"
+	parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
+	resultType="java.lang.Integer">
+	SELECT COUNT(*)
+	FROM CP_COUPON COUPON WHERE COUPON.STORE_ID=#{storeId}
 	
 	</select>
 	
 		
 	<select id="getNewCouponList"
-		parameterType="com.gopher.system.model.entity.CpOutSiteStore"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultMap="BaseResultCountMap">
 			SELECT
 		<include refid="BaseCount_Column_List" />
 		FROM CP_COUPON COUPON WHERE COUPON.STORE_ID=#{storeId} AND TO_DAYS(EXPIRE_AT) = TO_DAYS(NOW()) 
+		LIMIT  #{beginIndex},#{pageSize}
 	
 	</select>
 	
-
 	
+			
+	<select id="getNewCouponCount"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
+		resultType="java.lang.Integer">
+			SELECT  COUNT(*)
+		FROM CP_COUPON COUPON WHERE COUPON.STORE_ID=#{storeId} AND TO_DAYS(EXPIRE_AT) = TO_DAYS(NOW()) 
+	
+	
+	</select>
+	
+	
+
 	
 			
 	<select id="getInScrapy"
 		parameterType="java.lang.Integer"
-		resultType="java.util.HashMap">
+		resultType="java.lang.String">
 	SELECT  SCRAPY.NAME  FROM  CP_SCRAPY SCRAPY, CP_SCRAPY_STORE  SSCRAPY   WHERE SCRAPY.ID=SSCRAPY.SCRAPY_ID AND   SSCRAPY.STORE_ID=#{storeId}
 	
 	</select>

@@ -250,7 +250,7 @@
 	</update>
 
 	<select id="getHotList"
-		parameterType="com.gopher.system.model.entity.CpOutSiteCoupon"
+		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
 		resultMap="BaseResultVoMap">
 		select
 		SITECOUPON.ID,
@@ -260,13 +260,36 @@
 		ADVISE_SORT,SITECOUPON.CREATE_USER,
 		SITECOUPON.UPDATE_USER,
 		SITECOUPON.CREATE_TIME, SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME
-		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE WHERE
-		SITECOUPON.STORE_ID=STORE.ID AND HOT_SORT=0 AND OUT_SITE_ID =
+		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE 
+			<where>
+			SITECOUPON.STORE_ID=STORE.ID AND HOT_SORT=0 AND OUT_SITE_ID =
 		#{outSiteId}
+			<if test="name != null and name!=''">
+				STORE.NAME LIKE  "%"#{name}"%"
+			</if>
+			</where>
 	</select>
+	
+	
+	<select id="getHotCount"
+		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
+		resultType="java.lang.Integer">
+		select
+		COUNT(*)
+		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE 
+			<where>
+			SITECOUPON.STORE_ID=STORE.ID AND HOT_SORT=0 AND OUT_SITE_ID =
+		#{outSiteId}
+			<if test="name != null and name!=''">
+				STORE.NAME LIKE  "%"#{name}"%"
+			</if>
+			</where>
+			LIMIT  #{beginIndex},#{pageSize}
+	</select>
+	
 
 	<select id="getAdviseList"
-		parameterType="com.gopher.system.model.entity.CpOutSiteCoupon"
+		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
 		resultMap="BaseResultVoMap">
 		select
 		SITECOUPON.ID,
@@ -276,12 +299,34 @@
 		ADVISE_SORT,SITECOUPON.CREATE_USER,
 		SITECOUPON.UPDATE_USER,
 		SITECOUPON.CREATE_TIME, SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME
-		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE WHERE
-		SITECOUPON.STORE_ID=STORE.ID AND ADVISE_SORT=0 AND OUT_SITE_ID =
+		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE
+			<where>
+			SITECOUPON.STORE_ID=STORE.ID AND ADVISE_SORT=0 AND OUT_SITE_ID =
 		#{outSiteId}
+			<if test="name != null and name!=''">
+				STORE.NAME LIKE  "%"#{name}"%"
+			</if>
+	</where>
+	
 	</select>
 
-
+	<select id="getAdviseCount"
+		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
+		resultType="java.lang.Integer">
+		select
+		COUNT(*)
+		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE
+			<where>
+			SITECOUPON.STORE_ID=STORE.ID AND ADVISE_SORT=0 AND OUT_SITE_ID =
+		#{outSiteId}
+			<if test="name != null and name!=''">
+				STORE.NAME LIKE  "%"#{name}"%"
+			</if>
+	</where>
+	LIMIT  #{beginIndex},#{pageSize}
+	</select>
+	
+	
 
 	<select id="getTopHotList"
 		parameterType="com.gopher.system.model.entity.CpOutSiteCoupon"

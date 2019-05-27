@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
 import com.gopher.system.model.entity.CpOutSiteCoupon;
+import com.gopher.system.model.entity.CpOutSiteStore;
 import com.gopher.system.model.vo.CpOutSiteCouponVo;
+import com.gopher.system.model.vo.Page;
+import com.gopher.system.model.vo.request.CouponPageRequest;
+import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.service.CpOutSiteCouponService;
 @Service
 public class CpOutSiteCouponServiceImpl implements CpOutSiteCouponService {
@@ -43,15 +47,25 @@ public class CpOutSiteCouponServiceImpl implements CpOutSiteCouponService {
 	}
 
 	@Override
-	public List<CpOutSiteCouponVo> getHotList(CpOutSiteCoupon obj) {
-		// TODO Auto-generated method stub
-		return cpOutSiteCouponDAO.getHotList(obj);
-	}
+	public Page<CpOutSiteCouponVo> getHotList(CouponPageRequest obj) {
 
+		Page<CpOutSiteCouponVo> result=new Page<CpOutSiteCouponVo>();
+		List<CpOutSiteCouponVo> list=cpOutSiteCouponDAO.getHotList(obj);
+		int  total=cpOutSiteCouponDAO.getHotCount(obj);
+		result.setList(list);
+		result.setTotalCount(total);
+		return result;
+	
+	}
+	
 	@Override
-	public List<CpOutSiteCouponVo> getAdviseList(CpOutSiteCoupon obj) {
-		// TODO Auto-generated method stub
-		return cpOutSiteCouponDAO.getAdviseList(obj);
+	public Page<CpOutSiteCouponVo> getAdviseList(CouponPageRequest obj) {
+		Page<CpOutSiteCouponVo> result=new Page<CpOutSiteCouponVo>();
+		List<CpOutSiteCouponVo> list=cpOutSiteCouponDAO.getAdviseList(obj);
+		int  total=cpOutSiteCouponDAO.getAdviseCount(obj);
+		result.setList(list);
+		result.setTotalCount(total);
+		return result;
 	}
 
 	@Override

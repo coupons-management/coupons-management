@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.gopher.system.model.entity.CpOutSiteCoupon;
 import com.gopher.system.model.vo.CpOutSiteCouponVo;
+import com.gopher.system.model.vo.Page;
+import com.gopher.system.model.vo.request.CouponPageRequest;
 
 public interface CpOutSiteCouponService {
 	/**
@@ -32,13 +34,13 @@ public interface CpOutSiteCouponService {
 	 * @param cpOutSiteCoupon
 	 * @return
 	 */
-	List<CpOutSiteCouponVo> getHotList(CpOutSiteCoupon obj);
+	Page<CpOutSiteCouponVo> getHotList(CouponPageRequest obj);
 	/**
 	 * 
 	 * @param cpOutSiteCoupon
 	 * @return推荐优惠卷查询
 	 */
-	List<CpOutSiteCouponVo> getAdviseList(CpOutSiteCoupon obj);
+	Page<CpOutSiteCouponVo> getAdviseList(CouponPageRequest obj);
 	
 	/**
 	 * 查询热门优惠卷前10

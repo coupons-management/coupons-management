@@ -33,13 +33,15 @@ public interface CpOutSiteStoreDAO extends MyBatisBaseDao<CpOutSiteStore, Intege
 	 * 查询热门商家列表
 	 * @return
 	 */
-	List<CpOutSiteStore> getHotStoreList(CpOutSiteStore cpOutSiteStore);
+	List<CpOutSiteStore> getHotStoreList(ShowSiteStoreRequest cpOutSiteStore);
+	int getHotStoreCount(ShowSiteStoreRequest cpOutSiteStore);
 
 	/**
 	 * 查询推荐商家列表
 	 * @return
 	 */
-	List<CpOutSiteStore> getAdviseStroreList(CpOutSiteStore cpOutSiteStore);
+	List<CpOutSiteStore> getAdviseStroreList(ShowSiteStoreRequest cpOutSiteStore);
+	int getAdviseStroreCount(ShowSiteStoreRequest cpOutSiteStore);
 	
 	/**
 	 * 查站点2中商家与站点关系
@@ -47,35 +49,42 @@ public interface CpOutSiteStoreDAO extends MyBatisBaseDao<CpOutSiteStore, Intege
 	 * @return
 	 */
 	List<CpOutSiteStoreVo> getTwoList(ShowSiteStoreRequest siteStore);
+	int getTwoCount(ShowSiteStoreRequest siteStore);
+	
 	
 	/**
 	 * 查看优惠卷
 	 * @return
 	 */
-    List<CpCoupon> getCouponList(CpOutSiteStore cpOutSiteStore);
+    List<CpCoupon> getCouponList(ShowSiteStoreRequest request);
+    int  getCouponCount(ShowSiteStoreRequest request);
     /**
 	 * 查看新增的优惠卷
 	 * @return
 	 */
-    List<CpCoupon> getNewCouponList(CpOutSiteStore cpOutSiteStore);
-    
+    List<CpCoupon> getNewCouponList(ShowSiteStoreRequest request);
+    /**
+   	 * 查看新增的优惠卷
+   	 * @return
+   	 */
+       int getNewCouponCount(ShowSiteStoreRequest request);
     /**
      * 查询热门商家列表前10
      * @return
      */
-    List<CpOutSiteStore> getTopHotStoreList(CpOutSiteStore cpOutSiteStore);
+    List<CpOutSiteStore> getTopHotStoreList(CpOutSiteStore request);
 
     /**
      * 查询推荐商家列表前10
      * @return
      */
-    List<CpOutSiteStore> getTopAdviseStroreList(CpOutSiteStore cpOutSiteStore);
+    List<CpOutSiteStore> getTopAdviseStroreList(CpOutSiteStore request);
     /**
      * 查询家前爬虫
      * @param id
      * @return
      */
-   Map getInScrapy(int id);
+   List<String> getInScrapy(int id);
    
    /**
     * 取得有效优惠卷

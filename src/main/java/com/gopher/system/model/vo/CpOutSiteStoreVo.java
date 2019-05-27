@@ -1,6 +1,5 @@
 package com.gopher.system.model.vo;
-import java.util.Map;
-
+import java.util.List;
 public class CpOutSiteStoreVo {
 	/**
 	 * 商家ID
@@ -14,6 +13,7 @@ public class CpOutSiteStoreVo {
 		public void setOutSiteId(Integer outSiteId) {
 			this.outSiteId = outSiteId;
 		}
+		
 		/**
 	     * 商家名
 	     */
@@ -21,7 +21,7 @@ public class CpOutSiteStoreVo {
 	    /**
 	     * 商家名官网
 	     */
-	    private String url;
+	    private String webSite;
 	    /**
 	     * 商家LOGO
 	     */
@@ -33,14 +33,21 @@ public class CpOutSiteStoreVo {
 	    /**
 	     *在爬虫统计
 	     */
-	    private  Map scrapyMap ;
+	    private  List<String> scrapyList ;
 	  
 	    /**
 	     * 商家分类
 	     */
 	    private String storeType;
 	    
-	    
+	    /**
+	     * 商家分类
+	     */
+	    private String typeId;
+	    /**
+	     * 商家分类
+	     */
+	    private String typeName;
 	    /**
 	     *有效优惠卷
 	     */
@@ -64,6 +71,31 @@ public class CpOutSiteStoreVo {
 	    
 	    
 	    private String endTime;
+	    
+		public String getWebSite() {
+			return webSite;
+		}
+		public void setWebSite(String webSite) {
+			this.webSite = webSite;
+		}
+		public List<String> getScrapyList() {
+			return scrapyList;
+		}
+		public void setScrapyList(List<String> scrapyList) {
+			this.scrapyList = scrapyList;
+		}
+		public String getTypeId() {
+			return typeId;
+		}
+		public void setTypeId(String typeId) {
+			this.typeId = typeId;
+		}
+		public String getTypeName() {
+			return typeName;
+		}
+		public void setTypeName(String typeName) {
+			this.typeName = typeName;
+		}
 		public String getStoreType() {
 			return storeType;
 		}
@@ -82,12 +114,7 @@ public class CpOutSiteStoreVo {
 		public void setStoreName(String storeName) {
 			this.storeName = storeName;
 		}
-		public String getUrl() {
-			return url;
-		}
-		public void setUrl(String url) {
-			this.url = url;
-		}
+
 		public String getLogo() {
 			return logo;
 		}
@@ -101,12 +128,7 @@ public class CpOutSiteStoreVo {
 		public void setScrapyCount(int scrapyCount) {
 			this.scrapyCount = scrapyCount;
 		}
-		public Map getScrapyMap() {
-			return scrapyMap;
-		}
-		public void setScrapyMap(Map scrapyMap) {
-			this.scrapyMap = scrapyMap;
-		}
+		
 		public int getValidCount() {
 			return validCount;
 		}

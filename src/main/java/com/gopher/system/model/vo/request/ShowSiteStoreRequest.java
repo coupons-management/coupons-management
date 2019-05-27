@@ -4,7 +4,7 @@ import com.gopher.system.model.vo.PageRequestBase;
 
 public class ShowSiteStoreRequest extends PageRequestBase {
 	private int siteId;
-	
+	private int outId;
 	private int storeId;
 	/**
 	 * 国家
@@ -18,6 +18,10 @@ public class ShowSiteStoreRequest extends PageRequestBase {
 	 * 国家
 	 */
 	private String storeType;
+	/**
+	 * 国家
+	 */
+	private int typeId;
 	
 	/**
 	 * 标签
@@ -39,7 +43,7 @@ public class ShowSiteStoreRequest extends PageRequestBase {
 	/**
 	 * 关键字
 	 */
-	private String key;
+	private String search;
 	/**
 	 * 商家名称
 	 */
@@ -48,6 +52,35 @@ public class ShowSiteStoreRequest extends PageRequestBase {
 	 * 官网
 	 */
 	private String web;
+
+	/**
+	 * 商家名称
+	 */
+	private String showName;
+
+	public int getOutId() {
+		return outId;
+	}
+
+	public void setOutId(int outId) {
+		this.outId = outId;
+	}
+
+	public String getShowName() {
+		return showName;
+	}
+
+	public void setShowName(String showName) {
+		this.showName = showName;
+	}
+
+	public int getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(int typeId) {
+		this.typeId = typeId;
+	}
 
 	public String getCountry() {
 		return country;
@@ -105,12 +138,14 @@ public class ShowSiteStoreRequest extends PageRequestBase {
 		this.endTime = endTime;
 	}
 
-	public String getKey() {
-		return key;
+	
+
+	public String getSearch() {
+		return search;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setSearch(String search) {
+		this.search = search;
 	}
 
 	public String getName() {

@@ -169,6 +169,22 @@
 		</where>
 	</select>
 	
+		<select id="getStoreSort"
+		parameterType="com.gopher.system.model.vo.request.CpSitestoreRequest"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CP_SITESTORE_TYPE
+		<where>
+			<if test="siteId > 0">
+				OUT_SITE_ID = #{siteId}
+			</if>
+		</where>
+	</select>
+	
+	
+	
+	
 	<select id="getSonList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
 	  select
 		<include refid="Base_Column_List" />

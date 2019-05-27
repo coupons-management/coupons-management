@@ -3,6 +3,8 @@ package com.gopher.system.service;
 import java.util.List;
 
 import com.gopher.system.model.entity.CpOutSiteStore;
+import com.gopher.system.model.vo.Page;
+import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 
 
 public interface StoreAuditService {
@@ -46,13 +48,13 @@ List<CpOutSiteStore> getOutSitleList(CpOutSiteStore cpOutSiteStore);
  * 查询热门商家列表
  * @return
  */
-List<CpOutSiteStore> getHotStoreList(CpOutSiteStore cpOutSiteStore);
+Page<CpOutSiteStore> getHotStoreList(ShowSiteStoreRequest cpOutSiteStore);
 
 /**
  * 查询推荐商家列表
  * @return
  */
-List<CpOutSiteStore> getAdviseStroreList(CpOutSiteStore cpOutSiteStore);
+Page<CpOutSiteStore> getAdviseStroreList(ShowSiteStoreRequest cpOutSiteStore);
 
 /**
  * 查询热门商家列表前10

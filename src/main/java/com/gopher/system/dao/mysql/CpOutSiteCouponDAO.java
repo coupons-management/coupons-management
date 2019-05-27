@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.gopher.system.model.entity.CpOutSiteCoupon;
 import com.gopher.system.model.vo.CpOutSiteCouponVo;
+import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.ShowSiteCouponPageRequest;
 import com.gopher.system.model.vo.response.ShowSiteCouponResponse;
 
@@ -30,13 +31,15 @@ public interface CpOutSiteCouponDAO extends MyBatisBaseDao<CpOutSiteCoupon, Inte
 	 * @param cpOutSiteCoupon
 	 * @return
 	 */
-	List<CpOutSiteCouponVo> getHotList(CpOutSiteCoupon obj);
+	List<CpOutSiteCouponVo> getHotList(CouponPageRequest obj);
+	int getHotCount(CouponPageRequest obj);
 	/**
 	 * 
 	 * @param cpOutSiteCoupon
 	 * @return推荐优惠卷查询
 	 */
-	List<CpOutSiteCouponVo> getAdviseList(CpOutSiteCoupon obj);
+	List<CpOutSiteCouponVo> getAdviseList(CouponPageRequest obj);
+	int getAdviseCount(CouponPageRequest obj);
 	
 	
 	/**

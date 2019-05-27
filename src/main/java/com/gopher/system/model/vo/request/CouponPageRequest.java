@@ -5,6 +5,7 @@ import java.util.Date;
 import com.gopher.system.model.vo.PageRequestBase;
 
 public class CouponPageRequest extends PageRequestBase{
+	
 	/**
 	 * 商家ID
 	 */
@@ -22,6 +23,14 @@ public class CouponPageRequest extends PageRequestBase{
 	 */
 	private String title;
 	/**
+	 * 标题
+	 */
+	private String name;
+	/**
+	 * 商家ID
+	 */
+	private Integer outSiteId;
+	/**
 	 * 优惠券类型
 	 */
 	private String type;
@@ -33,6 +42,22 @@ public class CouponPageRequest extends PageRequestBase{
 	private String  scrapyStr;
 	
 	private Date nowDate;
+
+	public Integer getOutSiteId() {
+		return outSiteId;
+	}
+
+	public void setOutSiteId(Integer outSiteId) {
+		this.outSiteId = outSiteId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public Date getNowDate() {
 		return nowDate;

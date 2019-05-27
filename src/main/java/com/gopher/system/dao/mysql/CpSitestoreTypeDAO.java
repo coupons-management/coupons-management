@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.CpSitestoreType;
+import com.gopher.system.model.vo.request.CpSitestoreRequest;
 
 /**
  * CpSitestoreTypeDAO继承基类
@@ -28,4 +30,7 @@ public interface CpSitestoreTypeDAO extends MyBatisBaseDao<CpSitestoreType, Inte
 	 * @return
 	 */
 	Integer deleteByPid(int pid);
+	
+
+	List<CpSitestoreType> getStoreSort(CpSitestoreRequest request) ;
 }

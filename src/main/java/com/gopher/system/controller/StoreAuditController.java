@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.CpOutSiteCoupon;
 import com.gopher.system.model.entity.CpOutSiteStore;
+import com.gopher.system.model.vo.request.CouponPageRequest;
+import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.service.CpOutSiteCouponService;
 import com.gopher.system.service.StoreAuditService;
 
@@ -143,7 +145,7 @@ public class StoreAuditController {
 	 * @return
 	 */
 	@RequestMapping(path="/getHotStroreList")
-	public Result getHotStroreList(@RequestBody CpOutSiteStore cpOutSiteStore) {
+	public Result getHotStroreList(@RequestBody ShowSiteStoreRequest cpOutSiteStore) {
 		Result result = new Result();
 		result.setData(storeAuditService.getHotStoreList(cpOutSiteStore));
 		return result;
@@ -168,7 +170,7 @@ public class StoreAuditController {
 	 * @return
 	 */
 	@RequestMapping(path="/getAdviseStroreList")
-	public Result getAdviseStroreList(@RequestBody CpOutSiteStore cpOutSiteStore) {
+	public Result getAdviseStroreList(@RequestBody ShowSiteStoreRequest cpOutSiteStore) {
 		Result result = new Result();
 		result.setData(storeAuditService.getAdviseStroreList(cpOutSiteStore));
 		return result;
@@ -182,14 +184,14 @@ public class StoreAuditController {
 	@RequestMapping(path="/getTopAdviseStroreList")
 	public Result getTopAdviseStroreList(@RequestBody CpOutSiteStore cpOutSiteStore) {
 		Result result = new Result();
-		result.setData(storeAuditService.getAdviseStroreList(cpOutSiteStore));
+		result.setData(storeAuditService.getTopAdviseStroreList(cpOutSiteStore));
 		return result;
 	}
 	
 	
 	
 	@RequestMapping(path="/getHotCouponList")
-	public Result getHotCouponList(@RequestBody CpOutSiteCoupon obj) {
+	public Result getHotCouponList(@RequestBody CouponPageRequest obj) {
 		Result result = new Result();
 		result.setData(cpOutSiteCouponService.getHotList(obj));
 		return result;
@@ -203,7 +205,7 @@ public class StoreAuditController {
 	}
 	
 	@RequestMapping(path="/getAdviseCouponList")
-	public Result getAdviseCouponList(@RequestBody CpOutSiteCoupon obj) {
+	public Result getAdviseCouponList(@RequestBody CouponPageRequest obj) {
 		Result result = new Result();
 		result.setData(cpOutSiteCouponService.getAdviseList(obj));
 		return result;

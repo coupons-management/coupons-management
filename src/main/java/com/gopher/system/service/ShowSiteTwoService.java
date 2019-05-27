@@ -2,11 +2,17 @@ package com.gopher.system.service;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpOutSite;
 import com.gopher.system.model.entity.CpOutSiteStore;
+import com.gopher.system.model.entity.CpSitestoreType;
 import com.gopher.system.model.vo.CpOutSiteStoreVo;
 import com.gopher.system.model.vo.Page;
+import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 
 public interface ShowSiteTwoService {
@@ -36,12 +42,20 @@ public interface ShowSiteTwoService {
 	 * 查看优惠卷
 	 * @return
 	 */
-    List<CpCoupon> getCouponList(CpOutSiteStore cpOutSiteStore);
+	Page<CpCoupon> getCouponList(ShowSiteStoreRequest request);
     /**
 	 * 查看新增的优惠卷
 	 * @return
 	 */
-    List<CpCoupon> getNewCouponList(CpOutSiteStore cpOutSiteStore);
+	Page<CpCoupon> getNewCouponList(ShowSiteStoreRequest request);
+	
+/**
+ * 商家分类
+ * @param request
+ * @return
+ */
+	public List<CpSitestoreType> getStoreSort(CpSitestoreRequest request);
+		
 	
 	
 List<CpOutSite> getSiteList();

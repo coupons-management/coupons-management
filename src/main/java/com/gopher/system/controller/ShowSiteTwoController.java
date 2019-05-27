@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.CpOutSiteStore;
+import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.service.ShowSiteTwoService;
 
@@ -24,6 +25,13 @@ public class ShowSiteTwoController {
 		return result;
 	}
 	
+/*	@RequestMapping(path="/getStoreSort")
+	public Result getStoreSort(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
+		Result result = new Result();
+		result.setData(showSiteTwoService.getSiteList());
+		return result;
+	}
+*/
 	
 	@RequestMapping(path="/addStoreToSiteBatch")
 	public Result addSiteStore(@RequestBody List<ShowSiteStoreRequest> showSiteStoreList) {
@@ -69,17 +77,22 @@ public class ShowSiteTwoController {
 	}
 	
 	@RequestMapping(path="/getCouponList")
-	public Result getCouponList(@RequestBody CpOutSiteStore outSiteStore) {
+	public Result getCouponList(@RequestBody ShowSiteStoreRequest outSiteStore) {
 		Result result = new Result();
 		result.setData(showSiteTwoService.getCouponList(outSiteStore));
 		return result;
 	}
 	
 	@RequestMapping(path="/getNewCouponList")
-	public Result getNewCouponList(@RequestBody CpOutSiteStore outSiteStore) {
+	public Result getNewCouponList(@RequestBody ShowSiteStoreRequest outSiteStore) {
 		Result result = new Result();
 		result.setData(showSiteTwoService.getNewCouponList(outSiteStore));
 		return result;
 	}
-	
+	@RequestMapping(path="/getStoreSort")
+	public Result getStoreSort(@RequestBody CpSitestoreRequest showSiteStoreRequest) {
+		Result result = new Result();
+		result.setData(showSiteTwoService.getStoreSort(showSiteStoreRequest));
+		return result;
+	}
 }

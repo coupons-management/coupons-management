@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.gopher.system.dao.mysql.CpOutSiteStoreDAO;
 import com.gopher.system.model.entity.CpOutSiteStore;
+import com.gopher.system.model.vo.CpOutSiteStoreVo;
+import com.gopher.system.model.vo.Page;
+import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.service.StoreAuditService;
 @Service
 public class StoreAuditServiceImpl implements StoreAuditService {
@@ -56,15 +59,27 @@ public class StoreAuditServiceImpl implements StoreAuditService {
 	}
 
 	@Override
-	public List<CpOutSiteStore> getHotStoreList(CpOutSiteStore cpOutSiteStore) {
+	public Page<CpOutSiteStore> getHotStoreList(ShowSiteStoreRequest request) {
 		// TODO Auto-generated method stub
-		return cpOutSiteStoreDAO.getHotStoreList(cpOutSiteStore);		
+		
+		
+		Page<CpOutSiteStore> result=new Page<CpOutSiteStore>();
+		List<CpOutSiteStore> list=cpOutSiteStoreDAO.getHotStoreList(request);
+		int  total=cpOutSiteStoreDAO.getHotStoreCount(request);
+		result.setList(list);
+		result.setTotalCount(total);
+		return result;
+		
 	}
 
 	@Override
-	public List<CpOutSiteStore> getAdviseStroreList(CpOutSiteStore cpOutSiteStore) {
-		// TODO Auto-generated method stub
-		return cpOutSiteStoreDAO.getAdviseStroreList(cpOutSiteStore);
+	public Page<CpOutSiteStore> getAdviseStroreList(ShowSiteStoreRequest request) {
+		Page<CpOutSiteStore> result=new Page<CpOutSiteStore>();
+		List<CpOutSiteStore> list=cpOutSiteStoreDAO.getAdviseStroreList(request);
+		int  total=cpOutSiteStoreDAO.getAdviseStroreCount(request);
+		result.setList(list);
+		result.setTotalCount(total);
+		return result;
 	}
 
 	@Override

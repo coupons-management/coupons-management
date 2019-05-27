@@ -15,6 +15,8 @@ import com.gopher.system.model.entity.CpOutSiteStore;
 import com.gopher.system.model.entity.CpSiteStore;
 import com.gopher.system.model.vo.CpOutSiteCouponVo;
 import com.gopher.system.model.vo.CpOutSiteStoreVo;
+import com.gopher.system.model.vo.request.CouponPageRequest;
+import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.service.CpOutSiteCouponService;
 import com.gopher.system.service.ShowSiteTwoService;
@@ -110,34 +112,33 @@ public class StoreSitleTest extends BaseTest{
 	}	
 	//@Test
 	public void getHotStoreList() {
-		CpOutSiteStore cpOutSiteStore = new CpOutSiteStore();
-		cpOutSiteStore.setId(12);
-		cpOutSiteStore.setAdviseSort(2);
-	List<CpOutSiteStore>rsp=storeAuditService.getHotStoreList(cpOutSiteStore);
-        System.out.println(JSON.toJSONString(rsp));
+		ShowSiteStoreRequest cpOutSiteStore = new ShowSiteStoreRequest();
+		//cpOutSiteStore.setId(12);
+		//cpOutSiteStore.setAdviseSort(2);
+		
+
+        System.out.println(JSON.toJSONString(storeAuditService.getHotStoreList(cpOutSiteStore)));
 	}	
 	
 	//@Test
 	public void getAdviseStroreList() {
-		CpOutSiteStore cpOutSiteStore = new CpOutSiteStore();
+		ShowSiteStoreRequest cpOutSiteStore = new ShowSiteStoreRequest();
+		//cpOutSiteStore.setId(12);
 		cpOutSiteStore.setOutId(1);
-	List<CpOutSiteStore>rsp=storeAuditService.getAdviseStroreList(cpOutSiteStore);
-        System.out.println(JSON.toJSONString(rsp));
+        System.out.println(JSON.toJSONString(storeAuditService.getAdviseStroreList(cpOutSiteStore)));
 	}
 	
 	//@Test
-	public void getHotCountList() {
-		CpOutSiteCoupon cpOutSiteStore = new CpOutSiteCoupon();
+	public void getHotCouponList() {
+		CouponPageRequest cpOutSiteStore = new CouponPageRequest();
 		cpOutSiteStore.setOutSiteId(1);
-		List<CpOutSiteCouponVo>rsp=cpOutSiteCouponService.getHotList(cpOutSiteStore);
-        System.out.println(JSON.toJSONString(rsp));
+        System.out.println(JSON.toJSONString(cpOutSiteCouponService.getHotList(cpOutSiteStore)));
 	}	
 	//@Test
-	public void getAdviseCountList() {
-		CpOutSiteCoupon cpOutSiteStore = new CpOutSiteCoupon();
+	public void getAdviseCouponList() {
+		CouponPageRequest cpOutSiteStore = new CouponPageRequest();
 		cpOutSiteStore.setOutSiteId(1);
-		List<CpOutSiteCouponVo>rsp=cpOutSiteCouponService.getAdviseList(cpOutSiteStore);
-        System.out.println(JSON.toJSONString(rsp));
+        System.out.println(JSON.toJSONString(cpOutSiteCouponService.getAdviseList(cpOutSiteStore)));
 	}	
 	
 	
@@ -173,7 +174,7 @@ public class StoreSitleTest extends BaseTest{
         System.out.println(JSON.toJSONString(rsp));
 	}	
 	
-	@Test
+//	@Test
 		public void getTwoStoreList() {
 		ShowSiteStoreRequest obj = new ShowSiteStoreRequest();
 		obj.setSiteId(1);
@@ -188,21 +189,27 @@ public class StoreSitleTest extends BaseTest{
 		
 		//@Test
 				public void getCouponList() {
-			CpOutSiteStore obj = new CpOutSiteStore();
-			obj.setOutId(1);
+			ShowSiteStoreRequest obj = new ShowSiteStoreRequest();
+			obj.setSiteId(1);
 			obj.setStoreId(8783);
-			 List<CpCoupon> list =showSiteTwoService.getCouponList(obj);
-			 System.out.println(JSON.toJSONString(list));
+			 
+			 System.out.println(JSON.toJSONString(showSiteTwoService.getCouponList(obj)));
 				}
 		
-		/*
-		@Test
+		
+		//@Test
 			public void getNewCouponList() {
-			CpOutSiteStore obj = new CpOutSiteStore();
-				obj.setSiteId(1);
-				 List<CpCoupon> list=showSiteTwoService.getNewCouponList(obj);
-				 System.out.println(JSON.toJSONString(list));
-				}*/
+			ShowSiteStoreRequest obj = new ShowSiteStoreRequest();
+			obj.setStoreId(8783);
+				 System.out.println(JSON.toJSONString(showSiteTwoService.getNewCouponList(obj)));
+				}
+			@Test
+			public void getStoreSort() {
+				
+				CpSitestoreRequest request = new CpSitestoreRequest();
+				request.setSiteId(1);
+				 System.out.println(JSON.toJSONString(showSiteTwoService.getStoreSort(request)));
+				}
 		
 	
 }

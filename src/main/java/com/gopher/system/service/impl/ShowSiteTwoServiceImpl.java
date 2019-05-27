@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gopher.system.constant.CodeAndMsg;
+import com.gopher.system.controller.model.Result;
 import com.gopher.system.dao.mysql.CpCouponDAO;
 import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
 import com.gopher.system.dao.mysql.CpOutSiteDAO;
 import com.gopher.system.dao.mysql.CpOutSiteStoreDAO;
+import com.gopher.system.dao.mysql.CpSitestoreTypeDAO;
 import com.gopher.system.dao.mysql.CpSitestoreTypeMapDAO;
 import com.gopher.system.dao.mysql.CpStoreDAO;
 import com.gopher.system.dao.mysql.CpTypeStoreDAO;
@@ -26,6 +28,7 @@ import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.CpTypeStore;
 import com.gopher.system.model.vo.CpOutSiteStoreVo;
 import com.gopher.system.model.vo.Page;
+import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.model.vo.response.StoreResponse;
 import com.gopher.system.service.ShowSiteTwoService;
@@ -40,6 +43,8 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 	    private CpTypeStoreDAO cpTypeStoreDAO;
 	    @Autowired
 	    private CpSitestoreTypeMapDAO cpSitestoreTypeMapDAO;
+	    @Autowired
+	    private CpSitestoreTypeDAO cpSitestoreTypeDAO;
 	    @Autowired
 	    private CpOutSiteCouponDAO cpOutSiteCouponDAO;
 	    @Autowired
@@ -181,9 +186,9 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 			{
 				for(CpOutSiteStoreVo vo:list)
 				{
-					Map map=cpOutSiteStoreDAO.getInScrapy(vo.getId());
+					List<String> map=cpOutSiteStoreDAO.getInScrapy(vo.getId());
 					if(map!=null) {
-					vo.setScrapyMap(map);
+					vo.setScrapyList(map);
 					vo.setScrapyCount(map==null?0:map.size());
 					}
 					request.setStoreId(vo.getId());
@@ -192,8 +197,10 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 					vo.setShowCount(vo.getValidCount()+"/"+vo.getToalCount());
 				}
 			}
+			int  total=cpOutSiteStoreDAO.getTwoCount(request);
+			
 			result.setList(list);
-			result.setTotalCount(5);
+			result.setTotalCount(total);
 			return result;
 			
 		}
@@ -226,9 +233,26 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 
 
 		@Override
-		public List<CpCoupon> getCouponList(CpOutSiteStore cpOutSiteStore) {
-			// TODO Auto-generated method stub
-			return cpOutSiteStoreDAO.getCouponList(cpOutSiteStore);
+		public Page<CpCoupon> getCouponList(ShowSiteStoreRequest request) {
+			Page<CpCoupon> result=new Page<CpCoupon>();
+			result.setList(cpOutSiteStoreDAO.getCouponList(request));
+			int  total=cpOutSiteStoreDAO.getCouponCount(request);
+			result.setTotalCount(total);
+		
+			return result;
+		}
+
+
+
+
+		@Override
+		public Page<CpCoupon> getNewCouponList(ShowSiteStoreRequest request) {
+			Page<CpCoupon> result=new Page<CpCoupon>();
+			result.setList(cpOutSiteStoreDAO.getNewCouponList(request));
+			int  total=cpOutSiteStoreDAO.getNewCouponCount(request);
+			result.setTotalCount(total);
+		
+			return result;
 		}
 
 
@@ -237,9 +261,9 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 
 
 		@Override
-		public List<CpCoupon> getNewCouponList(CpOutSiteStore cpOutSiteStore) {
+		public List<CpSitestoreType> getStoreSort(CpSitestoreRequest request) {
 			// TODO Auto-generated method stub
-			return cpOutSiteStoreDAO.getNewCouponList(cpOutSiteStore);
+			return cpSitestoreTypeDAO.getStoreSort(request);
 		}
 
 	}
