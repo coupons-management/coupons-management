@@ -87,14 +87,16 @@ public class SynDataServiceImpl implements SynDataService {
 				String objectStr = message.getMessageBody();
 				JSONObject jsonObject = JSONObject.parseObject(objectStr);
 				StoreJson stu = (StoreJson) JSONObject.toJavaObject(jsonObject, StoreJson.class);
-				// 先加站点
-			
-				//String url = getUrl(stu.getWebsite());
-				CpInSite site = cpInSiteDAO.getSiteName(stu.getSourceSite());
+				// 先加爬虫站点
+				String siteUrl = getUrl(stu.getSourceSite());
+				CpInSite site = cpInSiteDAO.getSiteUrl(siteUrl);
 				if (site == null) {
 					site = new CpInSite();
-					site.setUrl(stu.getSourceSite());
-					site.setName(stu.getSourceSite());
+					if(StringUtils.isNotEmpty(siteUrl))
+					{
+						site.setUrl(siteUrl);
+						site.setName(this.getName(siteUrl));
+					}
 					site.setCreateTime(new Date());
 					cpInSiteDAO.insert(site);
 				} /*else {
@@ -105,7 +107,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpInSiteDAO.updateByPrimaryKey(site);
 				}*/
 
-				
+				//增加商家类型
 				CpType cpType = cpTypeDAO.getBeanByName(stu.getCategory());
 				if (cpType == null) {
 					cpType = new CpType();
@@ -117,13 +119,14 @@ public class SynDataServiceImpl implements SynDataService {
 				// 增加爬虫
 
 				// 增加商家
-				CpStore cpStore = cpStoreDAO.getBeanByWebSite(stu.getFinalWebsite());
+				String storeUrl = getUrl(stu.getFinalWebsite());
+				CpStore cpStore = cpStoreDAO.getBeanByWebSite(storeUrl);
 				if (cpStore == null) {
 					cpStore = new CpStore();
 
 					// 以后做属性拷贝，暂时一个个设值
 					cpStore.setName(stu.getName());
-					cpStore.setWebsite(stu.getFinalWebsite());
+					cpStore.setWebsite(storeUrl);
 					cpStore.setTitle(stu.getTitle());
 					cpStore.setCountry(stu.getCountry());
 					cpStore.setCouponCount(Integer.parseInt(stu.getCouponCount()));
@@ -147,7 +150,7 @@ public class SynDataServiceImpl implements SynDataService {
 
 				} else {
 					cpStore.setName(stu.getName());
-					cpStore.setWebsite(stu.getFinalWebsite());
+					cpStore.setWebsite(storeUrl);
 					cpStore.setCountry(stu.getCountry());
 					cpStore.setTitle(stu.getTitle());
 					cpStore.setCouponCount(Integer.parseInt(stu.getCouponCount()));
@@ -169,7 +172,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpStoreDAO.updateByPrimaryKeySelective(cpStore);
 					
 				}
-
+                //修改站点与商家关系
 				CpSiteStore cpSiteStore = new CpSiteStore();
 				cpSiteStore.setInSiteId(site.getId());
 				cpSiteStore.setStoreId(cpStore.getId());
@@ -246,7 +249,8 @@ public class SynDataServiceImpl implements SynDataService {
 					cpTypeDAO.insert(cpType);
 
 				}
-				CpStore cpStore = cpStoreDAO.getBeanByWebSite(stu.getFinalWebsite());
+				String storeUrl = getUrl(stu.getFinalWebsite());
+				CpStore cpStore = cpStoreDAO.getBeanByWebSite(storeUrl);
 				// 2、增加商家
 				if (cpStore == null) {
 
@@ -254,7 +258,7 @@ public class SynDataServiceImpl implements SynDataService {
 					// 以后做属性拷贝，暂时一个个设值
 					cpStore.setName(stu.getStore());
 					// cpStore.setWebsite(stu.getStoreWebsite());
-					cpStore.setWebsite(stu.getFinalWebsite());
+					cpStore.setWebsite(storeUrl);
 					cpStore.setCountry(stu.getStoreCountry());
 					// cpStore.setCouponCount(1);
 					cpStore.setLogoUrl(stu.getStorePicture());
@@ -292,7 +296,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpCoupon.setExpireAt(stu.getExpire());
 					cpCoupon.setFinalWebsite(stu.getFinalWebsite());
 					cpCoupon.setLink(stu.getLink());
-					cpCoupon.setStoreUrl(stu.getFinalWebsite());
+					cpCoupon.setStoreUrl(storeUrl);
 					cpCoupon.setInType("0");
 					cpCoupon.setSiteUrl(stu.getSourceSite());
 					cpCoupon.setScrapy(stu.getSpiderName());
@@ -307,7 +311,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpCoupon.setCode(stu.getCode());
 					cpCoupon.setExpireAt(stu.getExpire());
 					cpCoupon.setLink(stu.getLink());
-					cpCoupon.setStoreUrl(stu.getFinalWebsite());
+					cpCoupon.setStoreUrl(storeUrl);
 					cpCoupon.setFinalWebsite(stu.getFinalWebsite());
 					cpCoupon.setScrapy(stu.getSpiderName());
 					cpCoupon.setSiteUrl(stu.getSourceSite());
@@ -345,12 +349,13 @@ public class SynDataServiceImpl implements SynDataService {
 
 				// 6、增加站点
 	
-				//String url = getUrl(stu.getStoreWebsite());
-				CpInSite site = cpInSiteDAO.getSiteName(stu.getSourceSite());
+				String siteUrl = getUrl(stu.getSourceSite());
+				
+				CpInSite site = cpInSiteDAO.getSiteName(siteUrl);
 				if (site == null) {
 					site = new CpInSite();
-					site.setUrl(stu.getSourceSite());
-					site.setName(stu.getSourceSite());
+					site.setUrl(siteUrl);
+					site.setName(this.getName(siteUrl));
 					site.setCreateTime(new Date());
 					cpInSiteDAO.insert(site);
 				}
@@ -477,26 +482,40 @@ public class SynDataServiceImpl implements SynDataService {
 	}
 
 	static String getUrl(String name) {
+		
 		int beginIndex = 0;
 		int endIndex = 0;
 		if (StringUtils.isEmpty(name)) {
 			return null;
 		}
+		try {
 		if (name.startsWith("https://")) {
 			beginIndex = "https://".length();
 			endIndex = name.substring(beginIndex).indexOf("/");
+			if(endIndex==-1)
+			{
+			return name.substring(beginIndex);
+			}
 			return name.substring(beginIndex, beginIndex + endIndex);
 		}
 		
 		if (name.startsWith("http://")) {
 			beginIndex = "http://".length();
 			endIndex = name.substring(beginIndex).indexOf("/");
+			if(endIndex==-1)
+			{
+				return name.substring(beginIndex);
+			}
 			if(name.substring(beginIndex).contains("?")) {
 				endIndex = name.substring(beginIndex).indexOf("?");
 			}
 			return name.substring(beginIndex, endIndex);
 		}
-		return null;
+		}catch(Exception e) {
+			System.out.println(name);
+		}
+		
+		return name;
 	}
 
 	static String getName(String url) {

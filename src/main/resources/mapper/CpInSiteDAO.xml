@@ -136,4 +136,12 @@
     from CP_IN_SITE
     where NAME = #{name,jdbcType=VARCHAR} limit 1
   </select>
+  
+    <select id="getSiteUrl" parameterType="String" resultType="com.gopher.system.model.entity.CpInSite">
+  select 
+    <include refid="Base_Column_List" />
+    from CP_IN_SITE
+    where URL = #{url,jdbcType=VARCHAR} limit 1
+  </select>
+  
 </mapper>

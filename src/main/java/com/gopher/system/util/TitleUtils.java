@@ -16,6 +16,7 @@ public class TitleUtils {
 	static String mark="$";
 	static final String PERCENT ="%";
 	static String type=null;
+	static String keywords=null;
 	static {
 		list.add("$");
 		list.add("€");
@@ -23,7 +24,7 @@ public class TitleUtils {
 		list.add("Rs ");
 		list.add("Rs.");
 		list.add("FR ");
-		List<String> a1List=new ArrayList<String>();
+		//List<String> a1List=new ArrayList<String>();
 		//a1List.add("Save $ Any Oder");
 		//messageMap.put("A1", a1List);
 		
@@ -32,7 +33,7 @@ public class TitleUtils {
 	}
 	
 	public static void main(String[] args) {
-		String title="$0.99 Trial, Active Advantage  off Today at Active Network";
+		String title="$50 off Jewelry orders over $150";
 		System.out.println(getMessage(title));
 		
 	}
@@ -42,6 +43,7 @@ public class TitleUtils {
 			return null;
 		}
 		String key=null;
+		keywords=null;
 		if(A4(title))
 		{
 			key ="A4";
@@ -93,7 +95,10 @@ public class TitleUtils {
 		{
 			 newMessage=getA1Message(title,newMessage,mark);
 		}
-		
+		if(key.indexOf("K")!=-1)
+		{
+			newMessage=newMessage.replace("[keyword]", keywords);	
+		}
 		
 		
 		if(newMessage.indexOf("free shiping")!=-1)
@@ -318,6 +323,7 @@ public class TitleUtils {
 		for (Map.Entry<String, String> entry : keyWordsMap.entrySet()) {
 			if (title.indexOf(entry.getValue()) != -1) {
 				System.out.println("我是K1系");
+				keywords=entry.getValue();
 				return true;
 			}
 		}
@@ -330,11 +336,13 @@ public class TitleUtils {
 		{
 		return false;
 		}*/
+		
 		for(Map.Entry<String, String> entry :keyWordsMap.entrySet())
 		{
 			if(title.indexOf(entry.getValue())!=-1)
 			{
 				System.out.println("我是K2系");
+				keywords=entry.getValue();
 				return true;
 			}	
 		}
@@ -394,7 +402,7 @@ public class TitleUtils {
 	 * @param mark
 	 * @return
 	 */
-	public static String getA3Message(String  title,String mode,String mark) {
+	 static String getA3Message(String  title,String mode,String mark) {
 		String[] titles=title.split(" ");
 		String[] values=new String[2];
 		for(int i=0;i<titles.length;i++)
@@ -433,7 +441,7 @@ public class TitleUtils {
 	 * @param mark
 	 * @return
 	 */
-	public static String getA2Message(String  title,String mode) {
+	 static String getA2Message(String  title,String mode) {
 		String[] titles=title.split(" ");
 		String[] values=new String[1];
 		for(int i=0;i<titles.length;i++)
@@ -460,7 +468,7 @@ public class TitleUtils {
 	 * @param mark
 	 * @return
 	 */
-	public static String getA1Message(String  title,String mode,String mark) {
+	 static String getA1Message(String  title,String mode,String mark) {
 		String[] titles=title.split(" ");
 		String[] values=new String[1];
 		for(int i=0;i<titles.length;i++)
@@ -487,7 +495,7 @@ public class TitleUtils {
 	 * @param mark
 	 * @return
 	 */
-	public static String getA4Message(String  title,String mode,String mark) {
+	 static String getA4Message(String  title,String mode,String mark) {
 		String[] titles=title.split(" ");
 		String[] values=new String[2];
 		for(int i=0;i<titles.length;i++)

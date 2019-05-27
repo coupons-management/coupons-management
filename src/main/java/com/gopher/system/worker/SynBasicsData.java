@@ -130,4 +130,16 @@ public class SynBasicsData {
 			        }
 
 				}
+			 
+			 
+
+			 @SuppressWarnings("unchecked")
+				public void test(){
+			      String  title="$50 off Jewelry orders over $150";
+
+			      System.out.println( TitleUtils.getMessage(title));
+
+				}
+			 
+			
 }

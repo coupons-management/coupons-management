@@ -2,6 +2,7 @@ package com.gopher.system.util;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -175,16 +176,25 @@ public class CouPonJson {
 
 		public Timestamp  getExpire() {
 			//this.expire=Timestamp.parse(createdAt); 
-			if(StringUtils.isNotEmpty(createdAt))
+			if(StringUtils.isNotEmpty(expireAt))
 			{
-			this.expire = Timestamp.valueOf(createdAt);
+				SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				try {
+					this.expire=new Timestamp(format.parse(expireAt).getTime()) ;
+					//this.expire = Timestamp.valueOf(expireAt);
+				
+				} catch (ParseException e) {
+					
+					e.printStackTrace();
+				}
+		
 			}
 		return expire;
 	}
 
 	public void setExpire(Timestamp  expire) {
 		
-		this.expire = Timestamp.valueOf(createdAt);
+		this.expire =expire; 
 	}
 
 		public String getId() {

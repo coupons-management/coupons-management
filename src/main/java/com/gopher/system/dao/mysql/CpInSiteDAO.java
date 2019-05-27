@@ -14,4 +14,10 @@ public interface CpInSiteDAO extends MyBatisBaseDao<CpInSite, Integer> {
 	 * @return
 	 */
 	public CpInSite getSiteName(String name);
+	
+	/**
+	 * 根据站URL称来查询出站点信息
+	 * @return
+	 */
+	public CpInSite getSiteUrl(String name);
 }
