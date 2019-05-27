@@ -12,14 +12,8 @@ import java.util.Properties;
 public class Test {
 
 	public static void main(String[] args) {
-		String[] cmds = {"curl", "-H", "18.234.205.204:6800", "-H", "Cache-Control: max-age=0", "--offer", "http://18.234.205.204:6800/schedule.json"};
-		execCurl(cmds);
-		
-		//curl http://18.234.205.204:6800/schedule.json -d project=coupon_spider -d spider=offer
-		//	curl http://18.234.205.204:6800/schedule.json -d project=coupon_spider -d spider=ccouponchief
-			
-	   
-
+		//-------------
+	
 	}
 	 public static String execCurl(String[] cmds){
 	        ProcessBuilder process = new ProcessBuilder(cmds);
