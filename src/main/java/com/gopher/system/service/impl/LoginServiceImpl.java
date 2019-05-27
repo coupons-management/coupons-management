@@ -23,7 +23,11 @@ import com.gopher.system.service.LoginService;
 import com.gopher.system.service.UserService;
 import com.gopher.system.util.CookieUtils;
 import com.gopher.system.util.MD5Utils;
-
+/**
+ * 登录登出业务
+ * @author dongyangyang
+ *
+ */
 @Service(value = "loginService")
 public class LoginServiceImpl implements LoginService {
     private static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);

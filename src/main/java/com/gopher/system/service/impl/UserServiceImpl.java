@@ -10,7 +10,11 @@ import com.gopher.system.exception.BusinessRuntimeException;
 import com.gopher.system.model.entity.User;
 import com.gopher.system.service.UserService;
 import com.gopher.system.util.ThreadLocalUtils;
-
+/**
+ * 
+ * @author dongyangyang
+ *
+ */
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
 	@Resource

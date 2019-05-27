@@ -1,6 +1,6 @@
 package com.gopher.system.aspect;
 
-import java.lang.reflect.Method;
+import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -9,9 +9,9 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
-import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
 
@@ -20,7 +20,7 @@ import com.alibaba.fastjson.JSON;
 public class ParamAspect {
 	private static final Logger log = LoggerFactory.getLogger(ParamAspect.class);
 
-	@Pointcut("execution(public * com.gopher.system.service.*.*(..))")
+	@Pointcut("execution(public * com.gopher.system.controller.*.*(..))")
 	public void paramFilter() {
 
 	}
@@ -34,54 +34,28 @@ public class ParamAspect {
 	 */
 	@Around("paramFilter()")
 	private Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
-		log.info("========================================================");
+		log.info("====================PRE===================================");
 		this.doParamLog(joinPoint);
-		
-		return joinPoint.proceed();
+		Object result = joinPoint.proceed();
+		log.info("====================AFTER===================================");
+		return result;
 	}
 
-	private ParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
-
 	void doParamLog(ProceedingJoinPoint joinPoint) {
-
+		
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getRequest();
 		// 获得切入的方法签名
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-
-		// 获得切入的方法
-		Method method = signature.getMethod();
-
 		// 获取切入方法参数值
 		Object[] argValues = joinPoint.getArgs();
-		log.debug("请求参数：{}", JSON.toJSONString(argValues));
+		log.info("请求参数：{}", JSON.toJSONString(argValues));
 		// 获取切入方法参数名称
-//		String[] parameterNames = parameterNameDiscoverer.getParameterNames(method);
-
-		// 获取切入方法参数类型
-		Class[] parameterTypes = signature.getParameterTypes();
-		// ############################# LOGGING STARTING
-		// #############################################
-		if (log.isDebugEnabled()) {
-			log.debug("方法签名：{}", signature.toShortString());
+		log.info("方法签名：{}", signature.toShortString());
+		// 避免通过单元测试直接调用controller方法报错
+		if(null != request) {
+			log.info("请求URL:{}",request.getRequestURL());
 		}
-
-//		StringBuilder paramsBuilder = new StringBuilder();
-//		if(null == parameterNames) {
-//			log.info("没有参数");
-//			return;
-//		}
-//		int paramNamesLength = parameterNames.length;
-//		if (paramNamesLength != 0) {
-//			for (int i = 0; i < paramNamesLength; i++) {
-//				paramsBuilder.append(parameterNames[i]).append("(").append(parameterTypes[i].getSimpleName())
-//						.append(")").append(" = ").append(argValues[i]).append(", ");
-//			}
-//		}
-//		if (log.isDebugEnabled()) {
-//			log.debug("请求参数: [{}]", paramsBuilder.toString());
-//		}
-
-		// ############################# LOGGING ENDING
-		// #############################################
 	}
 
 }

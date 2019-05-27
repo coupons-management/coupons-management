@@ -4,6 +4,7 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans 
         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -67,5 +68,8 @@
 	</bean>
 
 	<mvc:resources location="/static/" mapping="/static/**"/>
+	
+		<!-- 使AspectJ注解自动为匹配的类生成代理对象 -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
 </beans>

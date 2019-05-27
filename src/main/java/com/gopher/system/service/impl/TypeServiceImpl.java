@@ -14,6 +14,11 @@ import com.gopher.system.exception.BusinessRuntimeException;
 import com.gopher.system.model.entity.CpType;
 import com.gopher.system.model.vo.response.TypeResponse;
 import com.gopher.system.service.TypeService;
+/**
+ * 
+ * @author dongyangyang
+ *
+ */
 @Service
 public class TypeServiceImpl implements TypeService{
 	@Autowired

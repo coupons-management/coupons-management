@@ -7,6 +7,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.gopher.system.service.CacheService;
+/**
+ * 
+ * @author dongyangyang
+ *
+ * @param <K>
+ * @param <V>
+ */
 @Service
 public class CacheServiceImpl<K,V> implements CacheService<K,V> {
 	@Autowired

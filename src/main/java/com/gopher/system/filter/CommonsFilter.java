@@ -27,51 +27,51 @@ public class CommonsFilter implements Filter {
         httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
         httpResponse.setHeader("Content-type", "text/html;charset=UTF-8");
         httpResponse.setCharacterEncoding("UTF-8");
- 
-        try {
-            logger.info("=============================================================================");
-            StringBuffer msg = new StringBuffer(200);
-            HttpServletRequest httpRequest = (HttpServletRequest) request;
-            msg.append("HOST : ");
-            msg.append(request.getRemoteHost());
-            msg.append("  ");
-            msg.append("URL : ");
-            msg.append(httpRequest.getRequestURL());
-            msg.append("  ");
-            msg.append("METHOD : ");
-            msg.append(httpRequest.getMethod());
-            msg.append("  ");
-            Map<String, String[]> params = request.getParameterMap();
-            StringBuffer paramstr = null;
-            if (null != params && !params.isEmpty()) {
-                paramstr = new StringBuffer(100);
-                paramstr.append("{");
-                Iterator<String> keys = params.keySet().iterator();
-                while (keys.hasNext()) {
-                    String key = (String) keys.next();
-                    String[] value = params.get(key);
-                    StringBuffer val = new StringBuffer(20);
-                    if (value != null) {
-                        for (int i = 0; i < value.length; i++) {
-                            val.append(value[i]);
-                        }
-                    }
-                    paramstr.append(key);
-                    paramstr.append(":");
-                    paramstr.append(val);
-                    paramstr.append(",");
-                }
-                paramstr.append("}");
-            }
-            if (null != paramstr) {
-                msg.append("PARAM IN ");
-                msg.append(paramstr.toString());
-            }
-            logger.info(msg.toString());
-            logger.info("=============================================================================");
-        } catch (Throwable t) {
-            logger.info(t.getMessage(),t);
-        }
+// 
+//        try {
+//            logger.info("=============================================================================");
+//            StringBuffer msg = new StringBuffer(200);
+//            HttpServletRequest httpRequest = (HttpServletRequest) request;
+//            msg.append("HOST : ");
+//            msg.append(request.getRemoteHost());
+//            msg.append("  ");
+//            msg.append("URL : ");
+//            msg.append(httpRequest.getRequestURL());
+//            msg.append("  ");
+//            msg.append("METHOD : ");
+//            msg.append(httpRequest.getMethod());
+//            msg.append("  ");
+//            Map<String, String[]> params = request.getParameterMap();
+//            StringBuffer paramstr = null;
+//            if (null != params && !params.isEmpty()) {
+//                paramstr = new StringBuffer(100);
+//                paramstr.append("{");
+//                Iterator<String> keys = params.keySet().iterator();
+//                while (keys.hasNext()) {
+//                    String key = (String) keys.next();
+//                    String[] value = params.get(key);
+//                    StringBuffer val = new StringBuffer(20);
+//                    if (value != null) {
+//                        for (int i = 0; i < value.length; i++) {
+//                            val.append(value[i]);
+//                        }
+//                    }
+//                    paramstr.append(key);
+//                    paramstr.append(":");
+//                    paramstr.append(val);
+//                    paramstr.append(",");
+//                }
+//                paramstr.append("}");
+//            }
+//            if (null != paramstr) {
+//                msg.append("PARAM IN ");
+//                msg.append(paramstr.toString());
+//            }
+//            logger.info(msg.toString());
+//            logger.info("=============================================================================");
+//        } catch (Throwable t) {
+//            logger.info(t.getMessage(),t);
+//        }
         chain.doFilter(request, response);
 
     }

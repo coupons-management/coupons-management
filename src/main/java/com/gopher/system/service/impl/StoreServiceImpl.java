@@ -27,7 +27,11 @@ import com.gopher.system.model.vo.response.StoreResponse;
 import com.gopher.system.service.CouponService;
 import com.gopher.system.service.StoreService;
 import com.gopher.system.util.DateUtils;
-
+/**
+ * 
+ * @author dongyangyang
+ *
+ */
 @Service
 public class StoreServiceImpl implements StoreService {
 	@Resource

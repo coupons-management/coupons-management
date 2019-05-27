@@ -1,6 +1,7 @@
 package com.gopher.system.service.impl;
 
 import java.util.Date;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -21,6 +22,12 @@ import com.gopher.system.model.vo.request.ShowSiteCouponPageRequest;
 import com.gopher.system.model.vo.request.ShowSiteCouponRequest;
 import com.gopher.system.model.vo.response.ShowSiteCouponResponse;
 import com.gopher.system.service.ShowSiteCouponService;
+
+/**
+ * 
+ * @author dongyangyang
+ *
+ */
 @Service
 public class ShowSiteCouponServiceImpl implements ShowSiteCouponService{
 	@Autowired

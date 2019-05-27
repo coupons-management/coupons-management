@@ -1,6 +1,7 @@
 package com.gopher.system.service.impl;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,11 @@ import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.response.CouponResponse;
 import com.gopher.system.service.CouponService;
 import com.gopher.system.util.DateUtils;
+/**
+ * 
+ * @author dongyangyang
+ *
+ */
 @Service
 public class CouponServiceImpl implements CouponService{
 	@Autowired

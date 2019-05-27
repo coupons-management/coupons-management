@@ -22,7 +22,11 @@ import com.gopher.system.model.vo.request.TypeMapRequest;
 import com.gopher.system.model.vo.response.CpTypeResponse;
 import com.gopher.system.model.vo.response.SitestoreTypeTree;
 import com.gopher.system.service.ShowSiteTypeService;
-
+/**
+ * 
+ * @author dongyangyang
+ *
+ */
 @Service
 public class ShowSiteTypeServiceImpl implements ShowSiteTypeService {
 	@Autowired
