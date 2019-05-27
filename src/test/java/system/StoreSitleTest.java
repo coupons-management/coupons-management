@@ -173,29 +173,20 @@ public class StoreSitleTest extends BaseTest{
         System.out.println(JSON.toJSONString(rsp));
 	}	
 	
-	//@Test
+	@Test
 		public void getTwoStoreList() {
 		ShowSiteStoreRequest obj = new ShowSiteStoreRequest();
 		obj.setSiteId(1);
-		List<CpOutSiteStoreVo> list=showSiteTwoService.getTwoList(obj);
-		
-	
-	        System.out.println(JSON.toJSONString(list));
+
+	        System.out.println(JSON.toJSONString(showSiteTwoService.getTwoList(obj)));
 		}	
 		
-		public void getTwoStoreList2() {
-			ShowSiteStoreRequest obj = new ShowSiteStoreRequest();
-			obj.setSiteId(1);
-			List<CpOutSiteStoreVo> list=showSiteTwoService.getTwoList(obj);
-			
-		
-		        System.out.println(JSON.toJSONString(list));
-			}
+	
 		
 		
 		
 		
-		@Test
+		//@Test
 				public void getCouponList() {
 			CpOutSiteStore obj = new CpOutSiteStore();
 			obj.setOutId(1);

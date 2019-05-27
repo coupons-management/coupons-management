@@ -6,6 +6,7 @@ import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpOutSite;
 import com.gopher.system.model.entity.CpOutSiteStore;
 import com.gopher.system.model.vo.CpOutSiteStoreVo;
+import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 
 public interface ShowSiteTwoService {
@@ -15,7 +16,9 @@ public interface ShowSiteTwoService {
 	 * @param siteStore
 	 * @return
 	 */
-	List<CpOutSiteStoreVo> getTwoList(ShowSiteStoreRequest siteStore);
+	
+	
+	Page<CpOutSiteStoreVo> getTwoList(ShowSiteStoreRequest siteStore);
 	
 	/**
 	 * 修改外站商家关系

@@ -25,6 +25,7 @@ import com.gopher.system.model.entity.CpSitestoreTypeMap;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.CpTypeStore;
 import com.gopher.system.model.vo.CpOutSiteStoreVo;
+import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.model.vo.response.StoreResponse;
 import com.gopher.system.service.ShowSiteTwoService;
@@ -173,7 +174,8 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 
 
 		@Override
-		public List<CpOutSiteStoreVo> getTwoList(ShowSiteStoreRequest request) {
+		public Page<CpOutSiteStoreVo> getTwoList(ShowSiteStoreRequest request) {
+			Page<CpOutSiteStoreVo> result=new Page<CpOutSiteStoreVo>();
 			List<CpOutSiteStoreVo> list=cpOutSiteStoreDAO.getTwoList(request);
 			if(list!=null&&list.size()>0)
 			{
@@ -190,7 +192,10 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 					vo.setShowCount(vo.getValidCount()+"/"+vo.getToalCount());
 				}
 			}
-			return list;
+			result.setList(list);
+			result.setTotalCount(5);
+			return result;
+			
 		}
 
 

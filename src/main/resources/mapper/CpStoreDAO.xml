@@ -465,11 +465,11 @@
 			<if test="search != null and  search !='' ">
 				NAME LIKE "%"#{search}"%"  OR WEBSITE LIKE "%"#{search}"%"
 			</if>
-			<if test="#{country} != null and country>!=''">
+			<if test="country != null and country !='' ">
 				AND COUNTRY like "%"#{country}"%"
 			</if>
 			
-			<if test="typeName != null and typeName !=''">
+			<if test="typeName != null and typeName !='' ">
 				AND TYPE_NAME = #{typeName}
 			</if>
 			
@@ -501,15 +501,15 @@
 			<if test="search != null and  search !='' ">
 				NAME LIKE "%"#{search}"%"  OR WEBSITE LIKE "%"#{search}"%"
 			</if>
-			<if test="#{country} != null and country>!=''">
+			<if test="country != null and country !='' ">
 				AND COUNTRY like "%"#{country}"%"
 			</if>
 			
-			<if test="typeName != null and typeName !=''">
+			<if test="typeName != null and typeName !='' ">
 				AND TYPE_NAME = #{typeName}
 			</if>
 			
-			<if test="scrapyId != null and scrapyId >0">
+			<if test="scrapyId != null and scrapyId >0 ">
 				AND SCSTORE.SCRAPY_ID = #{scrapyId}
 			</if>
 		</where>

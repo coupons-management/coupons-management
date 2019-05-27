@@ -476,7 +476,7 @@ CP_OUT_SITE_STORE  OUTSTORE ,CP_STORE STORE
 <where>
  OUTSTORE.STORE_ID=STORE.ID and
 		OUTSTORE.OUT_ID = #{siteId} 
-		<if test="country != null and country!=''">
+		<if test="country != null and country !=''">
 				COUNTRY like  "%"#{country}"%"
 		</if>
 		
