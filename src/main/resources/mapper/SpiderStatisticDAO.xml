@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gopher.system.dao.mysql.SpiderStatisticDAO">
+  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.SpiderStatistic">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="SPIDER_ID" jdbcType="INTEGER" property="spiderId" />
+    <result column="INCREMENT_COUPON" jdbcType="INTEGER" property="incrementCoupon" />
+    <result column="INCREMENT_STORE" jdbcType="INTEGER" property="incrementStore" />
+    <result column="TOTAL_COUPON" jdbcType="INTEGER" property="totalCoupon" />
+    <result column="TOTAL_STORE" jdbcType="INTEGER" property="totalStore" />
+    <result column="VALID_COUPON" jdbcType="INTEGER" property="validCoupon" />
+    <result column="VALID_STORE" jdbcType="INTEGER" property="validStore" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, SPIDER_ID, INCREMENT_COUPON, INCREMENT_STORE, TOTAL_COUPON, TOTAL_STORE, VALID_COUPON, 
+    VALID_STORE, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SPIDER_STATISTIC
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from SPIDER_STATISTIC
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.SpiderStatistic" useGeneratedKeys="true">
+    insert into SPIDER_STATISTIC (SPIDER_ID, INCREMENT_COUPON, INCREMENT_STORE, 
+      TOTAL_COUPON, TOTAL_STORE, VALID_COUPON, 
+      VALID_STORE, CREATE_TIME, UPDATE_TIME
+      )
+    values (#{spiderId,jdbcType=INTEGER}, #{incrementCoupon,jdbcType=INTEGER}, #{incrementStore,jdbcType=INTEGER}, 
+      #{totalCoupon,jdbcType=INTEGER}, #{totalStore,jdbcType=INTEGER}, #{validCoupon,jdbcType=INTEGER}, 
+      #{validStore,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.SpiderStatistic" useGeneratedKeys="true">
+    insert into SPIDER_STATISTIC
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="spiderId != null">
+        SPIDER_ID,
+      </if>
+      <if test="incrementCoupon != null">
+        INCREMENT_COUPON,
+      </if>
+      <if test="incrementStore != null">
+        INCREMENT_STORE,
+      </if>
+      <if test="totalCoupon != null">
+        TOTAL_COUPON,
+      </if>
+      <if test="totalStore != null">
+        TOTAL_STORE,
+      </if>
+      <if test="validCoupon != null">
+        VALID_COUPON,
+      </if>
+      <if test="validStore != null">
+        VALID_STORE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="spiderId != null">
+        #{spiderId,jdbcType=INTEGER},
+      </if>
+      <if test="incrementCoupon != null">
+        #{incrementCoupon,jdbcType=INTEGER},
+      </if>
+      <if test="incrementStore != null">
+        #{incrementStore,jdbcType=INTEGER},
+      </if>
+      <if test="totalCoupon != null">
+        #{totalCoupon,jdbcType=INTEGER},
+      </if>
+      <if test="totalStore != null">
+        #{totalStore,jdbcType=INTEGER},
+      </if>
+      <if test="validCoupon != null">
+        #{validCoupon,jdbcType=INTEGER},
+      </if>
+      <if test="validStore != null">
+        #{validStore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.SpiderStatistic">
+    update SPIDER_STATISTIC
+    <set>
+      <if test="spiderId != null">
+        SPIDER_ID = #{spiderId,jdbcType=INTEGER},
+      </if>
+      <if test="incrementCoupon != null">
+        INCREMENT_COUPON = #{incrementCoupon,jdbcType=INTEGER},
+      </if>
+      <if test="incrementStore != null">
+        INCREMENT_STORE = #{incrementStore,jdbcType=INTEGER},
+      </if>
+      <if test="totalCoupon != null">
+        TOTAL_COUPON = #{totalCoupon,jdbcType=INTEGER},
+      </if>
+      <if test="totalStore != null">
+        TOTAL_STORE = #{totalStore,jdbcType=INTEGER},
+      </if>
+      <if test="validCoupon != null">
+        VALID_COUPON = #{validCoupon,jdbcType=INTEGER},
+      </if>
+      <if test="validStore != null">
+        VALID_STORE = #{validStore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.SpiderStatistic">
+    update SPIDER_STATISTIC
+    set SPIDER_ID = #{spiderId,jdbcType=INTEGER},
+      INCREMENT_COUPON = #{incrementCoupon,jdbcType=INTEGER},
+      INCREMENT_STORE = #{incrementStore,jdbcType=INTEGER},
+      TOTAL_COUPON = #{totalCoupon,jdbcType=INTEGER},
+      TOTAL_STORE = #{totalStore,jdbcType=INTEGER},
+      VALID_COUPON = #{validCoupon,jdbcType=INTEGER},
+      VALID_STORE = #{validStore,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
