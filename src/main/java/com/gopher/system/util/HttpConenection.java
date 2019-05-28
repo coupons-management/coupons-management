@@ -165,7 +165,7 @@ public class HttpConenection {
         return sendHttpGet(httpGet);  
     }  
     public static void main(String[] args) throws InterruptedException {
-    	for (int i=0;i<50;i++) {
+    /*	for (int i=0;i<50;i++) {
     	    Thread.sleep(1*1000);
     		String result_json = HttpConenection.getInstance().sendHttpGet("http://iot.ideyee.com/business/device/getList?token=f93c0943-e640-4496-ab4d-b5f4bfb7b733");
     	 	Result result = JSON.parseObject(result_json, Result.class);
@@ -174,7 +174,10 @@ public class HttpConenection {
     			System.out.println("code:"+result.getCode());
     			System.out.println("success:"+result.isSuccess());
     	 	}
-		}
+		}*/
+    	String url="http://39.98.53.2:3332/system/sourceType/getList";
+    	String result_json = HttpConenection.getInstance().sendHttpPost(url,"sessionKey=14e1b600b1fd579f47433b88e8d85291");
+    	System.out.println(result_json);
    	}
     /** 
      * 发送 get请求Https 

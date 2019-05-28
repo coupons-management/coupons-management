@@ -475,4 +475,135 @@
 		</where>
 	</select>
 
+
+<select id="getScapyPageList"
+		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		CP_COUPON
+		<where>
+			<if test="storeId != null and storeId >0 ">
+				store_id = #{storeId}
+			</if>
+			<if test="expiryTime != null">
+				AND EXPIRE_AT &gt;= #{expiryTime}
+			</if>
+			<if test="scrapyStr != null and scrapyStr !=''">
+				AND SCRAPY = #{scrapyStr}
+			</if>
+			<if test="expired == 1">
+				AND EXPIRE_AT &lt;= NOW()
+			</if>
+			<if test="expired == 2">
+				AND EXPIRE_AT &gt;= NOW()
+			</if>
+			<if test="type != null and type !=''">
+				AND COUPON_TYPE = #{type}
+			</if>
+			<if test="title != null and title !=''">
+				AND TITLE LIKE #{title}"%"
+			</if>
+		</where>
+		ORDER BY ID ASC
+		limit #{beginIndex},#{pageSize}
+	</select>
+
+	<select id="getScapyCount"
+		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
+		resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM CP_COUPON
+		<where>
+			<if test="storeId != null and storeId >0 ">
+				store_id = #{storeId}
+			</if>
+			<if test="expiryTime != null">
+				AND EXPIRE_AT &gt;= #{expiryTime}
+			</if>
+			<if test="scrapyStr != null and scrapyStr !=''">
+				AND SCRAPY = #{scrapyStr}
+			</if>
+			<if test="expired == 1">
+				AND EXPIRE_AT &lt;= NOW()
+			</if>
+			<if test="expired == 2">
+				AND EXPIRE_AT &gt;= NOW()
+			</if>
+			<if test="type != null and type !=''">
+				AND COUPON_TYPE = #{type}
+			</if>
+			<if test="title != null and title !=''">
+				AND TITLE LIKE #{title}%
+			</if>
+		</where>
+	</select>
+
+
+
+
+
+<select id="getErrScapyPageList"
+		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		CP_COUPON
+		<where>
+			<if test="storeId != null and storeId >0 ">
+				store_id = #{storeId}
+			</if>
+			<if test="expiryTime != null">
+				AND EXPIRE_AT &gt;= #{expiryTime}
+			</if>
+			<if test="scrapyStr != null and scrapyStr !=''">
+				AND SCRAPY = #{scrapyStr}
+			</if>
+			<if test="expired == 1">
+				AND EXPIRE_AT &lt;= NOW()
+			</if>
+			<if test="expired == 2">
+				AND EXPIRE_AT &gt;= NOW()
+			</if>
+			<if test="type != null and type !=''">
+				AND COUPON_TYPE = #{type}
+			</if>
+			<if test="title != null and title !=''">
+				AND TITLE LIKE #{title}"%"
+			</if>
+		</where>
+		ORDER BY ID ASC
+		limit #{beginIndex},#{pageSize}
+	</select>
+
+	<select id="getErrScapyCount"
+		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
+		resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM CP_COUPON
+		<where>
+			<if test="storeId != null and storeId >0 ">
+				store_id = #{storeId}
+			</if>
+			<if test="expiryTime != null">
+				AND EXPIRE_AT &gt;= #{expiryTime}
+			</if>
+			<if test="scrapyStr != null and scrapyStr !=''">
+				AND SCRAPY = #{scrapyStr}
+			</if>
+			<if test="expired == 1">
+				AND EXPIRE_AT &lt;= NOW()
+			</if>
+			<if test="expired == 2">
+				AND EXPIRE_AT &gt;= NOW()
+			</if>
+			<if test="type != null and type !=''">
+				AND COUPON_TYPE = #{type}
+			</if>
+			<if test="title != null and title !=''">
+				AND TITLE LIKE #{title}%
+			</if>
+		</where>
+	</select>
+
 </mapper>

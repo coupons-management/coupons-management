@@ -25,4 +25,16 @@ public interface CpCouponDAO extends MyBatisBaseDao<CpCoupon, Integer> {
 	CpCoupon getNewOneByStore(Integer storeId);
 	
 	int getCountBySpiderAndTime(SpiderStatisticVO spiderStatisticVO);
+	
+
+	
+List<CpCoupon> getScapyPageList(CouponPageRequest couponPageRequest);
+	
+	int getScapyCount(CouponPageRequest couponPageRequest);
+	
+List<CpCoupon> getErrScapyPageList(CouponPageRequest couponPageRequest);
+	
+	int getErrScapyCount(CouponPageRequest couponPageRequest);
+	
+	
 }

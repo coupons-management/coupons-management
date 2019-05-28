@@ -505,7 +505,7 @@
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultType="com.gopher.system.model.vo.CpOutSiteStoreVo">
 	<!-- 	SELECT  *  FROM ( -->
-		SELECT DISTINCT OUTSTORE.ID outSiteId,STORE.ID id, STORE.NAME storeName,STORE.WEBSITE webSite,STORE.LOGO_URL logo, COUPON_COUNT_VALID couponCountValid,
+		SELECT DISTINCT OUTSTORE.ID outSiteId,OUTSTORE.ID id,STORE.ID storeId, STORE.NAME storeName,STORE.WEBSITE webSite,STORE.LOGO_URL logo, COUPON_COUNT_VALID couponCountValid,
   (SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)toalCount, (SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID AND  EXPIRE_AT >=now())validCount,
   CREATED_AT addTime,
 (SELECT  MAX(EXPIRE_AT) FROM CP_COUPON WHERE STORE_ID=STORE.ID) endTime,STORE.TYPE_NAME typeName ,STORE.TYPE_ID typeId  FROM  

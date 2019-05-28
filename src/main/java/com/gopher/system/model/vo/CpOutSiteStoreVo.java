@@ -72,6 +72,15 @@ public class CpOutSiteStoreVo {
 	    
 	    private String endTime;
 	    
+	    private int storeId;
+	    
+	    
+		public int getStoreId() {
+			return storeId;
+		}
+		public void setStoreId(int storeId) {
+			this.storeId = storeId;
+		}
 		public String getWebSite() {
 			return webSite;
 		}

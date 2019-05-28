@@ -56,6 +56,13 @@ public interface ShowSiteTwoService {
  */
 	public List<CpSitestoreType> getStoreSort(CpSitestoreRequest request);
 		
+	/**
+	 * 根据ID取出站点商家数据
+	 * @param request
+	 * @return
+	 */
+	public CpOutSiteStore getSiteStroreById(CpOutSiteStore request);
+	
 	
 	
 List<CpOutSite> getSiteList();

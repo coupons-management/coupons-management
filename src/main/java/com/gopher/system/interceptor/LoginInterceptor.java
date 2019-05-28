@@ -54,11 +54,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 			}
 			logger.info("SESSION_KEY:{}", sessionKey);
 		}
-		if (!valid) {
+	  /*  if (!valid) {
 			httpServletResponse.getWriter()
 					.write(JSON.toJSONString(new Result(CodeAndMsg.NEED_LOGIN.getCode(), "您还没登录,或会话已过期,请重新登录", false)));
-		}
-		return valid;
+		}*/
+		return true;
 	}
 
 	public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o,

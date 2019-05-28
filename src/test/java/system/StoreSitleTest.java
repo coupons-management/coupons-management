@@ -197,13 +197,13 @@ public class StoreSitleTest extends BaseTest{
 				}
 		
 		
-		//@Test
+		@Test
 			public void getNewCouponList() {
 			ShowSiteStoreRequest obj = new ShowSiteStoreRequest();
 			obj.setStoreId(8783);
 				 System.out.println(JSON.toJSONString(showSiteTwoService.getNewCouponList(obj)));
 				}
-			@Test
+			//@Test
 			public void getStoreSort() {
 				
 				CpSitestoreRequest request = new CpSitestoreRequest();

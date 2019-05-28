@@ -47,5 +47,23 @@ public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
 	 */
 	int getScrapyCount(StoreAllPageRequst storeAllPageRequst);	
 	
+	
+	/**
+	 * 获得爬虫商家分页列表
+	 * 
+	 * @param storePageRequest
+	 * @return
+	 */
+	List<StoreAllPageRequst> getErrScrapyPageList(StoreAllPageRequst storeAllPageRequst);
+
+	/**
+	 * 获得爬虫总数
+	 * 
+	 * @param storePageRequest
+	 * @return
+	 */
+	int getErrScrapyCount(StoreAllPageRequst storeAllPageRequst);	
+	
+	
 }
 

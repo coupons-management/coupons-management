@@ -39,9 +39,13 @@ public class CpOutSiteStore implements Serializable {
     private Integer couponCount;
 
     private String adAddress;
-
+/**
+ * 标签
+ */
     private String mark;
-
+/**
+ * 是否显示人工优惠卷
+ */
     private String isManual;
 
     private String title;
@@ -49,9 +53,13 @@ public class CpOutSiteStore implements Serializable {
     private String keywords;
 
     private String des;
-
+/**
+ * 商家展示名
+ */
     private String showName;
-
+/**
+ * 家商介绍
+ */
     private String storeDes;
 
     private String headerDes;

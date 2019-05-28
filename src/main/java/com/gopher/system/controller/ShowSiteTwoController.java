@@ -95,4 +95,13 @@ public class ShowSiteTwoController {
 		result.setData(showSiteTwoService.getStoreSort(showSiteStoreRequest));
 		return result;
 	}
+	
+	
+	@RequestMapping(path="/getSiteStroreById")
+	public Result getSiteStroreById(@RequestBody CpOutSiteStore outSiteStore) {
+		Result result = new Result();
+		showSiteTwoService.getSiteStroreById(outSiteStore);
+		return result;
+	}
+	
 }

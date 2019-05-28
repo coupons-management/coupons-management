@@ -201,6 +201,8 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 			
 			result.setList(list);
 			result.setTotalCount(total);
+			result.setPageSize(request.getPageSize());
+			result.setPageNumber(request.getPageNumber());
 			return result;
 			
 		}
@@ -264,6 +266,16 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 		public List<CpSitestoreType> getStoreSort(CpSitestoreRequest request) {
 			// TODO Auto-generated method stub
 			return cpSitestoreTypeDAO.getStoreSort(request);
+		}
+
+
+
+
+
+
+		@Override
+		public CpOutSiteStore getSiteStroreById(CpOutSiteStore obj) {
+			return cpOutSiteStoreDAO.selectByPrimaryKey(obj.getId());
 		}
 
 	}

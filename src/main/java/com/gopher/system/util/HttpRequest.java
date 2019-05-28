@@ -134,7 +134,7 @@ public class HttpRequest {
     	job参数为页面上展示的job ID*/
         
         //发送 POST 请求
-        String sr=HttpRequest.sendPost("http://18.234.205.204:6800/schedule.json", "project=coupon_spider&spider=offer");
+     /*   String sr=HttpRequest.sendPost("http://18.234.205.204:6800/schedule.json", "project=coupon_spider&spider=offer");
         System.out.println(sr);
         
         JSONObject jsonObject = JSONObject.parseObject(sr);
@@ -144,7 +144,10 @@ public class HttpRequest {
         System.out.println(s);
         
         String m=HttpRequest.sendPost("http://18.234.205.204:6800/cancel.json", "project=coupon_spider&job=6487ec79947edab326d6db28a2d86511e8247444");
-        System.out.println(m);
+        System.out.println(m);*/
+    	
+    	   String s=HttpRequest.sendPost("http://localhost:8080/system/showSiteTwo/getTwoList", "");
+           System.out.println(s);
        
     }
 

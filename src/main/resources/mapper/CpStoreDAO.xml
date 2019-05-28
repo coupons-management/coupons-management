@@ -468,6 +468,12 @@
 			<if test="country != null and country !='' ">
 				AND COUNTRY like "%"#{country}"%"
 			</if>
+			<!-- 
+			<if test="isComplete != null and isComplete >=0 ">
+				AND IS_COMPLETE  =#{isComplete}
+			</if> -->
+			
+			
 			
 			<if test="typeName != null and typeName !='' ">
 				AND TYPE_NAME = #{typeName}
@@ -508,7 +514,9 @@
 			<if test="typeName != null and typeName !='' ">
 				AND TYPE_NAME = #{typeName}
 			</if>
-			
+			<!-- <if test="isComplete != null and isComplete >=0 ">
+				AND IS_COMPLETE  =#{isComplete}
+			</if> -->
 			<if test="scrapyId != null and scrapyId >0 ">
 				AND SCSTORE.SCRAPY_ID = #{scrapyId}
 			</if>
@@ -522,6 +530,93 @@
 		
 		</where>
 	</select>
+
+
+
+
+
+
+
+	<select id="getErrScrapyPageList"
+		parameterType="com.gopher.system.model.vo.request.StoreAllPageRequst"
+		resultType="com.gopher.system.model.vo.request.StoreAllPageRequst">
+		 SELECT *  FROM (
+		  SELECT STORE.ID id ,NAME,WEBSITE website,LOGO_URL logo,TYPE_ID typeId,TYPE_NAME typeName ,COUNTRY country,(SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)toalCount,
+ (SELECT COUNT(*)   FROM  CP_COUPON  WHERE STORE_ID=STORE.ID  AND  EXPIRE_AT >=NOW()) validCount FROM CP_STORE STORE ,CP_SCRAPY_STORE SCSTORE 
+	<where>
+	STORE.ID=SCSTORE.STORE_ID 
+	AND IN_TYPE=0
+			<if test="search != null and  search !='' ">
+				NAME LIKE "%"#{search}"%"  OR WEBSITE LIKE "%"#{search}"%"
+			</if>
+			<if test="country != null and country !='' ">
+				AND COUNTRY like "%"#{country}"%"
+			</if>
+			<!-- 
+			<if test="isComplete != null and isComplete >=0 ">
+				AND IS_COMPLETE  =#{isComplete}
+			</if> -->
+			
+			
+			
+			<if test="typeName != null and typeName !='' ">
+				AND TYPE_NAME = #{typeName}
+			</if>
+			
+			<if test="scrapyId != null and scrapyId >0">
+				AND SCSTORE.SCRAPY_ID = #{scrapyId}
+			</if>
+		</where>
+		
+		 )temp
+		 <where>
+			<if test="validCount != null and validCount >0">
+				temp.VALIDCOUNT>=#{validCount}
+			</if>
+		
+		</where>
+		ORDER BY ID ASC
+		limit #{beginIndex},#{pageSize}
+	</select>
+
+<select id="getErrScrapyCount"
+		parameterType="com.gopher.system.model.vo.request.StoreAllPageRequst"
+		resultType="java.lang.Integer">
+		 SELECT COUNT(*)  FROM (
+		  SELECT STORE.ID,NAME,WEBSITE,LOGO_URL LOGOURL,TYPE_ID TYPEID,TYPE_NAME TYPENAME ,COUNTRY,(SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)TOALCOUNT,
+ (SELECT COUNT(*)   FROM  CP_COUPON  WHERE STORE_ID=STORE.ID  AND  EXPIRE_AT >=NOW()) VALIDCOUNT FROM CP_STORE STORE ,CP_SCRAPY_STORE SCSTORE 
+	<where>
+	STORE.ID=SCSTORE.STORE_ID 
+	AND IN_TYPE=0
+			<if test="search != null and  search !='' ">
+				NAME LIKE "%"#{search}"%"  OR WEBSITE LIKE "%"#{search}"%"
+			</if>
+			<if test="country != null and country !='' ">
+				AND COUNTRY like "%"#{country}"%"
+			</if>
+			
+			<if test="typeName != null and typeName !='' ">
+				AND TYPE_NAME = #{typeName}
+			</if>
+			<!-- <if test="isComplete != null and isComplete >=0 ">
+				AND IS_COMPLETE  =#{isComplete}
+			</if> -->
+			<if test="scrapyId != null and scrapyId >0 ">
+				AND SCSTORE.SCRAPY_ID = #{scrapyId}
+			</if>
+		</where>
+		
+		 )temp
+		 <where>
+			<if test="validCount != null and validCount >0">
+				temp.VALIDCOUNT>#{validCount}
+			</if>
+		
+		</where>
+	</select>
+
+
+
 
 
 </mapper>
