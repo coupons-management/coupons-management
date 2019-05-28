@@ -1,5 +1,9 @@
 package com.gopher.system.constant;
-
+/**
+ * 系统统一返回枚举
+ * @author dongyangyang
+ *
+ */
 public enum CodeAndMsg {
 	REQUEST_SUCCESS(0,"请求成功"),
 	SYSTEM_EXCEPTION(-1,"系统异常"),

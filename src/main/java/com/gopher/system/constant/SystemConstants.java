@@ -13,7 +13,13 @@ public enum SystemConstants {
 	
 	SPIDER_TYPE_ALL(0,"全部"),
 	SPIDER_TYPE_REQUIRED(1,"是"),
-	SPIDER_TYPE_NOT_REQUIRED(2,"否");
+	SPIDER_TYPE_NOT_REQUIRED(2,"否"),
+	
+	DATE_RANGE_DAY(1,"日"),
+	
+	DATE_RANGE_WEEK(2,"周"),
+	
+	DATE_RANGE_MONTH(3,"月");
 	
 	
 	private Integer value;

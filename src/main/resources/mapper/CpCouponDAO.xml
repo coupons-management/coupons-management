@@ -403,7 +403,7 @@
 				AND COUPON_TYPE = #{type}
 			</if>
 			<if test="title != null and title !=''">
-				AND TITLE LIKE #{title}%
+				AND TITLE LIKE #{title}"%"
 			</if>
 		</where>
 	</select>
