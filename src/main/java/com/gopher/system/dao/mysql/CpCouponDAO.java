@@ -22,7 +22,7 @@ public interface CpCouponDAO extends MyBatisBaseDao<CpCoupon, Integer> {
 	
 	List<CpCoupon> getList(CpCoupon coupon);
 	
-	CpCoupon getNewOneByStore(int storeId);
+	CpCoupon getNewOneByStore(Integer storeId);
 	
 	int getCountBySpiderAndTime(SpiderStatisticVO spiderStatisticVO);
 }

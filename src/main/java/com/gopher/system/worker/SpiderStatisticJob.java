@@ -20,6 +20,7 @@ import com.gopher.system.worker.vo.SpiderStatisticVO;
  * @author dongyangyang
  *
  */
+
 public class SpiderStatisticJob {
 	@Autowired
 	private CpCouponDAO cpCouponDAO;
@@ -29,8 +30,6 @@ public class SpiderStatisticJob {
 	private CpInSiteDAO cpInSiteDAO;
 	@Autowired
 	private SpiderStatisticDAO spiderStatisticDAO;
-	
-	private static final long JOB_START_TIME = (1+2)*60*60*1000L;
 	
 	/**
 	    * 根据爬虫统计 新增的优惠券 有效的优惠券 优惠券总数

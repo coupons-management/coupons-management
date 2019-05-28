@@ -452,9 +452,7 @@
 		FROM
 		CP_COUPON
 		<where>
-			<if test="storeId!=null and storeId > 0">
-				STORE_ID = #{storeId}
-			</if>
+	       STORE_ID = #{storeId}
 		</where>
 		ORDER BY CREATE_TIME DESC LIMIT 1
 	</select>
@@ -473,6 +471,7 @@
 			<if test="endTime != null">
 			AND END_TIME &lt; #{endTime}
 			</if>
+			AND IN_TYPE = "0"
 		</where>
 	</select>
 

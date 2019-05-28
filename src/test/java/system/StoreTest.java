@@ -35,7 +35,6 @@ public class StoreTest extends BaseTest {
 	@Test
 	public void getPage() {
 		StorePageRequst request = new StorePageRequst();
-		request.setCountry("US");
 		request.setPageNumber(1);
 		request.setPageSize(1);
 		Page<StoreResponse> page = storeService.getPage(request);
