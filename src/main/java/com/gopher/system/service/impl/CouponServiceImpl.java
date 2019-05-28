@@ -1,20 +1,22 @@
 package com.gopher.system.service.impl;
 
 import java.util.ArrayList;
-
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.gopher.system.constant.SystemConstants;
 import com.gopher.system.dao.mysql.CpCouponDAO;
+import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
 import com.gopher.system.dao.mysql.CpScrapyDAO;
 import com.gopher.system.dao.mysql.CpStoreDAO;
 import com.gopher.system.exception.BusinessRuntimeException;
 import com.gopher.system.model.entity.CpCoupon;
+import com.gopher.system.model.entity.CpOutSiteCoupon;
 import com.gopher.system.model.entity.CpScrapy;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.vo.Page;
@@ -35,6 +37,8 @@ public class CouponServiceImpl implements CouponService{
 	private CpStoreDAO cpStoreDAO;
 	@Autowired
 	private CpScrapyDAO cpScrapyDAO;
+	@Autowired
+	private CpOutSiteCouponDAO cpOutSiteCouponDAO;
 	@Override
 	public Page<CouponResponse> getPage(CouponPageRequest couponPageRequest) {
 		Page<CouponResponse> result = new Page<CouponResponse>();
@@ -137,7 +141,7 @@ public class CouponServiceImpl implements CouponService{
 		return cpCoupon;
 	}
 
-
+    @Transactional
 	@Override
 	public void createCoupon(CpCoupon cpCoupon) {
 		if(null == cpCoupon) {
@@ -147,11 +151,27 @@ public class CouponServiceImpl implements CouponService{
 		if(!StringUtils.hasText(name)) {
 			throw new BusinessRuntimeException("优惠券名称不能为空");
 		}
+		final int siteId  = cpCoupon.getSiteId();
+		final int storeId = cpCoupon.getStoreId();
+		if(siteId <= 0) {
+			throw new BusinessRuntimeException("站点ID不能为空");
+		}
+		if(storeId <=0) {
+			throw new BusinessRuntimeException("商家ID不能为空");
+		}
 		Date now = new Date();
 		cpCoupon.setCreateTime(now);
 		cpCoupon.setUpdateTime(now);
 		cpCoupon.setInType(SystemConstants.IN_TEYE_MANUAL.getValue().toString());
 		cpCouponDAO.insert(cpCoupon);
+		CpOutSiteCoupon cpOutSiteCoupon = new CpOutSiteCoupon();
+		cpOutSiteCoupon.setOutSiteId(siteId);
+		cpOutSiteCoupon.setStoreId(storeId);
+		cpOutSiteCoupon.setCreateTime(now);
+		cpOutSiteCoupon.setUpdateTime(now);
+		cpOutSiteCoupon.setCouponId(cpCoupon.getId());
+		cpOutSiteCoupon.setTitle(cpCoupon.getTitle());
+		cpOutSiteCouponDAO.insertSelective(cpOutSiteCoupon);
 	}
 
 
