@@ -264,6 +264,24 @@ public class DateUtils {
 		calendar.set(Calendar.MILLISECOND, 999);
 		return calendar.getTimeInMillis() / 1000;
 	}
+	
+	/**
+	 * 某一天的结束Date
+	 * 
+	 * @param day
+	 *            当前天（+/- day的值）
+	 * @return
+	 */
+	public static Date getOneDayEndDate(int day) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DATE, day);
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		calendar.set(Calendar.MILLISECOND, 999);
+		return calendar.getTime();
+	}
+
 
 	/**
 	 * 获得某一天的开始（秒）
@@ -280,6 +298,16 @@ public class DateUtils {
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 		return calendar.getTimeInMillis() / 1000;
+	}
+	
+	public static Date getOneDayStartDate(long dateTime) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date(dateTime));
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		return calendar.getTime();
 	}
 
 	/**

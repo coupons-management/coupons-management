@@ -53,5 +53,11 @@ public interface CouponService {
 	 * @param couponId
 	 */
 	void deleteCoupon(final int couponId);
+	/**
+	 * 根据商家获取最新的优惠券
+	 * @param storeId
+	 * @return
+	 */
+	CpCoupon getNewOne(final int storeId);
 
 }

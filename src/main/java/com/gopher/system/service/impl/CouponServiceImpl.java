@@ -184,4 +184,14 @@ public class CouponServiceImpl implements CouponService{
 	}
 
 
+	@Override
+	public CpCoupon getNewOne(int storeId) {
+		CpCoupon result = new CpCoupon();
+		if(storeId > 0) {
+			result = cpCouponDAO.getNewOneByStore(storeId);
+		}
+		return result;
+	}
+
+
 }

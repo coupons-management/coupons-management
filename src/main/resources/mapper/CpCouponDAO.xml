@@ -41,11 +41,14 @@
 		<result column="DES" jdbcType="VARCHAR" property="des" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		ID, STORE_ID, `NAME`, CODE, EXPIRE_AT, STORE_WEBSITE_CRC, STORE_NAME_CRC,
+		ID, STORE_ID, `NAME`, CODE, EXPIRE_AT, STORE_WEBSITE_CRC,
+		STORE_NAME_CRC,
 		IS_PASS,
-		FINAL_WEBSITE, STORE_WEBSITE, LINK, IN_SITE_ID, `INDEX`, COUPON_TYPE, IN_TYPE,
+		FINAL_WEBSITE, STORE_WEBSITE, LINK, IN_SITE_ID,
+		`INDEX`, COUPON_TYPE, IN_TYPE,
 		CREATE_USER,
-		UPDATE_USER, CREATE_TIME, UPDATE_TIME, SITE_URL, STORE_URL, SCRAPY, TITLE, DES
+		UPDATE_USER, CREATE_TIME,
+		UPDATE_TIME, SITE_URL, STORE_URL, SCRAPY, TITLE, DES
 	</sql>
 	<select id="selectByPrimaryKey"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -64,23 +67,30 @@
 		useGeneratedKeys="true">
 		insert into CP_COUPON (STORE_ID, `NAME`, CODE,
 		EXPIRE_AT, STORE_WEBSITE_CRC, STORE_NAME_CRC,
-		IS_PASS, FINAL_WEBSITE, STORE_WEBSITE,
+		IS_PASS, FINAL_WEBSITE,
+		STORE_WEBSITE,
 		LINK, IN_SITE_ID, `INDEX`,
-		COUPON_TYPE, IN_TYPE, CREATE_USER,
+		COUPON_TYPE, IN_TYPE,
+		CREATE_USER,
 		UPDATE_USER, CREATE_TIME, UPDATE_TIME,
-		SITE_URL, STORE_URL, SCRAPY,
+		SITE_URL, STORE_URL,
+		SCRAPY,
 		TITLE, DES)
-		values (#{storeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		values (#{storeId,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR},
 		#{code,jdbcType=VARCHAR},
 		#{expireAt,jdbcType=TIMESTAMP}, #{storeWebsiteCrc,jdbcType=VARCHAR},
 		#{storeNameCrc,jdbcType=VARCHAR},
-		#{isPass,jdbcType=VARCHAR}, #{finalWebsite,jdbcType=VARCHAR}, #{storeWebsite,jdbcType=VARCHAR},
+		#{isPass,jdbcType=VARCHAR},
+		#{finalWebsite,jdbcType=VARCHAR}, #{storeWebsite,jdbcType=VARCHAR},
 		#{link,jdbcType=VARCHAR}, #{inSiteId,jdbcType=INTEGER},
 		#{index,jdbcType=INTEGER},
-		#{couponType,jdbcType=VARCHAR}, #{inType,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER},
+		#{couponType,jdbcType=VARCHAR},
+		#{inType,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER},
 		#{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
 		#{updateTime,jdbcType=TIMESTAMP},
-		#{siteUrl,jdbcType=VARCHAR}, #{storeUrl,jdbcType=VARCHAR}, #{scrapy,jdbcType=VARCHAR},
+		#{siteUrl,jdbcType=VARCHAR},
+		#{storeUrl,jdbcType=VARCHAR}, #{scrapy,jdbcType=VARCHAR},
 		#{title,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective" keyColumn="ID" keyProperty="id"
@@ -309,25 +319,36 @@
 	<update id="updateByPrimaryKey"
 		parameterType="com.gopher.system.model.entity.CpCoupon">
 		update CP_COUPON
-		set STORE_ID = #{storeId,jdbcType=INTEGER},
+		set STORE_ID =
+		#{storeId,jdbcType=INTEGER},
 		`NAME` = #{name,jdbcType=VARCHAR},
-		CODE = #{code,jdbcType=VARCHAR},
+		CODE =
+		#{code,jdbcType=VARCHAR},
 		EXPIRE_AT = #{expireAt,jdbcType=TIMESTAMP},
 		STORE_WEBSITE_CRC = #{storeWebsiteCrc,jdbcType=VARCHAR},
 		STORE_NAME_CRC = #{storeNameCrc,jdbcType=VARCHAR},
-		IS_PASS = #{isPass,jdbcType=VARCHAR},
-		FINAL_WEBSITE = #{finalWebsite,jdbcType=VARCHAR},
-		STORE_WEBSITE = #{storeWebsite,jdbcType=VARCHAR},
+		IS_PASS =
+		#{isPass,jdbcType=VARCHAR},
+		FINAL_WEBSITE =
+		#{finalWebsite,jdbcType=VARCHAR},
+		STORE_WEBSITE =
+		#{storeWebsite,jdbcType=VARCHAR},
 		LINK = #{link,jdbcType=VARCHAR},
 		IN_SITE_ID = #{inSiteId,jdbcType=INTEGER},
-		`INDEX` = #{index,jdbcType=INTEGER},
-		COUPON_TYPE = #{couponType,jdbcType=VARCHAR},
+		`INDEX` =
+		#{index,jdbcType=INTEGER},
+		COUPON_TYPE =
+		#{couponType,jdbcType=VARCHAR},
 		IN_TYPE = #{inType,jdbcType=VARCHAR},
 		CREATE_USER = #{createUser,jdbcType=INTEGER},
-		UPDATE_USER = #{updateUser,jdbcType=INTEGER},
-		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-		SITE_URL = #{siteUrl,jdbcType=VARCHAR},
+		UPDATE_USER =
+		#{updateUser,jdbcType=INTEGER},
+		CREATE_TIME =
+		#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME =
+		#{updateTime,jdbcType=TIMESTAMP},
+		SITE_URL =
+		#{siteUrl,jdbcType=VARCHAR},
 		STORE_URL = #{storeUrl,jdbcType=VARCHAR},
 		SCRAPY = #{scrapy,jdbcType=VARCHAR},
 		TITLE = #{title,jdbcType=VARCHAR},
@@ -422,6 +443,37 @@
 			</if>
 		</where>
 		ORDER BY CREATE_TIME DESC
+	</select>
+
+	<select id="getNewOneByStore" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		CP_COUPON
+		<where>
+			<if test="storeId!=null and storeId > 0">
+				STORE_ID = #{storeId}
+			</if>
+		</where>
+		ORDER BY CREATE_TIME DESC LIMIT 1
+	</select>
+
+	<select id="getCountBySpiderAndTime"
+		parameterType="com.gopher.system.worker.vo.SpiderStatisticVO"
+		resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM CP_COUPON
+		<where>
+			<if test="spiderId >0 ">
+				IN_SITE_ID = #{spiderId}
+			</if>
+			<if test="beginTime != null">
+				AND CREATE_TIME &gt;= #{beginTime}
+			</if>
+			<if test="endTime != null">
+			AND END_TIME &lt; #{endTime}
+			</if>
+		</where>
 	</select>
 
 </mapper>

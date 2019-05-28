@@ -165,6 +165,7 @@ public class StoreServiceImpl implements StoreService {
 				rsp.setApproval(cpStore.getApproval());
 				rsp.setCountry(cpStore.getCountry());
 				rsp.setScrapyType(cpStore.getTypeName());
+				rsp.setCouponUpdateTime((DateUtils.getDatetimeString(couponService.getNewOne(storeId).getCreateTime())));
 				// 优惠券最后新增时间
 				rspList.add(rsp);
 			}

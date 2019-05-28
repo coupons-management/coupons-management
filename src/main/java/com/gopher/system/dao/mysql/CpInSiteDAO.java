@@ -1,5 +1,7 @@
 package com.gopher.system.dao.mysql;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.gopher.system.model.entity.CpInSite;
@@ -20,4 +22,6 @@ public interface CpInSiteDAO extends MyBatisBaseDao<CpInSite, Integer> {
 	 * @return
 	 */
 	public CpInSite getSiteUrl(String name);
+	
+	List<CpInSite> getAll();
 }
