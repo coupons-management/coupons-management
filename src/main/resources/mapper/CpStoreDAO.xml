@@ -359,6 +359,21 @@
 
 		where ID = #{id,jdbcType=INTEGER}
 	</update>
+	
+	
+	
+	
+	
+		<update id="updateLogo"
+		parameterType="com.gopher.system.model.entity.CpStore">
+		update CP_STORE
+		LOGO_URL = #{logoUrl,jdbcType=VARCHAR},
+		UPDATE_USER =#{updateUser,jdbcType=INTEGER},
+		UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP}
+
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
 	<select id="getBeanByWebSite" parameterType="String"
 		resultType="com.gopher.system.model.entity.CpStore">
 		select

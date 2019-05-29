@@ -1,5 +1,6 @@
 package com.gopher.system.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -185,8 +186,11 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 			if(list!=null&&list.size()>0)
 			{
 				for(CpOutSiteStoreVo vo:list)
-				{
-					List<String> map=cpOutSiteStoreDAO.getInScrapy(vo.getId());
+				{  if(vo==null)
+				    {list=null;
+					break;
+				    }
+					List<String> map=cpOutSiteStoreDAO.getInScrapy(vo.getStoreId());
 					if(map!=null) {
 					vo.setScrapyList(map);
 					vo.setScrapyCount(map==null?0:map.size());
@@ -215,6 +219,13 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 		@Override
 		public void updateOutSiteStore(CpOutSiteStore cpOutSiteStore) {
 			cpOutSiteStoreDAO.updateByPrimaryKey(cpOutSiteStore);
+			//修改商家logo
+			CpStore store=new CpStore();
+			store.setId(cpOutSiteStore.getStoreId());
+			store.setLogoUrl(cpOutSiteStore.getLogo());
+			store.setUpdateTime(new Date());
+			store.setUpdateUser(1);
+			cpStoreDAO.updateLogo(store);
 			
 		}
 
@@ -240,6 +251,8 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 			result.setList(cpOutSiteStoreDAO.getCouponList(request));
 			int  total=cpOutSiteStoreDAO.getCouponCount(request);
 			result.setTotalCount(total);
+			result.setPageSize(request.getPageSize());
+			result.setPageNumber(request.getPageNumber());
 		
 			return result;
 		}
@@ -252,6 +265,8 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 			Page<CpCoupon> result=new Page<CpCoupon>();
 			result.setList(cpOutSiteStoreDAO.getNewCouponList(request));
 			int  total=cpOutSiteStoreDAO.getNewCouponCount(request);
+			result.setPageSize(request.getPageSize());
+			result.setPageNumber(request.getPageNumber());
 			result.setTotalCount(total);
 		
 			return result;
@@ -276,6 +291,25 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 		@Override
 		public CpOutSiteStore getSiteStroreById(CpOutSiteStore obj) {
 			return cpOutSiteStoreDAO.selectByPrimaryKey(obj.getId());
+		}
+
+
+
+
+
+
+		@Override
+		public void addCoupon(CpCoupon bean) {
+			 CpOutSiteCoupon siteCoupon=new CpOutSiteCoupon();
+			 siteCoupon.setTitle(bean.getTitle());
+			
+			 siteCoupon.setOutSiteId(bean.getSiteId());
+			 bean.setSiteId(0);
+			 bean.setName(bean.getTitle());
+			 cpCouponDAO.insert(bean);
+			 siteCoupon.setStoreId(bean.getId());
+			 cpOutSiteCouponDAO.insert(siteCoupon);
+			
 		}
 
 	}

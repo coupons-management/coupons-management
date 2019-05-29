@@ -62,6 +62,13 @@ public interface ShowSiteTwoService {
 	 * @return
 	 */
 	public CpOutSiteStore getSiteStroreById(CpOutSiteStore request);
+	/**
+	 * 增加优惠卷
+	 * @param request
+	 * @return
+	 */
+	public void addCoupon(CpCoupon bean);
+
 	
 	
 	

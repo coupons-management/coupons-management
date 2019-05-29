@@ -63,6 +63,12 @@ public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
 	 * @return
 	 */
 	int getErrScrapyCount(StoreAllPageRequst storeAllPageRequst);	
+	/**
+	 * 修改商家logo
+	 * @param website
+	 * @return
+	 */
+	 void updateLogo(CpStore website);
 	
 	
 }

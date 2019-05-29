@@ -82,16 +82,16 @@ public class TitleUtils {
 			return title;
 		}
 		String newMessage=messageList.get(getRandom(messageList.size()));
-		if(key.equals("A4"))
+		if(key.endsWith("A4"))
 		{
 			 newMessage=getA4Message(title,newMessage,mark);
-		}else if(key.equals("A3"))
+		}else if(key.endsWith("A3"))
 		{
 		newMessage=getA3Message(title,newMessage,mark); 
-		}else if(key.equals("A2"))
+		}else if(key.endsWith("A2"))
 		{
 			 newMessage=getA2Message(title,newMessage);
-		}else if(key.equals("A1"))
+		}else if(key.endsWith("A1"))
 		{
 			 newMessage=getA1Message(title,newMessage,mark);
 		}
@@ -238,7 +238,7 @@ public class TitleUtils {
 	   //代有2个相同的货币符号$,$
 		int beginIndex = title.indexOf(mark);
 		int endIndex = title.indexOf(mark);
-		if(endIndex==-1&&beginIndex != -1)
+		if(endIndex!=-1&&beginIndex != -1)
 		{
 			return true;
 		}

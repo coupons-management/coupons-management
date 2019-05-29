@@ -4,7 +4,7 @@ import com.gopher.system.model.vo.PageRequestBase;
 
 public class StoreAllPageRequst extends PageRequestBase{
 	private int id;
-	private String NAME;
+	private String name;
 	private String website;
 	private String logo;
 	private String typeId;
@@ -41,11 +41,12 @@ public class StoreAllPageRequst extends PageRequestBase{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getNAME() {
-		return NAME;
+
+	public String getName() {
+		return name;
 	}
-	public void setNAME(String nAME) {
-		NAME = nAME;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getWebsite() {
 		return website;

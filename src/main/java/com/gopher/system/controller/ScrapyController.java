@@ -13,6 +13,7 @@ import com.gopher.system.util.Message;
 @RestController
 @RequestMapping(path="/scrapy")
 public class ScrapyController {
+	
 	@RequestMapping(path="/start")
 	public Result start(@RequestBody  ScrapyPageRequst request) {
 		Result result = new Result();
@@ -57,6 +58,9 @@ public class ScrapyController {
 	    }
 		return result;
 	}
+	
+	
+
 }
 
 

@@ -67,8 +67,21 @@ public class CpOutSiteStore implements Serializable {
     private Integer hotSort;
 
     private Integer adviseSort;
+    /**
+     * 商家logo
+     */
+    private String logo;
+    
 
-    private static final long serialVersionUID = 1L;
+    public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
