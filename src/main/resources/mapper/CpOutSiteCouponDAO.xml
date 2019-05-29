@@ -255,38 +255,41 @@
 		select
 		SITECOUPON.ID,
 		COUPON_ID, OUT_SITE_ID,
-		SITECOUPON.STORE_ID, SITECOUPON.TITLE,
+		SITECOUPON.STORE_ID,
+		SITECOUPON.TITLE,
 		HOT_SORT,
 		ADVISE_SORT,SITECOUPON.CREATE_USER,
 		SITECOUPON.UPDATE_USER,
-		SITECOUPON.CREATE_TIME, SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME
-		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE 
-			<where>
+		SITECOUPON.CREATE_TIME,
+		SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME
+		FROM CP_OUT_SITE_COUPON
+		SITECOUPON,CP_STORE STORE
+		<where>
 			SITECOUPON.STORE_ID=STORE.ID AND HOT_SORT=0 AND OUT_SITE_ID =
-		#{outSiteId}
+			#{outSiteId}
 			<if test="name != null and name!=''">
-				STORE.NAME LIKE  "%"#{name}"%"
+				STORE.NAME LIKE "%"#{name}"%"
 			</if>
-			</where>
+		</where>
 	</select>
-	
-	
+
+
 	<select id="getHotCount"
 		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
 		resultType="java.lang.Integer">
 		select
 		COUNT(*)
-		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE 
-			<where>
+		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE
+		<where>
 			SITECOUPON.STORE_ID=STORE.ID AND HOT_SORT=0 AND OUT_SITE_ID =
-		#{outSiteId}
+			#{outSiteId}
 			<if test="name != null and name!=''">
-				STORE.NAME LIKE  "%"#{name}"%"
+				STORE.NAME LIKE "%"#{name}"%"
 			</if>
-			</where>
-			LIMIT  #{beginIndex},#{pageSize}
+		</where>
+		LIMIT #{beginIndex},#{pageSize}
 	</select>
-	
+
 
 	<select id="getAdviseList"
 		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
@@ -294,20 +297,23 @@
 		select
 		SITECOUPON.ID,
 		COUPON_ID, OUT_SITE_ID,
-		SITECOUPON.STORE_ID, SITECOUPON.TITLE,
+		SITECOUPON.STORE_ID,
+		SITECOUPON.TITLE,
 		HOT_SORT,
 		ADVISE_SORT,SITECOUPON.CREATE_USER,
 		SITECOUPON.UPDATE_USER,
-		SITECOUPON.CREATE_TIME, SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME
-		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE
-			<where>
+		SITECOUPON.CREATE_TIME,
+		SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME
+		FROM CP_OUT_SITE_COUPON
+		SITECOUPON,CP_STORE STORE
+		<where>
 			SITECOUPON.STORE_ID=STORE.ID AND ADVISE_SORT=0 AND OUT_SITE_ID =
-		#{outSiteId}
+			#{outSiteId}
 			<if test="name != null and name!=''">
-				STORE.NAME LIKE  "%"#{name}"%"
+				STORE.NAME LIKE "%"#{name}"%"
 			</if>
-	</where>
-	
+		</where>
+
 	</select>
 
 	<select id="getAdviseCount"
@@ -316,17 +322,17 @@
 		select
 		COUNT(*)
 		FROM CP_OUT_SITE_COUPON SITECOUPON,CP_STORE STORE
-			<where>
+		<where>
 			SITECOUPON.STORE_ID=STORE.ID AND ADVISE_SORT=0 AND OUT_SITE_ID =
-		#{outSiteId}
+			#{outSiteId}
 			<if test="name != null and name!=''">
-				STORE.NAME LIKE  "%"#{name}"%"
+				STORE.NAME LIKE "%"#{name}"%"
 			</if>
-	</where>
-	LIMIT  #{beginIndex},#{pageSize}
+		</where>
+		LIMIT #{beginIndex},#{pageSize}
 	</select>
-	
-	
+
+
 
 	<select id="getTopHotList"
 		parameterType="com.gopher.system.model.entity.CpOutSiteCoupon"
@@ -405,6 +411,9 @@
 			<if test="cteateType != null and cteateType !='' ">
 				AND cp.IN_TYPE = #{cteateType}
 			</if>
+			<if test="storeId != null and storeId !='' ">
+				AND cp.STORE_ID = #{storeId}
+			</if>
 		</where>
 		ORDER BY id ASC
 		LIMIT #{beginIndex},#{pageSize}
@@ -422,7 +431,8 @@
 		<where>
 			osp.OUT_SITE_ID = #{siteId}
 			<if test="search != null and search != '' ">
-				AND cp.TITLE LIKE #{search}"%" OR osp.TITLE LIKE #{search}"%"
+				AND cp.TITLE LIKE #{search}"%" OR osp.TITLE LIKE
+				#{search}"%"
 			</if>
 			<if test="couponType != null and couponType !='' ">
 				AND cp.COUPON_TYPE = #{couponType}
@@ -432,6 +442,9 @@
 			</if>
 			<if test="cteateType != null and cteateType !='' ">
 				AND cp.IN_TYPE = #{cteateType}
+			</if>
+			<if test="storeId != null and storeId !='' ">
+				AND cp.STORE_ID = #{storeId}
 			</if>
 		</where>
 	</select>

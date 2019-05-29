@@ -15,6 +15,7 @@ import com.gopher.system.dao.mysql.CpScrapyDAO;
 import com.gopher.system.dao.mysql.CpScrapyStoreDAO;
 import com.gopher.system.dao.mysql.CpStoreDAO;
 import com.gopher.system.exception.BusinessRuntimeException;
+import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpOutSite;
 import com.gopher.system.model.entity.CpOutSiteStore;
 import com.gopher.system.model.entity.CpScrapy;
@@ -165,7 +166,10 @@ public class StoreServiceImpl implements StoreService {
 				rsp.setApproval(cpStore.getApproval());
 				rsp.setCountry(cpStore.getCountry());
 				rsp.setScrapyType(cpStore.getTypeName());
-				rsp.setCouponUpdateTime(DateUtils.getDatetimeString(couponService.getNewOne(storeId).getCreateTime()));
+				CpCoupon coupon = couponService.getNewOne(storeId);
+				if(null != coupon) {
+					rsp.setCouponUpdateTime(DateUtils.getDatetimeString(coupon.getCreateTime()));
+				}
 				// 优惠券最后新增时间
 				rspList.add(rsp);
 			}

@@ -14,6 +14,16 @@ public class ShowSiteCouponPageRequest extends PageRequestBase{
 	private String cteateType;
 	
 	private String state;
+	
+	private int storeId;
+
+	public int getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(int storeId) {
+		this.storeId = storeId;
+	}
 
 	public int getSiteId() {
 		return siteId;
