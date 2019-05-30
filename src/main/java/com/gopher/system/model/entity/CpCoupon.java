@@ -23,8 +23,10 @@ public class CpCoupon implements Serializable {
 	 * 
 	 */
 	private String code;
-
+    
 	private Date expireAt;
+	
+	private long expireAtTime;
 
 	private String storeWebsiteCrc;
 
@@ -86,6 +88,14 @@ public class CpCoupon implements Serializable {
 	private int index;
 	
 	private int siteId;
+    
+	public long getExpireAtTime() {
+		return expireAtTime;
+	}
+
+	public void setExpireAtTime(long expireAtTime) {
+		this.expireAtTime = expireAtTime;
+	}
 
 	public int getSiteId() {
 		return siteId;

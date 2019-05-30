@@ -162,6 +162,9 @@ public class CouponServiceImpl implements CouponService{
 		Date now = new Date();
 		cpCoupon.setCreateTime(now);
 		cpCoupon.setUpdateTime(now);
+		if(cpCoupon.getExpireAtTime() > 0) {
+			cpCoupon.setExpireAt(new Date(cpCoupon.getExpireAtTime()));
+		}
 		cpCoupon.setInType(SystemConstants.IN_TEYE_MANUAL.getValue().toString());
 		cpCouponDAO.insert(cpCoupon);
 		CpOutSiteCoupon cpOutSiteCoupon = new CpOutSiteCoupon();
