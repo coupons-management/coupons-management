@@ -458,7 +458,15 @@
 		resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from CP_OUT_SITE_STORE WHERE HOT_SORT <![CDATA[<>]]> 0 and   OUT_ID = #{outId} LIMIT 10
+		from CP_OUT_SITE_STORE
+		
+	<where>
+		HOT_SORT <![CDATA[<>]]> 0 and 
+			<if test="outId != null and outId>0">
+				AND OUT_ID = #{outId}
+			</if>
+	</where>
+		 
 		
 	
 	</select>
@@ -469,7 +477,15 @@
 		resultMap="BaseResultMap">
 			select
 		<include refid="Base_Column_List" />
-		from CP_OUT_SITE_STORE WHERE ADVISE_SORT <![CDATA[<>]]> 0 and   OUT_ID = #{outId} LIMIT 10
+		from CP_OUT_SITE_STORE
+		
+		<where>
+		ADVISE_SORT <![CDATA[<>]]> 0  
+			<if test="outId != null and outId>0">
+				OUT_ID = #{outId}
+			</if>
+		</where>
+		 
 	
 	
 	</select>
