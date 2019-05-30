@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.vo.request.CouponPageRequest;
+import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.CpTypePageRequest;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.service.OfficialWebsiteService;
@@ -57,5 +58,19 @@ public class OfficialWebsiteController {
 		return result;
 	}
 
+	
+	@RequestMapping(path="/getTopStoreList")
+	Result getTopStoreList(CpSitestoreRequest quest){
+		Result result = new Result();
+		result.setData( officialWebsiteService.getTopStoreList(quest));
+		return result;
+	}
+	
+	@RequestMapping(path="/getTopCouponList")
+	Result getTopCouponList(CouponPageRequest quest){
+		Result result = new Result();
+		result.setData( officialWebsiteService.getTopCouponList(quest));
+		return result;
+	}
 
 }

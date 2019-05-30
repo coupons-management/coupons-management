@@ -652,6 +652,24 @@
 
 
 
+
+	<select id="getTopCouponList"
+		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
+		resultType="com.gopher.system.model.entity.CpCoupon">
+		SELECT CPCOUPON.NAME,LINK  FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON 
+		<where>
+			CPCOUPON.ID=SITECOUPON.COUPON_ID 
+			AND 
+			HOT_SORT <![CDATA[<>]]> 0 
+			<if test="outSiteId != null and outSiteId >0">
+				AND OUT_SITE_ID = #{outSiteId}
+			</if>
+		</where>
+	</select>
+
+
+
+
 	
 
 </mapper>

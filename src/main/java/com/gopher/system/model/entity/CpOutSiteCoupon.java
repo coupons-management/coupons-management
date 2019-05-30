@@ -59,8 +59,18 @@ public class CpOutSiteCoupon implements Serializable {
      * 修改时间
      */
     private Date updateTime;
+    
+    private String link;
 
-    private static final long serialVersionUID = 1L;
+    public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

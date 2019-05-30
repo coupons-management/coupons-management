@@ -7,6 +7,7 @@ import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.CpType;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CouponPageRequest;
+import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.CpTypePageRequest;
 import com.gopher.system.model.vo.request.StorePageRequst;
 
@@ -36,6 +37,11 @@ public interface OfficialWebsiteService {
 	 * @return
 	 */
 	List<CpType> getAllCategoriesList();
+	
+	
+	List<CpStore> getTopStoreList(CpSitestoreRequest quest);
+	
+	List<CpCoupon> getTopCouponList(CouponPageRequest quest);
 	
 
 }

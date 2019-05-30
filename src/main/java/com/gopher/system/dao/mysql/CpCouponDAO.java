@@ -42,6 +42,9 @@ List<CpCoupon> getErrScapyPageList(CouponPageRequest couponPageRequest);
 	
 	public List<CpCoupon> getOffWebCouponPageList(CouponPageRequest quest);
 	int getOffWebTotalCount(CouponPageRequest quest);
+	
+	
+	List<CpCoupon> getTopCouponList(CouponPageRequest quest);
 
 	
 	

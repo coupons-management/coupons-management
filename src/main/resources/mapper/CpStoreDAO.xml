@@ -659,5 +659,27 @@
 			</if>
      </where>
 	</select>
+	
+	
+	
+	
+	
+	
+<select id="getTopStoreList"
+		parameterType="com.gopher.system.model.vo.request.CpSitestoreRequest"
+		resultType="com.gopher.system.model.entity.CpStore">
+		SELECT  STORE.NAME name , STORE.LOGO_URL logoUrl  FROM CP_STORE  STORE,CP_OUT_SITE_STORE 
+		 SITESTORE   
+	<where>
+	       STORE.ID=SITESTORE.STORE_ID 
+	       AND 
+	       HOT_SORT <![CDATA[<>]]> 0
+			<if test="siteId != null and  siteId >0 ">
+				AND OUT_ID=#{siteId}
+			</if>
+     </where>
+	</select>
+	
+	
 
 </mapper>

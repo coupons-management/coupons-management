@@ -96,6 +96,7 @@ public class SynDataServiceImpl implements SynDataService {
 					{
 						site.setUrl(siteUrl);
 						site.setName(this.getName(siteUrl));
+						site.setLanguage("en");
 					}
 					site.setCreateTime(new Date());
 					cpInSiteDAO.insert(site);
@@ -351,12 +352,13 @@ public class SynDataServiceImpl implements SynDataService {
 	
 				String siteUrl = getUrl(stu.getSourceSite());
 				
-				CpInSite site = cpInSiteDAO.getSiteName(siteUrl);
+				CpInSite site = cpInSiteDAO.getSiteUrl(siteUrl);
 				if (site == null) {
 					site = new CpInSite();
 					site.setUrl(siteUrl);
 					site.setName(this.getName(siteUrl));
 					site.setCreateTime(new Date());
+					site.setLanguage("e2n");
 					cpInSiteDAO.insert(site);
 				}
 

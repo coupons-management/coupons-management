@@ -13,6 +13,7 @@ import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.CpType;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CouponPageRequest;
+import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.CpTypePageRequest;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.service.OfficialWebsiteService;
@@ -77,6 +78,23 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 	@Override
 	public List<CpType> getAllCategoriesList() {
 		return cpTypeDAO.getList();
+	}
+
+
+
+	
+	
+	@Override
+	public List<CpStore> getTopStoreList(CpSitestoreRequest quest) {
+		// TODO Auto-generated method stub
+		return cpStoreDAO.getTopStoreList(quest);
+	}
+
+
+	@Override
+	public List<CpCoupon> getTopCouponList(CouponPageRequest quest) {
+		// TODO Auto-generated method stub
+		return cpCouponDAO.getTopCouponList(quest);
 	}
 
 }
