@@ -2,6 +2,7 @@ package com.gopher.system.controller;
 
 import javax.annotation.Resource;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,22 +12,27 @@ import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.CpTypePageRequest;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.service.OfficialWebsiteService;
+import com.gopher.system.service.impl.ShowSiteTypeServiceImpl;
 
 @RestController
 @RequestMapping(path="/officialWebsite")
 public class OfficialWebsiteController {
 	@Resource
 	OfficialWebsiteService officialWebsiteService;
+	@Resource
+	ShowSiteTypeServiceImpl  showSiteTypeServiceImpl;
 	@RequestMapping(path="/getCategoriesList")
-	Result getCategoriesList(){
+	Result getCategoriesList(@RequestBody CpSitestoreRequest quest){
 		Result result = new Result();
-		result.setData( officialWebsiteService.getCategoriesList());
+		//result.setData( officialWebsiteService.getCategoriesList());
+		result.setData( showSiteTypeServiceImpl.getList(quest.getSiteId(), 2));
 		return result;
 	}
 	@RequestMapping(path="/getPopularStoresList")
-	Result getPopularStoresList(){
+	Result getPopularStoresList(@RequestBody CpSitestoreRequest quest){
 		Result result = new Result();
-		result.setData( officialWebsiteService.getCategoriesList());
+		//result.setData( officialWebsiteService.getCategoriesList());
+		result.setData( showSiteTypeServiceImpl.getList(quest.getSiteId(), 2));
 		return result;
 	}
 	
@@ -34,7 +40,7 @@ public class OfficialWebsiteController {
 	
 	
 	@RequestMapping(path="/getStorePageList")
-	Result getStorePageList(StorePageRequst quest){
+	Result getStorePageList(@RequestBody StorePageRequst quest){
 		Result result = new Result();
 		result.setData( officialWebsiteService.getStorePageList(quest));
 		return result;
@@ -43,16 +49,18 @@ public class OfficialWebsiteController {
 	
 
 	@RequestMapping(path="/getCategoriesPageList")
-	Result getCategoriesPageList(CpTypePageRequest quest){
+	//Result getCategoriesPageList(CpTypePageRequest quest){
+	Result getCategoriesPageList(@RequestBody CpSitestoreRequest  quest){
 		Result result = new Result();
-		result.setData( officialWebsiteService.getCategoriesPageList(quest));
+		//result.setData( officialWebsiteService.getCategoriesPageList(quest));
+		result.setData( showSiteTypeServiceImpl.getList(quest.getSiteId(), 2));
 		return result;
 	}
 
 	
 	
 	@RequestMapping(path="/getCouponPageList")
-	Result getCouponPageList(CouponPageRequest quest){
+	Result getCouponPageList(@RequestBody CouponPageRequest quest){
 		Result result = new Result();
 		result.setData( officialWebsiteService.getCouponPageList(quest));
 		return result;
@@ -60,14 +68,14 @@ public class OfficialWebsiteController {
 
 	
 	@RequestMapping(path="/getTopStoreList")
-	Result getTopStoreList(CpSitestoreRequest quest){
+	Result getTopStoreList(@RequestBody CpSitestoreRequest quest){
 		Result result = new Result();
 		result.setData( officialWebsiteService.getTopStoreList(quest));
 		return result;
 	}
 	
 	@RequestMapping(path="/getTopCouponList")
-	Result getTopCouponList(CouponPageRequest quest){
+	Result getTopCouponList(@RequestBody CouponPageRequest quest){
 		Result result = new Result();
 		result.setData( officialWebsiteService.getTopCouponList(quest));
 		return result;

@@ -11,6 +11,8 @@ import com.gopher.system.dao.mysql.CpTypeDAO;
 import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.CpType;
+import com.gopher.system.model.vo.CpCouponVo;
+import com.gopher.system.model.vo.CpStoreVo;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
@@ -33,12 +35,12 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 	
 
 	@Override
-	public Page<CpCoupon> getCouponPageList(CouponPageRequest quest) {
+	public Page<CpCouponVo> getCouponPageList(CouponPageRequest quest) {
 
-		Page<CpCoupon> result = new Page<>();
+		Page<CpCouponVo> result = new Page<>();
 		result.setPageNumber(quest.getPageNumber());
 		result.setPageSize(quest.getPageSize());
-		List<CpCoupon> list = cpCouponDAO.getOffWebCouponPageList(quest);
+		List<CpCouponVo> list = cpCouponDAO.getOffWebCouponPageList(quest);
 		final int count = cpCouponDAO.getOffWebTotalCount(quest);
 	
 		result.setList(list);
@@ -63,12 +65,12 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 		return result;
 	}
 	@Override
-	public Page<CpStore> getStorePageList(StorePageRequst quest) {
+	public Page<CpStoreVo> getStorePageList(StorePageRequst quest) {
 
-		Page<CpStore> result = new Page<>();
+		Page<CpStoreVo> result = new Page<>();
 		result.setPageNumber(quest.getPageNumber());
 		result.setPageSize(quest.getPageSize());
-		List<CpStore> list = cpStoreDAO.getOffWebStorePageList(quest);
+		List<CpStoreVo> list = cpStoreDAO.getOffWebStorePageList(quest);
 		final int count = cpStoreDAO.getOffWebTotalCount(quest);
 	
 		result.setList(list);
@@ -85,14 +87,14 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 	
 	
 	@Override
-	public List<CpStore> getTopStoreList(CpSitestoreRequest quest) {
+	public List<CpStoreVo> getTopStoreList(CpSitestoreRequest quest) {
 		// TODO Auto-generated method stub
 		return cpStoreDAO.getTopStoreList(quest);
 	}
 
 
 	@Override
-	public List<CpCoupon> getTopCouponList(CouponPageRequest quest) {
+	public List<CpCouponVo> getTopCouponList(CouponPageRequest quest) {
 		// TODO Auto-generated method stub
 		return cpCouponDAO.getTopCouponList(quest);
 	}

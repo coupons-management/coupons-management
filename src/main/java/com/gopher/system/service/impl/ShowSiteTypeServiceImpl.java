@@ -39,6 +39,8 @@ public class ShowSiteTypeServiceImpl implements ShowSiteTypeService {
 	@Override
 	public List<CpSitestoreType> getList(int siteId, int level) {
 		CpSitestoreType cpSitestoreType = new CpSitestoreType();
+		cpSitestoreType.setOutSiteId(siteId);
+		cpSitestoreType.setLevel(level);
 		return cpSitestoreTypeDAO.getList(cpSitestoreType);
 	}
 

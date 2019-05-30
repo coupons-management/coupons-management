@@ -5,6 +5,8 @@ import java.util.List;
 import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.CpType;
+import com.gopher.system.model.vo.CpCouponVo;
+import com.gopher.system.model.vo.CpStoreVo;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
@@ -21,7 +23,7 @@ public interface OfficialWebsiteService {
 	 * 分页查询优惠卷
 	 * @return
 	 */
-	Page<CpCoupon> getCouponPageList(CouponPageRequest quest);
+	Page<CpCouponVo> getCouponPageList(CouponPageRequest quest);
 	/**
 	 * 分页查询类别
 	 * @return
@@ -31,7 +33,7 @@ public interface OfficialWebsiteService {
 	 * 分页查询商家
 	 * @return
 	 */
-	Page<CpStore> getStorePageList(StorePageRequst quest );
+	Page<CpStoreVo> getStorePageList(StorePageRequst quest );
 	/**
 	 * 查询所有商家分类
 	 * @return
@@ -39,9 +41,9 @@ public interface OfficialWebsiteService {
 	List<CpType> getAllCategoriesList();
 	
 	
-	List<CpStore> getTopStoreList(CpSitestoreRequest quest);
+	List<CpStoreVo> getTopStoreList(CpSitestoreRequest quest);
 	
-	List<CpCoupon> getTopCouponList(CouponPageRequest quest);
+	List<CpCouponVo> getTopCouponList(CouponPageRequest quest);
 	
 
 }

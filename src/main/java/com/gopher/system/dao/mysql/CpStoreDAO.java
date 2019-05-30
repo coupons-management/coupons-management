@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.gopher.system.model.entity.CpStore;
+import com.gopher.system.model.vo.CpStoreVo;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.StoreAllPageRequst;
 import com.gopher.system.model.vo.request.StorePageRequst;
@@ -70,10 +71,10 @@ public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
 	 * @return
 	 */
 	 void updateLogo(CpStore website);
-	 List<CpStore> getOffWebStorePageList(StorePageRequst quest);
+	 List<CpStoreVo> getOffWebStorePageList(StorePageRequst quest);
 	 int getOffWebTotalCount(StorePageRequst quest);
 	 
-	 List<CpStore> getTopStoreList(CpSitestoreRequest quest);
+	 List<CpStoreVo> getTopStoreList(CpSitestoreRequest quest);
 	
 }
 

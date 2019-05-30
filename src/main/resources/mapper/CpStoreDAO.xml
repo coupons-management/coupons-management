@@ -634,30 +634,36 @@
 
 <select id="getOffWebStorePageList"
 		parameterType="com.gopher.system.model.vo.request.StorePageRequst"
-		resultMap="BaseResultMap">
-		 select
-		<include refid="Base_Column_List" />
-		from CP_STORE
+		resultType="com.gopher.system.model.vo.CpStoreVo">
+			
+		SELECT  STORE.NAME name , STORE.LOGO_URL logoUrl,STORE.WEBSITE  webSite ,SITESTORE.SHOW_NAME showName FROM CP_STORE  STORE,CP_OUT_SITE_STORE  SITESTORE   
 	<where>
+	       STORE.ID=SITESTORE.STORE_ID 
+			<if test="siteId != null and  siteId >0 ">
+				AND OUT_ID=#{siteId}
+			</if>
 			<if test="name != null and  name !='' ">
-				NAME LIKE "%"#{name}"%"
+				AND STORE.NAME LIKE "%"#{name}"%"
 			</if>
      </where>
-		ORDER BY ID ASC
+     ORDER BY SITESTORE.ID ASC
 		limit #{beginIndex},#{pageSize}
 	</select>
 
 <select id="getOffWebTotalCount"
 		parameterType="com.gopher.system.model.vo.request.StorePageRequst"
 		resultType="java.lang.Integer">
-		 select
-		count(*)
-		from CP_STORE
+		SELECT  COUNT(*)   FROM  CP_STORE  STORE,CP_OUT_SITE_STORE  SITESTORE   
 	<where>
+	       STORE.ID=SITESTORE.STORE_ID 
+			<if test="siteId != null and  siteId >0 ">
+				AND OUT_ID=#{siteId}
+			</if>
 			<if test="name != null and  name !='' ">
-				NAME LIKE "%"#{name}"%"
+				AND STORE.NAME LIKE "%"#{name}"%"
 			</if>
      </where>
+
 	</select>
 	
 	
@@ -667,8 +673,8 @@
 	
 <select id="getTopStoreList"
 		parameterType="com.gopher.system.model.vo.request.CpSitestoreRequest"
-		resultType="com.gopher.system.model.entity.CpStore">
-		SELECT  STORE.NAME name , STORE.LOGO_URL logoUrl  FROM CP_STORE  STORE,CP_OUT_SITE_STORE 
+		resultType="com.gopher.system.model.vo.CpStoreVo">
+		SELECT  STORE.NAME name , STORE.LOGO_URL logoUrl,STORE.WEBSITE  webSite ,SITESTORE.SHOW_NAME showName FROM CP_STORE  STORE,CP_OUT_SITE_STORE 
 		 SITESTORE   
 	<where>
 	       STORE.ID=SITESTORE.STORE_ID 
