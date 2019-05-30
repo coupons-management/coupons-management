@@ -11,7 +11,10 @@
 		    CS.ID AS id,
 		    CS.`NAME` AS name,
 		    CS.WEBSITE AS webSite,
-		    CS.LOGO_URL AS logo,
+		    CS.LOGO_URL AS logo,   
+		    CS.COUNTRY AS country,
+		    CS.TYPE_NAME AS scrapyType,
+		    CS.APPROVAL approval,
 		    DATE_FORMAT( CS.CREATE_TIME , '%Y-%m-%d %h:%i:%s') AS createTime,
 		    DATE_FORMAT( CS.UPDATE_TIME , '%Y-%m-%d %h:%i:%s') AS updateTime
 		FROM
