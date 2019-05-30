@@ -507,7 +507,7 @@
 	SELECT  *  FROM ( 
 		SELECT DISTINCT OUTSTORE.ID outSiteId,OUTSTORE.ID id,STORE.ID storeId, STORE.NAME storeName,STORE.WEBSITE webSite,STORE.LOGO_URL logo, COUPON_COUNT_VALID couponCountValid,
   (SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)toalCount, (SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID AND  EXPIRE_AT >=now())validCount,
-  date_format( MAX(CREATED_AT), '%Y-%c-%d %h:%i:%s' ) addTime,
+  date_format( CREATED_AT, '%Y-%c-%d %h:%i:%s' ) addTime,
 (SELECT  date_format( MAX(EXPIRE_AT), '%Y-%c-%d %h:%i:%s' )  FROM CP_COUPON WHERE STORE_ID=STORE.ID) endTime,STORE.TYPE_NAME typeName ,STORE.TYPE_ID typeId  FROM  
 CP_OUT_SITE_STORE  OUTSTORE ,CP_STORE STORE  
 

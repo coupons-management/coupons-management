@@ -48,9 +48,9 @@ public class MessageListener implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent sce)  { 
-     	//this.synCategory();
-       // this.synStore();
-       // this.synCoupon();
+     	this.synCategory();
+        this.synStore();
+        this.synCoupon();
 
     }
     

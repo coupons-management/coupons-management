@@ -135,8 +135,9 @@ public class SynBasicsData {
 
 			 @SuppressWarnings("unchecked")
 				public void test(){
-			      String  title="$50 off Jewelry orders over $150";
-
+			      //String  title="$50 off Jewelry orders over $150";
+			      String title="Fair Trade Cocoa Liquor & Nibs starting at $30";
+			  	
 			      System.out.println( TitleUtils.getMessage(title));
 
 				}

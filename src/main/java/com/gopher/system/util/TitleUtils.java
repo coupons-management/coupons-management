@@ -33,7 +33,8 @@ public class TitleUtils {
 	}
 	
 	public static void main(String[] args) {
-		String title="$50 off Jewelry orders over $150";
+		//String title="$50 off Jewelry orders over $150";
+		String title="Fair Trade Cocoa Liquor & Nibs starting at $30";
 		System.out.println(getMessage(title));
 		
 	}
@@ -238,7 +239,7 @@ public class TitleUtils {
 	   //代有2个相同的货币符号$,$
 		int beginIndex = title.indexOf(mark);
 		int endIndex = title.indexOf(mark);
-		if(endIndex!=-1&&beginIndex != -1)
+		if(endIndex!=-1&&beginIndex != -1&&beginIndex!=endIndex)
 		{
 			return true;
 		}
