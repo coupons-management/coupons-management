@@ -16,6 +16,17 @@ public class ShowSiteCouponRequest {
 	private long expiryTime;
 	
 	private String isPass;
+	
+	private int storeId;
+	
+
+	public int getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(int storeId) {
+		this.storeId = storeId;
+	}
 
 	public int getId() {
 		return id;

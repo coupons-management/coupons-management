@@ -54,7 +54,7 @@ public class StoreServiceImpl implements StoreService {
 	 * @param storeId
 	 * @return
 	 */
-	private List<String> getInShowSiteNameList(int storeId) {
+	public List<String> getInShowSiteNameList(int storeId) {
 		List<String> result = new ArrayList<>();
 		// 在展示站
 		CpOutSiteStore query = new CpOutSiteStore();
@@ -75,30 +75,13 @@ public class StoreServiceImpl implements StoreService {
 		}
 		return result;
 	}
-	
-    private List<Integer> getExcludeSiteIdList(Integer siteId){
-    	List<Integer> result = null;
-    	if(siteId == null) {
-    		return result;
-    	}
-    	CpOutSiteStore query = new CpOutSiteStore();
-    	query.setOutId(siteId);
-    	List<CpOutSiteStore> list = cpOutSiteStoreDAO.getList(query);
-    	if(null != list && !list.isEmpty()) {
-    		result  = new ArrayList<>(list.size());
-    		for (CpOutSiteStore cpOutSiteStore : list) {
-    			result.add(cpOutSiteStore.getStoreId());
-			}
-    	}
-    	return result;
-    }
 	/**
 	 * 获取商家来源爬虫站点名称
 	 * 
 	 * @param storeId
 	 * @return
 	 */
-	private List<String> getSpiderSiteNameList(int storeId) {
+	public List<String> getSpiderSiteNameList(int storeId) {
 		List<String> result = new ArrayList<>();
 		CpScrapyStore query = new CpScrapyStore();
 		query.setStoreId(storeId);
@@ -116,6 +99,23 @@ public class StoreServiceImpl implements StoreService {
 		}
 		return result;
 	}
+    private List<Integer> getExcludeSiteIdList(Integer siteId){
+    	List<Integer> result = null;
+    	if(siteId == null) {
+    		return result;
+    	}
+    	CpOutSiteStore query = new CpOutSiteStore();
+    	query.setOutId(siteId);
+    	List<CpOutSiteStore> list = cpOutSiteStoreDAO.getList(query);
+    	if(null != list && !list.isEmpty()) {
+    		result  = new ArrayList<>(list.size());
+    		for (CpOutSiteStore cpOutSiteStore : list) {
+    			result.add(cpOutSiteStore.getStoreId());
+			}
+    	}
+    	return result;
+    }
+
 
 	@Override
 	public Page<StoreResponse> getPage(StorePageRequst storePageRequest) {

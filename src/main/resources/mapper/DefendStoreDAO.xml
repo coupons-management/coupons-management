@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gopher.system.dao.mysql.DefendStoreDAO">
+
+	<select id="getStorePageList"
+		parameterType="com.gopher.system.model.vo.request.DefendStorePageRequest"
+		resultType="com.gopher.system.model.vo.response.StoreResponse">
+		SELECT
+		    CS.ID AS id,
+		    CS.`NAME` AS name,
+		    CS.WEBSITE AS webSite,
+		    CS.LOGO_URL AS logo,
+		    DATE_FORMAT( CS.CREATE_TIME , '%Y-%m-%d %h:%i:%s') AS createTime,
+		    DATE_FORMAT( CS.UPDATE_TIME , '%Y-%m-%d %h:%i:%s') AS updateTime
+		FROM
+		    CP_STORE AS CS
+		INNER JOIN 
+		    CP_SITE_STORE AS CSS ON CS.ID = CSS.STORE_ID
+		<where>
+		    CSS.IN_SITE_ID = #{spiderSiteId}
+		    <if test="storeType == 1 and beginDate != null and endDate != null ">
+		       AND EXISTS (SELECT 1 FROM CP_COUPON WHERE STORE_ID= CS.ID AND CREATE_TIME &gt;#{beginDate} AND CREATE_TIME &lt;#{endDate} ORDER BY ID LIMIT 1)
+		    </if>
+		     <if test=" storeType==2 and beginDate != null and endDate != null">
+		       AND NOT EXISTS (SELECT 1 FROM CP_COUPON WHERE STORE_ID= CS.ID AND CREATE_TIME &gt;#{beginDate} AND CREATE_TIME &lt;#{endDate} ORDER BY ID LIMIT 1)
+		    </if>
+		   <if test="storeType==3 and beginDate != null and endDate != null ">
+		       AND CS.CREATE_TIME &gt;#{beginDate} AND CS.CREATE_TIME &lt;#{endDate} 
+		    </if>
+		</where>
+		    ORDER BY CS.CREATE_TIME DESC LIMIT #{beginIndex},#{pageSize}
+	</select>
+	
+		<select id="getStoreCount"
+		parameterType="com.gopher.system.model.vo.request.DefendStorePageRequest"
+		resultType="java.lang.Integer">
+		SELECT
+		    COUNT(CS.ID)
+		FROM
+		    CP_STORE AS CS
+		INNER JOIN 
+		    CP_SITE_STORE AS CSS ON CS.ID = CSS.STORE_ID
+		<where>
+		    CSS.IN_SITE_ID = #{spiderSiteId}
+		    <if test="storeType == 1 and beginDate != null and endDate != null ">
+		       AND EXISTS (SELECT 1 FROM CP_COUPON WHERE STORE_ID= CS.ID AND CREATE_TIME &gt;#{beginDate} AND CREATE_TIME &lt;#{endDate} ORDER BY ID LIMIT 1)
+		    </if>
+		     <if test=" storeType==2 and beginDate != null and endDate != null">
+		       AND NOT EXISTS (SELECT 1 FROM CP_COUPON WHERE STORE_ID= CS.ID AND CREATE_TIME &gt;#{beginDate} AND CREATE_TIME &lt;#{endDate} ORDER BY ID LIMIT 1)
+		    </if>
+		   <if test="storeType==3 and beginDate != null and endDate != null ">
+		       AND CS.CREATE_TIME &gt;#{beginDate} AND CS.CREATE_TIME &lt;#{endDate} 
+		    </if>
+		</where>
+	</select>
+
+</mapper>
