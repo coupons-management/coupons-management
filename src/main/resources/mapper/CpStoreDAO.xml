@@ -632,6 +632,32 @@
 
 
 
+<select id="getOffWebStorePageList"
+		parameterType="com.gopher.system.model.vo.request.StorePageRequst"
+		resultMap="BaseResultMap">
+		 select
+		<include refid="Base_Column_List" />
+		from CP_STORE
+	<where>
+			<if test="name != null and  name !='' ">
+				NAME LIKE "%"#{name}"%"
+			</if>
+     </where>
+		ORDER BY ID ASC
+		limit #{beginIndex},#{pageSize}
+	</select>
 
+<select id="getOffWebTotalCount"
+		parameterType="com.gopher.system.model.vo.request.StorePageRequst"
+		resultType="java.lang.Integer">
+		 select
+		count(*)
+		from CP_STORE
+	<where>
+			<if test="name != null and  name !='' ">
+				NAME LIKE "%"#{name}"%"
+			</if>
+     </where>
+	</select>
 
 </mapper>

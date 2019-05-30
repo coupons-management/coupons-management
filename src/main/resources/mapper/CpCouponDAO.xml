@@ -606,4 +606,52 @@
 		</where>
 	</select>
 
+
+
+
+
+
+
+
+
+
+
+
+
+<select id="getOffWebCouponPageList"
+		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		CP_COUPON
+		<where>
+			<if test="name != null and name !=''">
+				AND NAME LIKE #{name}%
+			</if>
+		</where>
+		ORDER BY ID ASC
+		limit #{beginIndex},#{pageSize}
+	</select>
+
+	<select id="getOffWebTotalCount"
+		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
+		resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM CP_COUPON
+		<where>
+			
+			<if test="name != null and name !=''">
+				AND NAME LIKE #{name}%
+			</if>
+		</where>
+	</select>
+
+
+
+
+
+
+
+	
+
 </mapper>

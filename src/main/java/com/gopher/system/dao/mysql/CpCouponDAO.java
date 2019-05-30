@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.gopher.system.model.entity.CpCoupon;
+import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.worker.vo.SpiderStatisticVO;
 
@@ -35,6 +36,15 @@ List<CpCoupon> getScapyPageList(CouponPageRequest couponPageRequest);
 List<CpCoupon> getErrScapyPageList(CouponPageRequest couponPageRequest);
 	
 	int getErrScapyCount(CouponPageRequest couponPageRequest);
+	
+	
+	
+	
+	public List<CpCoupon> getOffWebCouponPageList(CouponPageRequest quest);
+	int getOffWebTotalCount(CouponPageRequest quest);
+
+	
+	
 	
 	
 }

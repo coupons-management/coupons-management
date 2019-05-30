@@ -69,7 +69,8 @@ public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
 	 * @return
 	 */
 	 void updateLogo(CpStore website);
-	
+	 List<CpStore> getOffWebStorePageList(StorePageRequst quest);
+	 int getOffWebTotalCount(StorePageRequst quest);
 	
 }
 

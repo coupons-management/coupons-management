@@ -18,6 +18,10 @@ public class StorePageRequst extends PageRequestBase{
 	 */
 	private String country;
 	/**
+	 * 国家
+	 */
+	private String name;
+	/**
 	 * 爬虫分类
 	 */
 	private Integer scrapyType;
@@ -48,6 +52,12 @@ public class StorePageRequst extends PageRequestBase{
 	 */
 	private String isComplete;
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public Integer getSiteId() {
 		return siteId;
 	}
