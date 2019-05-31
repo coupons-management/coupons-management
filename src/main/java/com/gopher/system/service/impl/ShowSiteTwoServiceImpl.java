@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.gopher.system.constant.CodeAndMsg;
 import com.gopher.system.controller.model.Result;
@@ -221,7 +222,10 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 			cpOutSiteStoreDAO.updateByPrimaryKey(cpOutSiteStore);
 			//修改商家logo
 			CpStore store=new CpStore();
+			
 			store.setId(cpOutSiteStore.getStoreId());
+			if(StringUtils.isEmpty(cpOutSiteStore.getLogo())||StringUtils.isEmpty(cpOutSiteStore.getStoreId()))
+			{return;}
 			store.setLogoUrl(cpOutSiteStore.getLogo());
 			store.setUpdateTime(new Date());
 			store.setUpdateUser(1);
