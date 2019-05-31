@@ -99,4 +99,18 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 		return cpCouponDAO.getTopCouponList(quest);
 	}
 
+
+	@Override
+	public List<CpCouponVo> getStoreExpCouponList(CouponPageRequest quest) {
+		// TODO Auto-generated method stub
+		return cpCouponDAO.getStoreExpCouponList(quest);
+	}
+
+
+	@Override
+	public List<CpCouponVo> getStoreCouponList(CouponPageRequest quest) {
+		// TODO Auto-generated method stub
+		return cpCouponDAO.getStoreCouponList(quest);
+	}
+
 }

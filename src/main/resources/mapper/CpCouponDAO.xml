@@ -665,12 +665,6 @@ FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE
 	</select>
 
 
-
-
-
-
-
-
 	<select id="getTopCouponList"
 		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
 		resultType="com.gopher.system.model.vo.CpCouponVo">
@@ -686,6 +680,56 @@ FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE
 		</where>
 	</select>
 
+
+
+	<select id="getStoreCouponList"
+		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
+		resultType="com.gopher.system.model.vo.CpCouponVo">
+		<!-- SELECT CPCOUPON.NAME,LINK , CPCOUPON,TITLE,LOGO_URL storeLogo, FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE -->
+		SELECT CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE
+		<where>
+			CPCOUPON.ID=SITECOUPON.COUPON_ID AND CPCOUPON.STORE_ID=STORE.ID
+			
+			<if test="outSiteId != null and outSiteId >0">
+				AND SITECOUPON.OUT_SITE_ID = #{outSiteId}
+			</if>
+			
+			<if test="type != null and type !=''">
+				AND CPCOUPON.COUPON_TYPE = #{type}
+			</if>
+			<if test="storeUrl != null and storeUrl !=''">
+				AND STORE.WEBSITE = #{storeUrl}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="getStoreExpCouponList"
+		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
+		resultType="com.gopher.system.model.vo.CpCouponVo">
+		<!-- SELECT CPCOUPON.NAME,LINK , CPCOUPON,TITLE,LOGO_URL storeLogo, FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE -->
+		SELECT CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE
+		<where>
+			CPCOUPON.ID=SITECOUPON.COUPON_ID AND CPCOUPON.STORE_ID=STORE.ID
+			AND EXPIRE_AT &lt;= NOW()
+			
+			
+			<if test="outSiteId != null and outSiteId >0">
+				AND SITECOUPON.OUT_SITE_ID = #{outSiteId}
+			</if>
+			
+			<if test="storeUrl != null and storeUrl !=''">
+				AND STORE.WEBSITE = #{storeUrl}
+			</if>
+			
+			
+			<if test="type != null and type !=''">
+				AND CPCOUPON.COUPON_TYPE = #{type}
+			</if>
+			
+		
+		</where>
+	</select>
 
 
 

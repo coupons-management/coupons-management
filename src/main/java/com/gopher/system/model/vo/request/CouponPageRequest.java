@@ -40,8 +40,29 @@ public class CouponPageRequest extends PageRequestBase{
 	private int expired;
 	
 	private String  scrapyStr;
+	/**
+	 * 商家ID
+	 */
+	private String storeUrl;
+	private String code;
 	
 	private Date nowDate;
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getStoreUrl() {
+		return storeUrl;
+	}
+
+	public void setStoreUrl(String storeUrl) {
+		this.storeUrl = storeUrl;
+	}
 
 	public Integer getOutSiteId() {
 		return outSiteId;

@@ -44,6 +44,8 @@ public interface OfficialWebsiteService {
 	List<CpStoreVo> getTopStoreList(CpSitestoreRequest quest);
 	
 	List<CpCouponVo> getTopCouponList(CouponPageRequest quest);
+	List<CpCouponVo> getStoreExpCouponList(CouponPageRequest quest);
+	List<CpCouponVo> getStoreCouponList(CouponPageRequest quest);
 	
 
 }

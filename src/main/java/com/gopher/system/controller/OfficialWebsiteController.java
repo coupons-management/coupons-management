@@ -80,5 +80,20 @@ public class OfficialWebsiteController {
 		result.setData( officialWebsiteService.getTopCouponList(quest));
 		return result;
 	}
+	
+	
+	@RequestMapping(path="/getStoreCouponList")
+	Result getStoreCouponList(@RequestBody CouponPageRequest quest){
+		Result result = new Result();
+		result.setData( officialWebsiteService.getStoreCouponList(quest));
+		return result;
+	}
+	
+	@RequestMapping(path="/getStoreExpCouponList")
+	Result getStoreExpCouponList(@RequestBody CouponPageRequest quest){
+		Result result = new Result();
+		result.setData( officialWebsiteService.getStoreExpCouponList(quest));
+		return result;
+	}
 
 }
