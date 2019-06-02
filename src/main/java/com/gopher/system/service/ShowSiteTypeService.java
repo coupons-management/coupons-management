@@ -16,12 +16,24 @@ import com.gopher.system.model.vo.response.SitestoreTypeTree;
  */
 public interface ShowSiteTypeService {
 	/**
-	 * 
+	 *
 	 * @param siteId
 	 * @param level
 	 * @return
 	 */
 	List<CpSitestoreType> getList(final int siteId, final int level);
+	/**
+	 * 获取一级分类
+	 * @param siteId
+	 * @return
+	 */
+	List<CpSitestoreType> getLevelOneList(final int siteId);
+	/**
+	 * 根据父ID获取子列表
+	 * @param pid
+	 * @return
+	 */
+	List<CpSitestoreType> getSonList(final int pid);
 
 	void create(CpSitestoreType cpSitestoreType);
 

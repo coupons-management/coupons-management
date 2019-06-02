@@ -6,6 +6,7 @@ import com.gopher.system.model.entity.CpOutSiteCoupon;
 import com.gopher.system.model.vo.CpOutSiteCouponVo;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CouponPageRequest;
+import com.gopher.system.model.vo.request.CouponSortRequest;
 
 public interface CpOutSiteCouponService {
 	/**
@@ -14,11 +15,20 @@ public interface CpOutSiteCouponService {
 	 */
 	void updateHotSort(CpOutSiteCoupon cpOutSiteCoupon);
 	/**
+	 * 批量热门
+	 * @param couponSortRequest
+	 */
+	void updateHotSort(CouponSortRequest couponSortRequest);
+	/**
 	 * 修改热门推荐
 	 * @param cpSiteStore
 	 */
 	void updateAdviseSort(CpOutSiteCoupon cpOutSiteCoupon);
-	
+	/**
+	 * 批量
+	 * @param couponSortRequest
+	 */
+	void updateAdviseSort(CouponSortRequest couponSortRequest);
 	/**
 	 * 删除热门排序
 	 * @param cpSiteStore

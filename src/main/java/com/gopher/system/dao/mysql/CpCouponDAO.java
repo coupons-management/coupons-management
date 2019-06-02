@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.vo.CpCouponVo;
-import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.worker.vo.SpiderStatisticVO;
 

@@ -152,9 +152,13 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 	 * 获取在展示站所有商家
 	 * @return
 	 */
-	public List<StoreResponse> getStoreListInShowSite(){
-		
-		return null;
+	@Override
+	public List<CpOutSiteStore> getStoreListInShowSite(CpOutSiteStore cpOutSiteStore){
+		if(cpOutSiteStore == null) {
+			throw new BusinessRuntimeException("参数不能为空");
+		}
+		List<CpOutSiteStore> list = cpOutSiteStoreDAO.getList(cpOutSiteStore);
+		return list;
 	}
 	
 	@Override

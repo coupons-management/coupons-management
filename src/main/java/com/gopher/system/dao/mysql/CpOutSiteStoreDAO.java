@@ -1,7 +1,6 @@
 package com.gopher.system.dao.mysql;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -100,5 +99,14 @@ public interface CpOutSiteStoreDAO extends MyBatisBaseDao<CpOutSiteStore, Intege
     */
    int getToalCoupon(ShowSiteStoreRequest  Request);
 
+   /**
+          * 清除排序
+    * @param outId
+    *        sortType 1= hot 2=advice
+    * @return
+    */
+   int clearHotSort(int outId);
+   
+   int clearAdviseSort(int outId);
 
 }

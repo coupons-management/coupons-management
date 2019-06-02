@@ -165,6 +165,12 @@ public class CouponServiceImpl implements CouponService{
 		if(cpCoupon.getExpireAtTime() > 0) {
 			cpCoupon.setExpireAt(new Date(cpCoupon.getExpireAtTime()));
 		}
+		final String code = cpCoupon.getCode();
+		if(StringUtils.hasText(code)) {
+		 // 如果设置了CODE 直接就是CODE的类型
+			cpCoupon.setCouponType("CODE");
+		}
+		cpCoupon.setIsPass("1");
 		cpCoupon.setInType(SystemConstants.IN_TEYE_MANUAL.getValue().toString());
 		cpCouponDAO.insert(cpCoupon);
 		CpOutSiteCoupon cpOutSiteCoupon = new CpOutSiteCoupon();

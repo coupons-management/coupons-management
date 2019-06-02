@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.gopher.system.model.entity.CpType;
 import com.gopher.system.model.vo.request.CpTypePageRequest;
-import com.gopher.system.model.vo.response.CpTypeResponse;
 
 /**
  * CpTypeDAO继承基类

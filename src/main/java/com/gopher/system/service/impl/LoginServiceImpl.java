@@ -23,18 +23,20 @@ import com.gopher.system.service.LoginService;
 import com.gopher.system.service.UserService;
 import com.gopher.system.util.CookieUtils;
 import com.gopher.system.util.MD5Utils;
+
 /**
  * 登录登出业务
+ * 
  * @author dongyangyang
  *
  */
 @Service(value = "loginService")
 public class LoginServiceImpl implements LoginService {
-    private static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(LoginServiceImpl.class);
 	@Resource
 	private UserService userService;
 	@Resource
-	private CacheService<String,User> cacheService;
+	private CacheService<String, User> cacheService;
 
 	@Override
 	public LoginResponse login(LoginRequest loginRequest) {
@@ -42,8 +44,10 @@ public class LoginServiceImpl implements LoginService {
 		if (null == loginRequest) {
 			throw new BusinessRuntimeException("参数不能为空");
 		}
-		final String account  = StringUtils.hasText(loginRequest.getAccount())?loginRequest.getAccount():loginRequest.getUserName();
-		final String password = StringUtils.hasText(loginRequest.getPassword())?loginRequest.getPassword():loginRequest.getPassWord();
+		final String account = StringUtils.hasText(loginRequest.getAccount()) ? loginRequest.getAccount()
+				: loginRequest.getUserName();
+		final String password = StringUtils.hasText(loginRequest.getPassword()) ? loginRequest.getPassword()
+				: loginRequest.getPassWord();
 		if (!StringUtils.hasText(account)) {
 			throw new BusinessRuntimeException("账号不能为空");
 		}
@@ -62,13 +66,15 @@ public class LoginServiceImpl implements LoginService {
 		this.loginSuccessHandle(sessionKey, user);
 		LoginResponse result = new LoginResponse();
 		result.setSessionKey(sessionKey);
-		result.setExpiryTime(System.currentTimeMillis()+CookieUtils.DEFAULT_AGE*1000L);
+		result.setExpiryTime(System.currentTimeMillis() + CookieUtils.DEFAULT_AGE * 1000L);
+		LOG.info("登录成功,账号{},密码{}", account, password);
 		return result;
 	}
 
 	private void loginSuccessHandle(final String sessionKey, final User user) {
 		// 从当前线程中获取response
-		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getResponse();
 		// 写入cookie
 		CookieUtils.addCookie(response, sessionKey, CookieUtils.DEFAULT_AGE);
 		// 写入缓存

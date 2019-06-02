@@ -15,6 +15,7 @@ import com.gopher.system.model.vo.response.ShowSiteCouponResponse;
  */
 @Repository
 public interface CpOutSiteCouponDAO extends MyBatisBaseDao<CpOutSiteCoupon, Integer> {
+	
 	/**
 	 * 修改热门排序
 	 * @param cpSiteStore
@@ -69,4 +70,10 @@ public interface CpOutSiteCouponDAO extends MyBatisBaseDao<CpOutSiteCoupon, Inte
 	 * @return
 	 */
 	int getTotalCount(ShowSiteCouponPageRequest showSiteCouponRequest);
+	
+	
+	int clearHotSort(int outId);
+	
+	int clearAdviseSort(int outId);
+	
 }

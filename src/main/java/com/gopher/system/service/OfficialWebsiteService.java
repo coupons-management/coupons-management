@@ -2,12 +2,11 @@ package com.gopher.system.service;
 
 import java.util.List;
 
-import com.gopher.system.model.entity.CpCoupon;
-import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.CpType;
 import com.gopher.system.model.vo.CpCouponVo;
 import com.gopher.system.model.vo.CpStoreVo;
 import com.gopher.system.model.vo.Page;
+import com.gopher.system.model.vo.request.CategoryRequest;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.CpTypePageRequest;
@@ -44,8 +43,15 @@ public interface OfficialWebsiteService {
 	List<CpStoreVo> getTopStoreList(CpSitestoreRequest quest);
 	
 	List<CpCouponVo> getTopCouponList(CouponPageRequest quest);
+	
 	List<CpCouponVo> getStoreExpCouponList(CouponPageRequest quest);
+	
 	List<CpCouponVo> getStoreCouponList(CouponPageRequest quest);
+	/**
+	 * 获取当前类型下的所有优惠券
+	 * @return
+	 */
+	List<CpCouponVo> getAllStoreByCategory(CategoryRequest categoryRequest);
 	
 
 }

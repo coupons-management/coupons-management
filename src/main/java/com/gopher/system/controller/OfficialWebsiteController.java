@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gopher.system.controller.model.Result;
+import com.gopher.system.model.vo.request.CategoryRequest;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
-import com.gopher.system.model.vo.request.CpTypePageRequest;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.service.OfficialWebsiteService;
 import com.gopher.system.service.impl.ShowSiteTypeServiceImpl;
@@ -95,5 +95,18 @@ public class OfficialWebsiteController {
 		result.setData( officialWebsiteService.getStoreExpCouponList(quest));
 		return result;
 	}
+	/**
+	 * 根据类型获取当前类型下面的所有商家
+	 * @param categoryRequest
+	 * @return
+	 */
+	@RequestMapping(path="/getAllStoreByCategory")
+	Result getAllStoreByCategor(@RequestBody CategoryRequest categoryRequest){
+		Result result = new Result();
+		result.setData( officialWebsiteService.getAllStoreByCategory(categoryRequest));
+		return result;
+	}
+	
+	
 
 }

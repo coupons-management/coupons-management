@@ -5,6 +5,7 @@ import java.util.List;
 import com.gopher.system.model.entity.CpOutSiteStore;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
+import com.gopher.system.model.vo.request.StoreSortRequest;
 
 
 public interface StoreAuditService {
@@ -20,11 +21,20 @@ void addSite(CpOutSiteStore cpOutSiteStore);
  */
 void updateHotSort(CpOutSiteStore cpOutSiteStore);
 /**
+ * 批量修改
+ * @param storeSortRequest
+ */
+void updateHotSort(StoreSortRequest storeSortRequest);
+/**
  * 修改热门推荐
  * @param cpSiteStore
  */
 void updateAdviseSort(CpOutSiteStore cpOutSiteStore);
-
+/**
+ * 批量
+ * @param cpOutSiteStore
+ */
+void updateAdviseSort(StoreSortRequest storeSortRequest);
 /**
  *删除热门排序
  * @param cpSiteStore

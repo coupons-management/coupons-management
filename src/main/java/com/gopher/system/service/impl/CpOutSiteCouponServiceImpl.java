@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
+import com.gopher.system.exception.BusinessRuntimeException;
 import com.gopher.system.model.entity.CpOutSiteCoupon;
-import com.gopher.system.model.entity.CpOutSiteStore;
 import com.gopher.system.model.vo.CpOutSiteCouponVo;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CouponPageRequest;
-import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
+import com.gopher.system.model.vo.request.CouponSortRequest;
 import com.gopher.system.service.CpOutSiteCouponService;
 @Service
 public class CpOutSiteCouponServiceImpl implements CpOutSiteCouponService {
@@ -70,14 +71,55 @@ public class CpOutSiteCouponServiceImpl implements CpOutSiteCouponService {
 
 	@Override
 	public List<CpOutSiteCouponVo> getTopHotList(CpOutSiteCoupon obj) {
-		// TODO Auto-generated method stub
 		return cpOutSiteCouponDAO.getTopHotList(obj);
 	}
 
 	@Override
 	public List<CpOutSiteCouponVo> getTopAdviseList(CpOutSiteCoupon obj) {
-		// TODO Auto-generated method stub
 		return cpOutSiteCouponDAO.getTopAdviseList(obj);
+	}
+    
+	@Override
+	public void updateHotSort(CouponSortRequest couponSortRequest) {
+		// 1 清除当前内战 优惠券历史排序
+		// 2 更新最新排序
+		if(null == couponSortRequest) {
+			throw new BusinessRuntimeException("参数不能为空");
+		}
+		final int outId = couponSortRequest.getOutId();
+		if(outId <= 0) {
+			throw new BusinessRuntimeException("展示站点ID不能为空");
+		}
+		cpOutSiteCouponDAO.clearHotSort(outId);
+		List<CpOutSiteCoupon> sortList = couponSortRequest.getCpOutSiteCouponList();
+		if(null != sortList) {
+			for (CpOutSiteCoupon cpOutSiteCoupon: sortList) {
+				this.updateHotSort(cpOutSiteCoupon);
+			}
+		}
+
+		
+	}
+
+	@Override
+	public void updateAdviseSort(CouponSortRequest couponSortRequest) {
+		// 1 清除当前内战 优惠券历史排序
+		// 2 更新最新排序
+		if(null == couponSortRequest) {
+			throw new BusinessRuntimeException("参数不能为空");
+		}
+		final int outId = couponSortRequest.getOutId();
+		if(outId <= 0) {
+			throw new BusinessRuntimeException("展示站点ID不能为空");
+		}
+		cpOutSiteCouponDAO.clearAdviseSort(outId);
+		List<CpOutSiteCoupon> sortList = couponSortRequest.getCpOutSiteCouponList();
+		if(null != sortList) {
+			for (CpOutSiteCoupon cpOutSiteCoupon: sortList) {
+				this.updateAdviseSort(cpOutSiteCoupon);
+			}
+		}
+		
 	}
 	
 

@@ -9,7 +9,9 @@ import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.CpOutSiteCoupon;
 import com.gopher.system.model.entity.CpOutSiteStore;
 import com.gopher.system.model.vo.request.CouponPageRequest;
+import com.gopher.system.model.vo.request.CouponSortRequest;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
+import com.gopher.system.model.vo.request.StoreSortRequest;
 import com.gopher.system.service.CpOutSiteCouponService;
 import com.gopher.system.service.StoreAuditService;
 
@@ -52,6 +54,18 @@ public class StoreAuditController {
 	}
 	
 	/**
+	 * 热门商家增加
+	 * @param cpOutSiteStore
+	 * @return  storeAudit/updateHotSort
+	 */
+	@RequestMapping(path="/updateHotSortBatch")
+	public Result updateHotSort(@RequestBody StoreSortRequest storeSortRequest) {
+		Result result = new Result();
+		storeAuditService.updateHotSort(storeSortRequest);
+		return result;
+	}
+	
+	/**
 	 * 删除热门商家增加
 	 * @param cpOutSiteStore
 	 * @return  storeAudit/updateHotSort
@@ -71,6 +85,19 @@ public class StoreAuditController {
 	public Result updateAdviseSort(@RequestBody CpOutSiteStore cpOutSiteStore) {
 		Result result = new Result();
 		storeAuditService.updateAdviseSort(cpOutSiteStore);
+		return result;
+	}
+	
+	
+	/**
+	 * 增加推荐商家
+	 * @param cpOutSiteStore
+	 * @return
+	 */
+	@RequestMapping(path="/updateAdviseSortBatch")
+	public Result updateAdviseSort(@RequestBody StoreSortRequest storeSortRequest) {
+		Result result = new Result();
+		storeAuditService.updateAdviseSort(storeSortRequest);
 		return result;
 	}
 	
@@ -100,6 +127,12 @@ public class StoreAuditController {
 		
 		return result;
 	}
+	@RequestMapping(path="/updateCouponHotSortBatch")
+	public Result updateCouponHotSortBatch(@RequestBody CouponSortRequest couponSortRequest) {
+		Result result = new Result();
+		cpOutSiteCouponService.updateHotSort(couponSortRequest);
+		return result;
+	}
 	
 	/**
 	 * 删除热门优惠卷
@@ -115,12 +148,19 @@ public class StoreAuditController {
 		}
 		
 	/**
-	 * 增加推荐优惠卷
+	 * 增加推荐优惠卷 批量
 	 * @param cpOutSiteCoupon
 	 * @return
 	 */
 	@RequestMapping(path="/updateCouponAdviseSort")
-	public Result updateCouponAdviseSort(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
+	public Result updateCouponAdviseSort(@RequestBody CouponSortRequest couponSortRequest) {
+		Result result = new Result();
+		cpOutSiteCouponService.updateAdviseSort(couponSortRequest);
+		return result;
+	}
+	
+	@RequestMapping(path="/updateCouponAdviseSortBatch")
+	public Result updateCouponAdviseSortBatch(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
 		Result result = new Result();
 		cpOutSiteCouponService.updateAdviseSort(cpOutSiteCoupon);
 		return result;

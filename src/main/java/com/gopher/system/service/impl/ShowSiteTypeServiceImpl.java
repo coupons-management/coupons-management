@@ -250,4 +250,21 @@ public class ShowSiteTypeServiceImpl implements ShowSiteTypeService {
 		return result;
 	}
 
+	@Override
+	public List<CpSitestoreType> getLevelOneList(int siteId) {
+		if(siteId <= 0) {
+			throw new BusinessRuntimeException("站点ID不能为空");
+		}
+		return this.getList(siteId, 1);
+	}
+
+	
+	@Override
+	public List<CpSitestoreType> getSonList(int pid) {
+		if(pid <=0 ) {
+			throw new BusinessRuntimeException("父ID不能为空");
+		}
+		return cpSitestoreTypeDAO.getSonList(pid);
+	}
+
 }

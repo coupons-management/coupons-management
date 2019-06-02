@@ -449,4 +449,16 @@
 		</where>
 	</select>
 
+	<update id="clearHotSort">
+		UPDATE CP_OUT_SITE_COUPON SET HOT_SORT = 0
+		WHERE OUT_ID = #{outId}
+		AND HOT_SORT >0
+	</update>
+
+	<update id="clearAdviseSort">
+		UPDATE CP_OUT_SITE_COUPON SET ADVISE_SORT = 0
+		WHERE OUT_ID = #{outId}
+		AND ADVISE_SORT >0
+	</update>
+
 </mapper>

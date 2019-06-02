@@ -38,48 +38,69 @@
 			property="adviseSort" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		ID, OUT_ID, STORE_ID, CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME,
+		ID, OUT_ID, STORE_ID, CREATE_USER, UPDATE_USER,
+		CREATE_TIME, UPDATE_TIME,
 		STORE_COUNT,
-		COUPON_COUNT, AD_ADDRESS, MARK, IS_MANUAL, TITLE, KEYWORDS, DES, SHOW_NAME,
+		COUPON_COUNT, AD_ADDRESS, MARK,
+		IS_MANUAL, TITLE, KEYWORDS, DES, SHOW_NAME,
 		STORE_DES,
-		HEADER_DES, HOT_SORT, ADVISE_SORT
+		HEADER_DES,
+		HOT_SORT, ADVISE_SORT
 	</sql>
-	
-	
-	  <resultMap id="BaseResultCountMap" type="com.gopher.system.model.entity.CpCoupon">
-    <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="CODE" jdbcType="VARCHAR" property="code" />
-    <result column="EXPIRE_AT" jdbcType="TIMESTAMP" property="expireAt" />
-    <result column="STORE_WEBSITE_CRC" jdbcType="VARCHAR" property="storeWebsiteCrc" />
-    <result column="STORE_NAME_CRC" jdbcType="VARCHAR" property="storeNameCrc" />
-    <result column="IS_PASS" jdbcType="VARCHAR" property="isPass" />
-    <result column="FINAL_WEBSITE" jdbcType="VARCHAR" property="finalWebsite" />
-    <result column="STORE_WEBSITE" jdbcType="VARCHAR" property="storeWebsite" />
-    <result column="LINK" jdbcType="VARCHAR" property="link" />
-    <result column="IN_SITE_ID" jdbcType="INTEGER" property="inSiteId" />
-    <result column="INDEX" jdbcType="INTEGER" property="index" />
-    <result column="COUPON_TYPE" jdbcType="VARCHAR" property="couponType" />
-    <result column="IN_TYPE" jdbcType="VARCHAR" property="inType" />
-    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
-    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="SITE_URL" jdbcType="VARCHAR" property="siteUrl" />
-    <result column="STORE_URL" jdbcType="VARCHAR" property="storeUrl" />
-    <result column="SCRAPY" jdbcType="VARCHAR" property="scrapy" />
-    <result column="TITLE" jdbcType="VARCHAR" property="title" />
-    <result column="DES" jdbcType="VARCHAR" property="des" />
-  </resultMap>
-  <sql id="BaseCount_Column_List">
-    ID, STORE_ID, `NAME`, CODE, EXPIRE_AT, STORE_WEBSITE_CRC, STORE_NAME_CRC, IS_PASS, 
-    FINAL_WEBSITE, STORE_WEBSITE, LINK, IN_SITE_ID, `INDEX`, COUPON_TYPE, IN_TYPE, CREATE_USER, 
-    UPDATE_USER, CREATE_TIME, UPDATE_TIME, SITE_URL, STORE_URL, SCRAPY, TITLE, DES
-  </sql>
-  
-  
-  
+
+
+	<resultMap id="BaseResultCountMap"
+		type="com.gopher.system.model.entity.CpCoupon">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+		<result column="CODE" jdbcType="VARCHAR" property="code" />
+		<result column="EXPIRE_AT" jdbcType="TIMESTAMP"
+			property="expireAt" />
+		<result column="STORE_WEBSITE_CRC" jdbcType="VARCHAR"
+			property="storeWebsiteCrc" />
+		<result column="STORE_NAME_CRC" jdbcType="VARCHAR"
+			property="storeNameCrc" />
+		<result column="IS_PASS" jdbcType="VARCHAR" property="isPass" />
+		<result column="FINAL_WEBSITE" jdbcType="VARCHAR"
+			property="finalWebsite" />
+		<result column="STORE_WEBSITE" jdbcType="VARCHAR"
+			property="storeWebsite" />
+		<result column="LINK" jdbcType="VARCHAR" property="link" />
+		<result column="IN_SITE_ID" jdbcType="INTEGER"
+			property="inSiteId" />
+		<result column="INDEX" jdbcType="INTEGER" property="index" />
+		<result column="COUPON_TYPE" jdbcType="VARCHAR"
+			property="couponType" />
+		<result column="IN_TYPE" jdbcType="VARCHAR" property="inType" />
+		<result column="CREATE_USER" jdbcType="INTEGER"
+			property="createUser" />
+		<result column="UPDATE_USER" jdbcType="INTEGER"
+			property="updateUser" />
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="UPDATE_TIME" jdbcType="TIMESTAMP"
+			property="updateTime" />
+		<result column="SITE_URL" jdbcType="VARCHAR" property="siteUrl" />
+		<result column="STORE_URL" jdbcType="VARCHAR"
+			property="storeUrl" />
+		<result column="SCRAPY" jdbcType="VARCHAR" property="scrapy" />
+		<result column="TITLE" jdbcType="VARCHAR" property="title" />
+		<result column="DES" jdbcType="VARCHAR" property="des" />
+	</resultMap>
+	<sql id="BaseCount_Column_List">
+		ID, STORE_ID, `NAME`, CODE, EXPIRE_AT, STORE_WEBSITE_CRC,
+		STORE_NAME_CRC,
+		IS_PASS,
+		FINAL_WEBSITE, STORE_WEBSITE, LINK, IN_SITE_ID,
+		`INDEX`, COUPON_TYPE, IN_TYPE,
+		CREATE_USER,
+		UPDATE_USER, CREATE_TIME,
+		UPDATE_TIME, SITE_URL, STORE_URL, SCRAPY, TITLE, DES
+	</sql>
+
+
+
 	<select id="selectByPrimaryKey"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		select
@@ -90,27 +111,35 @@
 	<delete id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">
 		delete from CP_OUT_SITE_STORE
-		where ID = #{id,jdbcType=INTEGER}
+		where ID =
+		#{id,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" keyColumn="ID" keyProperty="id"
 		parameterType="com.gopher.system.model.entity.CpOutSiteStore"
 		useGeneratedKeys="true">
-		insert into CP_OUT_SITE_STORE (OUT_ID, STORE_ID, CREATE_USER,
+		insert into CP_OUT_SITE_STORE (OUT_ID, STORE_ID,
+		CREATE_USER,
 		UPDATE_USER, CREATE_TIME, UPDATE_TIME,
-		STORE_COUNT, COUPON_COUNT, AD_ADDRESS,
+		STORE_COUNT,
+		COUPON_COUNT, AD_ADDRESS,
 		MARK, IS_MANUAL, TITLE,
-		KEYWORDS, DES, SHOW_NAME,
+		KEYWORDS, DES,
+		SHOW_NAME,
 		STORE_DES, HEADER_DES, HOT_SORT,
 		ADVISE_SORT)
-		values (#{outId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER},
+		values
+		(#{outId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER},
 		#{createUser,jdbcType=INTEGER},
-		#{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{updateUser,jdbcType=INTEGER},
+		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
 		#{storeCount,jdbcType=INTEGER}, #{couponCount,jdbcType=INTEGER},
 		#{adAddress,jdbcType=VARCHAR},
-		#{mark,jdbcType=VARCHAR}, #{isManual,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+		#{mark,jdbcType=VARCHAR},
+		#{isManual,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
 		#{keywords,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR},
 		#{showName,jdbcType=VARCHAR},
-		#{storeDes,jdbcType=VARCHAR}, #{headerDes,jdbcType=VARCHAR}, #{hotSort,jdbcType=INTEGER},
+		#{storeDes,jdbcType=VARCHAR},
+		#{headerDes,jdbcType=VARCHAR}, #{hotSort,jdbcType=INTEGER},
 		#{adviseSort,jdbcType=INTEGER})
 	</insert>
 	<insert id="insertSelective" keyColumn="ID" keyProperty="id"
@@ -303,26 +332,37 @@
 	<update id="updateByPrimaryKey"
 		parameterType="com.gopher.system.model.entity.CpOutSiteStore">
 		update CP_OUT_SITE_STORE
-		set OUT_ID = #{outId,jdbcType=INTEGER},
+		set OUT_ID =
+		#{outId,jdbcType=INTEGER},
 		STORE_ID = #{storeId,jdbcType=INTEGER},
 		CREATE_USER = #{createUser,jdbcType=INTEGER},
-		UPDATE_USER = #{updateUser,jdbcType=INTEGER},
-		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-		STORE_COUNT = #{storeCount,jdbcType=INTEGER},
-		COUPON_COUNT = #{couponCount,jdbcType=INTEGER},
-		AD_ADDRESS = #{adAddress,jdbcType=VARCHAR},
+		UPDATE_USER =
+		#{updateUser,jdbcType=INTEGER},
+		CREATE_TIME =
+		#{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME =
+		#{updateTime,jdbcType=TIMESTAMP},
+		STORE_COUNT =
+		#{storeCount,jdbcType=INTEGER},
+		COUPON_COUNT =
+		#{couponCount,jdbcType=INTEGER},
+		AD_ADDRESS =
+		#{adAddress,jdbcType=VARCHAR},
 		MARK = #{mark,jdbcType=VARCHAR},
 		IS_MANUAL = #{isManual,jdbcType=VARCHAR},
-		TITLE = #{title,jdbcType=VARCHAR},
+		TITLE =
+		#{title,jdbcType=VARCHAR},
 		KEYWORDS = #{keywords,jdbcType=VARCHAR},
-		DES = #{des,jdbcType=VARCHAR},
+		DES
+		= #{des,jdbcType=VARCHAR},
 		SHOW_NAME = #{showName,jdbcType=VARCHAR},
 		STORE_DES = #{storeDes,jdbcType=VARCHAR},
-		HEADER_DES = #{headerDes,jdbcType=VARCHAR},
+		HEADER_DES =
+		#{headerDes,jdbcType=VARCHAR},
 		HOT_SORT = #{hotSort,jdbcType=INTEGER},
 		ADVISE_SORT = #{adviseSort,jdbcType=INTEGER}
-		where ID = #{id,jdbcType=INTEGER}
+		where ID =
+		#{id,jdbcType=INTEGER}
 	</update>
 
 	<select id="getList"
@@ -336,423 +376,427 @@
 				STORE_ID = #{storeId}
 			</if>
 			<if test="showName != null and showName!=''">
-				SHOW_NAME like  "%"#{showName}"%"
+				SHOW_NAME like "%"#{showName}"%"
 			</if>
 			<if test="outId != null and outId >0">
 				OUT_ID = #{outId}
 			</if>
 		</where>
 	</select>
-	
-	<delete id="deleteByBean" parameterType="com.gopher.system.model.entity.CpOutSiteStore">
-	   DELETE FROM CP_OUT_SITE_STORE 
-	   <where>
-	      <if test="outId != null and outId > 0">
-	         OUT_ID = #{outId}
-	      </if>
-	      <if test="outId != null and outId > 0">
-	        AND STORE_ID = #{storeId}
-	      </if>
-	   </where>
+
+	<delete id="deleteByBean"
+		parameterType="com.gopher.system.model.entity.CpOutSiteStore">
+		DELETE FROM CP_OUT_SITE_STORE
+		<where>
+			<if test="outId != null and outId > 0">
+				OUT_ID = #{outId}
+			</if>
+			<if test="outId != null and outId > 0">
+				AND STORE_ID = #{storeId}
+			</if>
+		</where>
 	</delete>
-	
+
 	<update id="updateHotSort"
 		parameterType="com.gopher.system.model.entity.CpOutSiteStore">
 		UPDATE CP_OUT_SITE_STORE
 		SET
-		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-		HOT_SORT = #{hotSort,jdbcType=INTEGER}
+		UPDATE_TIME =
+		#{updateTime,jdbcType=TIMESTAMP},
+		HOT_SORT =
+		#{hotSort,jdbcType=INTEGER}
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
-	
+
 	<update id="updateAdviseSort"
 		parameterType="com.gopher.system.model.entity.CpOutSiteStore">
 		update CP_OUT_SITE_STORE
 		SET
-		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-		ADVISE_SORT = #{adviseSort,jdbcType=INTEGER}
+		UPDATE_TIME =
+		#{updateTime,jdbcType=TIMESTAMP},
+		ADVISE_SORT =
+		#{adviseSort,jdbcType=INTEGER}
 		where ID = #{id,jdbcType=INTEGER}
 		<!-- where STORE_ID = #{storeId,jdbcType=INTEGER} -->
 	</update>
-	
-	
-	
-	
-	
+
+
+
+
+
 	<select id="getHotStoreList"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from CP_OUT_SITE_STORE  
+		from CP_OUT_SITE_STORE
 		<where>
-		 HOT_SORT=0 and  
-		OUT_ID = #{outId}
+			HOT_SORT=0 and
+			OUT_ID = #{outId}
 			<if test="showName != null and showName!=''">
-				SHOW_NAME LIKE  "%"#{showName}"%"
+				SHOW_NAME LIKE "%"#{showName}"%"
 			</if>
-	</where>
-	LIMIT  #{beginIndex},#{pageSize}
+		</where>
+		LIMIT #{beginIndex},#{pageSize}
 	</select>
-	
-	
-		<select id="getHotStoreCount"
+
+
+	<select id="getHotStoreCount"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultType="java.lang.Integer">
 		select
 		count(*)
-		from CP_OUT_SITE_STORE  
+		from CP_OUT_SITE_STORE
 		<where>
-		 HOT_SORT=0 and  
-		OUT_ID = #{outId}
+			HOT_SORT=0 and
+			OUT_ID = #{outId}
 			<if test="showName != null and showName!=''">
-				SHOW_NAME LIKE  "%"#{showName}"%"
+				SHOW_NAME LIKE "%"#{showName}"%"
 			</if>
-	</where>
+		</where>
 
 	</select>
-	
+
 	<select id="getAdviseStroreList"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultMap="BaseResultMap">
-			select
+		select
 		<include refid="Base_Column_List" />
-		from CP_OUT_SITE_STORE  
+		from CP_OUT_SITE_STORE
 		<where>
-		ADVISE_SORT=0 and   OUT_ID = #{outId}
+			ADVISE_SORT=0 and OUT_ID = #{outId}
 			<if test="showName != null and showName!=''">
-				SHOW_NAME LIKE  "%"#{showName}"%"
+				SHOW_NAME LIKE "%"#{showName}"%"
 			</if>
-	</where>
-	LIMIT  #{beginIndex},#{pageSize}
+		</where>
+		LIMIT #{beginIndex},#{pageSize}
 	</select>
-	
-	
+
+
 	<select id="getAdviseStroreCount"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultType="java.lang.Integer">
-			select
+		select
 		count(*)
-		from CP_OUT_SITE_STORE  
+		from CP_OUT_SITE_STORE
 		<where>
-		ADVISE_SORT=0 and   OUT_ID = #{outId}
+			ADVISE_SORT=0 and OUT_ID = #{outId}
 			<if test="showName != null and showName!=''">
-				SHOW_NAME LIKE  "%"#{showName}"%"
+				SHOW_NAME LIKE "%"#{showName}"%"
 			</if>
-	</where>
+		</where>
 
 	</select>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
-	
+
+
 	<select id="getTopHotStoreList"
 		parameterType="com.gopher.system.model.entity.CpOutSiteStore"
 		resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from CP_OUT_SITE_STORE
-		
-	<where>
-		HOT_SORT <![CDATA[<>]]> 0 and 
+
+		<where>
+			HOT_SORT <![CDATA[<>]]>
+			0
 			<if test="outId != null and outId>0">
 				AND OUT_ID = #{outId}
 			</if>
-	</where>
-		 
-		
-	
+		</where>
 	</select>
-	
-	
-		<select id="getTopAdviseStroreList"
+
+
+	<select id="getTopAdviseStroreList"
 		parameterType="com.gopher.system.model.entity.CpOutSiteStore"
 		resultMap="BaseResultMap">
-			select
+		select
 		<include refid="Base_Column_List" />
 		from CP_OUT_SITE_STORE
-		
 		<where>
-		ADVISE_SORT <![CDATA[<>]]> 0  
+			ADVISE_SORT <![CDATA[<>]]>
+			0
 			<if test="outId != null and outId>0">
-				OUT_ID = #{outId}
+				AND OUT_ID = #{outId}
 			</if>
 		</where>
-		 
-	
-	
 	</select>
-	
-	
-	
-    
-    
-    
-	
-	<!-- <select id="getOutSitleAdviseList"
-		parameterType="com.gopher.system.model.vo.CpOutSiteStoreVo"
-		resultMap="BaseResultMap">
-			select
-		<include refid="Base_Column_List" />
-		from CP_OUT_SITE_STORE WHERE ADVISE_SORT=0
-		<where>
-			<if test="showName != null and showName!=''">
-				SHOW_NAME LIKE  "%"#{showName}"%"
-			</if>
-	</where>
-	
-	</select> -->
-	
-	
-	
-	
 
-	
-	
-	
+
+
+
+
+
+
+	<!-- <select id="getOutSitleAdviseList" parameterType="com.gopher.system.model.vo.CpOutSiteStoreVo" 
+		resultMap="BaseResultMap"> select <include refid="Base_Column_List" /> from 
+		CP_OUT_SITE_STORE WHERE ADVISE_SORT=0 <where> <if test="showName != null 
+		and showName!=''"> SHOW_NAME LIKE "%"#{showName}"%" </if> </where> </select> -->
+
+
+
+
+
+
+
+
 	<select id="getTwoList"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultType="com.gopher.system.model.vo.CpOutSiteStoreVo">
-	SELECT  *  FROM ( 
-		SELECT DISTINCT OUTSTORE.ID outSiteId,OUTSTORE.ID id,STORE.ID storeId, STORE.NAME storeName,STORE.WEBSITE webSite,STORE.LOGO_URL logo, COUPON_COUNT_VALID couponCountValid,
-  (SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)toalCount, (SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID AND  EXPIRE_AT >=now())validCount,
-  date_format( CREATED_AT, '%Y-%c-%d %h:%i:%s' ) addTime,
-(SELECT  date_format( MAX(EXPIRE_AT), '%Y-%c-%d %h:%i:%s' )  FROM CP_COUPON WHERE STORE_ID=STORE.ID) endTime,STORE.TYPE_NAME typeName ,STORE.TYPE_ID typeId  FROM  
-CP_OUT_SITE_STORE  OUTSTORE ,CP_STORE STORE  
+		SELECT * FROM (
+		SELECT DISTINCT OUTSTORE.ID outSiteId,OUTSTORE.ID
+		id,STORE.ID storeId,
+		STORE.NAME storeName,STORE.WEBSITE
+		webSite,STORE.LOGO_URL logo,
+		COUPON_COUNT_VALID couponCountValid,
+		(SELECT COUNT(*) FROM CP_COUPON COU WHERE
+		COU.STORE_ID=STORE.ID)toalCount,
+		(SELECT COUNT(*) FROM CP_COUPON COU
+		WHERE COU.STORE_ID=STORE.ID AND
+		EXPIRE_AT >=now())validCount,
+		date_format( CREATED_AT, '%Y-%c-%d %h:%i:%s' ) addTime,
+		(SELECT
+		date_format( MAX(EXPIRE_AT), '%Y-%c-%d %h:%i:%s' ) FROM CP_COUPON
+		WHERE STORE_ID=STORE.ID) endTime,STORE.TYPE_NAME typeName
+		,STORE.TYPE_ID typeId FROM
+		CP_OUT_SITE_STORE OUTSTORE ,CP_STORE STORE
 
-<where>
-        OUTSTORE.STORE_ID=STORE.ID 
-        AND
-		OUTSTORE.OUT_ID = #{outId} 
-			 <if test="storeType == null or search == '' ">
-		 <if test="search != null and search != '' ">
-		    AND  STORE.NAME LIKE "%"#{search}"%" OR STORE.WEBSITE LIKE "%"#{search}"%"
-		</if>
-		<if test="country != null and country !=''">
-			AND	COUNTRY like  "%"#{country}"%"
-		</if>
-		<if test="typeId != null and typeId >0 ">
-			AND	STORE.TYPE_ID =  #{typeId}
-		</if>
-		</if>
+		<where>
+			OUTSTORE.STORE_ID=STORE.ID
+			AND
+			OUTSTORE.OUT_ID = #{outId}
+			<if test="storeType == null or search == '' ">
+				<if test="search != null and search != '' ">
+					AND STORE.NAME LIKE "%"#{search}"%" OR STORE.WEBSITE
+					LIKE
+					"%"#{search}"%"
+				</if>
+				<if test="country != null and country !=''">
+					AND COUNTRY like "%"#{country}"%"
+				</if>
+				<if test="typeId != null and typeId >0 ">
+					AND STORE.TYPE_ID = #{typeId}
+				</if>
+			</if>
 
-		<if test="storeType ='0'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
-		AND	EXISTS (SELECT * FROM CP_COUPON  WHERE STORE_ID=STORE.ID  
+			<if
+				test="storeType ='0'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
+				AND EXISTS (SELECT * FROM CP_COUPON WHERE STORE_ID=STORE.ID  
           <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
 		  <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>)
-		</if>
+			</if>
 
-		<if test="storeType ='1'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
-		AND	NOT EXISTS(SELECT * FROM CP_COUPON  WHERE STORE_ID=STORE.ID  
+			<if
+				test="storeType ='1'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
+				AND NOT EXISTS(SELECT * FROM CP_COUPON WHERE STORE_ID=STORE.ID  
           <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
 		  <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>)
-		</if>
+			</if>
 
-		<if test="storeType ='2'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
+			<if
+				test="storeType ='2'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
 		 <![CDATA[ AND DATE_FORMAT(CREATED_AT, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
 		  <![CDATA[ AND DATE_FORMAT(CREATED_AT, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
-		</if>
+			</if>
 
 		</where>
 		ORDER BY STORE.ID ASC
-	)TEMP  
-       <where>
-		 <if test="range != null and range >0 ">
-		    validCount>=  #{range}
-		</if>
+		)TEMP
+		<where>
+			<if test="range != null and range >0 ">
+				validCount>= #{range}
+			</if>
 		</where>
-		
 
-		LIMIT  #{beginIndex},#{pageSize}
+
+		LIMIT #{beginIndex},#{pageSize}
 
 
 	</select>
-	
-		
-		
-		<select id="getTwoCount"
+
+
+
+	<select id="getTwoCount"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultType="java.lang.Integer">
-		
-		SELECT COUNT(*)  FROM ( 
-		SELECT  (SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID AND  EXPIRE_AT >=now())validCount  FROM  
-CP_OUT_SITE_STORE  OUTSTORE ,CP_STORE STORE  
 
-<where>
-        OUTSTORE.STORE_ID=STORE.ID 
-        AND
-		OUTSTORE.OUT_ID = #{outId} 
-			 <if test="storeType == null or search == '' ">
-		 <if test="search != null and search != '' ">
-		    AND  STORE.NAME LIKE "%"#{search}"%" OR STORE.WEBSITE LIKE "%"#{search}"%"
-		</if>
-		<if test="country != null and country !=''">
-			AND	COUNTRY like  "%"#{country}"%"
-		</if>
-		<if test="typeId != null and typeId >0 ">
-			AND	STORE.TYPE_ID =  #{typeId}
-		</if>
-		</if>
+		SELECT COUNT(*) FROM (
+		SELECT (SELECT COUNT(*) FROM CP_COUPON COU WHERE
+		COU.STORE_ID=STORE.ID AND
+		EXPIRE_AT >=now())validCount FROM
+		CP_OUT_SITE_STORE OUTSTORE ,CP_STORE STORE
 
-		<if test="storeType ='0'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
-		AND	EXISTS (SELECT * FROM CP_COUPON  WHERE STORE_ID=STORE.ID  
+		<where>
+			OUTSTORE.STORE_ID=STORE.ID
+			AND
+			OUTSTORE.OUT_ID = #{outId}
+			<if test="storeType == null or search == '' ">
+				<if test="search != null and search != '' ">
+					AND STORE.NAME LIKE "%"#{search}"%" OR STORE.WEBSITE
+					LIKE
+					"%"#{search}"%"
+				</if>
+				<if test="country != null and country !=''">
+					AND COUNTRY like "%"#{country}"%"
+				</if>
+				<if test="typeId != null and typeId >0 ">
+					AND STORE.TYPE_ID = #{typeId}
+				</if>
+			</if>
+
+			<if
+				test="storeType ='0'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
+				AND EXISTS (SELECT * FROM CP_COUPON WHERE STORE_ID=STORE.ID  
           <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
 		  <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>)
-		</if>
+			</if>
 
-		<if test="storeType ='1'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
-		AND	NOT EXISTS(SELECT * FROM CP_COUPON  WHERE STORE_ID=STORE.ID  
+			<if
+				test="storeType ='1'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
+				AND NOT EXISTS(SELECT * FROM CP_COUPON WHERE STORE_ID=STORE.ID  
           <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
 		  <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>)
-		</if>
+			</if>
 
-		<if test="storeType ='2'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
+			<if
+				test="storeType ='2'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
 		 <![CDATA[ AND DATE_FORMAT(CREATED_AT, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
 		  <![CDATA[ AND DATE_FORMAT(CREATED_AT, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
-		</if>
+			</if>
 
 		</where>
-	)TEMP  
-       <where>
-		 <if test="range != null and range >0 ">
-		    validCount>=  #{range}
-		</if>
+		)TEMP
+		<where>
+			<if test="range != null and range >0 ">
+				validCount>= #{range}
+			</if>
 		</where>
-		
 
-		
-		
-<!-- 		SELECT COUNT(*) FROM (
-		SELECT DISTINCT STORE.ID id, STORE.NAME storeName,STORE.WEBSITE webSite,STORE.LOGO_URL logo, COUPON_COUNT_VALID couponCountValid,
-  (SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)toalCount, (SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID AND  EXPIRE_AT >=now())validCount,
-  CREATED_AT addTime,
-(SELECT  MAX(EXPIRE_AT) FROM CP_COUPON WHERE STORE_ID=STORE.ID) endTime,STORE.TYPE_ID typeId  FROM  
-CP_OUT_SITE_STORE  OUTSTORE ,CP_STORE STORE  
 
-<where>
-        OUTSTORE.STORE_ID=STORE.ID 
-        AND
-		OUTSTORE.OUT_ID = #{siteId} 
-		 <if test="storeType == null or search == '' ">
-		 <if test="search != null and search != '' ">
-		    AND  STORE.NAME LIKE "%"#{search}"%" OR STORE.WEBSITE LIKE "%"#{search}"%"
-		</if>
-		<if test="country != null and country !=''">
-			AND	COUNTRY like  "%"#{country}"%"
-		</if>
-		<if test="typeId != null and typeId >0 ">
-			AND	STORE.TYPE_ID =  #{typeId}
-		</if>
-		</if>
 
-		<if test="storeType ='0'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
-		AND	EXISTS (SELECT * FROM CP_COUPON  WHERE STORE_ID=STORE.ID  
-          <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
-		  <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>)
-		</if>
 
-		<if test="storeType ='1'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
-		AND	NOT EXISTS(SELECT * FROM CP_COUPON  WHERE STORE_ID=STORE.ID  
-          <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
-		  <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>)
-		</if>
+		<!-- SELECT COUNT(*) FROM ( SELECT DISTINCT STORE.ID id, STORE.NAME storeName,STORE.WEBSITE 
+			webSite,STORE.LOGO_URL logo, COUPON_COUNT_VALID couponCountValid, (SELECT 
+			COUNT(*) FROM CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)toalCount, (SELECT 
+			COUNT(*) FROM CP_COUPON COU WHERE COU.STORE_ID=STORE.ID AND EXPIRE_AT >=now())validCount, 
+			CREATED_AT addTime, (SELECT MAX(EXPIRE_AT) FROM CP_COUPON WHERE STORE_ID=STORE.ID) 
+			endTime,STORE.TYPE_ID typeId FROM CP_OUT_SITE_STORE OUTSTORE ,CP_STORE STORE 
+			<where> OUTSTORE.STORE_ID=STORE.ID AND OUTSTORE.OUT_ID = #{siteId} <if test="storeType 
+			== null or search == '' "> <if test="search != null and search != '' "> AND 
+			STORE.NAME LIKE "%"#{search}"%" OR STORE.WEBSITE LIKE "%"#{search}"%" </if> 
+			<if test="country != null and country !=''"> AND COUNTRY like "%"#{country}"%" 
+			</if> <if test="typeId != null and typeId >0 "> AND STORE.TYPE_ID = #{typeId} 
+			</if> </if> <if test="storeType ='0' and startTime!=null and startTime!='' 
+			and endTime!='' and endTime!=null "> AND EXISTS (SELECT * FROM CP_COUPON 
+			WHERE STORE_ID=STORE.ID <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, 
+			'%Y-%m-%d') ]]> <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, 
+			'%Y-%m-%d') ]]>) </if> <if test="storeType ='1' and startTime!=null and startTime!='' 
+			and endTime!='' and endTime!=null "> AND NOT EXISTS(SELECT * FROM CP_COUPON 
+			WHERE STORE_ID=STORE.ID <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, 
+			'%Y-%m-%d') ]]> <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, 
+			'%Y-%m-%d') ]]>) </if> <if test="storeType ='2' and startTime!=null and startTime!='' 
+			and endTime!='' and endTime!=null "> <![CDATA[ AND DATE_FORMAT(CREATED_AT, 
+			'%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d') ]]> <![CDATA[ AND DATE_FORMAT(CREATED_AT, 
+			'%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d') ]]> </if> </where> ORDER 
+			BY STORE.ID ASC )TEMP <where> <if test="range != null and range >0 "> validCount>= 
+			#{range} </if> </where> -->
 
-		<if test="storeType ='2'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
-		 <![CDATA[ AND DATE_FORMAT(CREATED_AT, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
-		  <![CDATA[ AND DATE_FORMAT(CREATED_AT, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
-		</if>
-
-		</where>
-		ORDER BY STORE.ID ASC
-		)TEMP 
-		  <where>
-		 <if test="range != null and range >0 ">
-		    validCount>=  #{range}
-		</if>
-		</where> -->
-		
 	</select>
-	
-    
-    
+
+
+
 	<select id="getCouponList"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultMap="BaseResultCountMap">
-			SELECT
+		SELECT
 		<include refid="BaseCount_Column_List" />
 		FROM CP_COUPON COUPON WHERE COUPON.STORE_ID=#{storeId}
-		LIMIT  #{beginIndex},#{pageSize}
-	
+		LIMIT
+		#{beginIndex},#{pageSize}
+
 	</select>
-	
+
 	<select id="getCouponCount"
-	parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
-	resultType="java.lang.Integer">
-	SELECT COUNT(*)
-	FROM CP_COUPON COUPON WHERE COUPON.STORE_ID=#{storeId}
-	
+		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM CP_COUPON COUPON WHERE
+		COUPON.STORE_ID=#{storeId}
+
 	</select>
-	
-		
+
+
 	<select id="getNewCouponList"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultMap="BaseResultCountMap">
-			SELECT
+		SELECT
 		<include refid="BaseCount_Column_List" />
-		FROM CP_COUPON COUPON WHERE COUPON.STORE_ID=#{storeId} AND TO_DAYS(EXPIRE_AT) = TO_DAYS(NOW()) 
-		LIMIT  #{beginIndex},#{pageSize}
-	
+		FROM CP_COUPON COUPON WHERE COUPON.STORE_ID=#{storeId} AND
+		TO_DAYS(EXPIRE_AT) = TO_DAYS(NOW())
+		LIMIT #{beginIndex},#{pageSize}
+
 	</select>
-	
-	
-			
+
+
+
 	<select id="getNewCouponCount"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultType="java.lang.Integer">
-			SELECT  COUNT(*)
-		FROM CP_COUPON COUPON WHERE COUPON.STORE_ID=#{storeId} AND TO_DAYS(EXPIRE_AT) = TO_DAYS(NOW()) 
-	
-	
-	</select>
-	
-	
+		SELECT COUNT(*)
+		FROM CP_COUPON COUPON WHERE
+		COUPON.STORE_ID=#{storeId} AND
+		TO_DAYS(EXPIRE_AT) = TO_DAYS(NOW())
 
-	
-			
-	<select id="getInScrapy"
-		parameterType="java.lang.Integer"
-		resultType="java.lang.String">
-	SELECT  SCRAPY.NAME  FROM  CP_SCRAPY SCRAPY, CP_SCRAPY_STORE  SSCRAPY   WHERE SCRAPY.ID=SSCRAPY.SCRAPY_ID AND   SSCRAPY.STORE_ID=#{storeId}
-	
+
 	</select>
-	
-	
-	
-		<select id="getValidCoupon"
+
+
+
+
+
+	<select id="getInScrapy" parameterType="java.lang.Integer"
+		resultType="java.lang.String">
+		SELECT SCRAPY.NAME FROM CP_SCRAPY SCRAPY, CP_SCRAPY_STORE
+		SSCRAPY WHERE
+		SCRAPY.ID=SSCRAPY.SCRAPY_ID AND
+		SSCRAPY.STORE_ID=#{storeId}
+
+	</select>
+
+
+
+	<select id="getValidCoupon"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultType="java.lang.Integer">
-				SELECT  COUNT(*)  FROM  CP_COUPON  COU WHERE    COU.STORE_ID=#{storeId}  AND EXPIRE_AT <![CDATA[>=]]>  NOW()
-  
-	
+		SELECT COUNT(*) FROM CP_COUPON COU WHERE COU.STORE_ID=#{storeId} AND
+		EXPIRE_AT <![CDATA[>=]]>
+		NOW()
+
+
 	</select>
-			<select id="getToalCoupon"
-	 	parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
+	<select id="getToalCoupon"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultType="java.lang.Integer">
-	SELECT  COUNT(*)  FROM  CP_COUPON  COU WHERE    COU.STORE_ID=#{storeId}  
-	
+		SELECT COUNT(*) FROM CP_COUPON COU WHERE
+		COU.STORE_ID=#{storeId}
+
 	</select>
-	
-	
-	
-	
-	
-	
-	
+
+	<update id="clearHotSort">
+		UPDATE CP_OUT_SITE_STORE
+		SET HOT_SORT = 0
+		WHERE OUT_ID = #{outId}
+		AND HOT_SORT > 0
+	</update>
+
+	<update id="clearAdviseSort">
+		UPDATE CP_OUT_SITE_STORE
+		SET ADVISE_SORT = 0
+		WHERE OUT_ID = #{outId}
+		AND ADVISE_SORT > 0
+	</update>
+
+
+
+
+
 </mapper>
