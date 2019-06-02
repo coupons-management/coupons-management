@@ -95,5 +95,13 @@ public class OfficialWebsiteController {
 		result.setData( officialWebsiteService.getStoreExpCouponList(quest));
 		return result;
 	}
+	
+	@RequestMapping(path="/getStoreCategoryCouponList")
+	Result getStoreCategoryCouponList(@RequestBody CouponPageRequest quest){
+		Result result = new Result();
+		result.setData( officialWebsiteService.getStoreCategoryCouponList(quest));
+		return result;
+	}
+
 
 }

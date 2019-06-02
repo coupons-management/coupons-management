@@ -44,6 +44,9 @@ public interface CpCouponDAO extends MyBatisBaseDao<CpCoupon, Integer> {
 	
 	List<CpCouponVo> getStoreExpCouponList(CouponPageRequest quest);
 	List<CpCouponVo> getStoreCouponList(CouponPageRequest quest);
+	List<CpCouponVo> getStoreCategoryCouponList(CouponPageRequest quest);
+	
+	
 	
 	
 	

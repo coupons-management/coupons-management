@@ -113,4 +113,10 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 		return cpCouponDAO.getStoreCouponList(quest);
 	}
 
+
+	@Override
+	public List<CpCouponVo> getStoreCategoryCouponList(CouponPageRequest quest) {
+		return cpCouponDAO.getStoreCategoryCouponList(quest);
+	}
+
 }
