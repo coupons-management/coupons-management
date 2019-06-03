@@ -503,6 +503,7 @@
 				AND OUT_ID = #{outId}
 			</if>
 		</where>
+		ORDER BY HOT_SORT ASC
 	</select>
 
 
@@ -519,6 +520,7 @@
 				AND OUT_ID = #{outId}
 			</if>
 		</where>
+		ORDER BY ADVISE_SORT ASC
 	</select>
 
 

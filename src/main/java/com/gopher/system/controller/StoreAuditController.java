@@ -148,21 +148,25 @@ public class StoreAuditController {
 		}
 		
 	/**
-	 * 增加推荐优惠卷 批量
+	 * 增加推荐优惠卷 
 	 * @param cpOutSiteCoupon
 	 * @return
 	 */
 	@RequestMapping(path="/updateCouponAdviseSort")
-	public Result updateCouponAdviseSort(@RequestBody CouponSortRequest couponSortRequest) {
-		Result result = new Result();
-		cpOutSiteCouponService.updateAdviseSort(couponSortRequest);
-		return result;
-	}
-	
-	@RequestMapping(path="/updateCouponAdviseSortBatch")
-	public Result updateCouponAdviseSortBatch(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
+	public Result updateCouponAdviseSort(@RequestBody CpOutSiteCoupon cpOutSiteCoupon) {
 		Result result = new Result();
 		cpOutSiteCouponService.updateAdviseSort(cpOutSiteCoupon);
+		return result;
+	}
+	/**
+	 * 增加推荐优惠卷 批量
+	 * @param couponSortRequest
+	 * @return
+	 */
+	@RequestMapping(path="/updateCouponAdviseSortBatch")
+	public Result updateCouponAdviseSortBatch(@RequestBody  CouponSortRequest couponSortRequest) {
+		Result result = new Result();
+		cpOutSiteCouponService.updateAdviseSort(couponSortRequest);
 		return result;
 	}
 	

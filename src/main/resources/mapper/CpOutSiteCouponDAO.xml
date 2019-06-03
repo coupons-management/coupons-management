@@ -313,6 +313,7 @@
 				STORE.NAME LIKE "%"#{name}"%"
 			</if>
 		</where>
+		ORDER BY ADVISE_SORT ASC
 
 	</select>
 
@@ -330,6 +331,7 @@
 			</if>
 		</where>
 		LIMIT #{beginIndex},#{pageSize}
+		ORDER BY ADVISE_SORT ASC
 	</select>
 
 
@@ -346,10 +348,12 @@
 		SITECOUPON.CREATE_TIME,
 		SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME
 		FROM CP_OUT_SITE_COUPON
-		SITECOUPON,CP_STORE STORE WHERE
+		SITECOUPON,CP_STORE STORE 
+		WHERE
 		SITECOUPON.STORE_ID=STORE.ID AND
 		HOT_SORT<![CDATA[<>]]>0
 		AND OUT_SITE_ID = #{outSiteId}
+		ORDER BY HOT_SORT ASC
 	</select>
 
 	<select id="getTopAdviseList"
@@ -368,6 +372,7 @@
 		SITECOUPON.STORE_ID=STORE.ID AND
 		ADVISE_SORT <![CDATA[<>]]>
 		0 AND OUT_SITE_ID = #{outSiteId}
+		ORDER BY HOT_SORT ASC
 	</select>
 
 
