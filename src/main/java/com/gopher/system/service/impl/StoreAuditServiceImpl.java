@@ -106,7 +106,7 @@ public class StoreAuditServiceImpl implements StoreAuditService {
 			throw new BusinessRuntimeException("参数不能为空");
 		}
 	    for (CpOutSiteStore cpOutSiteStore : cpOutSiteStoreList) {
-			this.updateAdviseSort(cpOutSiteStore);
+			this.updateHotSort(cpOutSiteStore);
 		}
 		
 	}
