@@ -20,6 +20,7 @@ import com.gopher.system.dao.mysql.CpScrapyDAO;
 import com.gopher.system.dao.mysql.CpScrapyStoreDAO;
 import com.gopher.system.dao.mysql.CpSiteStoreDAO;
 import com.gopher.system.dao.mysql.CpStoreDAO;
+import com.gopher.system.dao.mysql.CpStoreTemplateDAO;
 import com.gopher.system.dao.mysql.CpTitleMessageDAO;
 import com.gopher.system.dao.mysql.CpTypeDAO;
 import com.gopher.system.dao.mysql.StoreMapper;
@@ -30,6 +31,7 @@ import com.gopher.system.model.entity.CpScrapy;
 import com.gopher.system.model.entity.CpScrapyStore;
 import com.gopher.system.model.entity.CpSiteStore;
 import com.gopher.system.model.entity.CpStore;
+import com.gopher.system.model.entity.CpStoreTemplate;
 import com.gopher.system.model.entity.CpTitleMessage;
 import com.gopher.system.model.entity.CpType;
 import com.gopher.system.model.entity.TMessage;
@@ -65,6 +67,8 @@ public class SynDataServiceImpl implements SynDataService {
 	CpScrapyStoreDAO cpScrapyStoreDAO;
 	@Autowired
 	CpTitleMessageDAO cpTitleMessageDAO;
+	@Autowired
+	CpStoreTemplateDAO cpStoreTemplateDAO;
 	ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 200, TimeUnit.MILLISECONDS,
 			new LinkedBlockingDeque<Runnable>(5));
 
@@ -388,7 +392,6 @@ public class SynDataServiceImpl implements SynDataService {
 	@Override
 	public void initData() {
 		List<CpTitleMessage> list=	cpTitleMessageDAO.getAllList();
-		
 		if(list!=null&&list.size()>0)
 		{
 			for(CpTitleMessage  message:list)
@@ -406,7 +409,26 @@ public class SynDataServiceImpl implements SynDataService {
 			}
 			
 		}
-		System.out.println(TitleUtils.messageMap.get("A1"));
+		
+		List<CpStoreTemplate> tempList=	cpStoreTemplateDAO.getList();
+		
+		if(tempList!=null&&tempList.size()>0)
+		{
+			for(CpStoreTemplate  message:tempList)
+			{
+				if(TitleUtils.storeMessageMap.get(message.getName())==null)
+				{
+					List<String>dataList=new ArrayList<String>();
+					dataList.add(message.getMessage());
+					TitleUtils.storeMessageMap.put(message.getName(), dataList);
+				}else {
+					List<String>dataList=TitleUtils.messageMap.get(message.getName());
+					dataList.add(message.getMessage());
+					TitleUtils.storeMessageMap.put(message.getName(), dataList);	
+				}
+			}
+			
+		}
 
 	}
 

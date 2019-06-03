@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 public class TitleUtils {
 	static List<String> list=new ArrayList<String>();
 	public static Map<String,List<String>> messageMap=new HashMap<String,List<String>>();
+	public static Map<String,List<String>> storeMessageMap=new HashMap<String,List<String>>();
 	public static Map<String,String> keyWordsMap=new HashMap<String,String>();
 	static String mark="$";
 	static final String PERCENT ="%";
@@ -38,6 +39,26 @@ public class TitleUtils {
 		System.out.println(getMessage(title));
 		
 	}
+	/**
+	 * 取得商家信息模板
+	 * @param name
+	 * @return
+	 */
+	public static String getStoreMessage(String name) {
+		
+		List<String> messageList=storeMessageMap.get(name);
+		if(messageList==null||messageList.size()<1)
+		{
+			return null;
+		}
+		return messageList.get(getRandom(messageList.size()));
+	
+	}
+	/**
+	 * 取得优惠卷标题信息
+	 * @param title
+	 * @return
+	 */
 	public static String getMessage(String title) {
 		if(StringUtils.isEmpty(title))
 		{

@@ -294,7 +294,38 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 
 		@Override
 		public CpOutSiteStore getSiteStroreById(CpOutSiteStore obj) {
-			return cpOutSiteStoreDAO.selectByPrimaryKey(obj.getId());
+			CpOutSiteStore store= cpOutSiteStoreDAO.selectByPrimaryKey(obj.getId());
+			if(store==null)
+			{return null;}
+		
+			
+			
+			if(StringUtils.isEmpty(store.getShowName()))
+			{
+				store.setShowName(TitleUtils.getStoreMessage("SHOWNAME"));	
+			}
+			if(StringUtils.isEmpty(store.getStoreDes()))
+			{
+				store.setHeaderDes(TitleUtils.getStoreMessage("STOREDES"));	
+			}
+		
+			if(StringUtils.isEmpty(store.getTitle()))
+			{
+				store.setTitle(TitleUtils.getStoreMessage("TITLE"));	
+			}
+			if(StringUtils.isEmpty(store.getKeywords()))
+			{
+				store.setKeywords(TitleUtils.getStoreMessage("KEYWORD"));	
+			}
+			
+			if(StringUtils.isEmpty(store.getDes()))
+			{
+				store.setHeaderDes(TitleUtils.getStoreMessage("DESCRIPTION"));	
+			}
+			
+			
+			
+			return store;
 		}
 
 

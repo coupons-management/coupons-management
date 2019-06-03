@@ -119,4 +119,10 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  
+   <select id="getList"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CP_STORE_TEMPLATE
+  </select>
 </mapper>
