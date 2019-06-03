@@ -348,7 +348,7 @@
 		SITECOUPON.CREATE_TIME,
 		SITECOUPON.UPDATE_TIME,STORE.NAME STORENAME
 		FROM CP_OUT_SITE_COUPON
-		SITECOUPON,CP_STORE STORE 
+		SITECOUPON,CP_STORE STORE
 		WHERE
 		SITECOUPON.STORE_ID=STORE.ID AND
 		HOT_SORT<![CDATA[<>]]>0
@@ -383,7 +383,7 @@
 		SELECT
 		osp.ID AS mapId,
 		cp.ID as id,
-		cp.TITLE AS sourceTile,
+		cp.NAME AS sourceTile,
 		osp.TITLE AS
 		currentTitle,
 		cp.COUPON_TYPE AS couponType,
@@ -423,6 +423,39 @@
 		ORDER BY id DESC
 		LIMIT #{beginIndex},#{pageSize}
 	</select>
+	<select id="getListByCategory"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteCouponPageRequest"
+		resultType="com.gopher.system.model.vo.request.ShowSiteCouponPageRequest">
+		SELECT
+		osp.ID AS mapId,
+		cp.ID as id,
+		cp.TITLE AS sourceTile,
+		osp.TITLE AS
+		currentTitle,
+		cp.COUPON_TYPE AS couponType,
+		cp.`CODE` AS code,
+		cp.DES AS
+		description,
+		cp.EXPIRE_AT AS expiryTime,
+		cp.IS_PASS AS isPass,
+		cp.CREATE_TIME AS createTime,
+		osp.CREATE_TIME AS joinTime,
+		cp.IN_TYPE AS
+		inType
+		FROM
+		CP_COUPON cp
+		INNER JOIN
+		CP_OUT_SITE_COUPON osp ON cp.ID =
+		osp.COUPON_ID
+		<where>
+			osp.OUT_SITE_ID = #{siteId}
+			AND STORE_ID IN
+			<foreach collection="storeIdList" item="storeId" index="index" open="("
+				close=")" separator=",">
+				#{storeId}
+			</foreach>
+		</where>
+	</select>
 
 	<select id="getTotalCount" resultType="java.lang.Integer"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteCouponRequest">
@@ -456,13 +489,15 @@
 
 	<update id="clearHotSort">
 		UPDATE CP_OUT_SITE_COUPON SET HOT_SORT = 0
-		WHERE OUT_SITE_ID = #{outId}
+		WHERE
+		OUT_SITE_ID = #{outId}
 		AND HOT_SORT >0
 	</update>
 
 	<update id="clearAdviseSort">
 		UPDATE CP_OUT_SITE_COUPON SET ADVISE_SORT = 0
-		WHERE OUT_SITE_ID = #{outId}
+		WHERE
+		OUT_SITE_ID = #{outId}
 		AND ADVISE_SORT >0
 	</update>
 

@@ -75,5 +75,12 @@ public interface CpOutSiteCouponDAO extends MyBatisBaseDao<CpOutSiteCoupon, Inte
 	int clearHotSort(int outId);
 	
 	int clearAdviseSort(int outId);
+	/**
+	 * 根据商家ID 获取所有优惠券
+	 * @param storeIdList
+	 * @return
+	 */
+	List<ShowSiteCouponResponse> getListByCategory(ShowSiteCouponPageRequest showSiteCouponPageRequest);
+	
 	
 }

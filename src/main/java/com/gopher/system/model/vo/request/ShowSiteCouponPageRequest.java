@@ -1,5 +1,7 @@
 package com.gopher.system.model.vo.request;
 
+import java.util.List;
+
 import com.gopher.system.model.vo.PageRequestBase;
 
 public class ShowSiteCouponPageRequest extends PageRequestBase{
@@ -16,6 +18,26 @@ public class ShowSiteCouponPageRequest extends PageRequestBase{
 	private String state;
 	
 	private int storeId;
+	
+	private int outId;
+	
+	private List<Integer> storeIdList;
+    
+	public int getOutId() {
+		return outId;
+	}
+
+	public void setOutId(int outId) {
+		this.outId = outId;
+	}
+
+	public List<Integer> getStoreIdList() {
+		return storeIdList;
+	}
+
+	public void setStoreIdList(List<Integer> storeIdList) {
+		this.storeIdList = storeIdList;
+	}
 
 	public int getStoreId() {
 		return storeId;

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gopher.system.dao.mysql.CpCouponDAO;
+import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
 import com.gopher.system.dao.mysql.CpSitestoreTypeDAO;
 import com.gopher.system.dao.mysql.CpStoreDAO;
 import com.gopher.system.dao.mysql.CpTypeDAO;
@@ -22,6 +23,7 @@ import com.gopher.system.model.vo.request.CategoryRequest;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.CpTypePageRequest;
+import com.gopher.system.model.vo.request.ShowSiteCouponPageRequest;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.service.OfficialWebsiteService;
 
@@ -37,6 +39,8 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 	private CpSitestoreTypeDAO cpSiteStoreTypeDAO;
 	@Autowired
 	private CpTypeStoreDAO cpTypeStoreDAO;
+	
+	private CpOutSiteCouponDAO cpOutSiteCouponDAO;
 
 	@Override
 	public List<CpType> getCategoriesList() {
@@ -105,13 +109,14 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 	public List<CpCouponVo> getStoreCouponList(CouponPageRequest quest) {
 		return cpCouponDAO.getStoreCouponList(quest);
 	}
-
+	@Override
 	public List<CpCouponVo> getAllStoreByCategory(CategoryRequest categoryRequest) {
 		List<CpCouponVo> result = new ArrayList<>();
 		if (null == categoryRequest) {
 			throw new BusinessRuntimeException("参数不能为空");
 		}
 		final int id = categoryRequest.getId();
+		final int outId = categoryRequest.getOutId();
 		if (id <= 0) {
 			throw new BusinessRuntimeException("分类ID不能为空");
 		}
@@ -138,7 +143,10 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 			}
 		}
 		if (!storeIdList.isEmpty()) {
-			// TODO 根据商家ID的集合 找到 当前站点下所有的优惠券
+			ShowSiteCouponPageRequest showSiteCouponPageRequest = new ShowSiteCouponPageRequest();
+			showSiteCouponPageRequest.setOutId(outId);
+			showSiteCouponPageRequest.setStoreIdList(storeIdList);
+			cpOutSiteCouponDAO.getListByCategory(showSiteCouponPageRequest);
 		}
 		return result;
 	}
