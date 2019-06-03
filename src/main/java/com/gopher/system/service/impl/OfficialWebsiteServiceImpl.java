@@ -38,7 +38,6 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 	@Autowired
 	private CpTypeStoreDAO cpTypeStoreDAO;
 
-
 	@Override
 	public List<CpType> getCategoriesList() {
 		return cpTypeDAO.getList();
@@ -107,7 +106,6 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 		return cpCouponDAO.getStoreCouponList(quest);
 	}
 
-	@Override
 	public List<CpCouponVo> getAllStoreByCategory(CategoryRequest categoryRequest) {
 		List<CpCouponVo> result = new ArrayList<>();
 		if (null == categoryRequest) {
@@ -123,7 +121,7 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 			// 如果当前分类下有绑定子级
 			// 拿到这个之级下面所有对应的商家
 			for (CpSitestoreType cpSitestoreType : sonList) {
-				List<CpTypeStore>  list = cpTypeStoreDAO.getListByType(cpSitestoreType.getId());
+				List<CpTypeStore> list = cpTypeStoreDAO.getListByType(cpSitestoreType.getId());
 				for (CpTypeStore cpTypeStore : list) {
 					storeIdList.add(cpTypeStore.getStoreId());
 				}
@@ -132,18 +130,23 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 		// 1级直接关联商家
 		CpSitestoreType type = cpSiteStoreTypeDAO.selectByPrimaryKey(id);
 		if (null != type) {
-			List<CpTypeStore>  list = cpTypeStoreDAO.getListByType(type.getId());
-			if(null != list) {
+			List<CpTypeStore> list = cpTypeStoreDAO.getListByType(type.getId());
+			if (null != list) {
 				for (CpTypeStore cpTypeStore : list) {
 					storeIdList.add(cpTypeStore.getStoreId());
 				}
 			}
 		}
-		if(!storeIdList.isEmpty()) {
+		if (!storeIdList.isEmpty()) {
 			// TODO 根据商家ID的集合 找到 当前站点下所有的优惠券
-			
 		}
 		return result;
+	}
+
+	@Override
+	public List<CpCouponVo> getStoreCategoryCouponList(CouponPageRequest quest) {
+		return cpCouponDAO.getStoreCategoryCouponList(quest);
+
 	}
 
 }

@@ -52,6 +52,9 @@ public interface OfficialWebsiteService {
 	 * @return
 	 */
 	List<CpCouponVo> getAllStoreByCategory(CategoryRequest categoryRequest);
+
+	List<CpCouponVo> getStoreCategoryCouponList(CouponPageRequest quest);
+
 	
 
 }

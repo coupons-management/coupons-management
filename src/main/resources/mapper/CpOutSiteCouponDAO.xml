@@ -415,7 +415,7 @@
 				AND cp.STORE_ID = #{storeId}
 			</if>
 		</where>
-		ORDER BY id ASC
+		ORDER BY id DESC
 		LIMIT #{beginIndex},#{pageSize}
 	</select>
 
