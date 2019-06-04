@@ -37,7 +37,7 @@ public class WebSiteServiceImpl implements WebSiteService {
 			throw new BusinessRuntimeException("参数不能为空");
 		}
 		final int id = categoryRequest.getId();
-		final int outId = categoryRequest.getOutId();
+		final int siteId = categoryRequest.getSiteId();
 		if (id <= 0) {
 			throw new BusinessRuntimeException("分类ID不能为空");
 		}
@@ -65,7 +65,7 @@ public class WebSiteServiceImpl implements WebSiteService {
 		}
 		if (!storeIdList.isEmpty()) {
 			ShowSiteCouponPageRequest showSiteCouponPageRequest = new ShowSiteCouponPageRequest();
-			showSiteCouponPageRequest.setSiteId(outId);
+			showSiteCouponPageRequest.setSiteId(siteId);
 			showSiteCouponPageRequest.setStoreIdList(storeIdList);
 			result = cpOutSiteCouponDAO.getListByCategory(showSiteCouponPageRequest);
 		}
