@@ -425,31 +425,25 @@
 	</select>
 	<select id="getListByCategory"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteCouponPageRequest"
-		resultType="com.gopher.system.model.vo.request.ShowSiteCouponPageRequest">
+		resultType="com.gopher.system.model.vo.CpCouponVo">
 		SELECT
-		osp.ID AS mapId,
-		cp.ID as id,
-		cp.TITLE AS sourceTile,
-		osp.TITLE AS
-		currentTitle,
+		osp.ID AS id,
+		osp.TITLE AS title,
 		cp.COUPON_TYPE AS couponType,
 		cp.`CODE` AS code,
-		cp.DES AS
-		description,
-		cp.EXPIRE_AT AS expiryTime,
-		cp.IS_PASS AS isPass,
-		cp.CREATE_TIME AS createTime,
-		osp.CREATE_TIME AS joinTime,
-		cp.IN_TYPE AS
-		inType
+		cp.DES AS description,
+		cp.LINK AS link,
+		s.LOGO_URL AS storeLogo,
+		s.NAME AS storeName,
+		s.WEBSITE AS storeWbsite
 		FROM
 		CP_COUPON cp
 		INNER JOIN
-		CP_OUT_SITE_COUPON osp ON cp.ID =
-		osp.COUPON_ID
+		CP_OUT_SITE_COUPON osp ON cp.ID = osp.COUPON_ID
+		INNER JOIN CP_STORE s ON s.ID = osp.STORE_ID
 		<where>
 			osp.OUT_SITE_ID = #{siteId}
-			AND STORE_ID IN
+			AND osp.STORE_ID IN
 			<foreach collection="storeIdList" item="storeId" index="index" open="("
 				close=")" separator=",">
 				#{storeId}

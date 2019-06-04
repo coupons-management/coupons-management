@@ -5,8 +5,46 @@ public class CpCouponVo {
 	private String name;
 	private String title;
 	private String link;
-	private String storeLogo;
+	private String couponType;
+	private String code;
+	private String description;
 	
+	private String storeLogo;
+	private String storeWebSite;
+	private String storeName;
+	
+	
+	
+	public String getCouponType() {
+		return couponType;
+	}
+	public void setCouponType(String couponType) {
+		this.couponType = couponType;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getStoreWebSite() {
+		return storeWebSite;
+	}
+	public void setStoreWebSite(String storeWebSite) {
+		this.storeWebSite = storeWebSite;
+	}
+	public String getStoreName() {
+		return storeName;
+	}
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
 	public int getId() {
 		return id;
 	}

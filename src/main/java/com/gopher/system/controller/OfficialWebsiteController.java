@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
-import com.gopher.system.model.vo.request.CpTypePageRequest;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.service.OfficialWebsiteService;
 import com.gopher.system.service.impl.ShowSiteTypeServiceImpl;
@@ -24,14 +23,14 @@ public class OfficialWebsiteController {
 	@RequestMapping(path="/getCategoriesList")
 	Result getCategoriesList(@RequestBody CpSitestoreRequest quest){
 		Result result = new Result();
-		//result.setData( officialWebsiteService.getCategoriesList());
-		result.setData( showSiteTypeServiceImpl.getList(quest.getSiteId(), 2));
+		result.setData( showSiteTypeServiceImpl.getList(quest.getSiteId(),1));
 		return result;
 	}
+	
+	//TODO 
 	@RequestMapping(path="/getPopularStoresList")
 	Result getPopularStoresList(@RequestBody CpSitestoreRequest quest){
 		Result result = new Result();
-		//result.setData( officialWebsiteService.getCategoriesList());
 		result.setData( showSiteTypeServiceImpl.getList(quest.getSiteId(), 2));
 		return result;
 	}
@@ -102,6 +101,7 @@ public class OfficialWebsiteController {
 		result.setData( officialWebsiteService.getStoreCategoryCouponList(quest));
 		return result;
 	}
+
 
 
 }

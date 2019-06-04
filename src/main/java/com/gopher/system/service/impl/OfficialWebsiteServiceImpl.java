@@ -1,29 +1,20 @@
 package com.gopher.system.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gopher.system.dao.mysql.CpCouponDAO;
-import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
-import com.gopher.system.dao.mysql.CpSitestoreTypeDAO;
 import com.gopher.system.dao.mysql.CpStoreDAO;
 import com.gopher.system.dao.mysql.CpTypeDAO;
-import com.gopher.system.dao.mysql.CpTypeStoreDAO;
-import com.gopher.system.exception.BusinessRuntimeException;
-import com.gopher.system.model.entity.CpSitestoreType;
 import com.gopher.system.model.entity.CpType;
-import com.gopher.system.model.entity.CpTypeStore;
 import com.gopher.system.model.vo.CpCouponVo;
 import com.gopher.system.model.vo.CpStoreVo;
 import com.gopher.system.model.vo.Page;
-import com.gopher.system.model.vo.request.CategoryRequest;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.CpTypePageRequest;
-import com.gopher.system.model.vo.request.ShowSiteCouponPageRequest;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.service.OfficialWebsiteService;
 
@@ -35,12 +26,7 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 	private CpStoreDAO cpStoreDAO;
 	@Autowired
 	private CpCouponDAO cpCouponDAO;
-	@Autowired
-	private CpSitestoreTypeDAO cpSiteStoreTypeDAO;
-	@Autowired
-	private CpTypeStoreDAO cpTypeStoreDAO;
-	
-	private CpOutSiteCouponDAO cpOutSiteCouponDAO;
+
 
 	@Override
 	public List<CpType> getCategoriesList() {
@@ -108,47 +94,6 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 	@Override
 	public List<CpCouponVo> getStoreCouponList(CouponPageRequest quest) {
 		return cpCouponDAO.getStoreCouponList(quest);
-	}
-	@Override
-	public List<CpCouponVo> getAllStoreByCategory(CategoryRequest categoryRequest) {
-		List<CpCouponVo> result = new ArrayList<>();
-		if (null == categoryRequest) {
-			throw new BusinessRuntimeException("参数不能为空");
-		}
-		final int id = categoryRequest.getId();
-		final int outId = categoryRequest.getOutId();
-		if (id <= 0) {
-			throw new BusinessRuntimeException("分类ID不能为空");
-		}
-		List<CpSitestoreType> sonList = cpSiteStoreTypeDAO.getSonList(id);
-		List<Integer> storeIdList = new ArrayList<>();
-		if (null != sonList && !sonList.isEmpty()) {
-			// 如果当前分类下有绑定子级
-			// 拿到这个之级下面所有对应的商家
-			for (CpSitestoreType cpSitestoreType : sonList) {
-				List<CpTypeStore> list = cpTypeStoreDAO.getListByType(cpSitestoreType.getId());
-				for (CpTypeStore cpTypeStore : list) {
-					storeIdList.add(cpTypeStore.getStoreId());
-				}
-			}
-		}
-		// 1级直接关联商家
-		CpSitestoreType type = cpSiteStoreTypeDAO.selectByPrimaryKey(id);
-		if (null != type) {
-			List<CpTypeStore> list = cpTypeStoreDAO.getListByType(type.getId());
-			if (null != list) {
-				for (CpTypeStore cpTypeStore : list) {
-					storeIdList.add(cpTypeStore.getStoreId());
-				}
-			}
-		}
-		if (!storeIdList.isEmpty()) {
-			ShowSiteCouponPageRequest showSiteCouponPageRequest = new ShowSiteCouponPageRequest();
-			showSiteCouponPageRequest.setOutId(outId);
-			showSiteCouponPageRequest.setStoreIdList(storeIdList);
-			cpOutSiteCouponDAO.getListByCategory(showSiteCouponPageRequest);
-		}
-		return result;
 	}
 
 	@Override

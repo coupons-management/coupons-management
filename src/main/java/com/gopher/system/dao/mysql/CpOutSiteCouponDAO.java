@@ -80,7 +80,7 @@ public interface CpOutSiteCouponDAO extends MyBatisBaseDao<CpOutSiteCoupon, Inte
 	 * @param storeIdList
 	 * @return
 	 */
-	List<ShowSiteCouponResponse> getListByCategory(ShowSiteCouponPageRequest showSiteCouponPageRequest);
+	List<com.gopher.system.model.vo.CpCouponVo> getListByCategory(ShowSiteCouponPageRequest showSiteCouponPageRequest);
 	
 	
 }
