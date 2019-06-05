@@ -1,7 +1,7 @@
 package com.gopher.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,14 +21,14 @@ public class WebSiteController {
 	 * @return
 	 */
 	@RequestMapping(path="/getStoreDetail")
-	Result getStoreDetail(@ModelAttribute StoreRequest storeRequest){
+	Result getStoreDetail(@RequestBody StoreRequest storeRequest){
 		Result result = new Result();
 		result.setData(webSiteService.getStoreDetail(storeRequest));
 		return result;
 	}
 	
 	@RequestMapping(path="/getCouponsByCategory")
-	Result getCouponsByCategory(@ModelAttribute CategoryRequest categoryRequest){
+	Result getCouponsByCategory(@RequestBody CategoryRequest categoryRequest){
 		Result result = new Result();
 		result.setData(webSiteService.getCouponListByCategory(categoryRequest));
 		return result;

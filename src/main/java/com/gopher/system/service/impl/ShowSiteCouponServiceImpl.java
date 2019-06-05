@@ -110,7 +110,8 @@ public class ShowSiteCouponServiceImpl implements ShowSiteCouponService{
 		if(id <=0 || mapId <=0) {
 			throw new BusinessRuntimeException("非法的ID");
 		}
-		cpOutSiteCouponDAO.deleteByPrimaryKey(id);
+		cpOutSiteCouponDAO.deleteByPrimaryKey(mapId);
+//		cpCouponDAO.deleteByPrimaryKey(id);
 		
 	}
 	

@@ -23,7 +23,7 @@ public class CpCoupon implements Serializable {
 	 * 
 	 */
 	private String code;
-    
+   
 	private Date expireAt;
 	
 	private long expireAtTime;

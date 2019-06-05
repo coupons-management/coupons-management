@@ -391,7 +391,7 @@
 			<if test="outId != null and outId > 0">
 				OUT_ID = #{outId}
 			</if>
-			<if test="outId != null and outId > 0">
+			<if test="storeId != null and storeId > 0">
 				AND STORE_ID = #{storeId}
 			</if>
 		</where>

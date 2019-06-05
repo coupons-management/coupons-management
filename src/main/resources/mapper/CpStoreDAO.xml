@@ -636,7 +636,12 @@
 		parameterType="com.gopher.system.model.vo.request.StorePageRequst"
 		resultType="com.gopher.system.model.vo.CpStoreVo">
 			
-		SELECT  STORE.NAME name , STORE.LOGO_URL logoUrl,STORE.WEBSITE  webSite ,SITESTORE.SHOW_NAME showName FROM CP_STORE  STORE,CP_OUT_SITE_STORE  SITESTORE   
+		SELECT  STORE.NAME name , 
+		STORE.LOGO_URL logoUrl,
+		STORE.WEBSITE  webSite ,
+		STORE.ID AS storeId,
+		SITESTORE.SHOW_NAME showName 
+		FROM CP_STORE  STORE,CP_OUT_SITE_STORE  SITESTORE   
 	<where>
 	       STORE.ID=SITESTORE.STORE_ID 
 			<if test="siteId != null and  siteId >0 ">

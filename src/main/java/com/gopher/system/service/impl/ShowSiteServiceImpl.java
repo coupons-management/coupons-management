@@ -2,11 +2,13 @@ package com.gopher.system.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gopher.system.constant.CodeAndMsg;
+import com.gopher.system.constant.SystemConstants;
 import com.gopher.system.dao.mysql.CpCouponDAO;
 import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
 import com.gopher.system.dao.mysql.CpOutSiteDAO;
@@ -105,6 +107,10 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 		List<CpCoupon> couponList = cpCouponDAO.getList(query);
 		if(null != couponList) {
 			for (CpCoupon cpCoupon : couponList) {
+				if(Objects.equals(cpCoupon.getInType(),SystemConstants.IN_TEYE_MANUAL.getValue().toString())) {
+					// 如果是人工添加的优惠券 那么就不用同步过去
+					continue;
+				}
 				CpOutSiteCoupon coupon = new CpOutSiteCoupon();
 				coupon.setCouponId(cpCoupon.getId());//优惠券ID
 				coupon.setOutSiteId(siteId);//在展示站ID
@@ -126,10 +132,10 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 		}
 		final int storeId = showSiteStoreRequest.getStoreId();
 		final int siteId  = showSiteStoreRequest.getSiteId();
-		if(storeId<=0) {
+		if(storeId <= 0) {
 			throw new BusinessRuntimeException("商家ID不能为空");
 		}
-		if(siteId<=0) {
+		if(siteId <= 0) {
 			throw new BusinessRuntimeException("展示站点ID不能为空");
 		}
 		CpOutSiteCoupon cpOutSiteCoupon = new CpOutSiteCoupon();
@@ -137,11 +143,11 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 		cpOutSiteCoupon.setOutSiteId(siteId);
 		cpOutSiteCouponDAO.deleteByBean(cpOutSiteCoupon);
 		
-		CpOutSiteCoupon query = new CpOutSiteCoupon();
-		query.setStoreId(storeId);
-		query.setOutSiteId(siteId);
-		cpOutSiteCouponDAO.deleteByBean(query);
-		
+		CpOutSiteStore cpOutSiteStore = new CpOutSiteStore();
+		cpOutSiteStore.setStoreId(storeId);
+		cpOutSiteStore.setOutId(siteId);
+		cpOutSiteStoreDAO.deleteByBean(cpOutSiteStore);
+
 	}
 	
 	public List<CpSitestoreType> getSiteTypeBySite(int siteId){

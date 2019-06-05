@@ -15,6 +15,7 @@ import com.gopher.system.model.entity.CpSitestoreType;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.CpTypeStore;
 import com.gopher.system.model.vo.CpCouponVo;
+import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CategoryRequest;
 import com.gopher.system.model.vo.request.ShowSiteCouponPageRequest;
 import com.gopher.system.model.vo.request.StoreRequest;
@@ -31,15 +32,22 @@ public class WebSiteServiceImpl implements WebSiteService {
 	@Autowired
 	private CpStoreDAO cpStoreDAO;
 	@Override
-	public List<CpCouponVo> getCouponListByCategory(CategoryRequest categoryRequest) {
-		List<CpCouponVo> result = new ArrayList<>();
+	public Page<CpCouponVo> getCouponListByCategory(CategoryRequest categoryRequest) {
+		 Page<CpCouponVo> result = new Page<>();
+		List<CpCouponVo> couponList = new ArrayList<>();
+		
 		if (null == categoryRequest) {
 			throw new BusinessRuntimeException("参数不能为空");
 		}
+		final int pageSize = categoryRequest.getPageSize();
+		final int pageNumber = categoryRequest.getPageNumber();
 		final int id = categoryRequest.getId();
 		final int siteId = categoryRequest.getSiteId();
 		if (id <= 0) {
 			throw new BusinessRuntimeException("分类ID不能为空");
+		}
+		if (siteId <= 0) {
+			throw new BusinessRuntimeException("官网站点ID不能为空");
 		}
 		List<CpSitestoreType> sonList = cpSiteStoreTypeDAO.getSonList(id);
 		List<Integer> storeIdList = new ArrayList<>();
@@ -63,12 +71,21 @@ public class WebSiteServiceImpl implements WebSiteService {
 				}
 			}
 		}
+		int totalCount = 0;
 		if (!storeIdList.isEmpty()) {
 			ShowSiteCouponPageRequest showSiteCouponPageRequest = new ShowSiteCouponPageRequest();
 			showSiteCouponPageRequest.setSiteId(siteId);
 			showSiteCouponPageRequest.setStoreIdList(storeIdList);
-			result = cpOutSiteCouponDAO.getListByCategory(showSiteCouponPageRequest);
+			showSiteCouponPageRequest.setPageNumber(pageNumber);
+			showSiteCouponPageRequest.setPageSize(pageSize);
+			showSiteCouponPageRequest.setCouponType(categoryRequest.getCouponType());
+			couponList = cpOutSiteCouponDAO.getListByCategory(showSiteCouponPageRequest);
+			totalCount = cpOutSiteCouponDAO.getCountByCategory(showSiteCouponPageRequest);
 		}
+		result.setPageNumber(pageNumber);
+		result.setPageSize(pageSize);
+		result.setTotalCount(totalCount);
+		result.setList(couponList);
 		return result;
 	}
 	@Override
@@ -90,7 +107,11 @@ public class WebSiteServiceImpl implements WebSiteService {
 		ShowSiteCouponPageRequest showSiteCouponPageRequest = new ShowSiteCouponPageRequest();
 		showSiteCouponPageRequest.setSiteId(siteId);
 		showSiteCouponPageRequest.setStoreIdList(storeIdList);
+		showSiteCouponPageRequest.setPageNumber(storeRequest.getPageNumber());
+		showSiteCouponPageRequest.setPageSize(storeRequest.getPageSize());
+		showSiteCouponPageRequest.setCouponType(storeRequest.getCouponType());
 		List<CpCouponVo> list = cpOutSiteCouponDAO.getListByCategory(showSiteCouponPageRequest);
+		final int totalCount = cpOutSiteCouponDAO.getCountByCategory(showSiteCouponPageRequest);
 		CpStore cpStore = cpStoreDAO.selectByPrimaryKey(storeId);
 		if(null == cpStore) {
 			throw new BusinessRuntimeException("根据商家ID找不到商家信息");
@@ -99,7 +120,12 @@ public class WebSiteServiceImpl implements WebSiteService {
 		result.setLogo(cpStore.getLogoUrl());
 		result.setName(cpStore.getName());
 		result.setWebsite(cpStore.getWebsite());
-		result.setCouponList(list);
+		Page<CpCouponVo> page = new Page<>();
+		page.setPageNumber(storeRequest.getPageNumber());
+		page.setPageSize(storeRequest.getPageSize());
+		page.setList(list);
+		page.setTotalCount(totalCount);
+		result.setCouponList(page);
 		return result;
 	}
 }

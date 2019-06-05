@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpOutSiteStore;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
+import com.gopher.system.service.ShowSiteService;
 import com.gopher.system.service.ShowSiteTwoService;
 
 @RestController
@@ -18,6 +20,8 @@ import com.gopher.system.service.ShowSiteTwoService;
 public class ShowSiteTwoController {
 	@Autowired
 	private ShowSiteTwoService showSiteTwoService;
+	@Autowired
+	private ShowSiteService showSiteService;
 	
 	@RequestMapping(path="/getList")
 	public Result getList(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
@@ -48,9 +52,9 @@ public class ShowSiteTwoController {
 	}
 	
 	@RequestMapping(path="/deleteStoreToSite")
-	public Result addSiteStore(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
+	public Result deleteStoreToSite(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
 		Result result = new Result();
-		showSiteTwoService.deleteStoreInSite(showSiteStoreRequest);;
+		showSiteService.deleteStoreInSite(showSiteStoreRequest);;
 		return result;
 	}
 	

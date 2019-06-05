@@ -1,11 +1,18 @@
 package com.gopher.system.model.vo;
 
 public class CpStoreVo {
+	private int storeId;
 	private String name;
 	private String logoUrl;
 	private String webSite;
 	private String showName;
 	
+	public int getStoreId() {
+		return storeId;
+	}
+	public void setStoreId(int storeId) {
+		this.storeId = storeId;
+	}
 	public String getShowName() {
 		return showName;
 	}

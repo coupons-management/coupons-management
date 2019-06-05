@@ -147,9 +147,9 @@ public class CouponServiceImpl implements CouponService{
 		if(null == cpCoupon) {
 			throw new BusinessRuntimeException("参数不能为空");
 		}
-		final String name = cpCoupon.getName();
-		if(!StringUtils.hasText(name)) {
-			throw new BusinessRuntimeException("优惠券名称不能为空");
+		final String title = cpCoupon.getTitle();
+		if(!StringUtils.hasText(title)) {
+			throw new BusinessRuntimeException("优惠券标题不能为空");
 		}
 		final int siteId  = cpCoupon.getSiteId();
 		final int storeId = cpCoupon.getStoreId();
@@ -169,9 +169,12 @@ public class CouponServiceImpl implements CouponService{
 		if(StringUtils.hasText(code)) {
 		 // 如果设置了CODE 直接就是CODE的类型
 			cpCoupon.setCouponType("CODE");
+		}else {
+			cpCoupon.setCouponType("DEAL");
 		}
 		cpCoupon.setIsPass("1");
 		cpCoupon.setInType(SystemConstants.IN_TEYE_MANUAL.getValue().toString());
+		cpCoupon.setName(title);
 		cpCouponDAO.insert(cpCoupon);
 		CpOutSiteCoupon cpOutSiteCoupon = new CpOutSiteCoupon();
 		cpOutSiteCoupon.setOutSiteId(siteId);
@@ -179,7 +182,7 @@ public class CouponServiceImpl implements CouponService{
 		cpOutSiteCoupon.setCreateTime(now);
 		cpOutSiteCoupon.setUpdateTime(now);
 		cpOutSiteCoupon.setCouponId(cpCoupon.getId());
-		cpOutSiteCoupon.setTitle(cpCoupon.getTitle());
+		cpOutSiteCoupon.setTitle(title);
 		cpOutSiteCouponDAO.insertSelective(cpOutSiteCoupon);
 	}
 

@@ -42,7 +42,7 @@ public class ShowSiteController {
 	}
 	
 	@RequestMapping(path="/deleteStoreToSite")
-	public Result addSiteStore(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
+	public Result deleteStoreToSite(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
 		Result result = new Result();
 		showSiteService.deleteStoreInSite(showSiteStoreRequest);;
 		return result;

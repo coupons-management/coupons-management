@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.gopher.system.model.entity.CpOutSiteCoupon;
+import com.gopher.system.model.vo.CpCouponVo;
 import com.gopher.system.model.vo.CpOutSiteCouponVo;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.ShowSiteCouponPageRequest;
@@ -80,7 +81,9 @@ public interface CpOutSiteCouponDAO extends MyBatisBaseDao<CpOutSiteCoupon, Inte
 	 * @param storeIdList
 	 * @return
 	 */
-	List<com.gopher.system.model.vo.CpCouponVo> getListByCategory(ShowSiteCouponPageRequest showSiteCouponPageRequest);
+	List<CpCouponVo> getListByCategory(ShowSiteCouponPageRequest showSiteCouponPageRequest);
+	
+	int getCountByCategory(ShowSiteCouponPageRequest showSiteCouponPageRequest);
 	
 	
 }

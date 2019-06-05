@@ -395,6 +395,7 @@
 			<if test="title != null and title !=''">
 				AND TITLE LIKE #{title}"%"
 			</if>
+			AND IN_TYPE = "0"
 		</where>
 		ORDER BY ID ASC
 		limit #{beginIndex},#{pageSize}
@@ -426,6 +427,7 @@
 			<if test="title != null and title !=''">
 				AND TITLE LIKE #{title}"%"
 			</if>
+			AND IN_TYPE = "0"
 		</where>
 	</select>
 
@@ -453,7 +455,9 @@
 		CP_COUPON
 		<where>
 	       STORE_ID = #{storeId}
+	       AND IN_TYPE = "0"
 		</where>
+		
 		ORDER BY CREATE_TIME DESC LIMIT 1
 	</select>
 
@@ -505,9 +509,11 @@
 			<if test="title != null and title !=''">
 				AND TITLE LIKE #{title}"%"
 			</if>
+			AND IN_TYPE = "0"
 		</where>
 		ORDER BY ID ASC
 		limit #{beginIndex},#{pageSize}
+		
 	</select>
 
 	<select id="getScapyCount"
@@ -572,6 +578,7 @@
 			<if test="title != null and title !=''">
 				AND TITLE LIKE #{title}"%"
 			</if>
+			AND IN_TYPE = "0"
 		</where>
 		ORDER BY ID ASC
 		limit #{beginIndex},#{pageSize}

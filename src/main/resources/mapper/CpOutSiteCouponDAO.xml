@@ -423,33 +423,6 @@
 		ORDER BY id DESC
 		LIMIT #{beginIndex},#{pageSize}
 	</select>
-	<select id="getListByCategory"
-		parameterType="com.gopher.system.model.vo.request.ShowSiteCouponPageRequest"
-		resultType="com.gopher.system.model.vo.CpCouponVo">
-		SELECT
-		osp.ID AS id,
-		osp.TITLE AS title,
-		cp.COUPON_TYPE AS couponType,
-		cp.`CODE` AS code,
-		cp.DES AS description,
-		cp.LINK AS link,
-		s.LOGO_URL AS storeLogo,
-		s.NAME AS storeName,
-		s.WEBSITE AS storeWbsite
-		FROM
-		CP_COUPON cp
-		INNER JOIN
-		CP_OUT_SITE_COUPON osp ON cp.ID = osp.COUPON_ID
-		INNER JOIN CP_STORE s ON s.ID = osp.STORE_ID
-		<where>
-			osp.OUT_SITE_ID = #{siteId}
-			AND osp.STORE_ID IN
-			<foreach collection="storeIdList" item="storeId" index="index" open="("
-				close=")" separator=",">
-				#{storeId}
-			</foreach>
-		</where>
-	</select>
 
 	<select id="getTotalCount" resultType="java.lang.Integer"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteCouponRequest">
@@ -494,5 +467,67 @@
 		OUT_SITE_ID = #{outId}
 		AND ADVISE_SORT >0
 	</update>
+
+	<select id="getListByCategory"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteCouponPageRequest"
+		resultType="com.gopher.system.model.vo.CpCouponVo">
+		SELECT
+		osp.ID AS id,
+		osp.TITLE AS title,
+		cp.COUPON_TYPE AS couponType,
+		cp.`CODE` AS code,
+		cp.DES AS description,
+		cp.LINK AS link,
+		s.LOGO_URL AS
+		storeLogo,
+		s.NAME AS storeName,
+		s.WEBSITE AS storeWbsite,
+		s.ID AS storeId
+		FROM
+		CP_COUPON cp
+		INNER JOIN
+		CP_OUT_SITE_COUPON osp ON cp.ID =
+		osp.COUPON_ID
+		INNER JOIN CP_STORE s ON s.ID = osp.STORE_ID
+		<where>
+			osp.OUT_SITE_ID = #{siteId}
+			AND osp.STORE_ID IN
+			<foreach collection="storeIdList" item="storeId"
+				index="index" open="(" close=")" separator=",">
+				#{storeId}
+			</foreach>
+			<if test="couponType != null and couponType !=''">
+				AND cp.COUPON_TYPE = #{couponType}
+			</if>
+		</where>
+		ORDER BY ID DESC
+		LIMIT #{beginIndex},#{pageSize}
+	</select>
+
+	<select id="getCountByCategory"
+		parameterType="com.gopher.system.model.vo.request.ShowSiteCouponPageRequest"
+		resultType="java.lang.Integer">
+		SELECT
+		COUNT(1)
+		FROM
+		CP_COUPON cp
+		INNER JOIN
+		CP_OUT_SITE_COUPON osp ON
+		cp.ID =
+		osp.COUPON_ID
+		INNER JOIN CP_STORE s ON s.ID = osp.STORE_ID
+		<where>
+			osp.OUT_SITE_ID = #{siteId}
+			AND osp.STORE_ID IN
+			<foreach collection="storeIdList" item="storeId"
+				index="index" open="(" close=")" separator=",">
+				#{storeId}
+			</foreach>
+			<if test="couponType != null and couponType !=''">
+				AND cp.COUPON_TYPE = #{couponType}
+			</if>
+		</where>
+	</select>
+
 
 </mapper>

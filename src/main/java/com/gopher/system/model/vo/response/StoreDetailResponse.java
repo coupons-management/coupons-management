@@ -3,6 +3,7 @@ package com.gopher.system.model.vo.response;
 import java.util.List;
 
 import com.gopher.system.model.vo.CpCouponVo;
+import com.gopher.system.model.vo.Page;
 
 public class StoreDetailResponse {
     private String name;
@@ -10,7 +11,7 @@ public class StoreDetailResponse {
     private String logo;
     private String website;
     
-    private List<CpCouponVo> couponList;
+    private Page<CpCouponVo> couponList;
 
 	public String getName() {
 		return name;
@@ -44,11 +45,11 @@ public class StoreDetailResponse {
 		this.website = website;
 	}
 
-	public List<CpCouponVo> getCouponList() {
+	public Page<CpCouponVo> getCouponList() {
 		return couponList;
 	}
 
-	public void setCouponList(List<CpCouponVo> couponList) {
+	public void setCouponList(Page<CpCouponVo> couponList) {
 		this.couponList = couponList;
 	}
     

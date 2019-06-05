@@ -1,8 +1,18 @@
 package com.gopher.system.model.vo.request;
 
-public class StoreRequest {
+import com.gopher.system.model.vo.PageRequestBase;
+
+public class StoreRequest extends PageRequestBase{
 	private int storeId;
 	private int siteId;
+	private String couponType;
+	
+	public String getCouponType() {
+		return couponType;
+	}
+	public void setCouponType(String couponType) {
+		this.couponType = couponType;
+	}
 	public int getStoreId() {
 		return storeId;
 	}

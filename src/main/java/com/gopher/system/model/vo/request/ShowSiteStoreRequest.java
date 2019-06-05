@@ -3,8 +3,11 @@ package com.gopher.system.model.vo.request;
 import com.gopher.system.model.vo.PageRequestBase;
 
 public class ShowSiteStoreRequest extends PageRequestBase {
+	
 	private int siteId;
+	
 	private int outId;
+	
 	private int storeId;
 	/**
 	 * 国家

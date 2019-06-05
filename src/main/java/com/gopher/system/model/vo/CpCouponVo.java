@@ -9,12 +9,17 @@ public class CpCouponVo {
 	private String code;
 	private String description;
 	
+	private int storeId;
 	private String storeLogo;
 	private String storeWebSite;
 	private String storeName;
 	
-	
-	
+	public int getStoreId() {
+		return storeId;
+	}
+	public void setStoreId(int storeId) {
+		this.storeId = storeId;
+	}
 	public String getCouponType() {
 		return couponType;
 	}
