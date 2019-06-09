@@ -45,6 +45,12 @@ public class TypeServiceImpl implements TypeService{
 		if(null == cpType) {
 			throw new BusinessRuntimeException("参数不能为空");
 		}
+		// 通过名称检验是否存在同名的分类,如果存在不允许添加
+		final String name = cpType.getName();
+		CpType DB_OBJ = cpTypeDAO.getBeanByName(name);
+		if(null != DB_OBJ) {
+			throw new BusinessRuntimeException("分类已存在,请检查后重新填写");
+		}
 		final Date now = new Date();
 		cpType.setCreateTime(now);
 		cpType.setUpdateTime(now);

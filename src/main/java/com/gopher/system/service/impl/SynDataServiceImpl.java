@@ -99,7 +99,7 @@ public class SynDataServiceImpl implements SynDataService {
 					if(StringUtils.isNotEmpty(siteUrl))
 					{
 						site.setUrl(siteUrl);
-						site.setName(this.getName(siteUrl));
+						site.setName(getName(siteUrl));
 						site.setLanguage("en");
 					}
 					site.setCreateTime(new Date());

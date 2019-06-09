@@ -395,6 +395,9 @@
 			<if test="title != null and title !=''">
 				AND TITLE LIKE #{title}"%"
 			</if>
+			<if test="name != null and name !=''">
+				AND NAME LIKE "%"#{name}"%"
+			</if>
 			AND IN_TYPE = "0"
 		</where>
 		ORDER BY ID ASC
@@ -427,6 +430,9 @@
 			<if test="title != null and title !=''">
 				AND TITLE LIKE #{title}"%"
 			</if>
+			<if test="name != null and name !=''">
+				AND NAME LIKE "%"#{name}"%"
+			</if>
 			AND IN_TYPE = "0"
 		</where>
 	</select>
@@ -454,10 +460,10 @@
 		FROM
 		CP_COUPON
 		<where>
-	       STORE_ID = #{storeId}
-	       AND IN_TYPE = "0"
+			STORE_ID = #{storeId}
+			AND IN_TYPE = "0"
 		</where>
-		
+
 		ORDER BY CREATE_TIME DESC LIMIT 1
 	</select>
 
@@ -473,14 +479,14 @@
 				AND CREATE_TIME &gt;= #{beginTime}
 			</if>
 			<if test="endTime != null">
-			AND END_TIME &lt; #{endTime}
+				AND END_TIME &lt; #{endTime}
 			</if>
 			AND IN_TYPE = "0"
 		</where>
 	</select>
 
 
-<select id="getScapyPageList"
+	<select id="getScapyPageList"
 		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
 		resultMap="BaseResultMap">
 		SELECT
@@ -513,7 +519,7 @@
 		</where>
 		ORDER BY ID ASC
 		limit #{beginIndex},#{pageSize}
-		
+
 	</select>
 
 	<select id="getScapyCount"
@@ -540,8 +546,7 @@
 				AND COUPON_TYPE = #{type}
 			</if>
 			<if test="title != null and title !=''">
-				AND TITLE LIKE #{title}%
-			</if>
+				AND TITLE LIKE #{title}% </if>
 		</where>
 	</select>
 
@@ -549,7 +554,7 @@
 
 
 
-<select id="getErrScapyPageList"
+	<select id="getErrScapyPageList"
 		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
 		resultMap="BaseResultMap">
 		SELECT
@@ -608,8 +613,7 @@
 				AND COUPON_TYPE = #{type}
 			</if>
 			<if test="title != null and title !=''">
-				AND TITLE LIKE #{title}%
-			</if>
+				AND TITLE LIKE #{title}% </if>
 		</where>
 	</select>
 
@@ -625,30 +629,22 @@
 
 
 
-<select id="getOffWebCouponPageList"
+	<select id="getOffWebCouponPageList"
 		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
 		resultType="com.gopher.system.model.vo.CpCouponVo">
-	<!-- 	SELECT
-		<include refid="Base_Column_List" />
-		FROM
-		CP_COUPON
-		<where>
-			<if test="name != null and name !=''">
-				AND NAME LIKE #{name}%
-			</if>
-		</where>
-		 -->
-	
-		SELECT CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE
+		<!-- SELECT <include refid="Base_Column_List" /> FROM CP_COUPON <where> 
+			<if test="name != null and name !=''"> AND NAME LIKE #{name}% </if> </where> -->
+
+		SELECT CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO FROM
+		CP_COUPON CPCOUPON, CP_OUT_SITE_COUPON SITECOUPON ,CP_STORE STORE
 		<where>
 			CPCOUPON.ID=SITECOUPON.COUPON_ID AND CPCOUPON.STORE_ID=STORE.ID
-			
+
 			<if test="outSiteId != null and outSiteId >0">
 				AND SITECOUPON.OUT_SITE_ID = #{outSiteId}
 			</if>
 			<if test="name != null and name !=''">
-				AND CPCOUPON.TITLE LIKE #{name}%
-			</if>
+				AND CPCOUPON.TITLE LIKE #{name}% </if>
 		</where>
 		ORDER BY CPCOUPON.ID ASC
 		limit #{beginIndex},#{pageSize}
@@ -657,17 +653,16 @@
 	<select id="getOffWebTotalCount"
 		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
 		resultType="java.lang.Integer">
-			SELECT COUNT(*)
-FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE
+		SELECT COUNT(*)
+		FROM CP_COUPON CPCOUPON, CP_OUT_SITE_COUPON SITECOUPON ,CP_STORE STORE
 		<where>
 			CPCOUPON.ID=SITECOUPON.COUPON_ID AND CPCOUPON.STORE_ID=STORE.ID
-			
+
 			<if test="outSiteId != null and outSiteId >0">
 				AND SITECOUPON.OUT_SITE_ID = #{outSiteId}
 			</if>
 			<if test="name != null and name !=''">
-				AND CPCOUPON.TITLE LIKE #{name}%
-			</if>
+				AND CPCOUPON.TITLE LIKE #{name}% </if>
 		</where>
 	</select>
 
@@ -675,12 +670,15 @@ FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE
 	<select id="getTopCouponList"
 		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
 		resultType="com.gopher.system.model.vo.CpCouponVo">
-		<!-- SELECT CPCOUPON.NAME,LINK , CPCOUPON,TITLE,LOGO_URL storeLogo, FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE -->
-		SELECT CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE
+		<!-- SELECT CPCOUPON.NAME,LINK , CPCOUPON,TITLE,LOGO_URL storeLogo, FROM 
+			CP_COUPON CPCOUPON, CP_OUT_SITE_COUPON SITECOUPON ,CP_STORE STORE -->
+		SELECT CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO FROM
+		CP_COUPON CPCOUPON, CP_OUT_SITE_COUPON SITECOUPON ,CP_STORE STORE
 		<where>
 			CPCOUPON.ID=SITECOUPON.COUPON_ID AND CPCOUPON.STORE_ID=STORE.ID
-			AND 
-			HOT_SORT <![CDATA[>]]> 0 
+			AND
+			HOT_SORT <![CDATA[>]]>
+			0
 			<if test="outSiteId != null and outSiteId >0">
 				AND SITECOUPON.OUT_SITE_ID = #{outSiteId}
 			</if>
@@ -692,15 +690,17 @@ FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE
 	<select id="getStoreCouponList"
 		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
 		resultType="com.gopher.system.model.vo.CpCouponVo">
-		<!-- SELECT CPCOUPON.NAME,LINK , CPCOUPON,TITLE,LOGO_URL storeLogo, FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE -->
-		SELECT CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE
+		<!-- SELECT CPCOUPON.NAME,LINK , CPCOUPON,TITLE,LOGO_URL storeLogo, FROM 
+			CP_COUPON CPCOUPON, CP_OUT_SITE_COUPON SITECOUPON ,CP_STORE STORE -->
+		SELECT CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO FROM
+		CP_COUPON CPCOUPON, CP_OUT_SITE_COUPON SITECOUPON ,CP_STORE STORE
 		<where>
 			CPCOUPON.ID=SITECOUPON.COUPON_ID AND CPCOUPON.STORE_ID=STORE.ID
-			
+
 			<if test="outSiteId != null and outSiteId >0">
 				AND SITECOUPON.OUT_SITE_ID = #{outSiteId}
 			</if>
-			
+
 			<if test="type != null and type !=''">
 				AND CPCOUPON.COUPON_TYPE = #{type}
 			</if>
@@ -714,27 +714,30 @@ FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE
 	<select id="getStoreExpCouponList"
 		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
 		resultType="com.gopher.system.model.vo.CpCouponVo">
-		<!-- SELECT CPCOUPON.NAME,LINK , CPCOUPON,TITLE,LOGO_URL storeLogo, FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE -->
-		SELECT CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE
+		<!-- SELECT CPCOUPON.NAME,LINK , CPCOUPON,TITLE,LOGO_URL storeLogo, FROM 
+			CP_COUPON CPCOUPON, CP_OUT_SITE_COUPON SITECOUPON ,CP_STORE STORE -->
+		SELECT CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO FROM
+		CP_COUPON CPCOUPON, CP_OUT_SITE_COUPON SITECOUPON ,CP_STORE STORE
 		<where>
 			CPCOUPON.ID=SITECOUPON.COUPON_ID AND CPCOUPON.STORE_ID=STORE.ID
-			AND EXPIRE_AT &lt;= NOW()
-			
-			
+			AND
+			EXPIRE_AT &lt;= NOW()
+
+
 			<if test="outSiteId != null and outSiteId >0">
 				AND SITECOUPON.OUT_SITE_ID = #{outSiteId}
 			</if>
-			
+
 			<if test="storeUrl != null and storeUrl !=''">
 				AND STORE.WEBSITE = #{storeUrl}
 			</if>
-			
-			
+
+
 			<if test="type != null and type !=''">
 				AND CPCOUPON.COUPON_TYPE = #{type}
 			</if>
-			
-		
+
+
 		</where>
 	</select>
 
@@ -744,29 +747,34 @@ FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE
 	<select id="getStoreCategoryCouponList"
 		parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
 		resultType="com.gopher.system.model.vo.CpCouponVo">
-		<!-- SELECT CPCOUPON.NAME,LINK , CPCOUPON,TITLE,LOGO_URL storeLogo, FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE -->
-		<!-- SELECT CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE -->
-		
-			SELECT STORE.TYPE_ID,STORE.TYPE_NAME, CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO FROM  CP_COUPON CPCOUPON,   CP_OUT_SITE_COUPON  SITECOUPON ,CP_STORE STORE,
-  CP_TYPE_STORE TYPESTORE,CP_SITESTORE_TYPE  SITESTORETYPE
-			
+		<!-- SELECT CPCOUPON.NAME,LINK , CPCOUPON,TITLE,LOGO_URL storeLogo, FROM 
+			CP_COUPON CPCOUPON, CP_OUT_SITE_COUPON SITECOUPON ,CP_STORE STORE -->
+		<!-- SELECT CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO FROM 
+			CP_COUPON CPCOUPON, CP_OUT_SITE_COUPON SITECOUPON ,CP_STORE STORE -->
+
+		SELECT STORE.TYPE_ID,STORE.TYPE_NAME, CPCOUPON.NAME,LINK
+		,CPCOUPON.TITLE,LOGO_URL STORELOGO FROM CP_COUPON CPCOUPON,
+		CP_OUT_SITE_COUPON SITECOUPON ,CP_STORE STORE,
+		CP_TYPE_STORE TYPESTORE,CP_SITESTORE_TYPE SITESTORETYPE
+
 		<where>
-			CPCOUPON.ID=SITECOUPON.COUPON_ID AND CPCOUPON.STORE_ID=STORE.ID AND TYPESTORE.STORE_ID=STORE.ID AND TYPESTORE.TYPE_ID=SITESTORETYPE.ID  
-			
+			CPCOUPON.ID=SITECOUPON.COUPON_ID AND CPCOUPON.STORE_ID=STORE.ID AND
+			TYPESTORE.STORE_ID=STORE.ID AND TYPESTORE.TYPE_ID=SITESTORETYPE.ID
+
 			<if test="outSiteId != null and outSiteId >0">
 				AND SITECOUPON.OUT_SITE_ID = #{outSiteId}
 			</if>
-			
+
 			<if test="name != null and name !=''">
 				AND SITESTORETYPE.NAME = #{name}
 			</if>
-			
-		
-		
+
+
+
 		</where>
 	</select>
-	
 
-	
+
+
 
 </mapper>

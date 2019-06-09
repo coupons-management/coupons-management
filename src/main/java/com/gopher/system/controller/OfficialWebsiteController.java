@@ -48,15 +48,11 @@ public class OfficialWebsiteController {
 	
 
 	@RequestMapping(path="/getCategoriesPageList")
-	//Result getCategoriesPageList(CpTypePageRequest quest){
 	Result getCategoriesPageList(@RequestBody CpSitestoreRequest  quest){
 		Result result = new Result();
-		//result.setData( officialWebsiteService.getCategoriesPageList(quest));
-		result.setData( showSiteTypeServiceImpl.getList(quest.getSiteId(), 2));
+		result.setData(showSiteTypeServiceImpl.getList(quest.getSiteId(), 1));
 		return result;
 	}
-
-	
 	
 	@RequestMapping(path="/getCouponPageList")
 	Result getCouponPageList(@RequestBody CouponPageRequest quest){
@@ -64,7 +60,6 @@ public class OfficialWebsiteController {
 		result.setData( officialWebsiteService.getCouponPageList(quest));
 		return result;
 	}
-
 	
 	@RequestMapping(path="/getTopStoreList")
 	Result getTopStoreList(@RequestBody CpSitestoreRequest quest){

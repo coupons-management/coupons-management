@@ -2,10 +2,6 @@ package com.gopher.system.service;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpOutSite;
 import com.gopher.system.model.entity.CpOutSiteStore;

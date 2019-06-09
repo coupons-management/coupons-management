@@ -14,6 +14,14 @@ public class CpCouponVo {
 	private String storeWebSite;
 	private String storeName;
 	
+	private String sale;
+	
+	public String getSale() {
+		return sale;
+	}
+	public void setSale(String sale) {
+		this.sale = sale;
+	}
 	public int getStoreId() {
 		return storeId;
 	}

@@ -1,7 +1,5 @@
 package com.gopher.system.model.vo.response;
 
-import java.util.List;
-
 import com.gopher.system.model.vo.CpCouponVo;
 import com.gopher.system.model.vo.Page;
 

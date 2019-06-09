@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gopher.system.controller.model.Result;
-import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpOutSiteStore;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
@@ -30,13 +29,6 @@ public class ShowSiteTwoController {
 		return result;
 	}
 	
-/*	@RequestMapping(path="/getStoreSort")
-	public Result getStoreSort(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
-		Result result = new Result();
-		result.setData(showSiteTwoService.getSiteList());
-		return result;
-	}
-*/
 	
 	@RequestMapping(path="/addStoreToSiteBatch")
 	public Result addSiteStore(@RequestBody List<ShowSiteStoreRequest> showSiteStoreList) {
@@ -50,15 +42,6 @@ public class ShowSiteTwoController {
 		showSiteTwoService.addStoreToSite(showSiteStoreRequest);
 		return result;
 	}
-	
-	@RequestMapping(path="/deleteStoreToSite")
-	public Result deleteStoreToSite(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
-		Result result = new Result();
-		showSiteService.deleteStoreInSite(showSiteStoreRequest);;
-		return result;
-	}
-	
-	
 	
 	
 	@RequestMapping(path="/getTwoList")
@@ -75,9 +58,9 @@ public class ShowSiteTwoController {
 		return result;
 	}
 	@RequestMapping(path="/deleteSiteStore")
-	public Result deleteSiteStore(@RequestBody CpOutSiteStore outSiteStore) {
+	public Result deleteSiteStore(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
 		Result result = new Result();
-		showSiteTwoService.deleteOutSiteStore(outSiteStore);
+		showSiteService.deleteStoreInSite(showSiteStoreRequest);
 		return result;
 	}
 	
@@ -109,11 +92,5 @@ public class ShowSiteTwoController {
 		return result;
 	}
 	
-	@RequestMapping(path="/addCoupon")
-	public Result addCoupon(@RequestBody CpCoupon bean) {
-		Result result = new Result();
-		showSiteTwoService.addCoupon(bean);
-		return result;
-	}
 	
 }

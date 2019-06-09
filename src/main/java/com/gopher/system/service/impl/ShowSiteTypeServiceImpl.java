@@ -61,7 +61,14 @@ public class ShowSiteTypeServiceImpl implements ShowSiteTypeService {
 		if (!StringUtils.hasText(name)) {
 			throw new BusinessRuntimeException("名称不能为空");
 		}
-
+		CpSitestoreType query = new CpSitestoreType();
+		query.setName(name);
+		query.setOutSiteId(outSiteId);
+		CpSitestoreType dbobj = cpSitestoreTypeDAO.getByName(query);
+		if(null != dbobj) {
+			// 当前展示站点下 存在同名的分类 不允许添加
+			throw new BusinessRuntimeException("分类已存在,请检查重新输入");
+		}
 		if (null == level || level <= 0) {
 			throw new BusinessRuntimeException("等级不能为空");
 		}

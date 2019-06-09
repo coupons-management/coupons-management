@@ -16,14 +16,14 @@
     <!-- 配置相关类中方法的执行时间-->
     <task:scheduled-tasks scheduler="taskScheduler" > 
       <!-- 每隔 2秒执行一次 -->
-    	<!-- <task:scheduled ref="synBasicsData" method="synDate" cron="*/20 * * * * ?"/> -->
+     <task:scheduled ref="synBasicsData" method="synDate" cron="*/20 * * * * ?"/>
     	<!-- 同步数据 -->
     	<!--  <task:scheduled ref="synBasicsData"  method="synDate" initial-delay="20000" fixed-delay="90000000"/>   -->
     	
     	<!-- 初始化标题规则数据 -->  
-     <task:scheduled ref="synBasicsData"  method="initData" initial-delay="20000" fixed-delay="90000000"/>  
+        <task:scheduled ref="synBasicsData"  method="initData" initial-delay="20000" fixed-delay="90000000"/>  
         <!-- 启动爬虫 -->
-    <!--     <task:scheduled ref="synBasicsData"  method="initScrapy" initial-delay="90000" fixed-delay="900000000"/> -->
+        <task:scheduled ref="synBasicsData"  method="initScrapy" initial-delay="90000" fixed-delay="900000000"/>
        
         <!-- 删除2天前数据-->
        <!-- <task:scheduled ref="synBasicsData"   method="clearDatd" cron="0 0 1 * * ?"/> -->

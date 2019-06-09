@@ -769,31 +769,35 @@
 	<select id="getValidCoupon"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM CP_COUPON COU WHERE COU.STORE_ID=#{storeId} AND
-		EXPIRE_AT <![CDATA[>=]]>
+		SELECT COUNT(1) FROM CP_OUT_SITE_COUPON COSC
+		INNER JOIN CP_COUPON CC ON COSC.COUPON_ID = CC.ID
+		WHERE COSC.STORE_ID=#{storeId} AND
+		CC.EXPIRE_AT <![CDATA[>=]]>
 		NOW()
-
-
 	</select>
+
 	<select id="getToalCoupon"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM CP_COUPON COU WHERE
-		COU.STORE_ID=#{storeId}
-
+		SELECT COUNT(1) FROM CP_OUT_SITE_COUPON COSC
+		INNER JOIN CP_COUPON CC ON COSC.COUPON_ID = CC.ID
+		WHERE
+		COSC.STORE_ID=#{storeId}
 	</select>
 
 	<update id="clearHotSort">
 		UPDATE CP_OUT_SITE_STORE
 		SET HOT_SORT = 0
-		WHERE OUT_ID = #{outId}
+		WHERE OUT_ID
+		= #{outId}
 		AND HOT_SORT > 0
 	</update>
 
 	<update id="clearAdviseSort">
 		UPDATE CP_OUT_SITE_STORE
 		SET ADVISE_SORT = 0
-		WHERE OUT_ID = #{outId}
+		WHERE
+		OUT_ID = #{outId}
 		AND ADVISE_SORT > 0
 	</update>
 

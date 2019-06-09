@@ -2,9 +2,12 @@ package com.gopher.system.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
 import com.gopher.system.dao.mysql.CpSitestoreTypeDAO;
@@ -21,6 +24,7 @@ import com.gopher.system.model.vo.request.ShowSiteCouponPageRequest;
 import com.gopher.system.model.vo.request.StoreRequest;
 import com.gopher.system.model.vo.response.StoreDetailResponse;
 import com.gopher.system.service.WebSiteService;
+
 @Service
 public class WebSiteServiceImpl implements WebSiteService {
 	@Autowired
@@ -31,11 +35,12 @@ public class WebSiteServiceImpl implements WebSiteService {
 	private CpOutSiteCouponDAO cpOutSiteCouponDAO;
 	@Autowired
 	private CpStoreDAO cpStoreDAO;
+
 	@Override
 	public Page<CpCouponVo> getCouponListByCategory(CategoryRequest categoryRequest) {
-		 Page<CpCouponVo> result = new Page<>();
+		Page<CpCouponVo> result = new Page<>();
 		List<CpCouponVo> couponList = new ArrayList<>();
-		
+
 		if (null == categoryRequest) {
 			throw new BusinessRuntimeException("参数不能为空");
 		}
@@ -80,6 +85,11 @@ public class WebSiteServiceImpl implements WebSiteService {
 			showSiteCouponPageRequest.setPageSize(pageSize);
 			showSiteCouponPageRequest.setCouponType(categoryRequest.getCouponType());
 			couponList = cpOutSiteCouponDAO.getListByCategory(showSiteCouponPageRequest);
+			if (null != couponList) {
+				couponList.forEach((e) -> {
+					e.setSale(getSale(e.getTitle(), e.getCouponType()));
+				});
+			}
 			totalCount = cpOutSiteCouponDAO.getCountByCategory(showSiteCouponPageRequest);
 		}
 		result.setPageNumber(pageNumber);
@@ -88,17 +98,18 @@ public class WebSiteServiceImpl implements WebSiteService {
 		result.setList(couponList);
 		return result;
 	}
+
 	@Override
 	public StoreDetailResponse getStoreDetail(StoreRequest storeRequest) {
-		if(null == storeRequest) {
+		if (null == storeRequest) {
 			throw new BusinessRuntimeException("参数不能为空");
 		}
-		final int siteId  = storeRequest.getSiteId();
+		final int siteId = storeRequest.getSiteId();
 		final int storeId = storeRequest.getStoreId();
-		if( siteId <=0 ) {
+		if (siteId <= 0) {
 			throw new BusinessRuntimeException("官网ID不能为空");
 		}
-		if( storeId <=0 ) {
+		if (storeId <= 0) {
 			throw new BusinessRuntimeException("商家ID不能为空");
 		}
 		StoreDetailResponse result = new StoreDetailResponse();
@@ -112,8 +123,13 @@ public class WebSiteServiceImpl implements WebSiteService {
 		showSiteCouponPageRequest.setCouponType(storeRequest.getCouponType());
 		List<CpCouponVo> list = cpOutSiteCouponDAO.getListByCategory(showSiteCouponPageRequest);
 		final int totalCount = cpOutSiteCouponDAO.getCountByCategory(showSiteCouponPageRequest);
+		if (null != list) {
+			list.forEach((e) -> {
+				e.setSale(getSale(e.getTitle(), e.getCouponType()));
+			});
+		}
 		CpStore cpStore = cpStoreDAO.selectByPrimaryKey(storeId);
-		if(null == cpStore) {
+		if (null == cpStore) {
 			throw new BusinessRuntimeException("根据商家ID找不到商家信息");
 		}
 		result.setDescription(cpStore.getDes());
@@ -127,5 +143,65 @@ public class WebSiteServiceImpl implements WebSiteService {
 		page.setTotalCount(totalCount);
 		result.setCouponList(page);
 		return result;
+	}
+
+	/**
+	 * 是否是整数
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static boolean isInteger(String str) {
+		boolean flag = false;
+		if (StringUtils.hasText(str)) {
+			Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+			flag = pattern.matcher(str).matches();
+		}
+		return flag;
+	}
+
+	private static String getSale(String title, String couponType) {
+		String sale = "";
+		String[] temp = null;
+		if (title.contains("%")) {
+			int mark_index = title.indexOf("%");
+			temp = title.substring(mark_index).split(" ");
+			String temp2 = null;
+			if (mark_index - 1 > 0) {
+				temp2 = title.substring(mark_index - 1, mark_index);
+			}
+			String temp3 = null;
+			if (mark_index - 2 >= 0) {
+				temp3 = title.substring(mark_index - 2, mark_index - 1);
+			}
+			if (!isInteger(temp3) && !isInteger(temp2)) {
+				if (Objects.equals(couponType, "CODE")) {
+					sale = "PROMO";
+				} else if (Objects.equals(couponType, "DEAL")) {
+					sale = "SALE";
+				}
+			} else {
+				sale = temp[0] + " " + temp[1];
+				if (isInteger(temp2)) {
+					sale = temp2 + sale;
+				}
+				if (isInteger(temp3)) {
+					sale = temp3 + sale;
+				}
+			}
+		} else {
+			if (Objects.equals(couponType, "CODE")) {
+				sale = "PROMO";
+			} else if (Objects.equals(couponType, "DEAL")) {
+				sale = "SALE";
+			}
+		}
+
+		return sale;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(getSale("% Subscription Plans", "CODE"));
+
 	}
 }

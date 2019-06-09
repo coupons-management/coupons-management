@@ -29,7 +29,12 @@ public interface CpSitestoreTypeDAO extends MyBatisBaseDao<CpSitestoreType, Inte
 	 * @return
 	 */
 	Integer deleteByPid(int pid);
+	/**
+	 * 通过名称查询
+	 * @param name
+	 * @return
+	 */
+	CpSitestoreType getByName(CpSitestoreType cpSitestoreType);
 	
-
 	List<CpSitestoreType> getStoreSort(CpSitestoreRequest request) ;
 }

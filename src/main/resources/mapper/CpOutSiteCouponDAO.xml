@@ -404,8 +404,8 @@
 		<where>
 			osp.OUT_SITE_ID = #{siteId}
 			<if test="search != null and search != '' ">
-				AND cp.TITLE LIKE #{search}"%" OR osp.TITLE LIKE
-				#{search}"%"
+				AND cp.TITLE LIKE "%"#{search}"%" OR osp.TITLE LIKE
+				"%"#{search}"%"
 			</if>
 			<if test="couponType != null and couponType !='' ">
 				AND cp.COUPON_TYPE = #{couponType}
@@ -436,8 +436,8 @@
 		<where>
 			osp.OUT_SITE_ID = #{siteId}
 			<if test="search != null and search != '' ">
-				AND cp.TITLE LIKE #{search}"%" OR osp.TITLE LIKE
-				#{search}"%"
+				AND cp.TITLE LIKE "%"#{search}"%" OR osp.TITLE LIKE
+				"%"#{search}"%"
 			</if>
 			<if test="couponType != null and couponType !='' ">
 				AND cp.COUPON_TYPE = #{couponType}
