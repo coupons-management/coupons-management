@@ -559,12 +559,13 @@
 		(SELECT
 		date_format( MAX(EXPIRE_AT), '%Y-%c-%d %h:%i:%s' ) FROM CP_COUPON
 		WHERE STORE_ID=STORE.ID) endTime,STORE.TYPE_NAME typeName
-		,STORE.TYPE_ID typeId FROM
-		CP_OUT_SITE_STORE OUTSTORE ,CP_STORE STORE
-
+		,STORE.TYPE_ID typeId 
+		FROM
+		CP_OUT_SITE_STORE OUTSTORE 
+		INNER JOIN 
+		CP_STORE STORE 
+		ON OUTSTORE.STORE_ID=STORE.ID
 		<where>
-			OUTSTORE.STORE_ID=STORE.ID
-			AND
 			OUTSTORE.OUT_ID = #{outId}
 			<if test="storeType == null or storeType == '' ">
 				<if test="search != null and search != '' ">
@@ -608,11 +609,7 @@
 				validCount>= #{range}
 			</if>
 		</where>
-
-
 		LIMIT #{beginIndex},#{pageSize}
-
-
 	</select>
 
 
@@ -620,18 +617,17 @@
 	<select id="getTwoCount"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultType="java.lang.Integer">
-
 		SELECT COUNT(*) FROM (
 		SELECT (SELECT COUNT(*) FROM CP_COUPON COU WHERE
 		COU.STORE_ID=STORE.ID AND
 		EXPIRE_AT >=now())validCount FROM
-		CP_OUT_SITE_STORE OUTSTORE ,CP_STORE STORE
-
+		CP_OUT_SITE_STORE OUTSTORE 
+		INNER JOIN 
+		CP_STORE STORE 
+		ON OUTSTORE.STORE_ID=STORE.ID
 		<where>
-			OUTSTORE.STORE_ID=STORE.ID
-			AND
 			OUTSTORE.OUT_ID = #{outId}
-			<if test="storeType == null or search == '' ">
+			<if test="storeType == null or storeType == '' ">
 				<if test="search != null and search != '' ">
 					AND STORE.NAME LIKE "%"#{search}"%" OR STORE.WEBSITE
 					LIKE
