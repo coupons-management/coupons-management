@@ -131,4 +131,14 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  
+   <select id="getBeanByScrapyName" parameterType="String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CP_SCRAPY_RECODE
+    where SCRAPY_NAME = #{scrapyName,jdbcType=VARCHAR} limit 1
+  </select>
+  
 </mapper>

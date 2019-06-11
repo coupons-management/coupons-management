@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CpScrapyRecodeDAO extends MyBatisBaseDao<CpScrapyRecode, Integer> {
+	CpScrapyRecode getBeanByScrapyName(String scrapyName);
 }

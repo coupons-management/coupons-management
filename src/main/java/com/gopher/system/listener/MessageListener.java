@@ -12,10 +12,12 @@ import javax.servlet.annotation.WebListener;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.gopher.system.model.entity.CpScrapyRecode;
 import com.gopher.system.model.entity.TMessage;
 import com.gopher.system.service.MessageDataService;
 import com.gopher.system.util.JmsConsumer;
 import com.gopher.system.util.MqPropertiesUtils;
+import com.gopher.system.util.SpiderStatusJson;
 import com.gopher.system.util.SpringContextUtil;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.DefaultConsumer;
@@ -51,6 +53,7 @@ public class MessageListener implements ServletContextListener {
      	this.synCategory();
         this.synStore();
         this.synCoupon();
+        this.synSpiderStatus();
 
     }
     
@@ -201,4 +204,53 @@ public class MessageListener implements ServletContextListener {
 
 	}
 	
+    
+    public  void synSpiderStatus() {
+    	MessageDataService messageDataService=(MessageDataService) SpringContextUtil.getBean("messageDataService");
+		try {
+			String borkUrl=(String) MqPropertiesUtils.pro.get("spider_status_borkUrl");
+			String userName=(String) MqPropertiesUtils.pro.get("spider_status_userName");
+			String password=(String) MqPropertiesUtils.pro.get("spider_status_password");
+			int port=Integer.parseInt( MqPropertiesUtils.pro.get("spider_status_port").toString());
+			String queue=(String) MqPropertiesUtils.pro.get("spider_status");
+			String exchange=(String) MqPropertiesUtils.pro.get("spider_status_exchange");
+			String key=(String) MqPropertiesUtils.pro.get("spider_status_key");
+			//JmsConsumer jmsConsumer=new JmsConsumer("18.234.205.204", "coupon", "Ppp12345", 5672,"online_store_queue","scrapy","store");
+			JmsConsumer jmsConsumer=new JmsConsumer(borkUrl, userName, password, port,queue,exchange,key);
+			jmsConsumer.start();
+			
+			//定义消费者
+	        DefaultConsumer consumer = new DefaultConsumer(jmsConsumer.getChannel()) {
+	            @Override
+	            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+	            	executor.execute(new Thread(new Runnable() {
+				  
+				 @Override 
+				 public void run() {
+					 String msg=null;
+					try {
+						msg = new String(body, "utf-8");
+						
+						
+						messageDataService.updateCouponIndex(msg);
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		              
+				 }}));
+	               
+	            }
+	        };
+	        //监听队列
+	        jmsConsumer.getChannel().basicConsume(jmsConsumer.getQueue(),true,consumer);
+	        
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+
+	}
+	
+    
 }

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.gopher.system.dao.mysql.CpCouponCensusDAO;
 import com.gopher.system.dao.mysql.CpCouponDAO;
 import com.gopher.system.dao.mysql.CpInSiteDAO;
 import com.gopher.system.dao.mysql.CpScrapyDAO;
@@ -26,6 +27,7 @@ import com.gopher.system.dao.mysql.CpTypeDAO;
 import com.gopher.system.dao.mysql.StoreMapper;
 import com.gopher.system.dao.mysql.SynMessageDataDao;
 import com.gopher.system.model.entity.CpCoupon;
+import com.gopher.system.model.entity.CpCouponCensus;
 import com.gopher.system.model.entity.CpInSite;
 import com.gopher.system.model.entity.CpScrapy;
 import com.gopher.system.model.entity.CpScrapyStore;
@@ -62,7 +64,9 @@ public class SynDataServiceImpl implements SynDataService {
 	StoreMapper storeMapper;
 	@Autowired
 	CpScrapyDAO cpScrapyDAO;
-
+	@Autowired
+	CpCouponCensusDAO cpCouponCensusDAO;
+	
 	@Autowired
 	CpScrapyStoreDAO cpScrapyStoreDAO;
 	@Autowired
@@ -377,6 +381,23 @@ public class SynDataServiceImpl implements SynDataService {
 
 				// synMessageDataMapper.insert(stu);
 				synMessageDataDao.updateCouPonMessageStatus(message.getPkId());
+				
+				CpCouponCensus census=cpCouponCensusDAO.getBeanByCouponId(cpCoupon.getId());
+				if(census==null)
+				{
+				census=new CpCouponCensus();
+				census.setCouponId(cpCoupon.getId());
+				census.setCouponName(cpCoupon.getName());
+				census.setScrapyName(cpScrapy.getName());
+				census.setStoreId(cpStore.getId());
+				census.setSort(stu.getIndex());
+				census.setScrapyTime(new Date());
+				census.setCreateTime(new Date());
+				cpCouponCensusDAO.insert(census);
+				}else {
+					census.setSort(stu.getIndex());
+					cpCouponCensusDAO.updateByPrimaryKey(census);
+				}
 
 				/*
 				 * } }, "name"));
@@ -423,6 +444,7 @@ public class SynDataServiceImpl implements SynDataService {
 					TitleUtils.storeMessageMap.put(message.getName(), dataList);
 				}else {
 					List<String>dataList=TitleUtils.messageMap.get(message.getName());
+					if(dataList==null)return;
 					dataList.add(message.getMessage());
 					TitleUtils.storeMessageMap.put(message.getName(), dataList);	
 				}

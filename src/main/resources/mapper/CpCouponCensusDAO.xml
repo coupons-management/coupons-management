@@ -166,4 +166,32 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  
+   <select id="getBeanByCouponId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CP_COUPON_CENSUS
+    where COUPON_ID = #{couponId,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  
+   <update id="updateExpire" parameterType="com.gopher.system.model.entity.CpCouponCensus">
+    update CP_COUPON_CENSUS
+    set SORT = #{sort,jdbcType=INTEGER},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where SCRAPY_NAME = #{scrapyName,jdbcType=VARCHAR} AND SCRAPY_TIME &gt;= #{scrapyTime}
+  </update>
+  
+  
+     <update id="updateCouponIndex">
+    update CP_COUPON cou 
+SET `INDEX` =(select sum(sort)  from CP_COUPON_CENSUS cen 
+ where cen.STORE_ID=cou.STORE_ID and cou.name= cen.COUPON_NAME
+  </update>
+  
+  
+
+  
 </mapper>
