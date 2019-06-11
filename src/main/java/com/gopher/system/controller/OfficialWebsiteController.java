@@ -11,7 +11,8 @@ import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.service.OfficialWebsiteService;
-import com.gopher.system.service.impl.ShowSiteTypeServiceImpl;
+import com.gopher.system.service.ShowSiteTypeService;
+
 
 @RestController
 @RequestMapping(path = "/officialWebsite")
@@ -19,7 +20,7 @@ public class OfficialWebsiteController {
 	@Resource
 	OfficialWebsiteService officialWebsiteService;
 	@Resource
-	ShowSiteTypeServiceImpl showSiteTypeServiceImpl;
+	ShowSiteTypeService showSiteTypeServiceImpl;
 
 	@RequestMapping(path = "/getCategoriesList")
 	Result getCategoriesList(@RequestBody CpSitestoreRequest quest) {
