@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CpCouponCensusDAO extends MyBatisBaseDao<CpCouponCensus, Integer> {
 	CpCouponCensus getBeanByCouponId(int couponId);
+	CpCouponCensus getBean(CpCouponCensus cen);
 	/**
 	 * 
 	 * @param json

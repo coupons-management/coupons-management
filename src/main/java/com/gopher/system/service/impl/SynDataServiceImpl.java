@@ -382,11 +382,17 @@ public class SynDataServiceImpl implements SynDataService {
 				// synMessageDataMapper.insert(stu);
 				synMessageDataDao.updateCouPonMessageStatus(message.getPkId());
 				
-				CpCouponCensus census=cpCouponCensusDAO.getBeanByCouponId(cpCoupon.getId());
+				//CpCouponCensus census=cpCouponCensusDAO.getBeanByCouponId(cpCoupon.getId());
+				CpCouponCensus param=new CpCouponCensus();
+				param.setCouponName(cpCoupon.getName());
+				param.setScrapyName(cpScrapy.getName());
+				param.setStoreId(cpStore.getId());
+				CpCouponCensus census=cpCouponCensusDAO.getBean(param);
 				if(census==null)
 				{
 				census=new CpCouponCensus();
 				census.setCouponId(cpCoupon.getId());
+				census.setScrapyId(cpScrapy.getId());
 				census.setCouponName(cpCoupon.getName());
 				census.setScrapyName(cpScrapy.getName());
 				census.setStoreId(cpStore.getId());
@@ -396,6 +402,8 @@ public class SynDataServiceImpl implements SynDataService {
 				cpCouponCensusDAO.insert(census);
 				}else {
 					census.setSort(stu.getIndex());
+					census.setScrapyTime(new Date());
+					census.setUpdateTime(new Date());
 					cpCouponCensusDAO.updateByPrimaryKey(census);
 				}
 

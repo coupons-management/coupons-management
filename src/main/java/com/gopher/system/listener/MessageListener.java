@@ -230,8 +230,6 @@ public class MessageListener implements ServletContextListener {
 					 String msg=null;
 					try {
 						msg = new String(body, "utf-8");
-						
-						
 						messageDataService.updateCouponIndex(msg);
 					} catch (UnsupportedEncodingException e) {
 						// TODO Auto-generated catch block

@@ -175,6 +175,12 @@
   </select>
   
   
+     <select id="getBean" parameterType="com.gopher.system.model.entity.CpCouponCensus" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CP_COUPON_CENSUS
+    where SCRAPY_NAME = #{scrapyName,jdbcType=VARCHAR}  AND COUPON_NAME = #{couponName,jdbcType=VARCHAR} AND STORE_ID = #{storeId,jdbcType=INTEGER}
+  </select>
   
   
    <update id="updateExpire" parameterType="com.gopher.system.model.entity.CpCouponCensus">
