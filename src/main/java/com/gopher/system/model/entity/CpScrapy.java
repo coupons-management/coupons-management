@@ -11,7 +11,7 @@ public class CpScrapy implements Serializable {
     private Integer id;
 
     private Integer outSiteId;
-
+    private Integer weight;
     private String name;
 
     private String enable;
@@ -40,7 +40,15 @@ public class CpScrapy implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
+    public Integer getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -18,6 +18,7 @@ import com.gopher.system.dao.mysql.CpCouponCensusDAO;
 import com.gopher.system.dao.mysql.CpCouponDAO;
 import com.gopher.system.dao.mysql.CpInSiteDAO;
 import com.gopher.system.dao.mysql.CpScrapyDAO;
+import com.gopher.system.dao.mysql.CpScrapyRecodeDAO;
 import com.gopher.system.dao.mysql.CpScrapyStoreDAO;
 import com.gopher.system.dao.mysql.CpSiteStoreDAO;
 import com.gopher.system.dao.mysql.CpStoreDAO;
@@ -30,6 +31,7 @@ import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpCouponCensus;
 import com.gopher.system.model.entity.CpInSite;
 import com.gopher.system.model.entity.CpScrapy;
+import com.gopher.system.model.entity.CpScrapyRecode;
 import com.gopher.system.model.entity.CpScrapyStore;
 import com.gopher.system.model.entity.CpSiteStore;
 import com.gopher.system.model.entity.CpStore;
@@ -40,6 +42,7 @@ import com.gopher.system.model.entity.TMessage;
 import com.gopher.system.service.SynDataService;
 import com.gopher.system.util.CateGoryJson;
 import com.gopher.system.util.CouPonJson;
+import com.gopher.system.util.DataCacheUtils;
 import com.gopher.system.util.DateUtils;
 import com.gopher.system.util.StoreJson;
 import com.gopher.system.util.TitleUtils;
@@ -73,6 +76,9 @@ public class SynDataServiceImpl implements SynDataService {
 	CpTitleMessageDAO cpTitleMessageDAO;
 	@Autowired
 	CpStoreTemplateDAO cpStoreTemplateDAO;
+	@Autowired
+	CpScrapyRecodeDAO cpScrapyRecodeDAO;
+	
 	ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 200, TimeUnit.MILLISECONDS,
 			new LinkedBlockingDeque<Runnable>(5));
 
@@ -366,7 +372,7 @@ public class SynDataServiceImpl implements SynDataService {
 					site.setUrl(siteUrl);
 					site.setName(this.getName(siteUrl));
 					site.setCreateTime(new Date());
-					site.setLanguage("e2n");
+					//site.setLanguage("e2n");
 					cpInSiteDAO.insert(site);
 				}
 
@@ -388,6 +394,11 @@ public class SynDataServiceImpl implements SynDataService {
 				param.setScrapyName(cpScrapy.getName());
 				param.setStoreId(cpStore.getId());
 				CpCouponCensus census=cpCouponCensusDAO.getBean(param);
+				Integer weight=DataCacheUtils.scrapyMap.get(cpScrapy.getName());
+				if(weight==null||weight<=0)
+				{
+					weight=1;	
+				}
 				if(census==null)
 				{
 				census=new CpCouponCensus();
@@ -396,12 +407,16 @@ public class SynDataServiceImpl implements SynDataService {
 				census.setCouponName(cpCoupon.getName());
 				census.setScrapyName(cpScrapy.getName());
 				census.setStoreId(cpStore.getId());
-				census.setSort(stu.getIndex());
+				//census.setSort(stu.getIndex());
+				
+				census.setSort(weight*(DataCacheUtils.VALUES-stu.getIndex()));
+				
 				census.setScrapyTime(new Date());
 				census.setCreateTime(new Date());
 				cpCouponCensusDAO.insert(census);
 				}else {
-					census.setSort(stu.getIndex());
+					//census.setSort(stu.getIndex());
+					census.setSort(weight*(DataCacheUtils.VALUES-stu.getIndex()));
 					census.setScrapyTime(new Date());
 					census.setUpdateTime(new Date());
 					cpCouponCensusDAO.updateByPrimaryKey(census);
@@ -445,14 +460,15 @@ public class SynDataServiceImpl implements SynDataService {
 		{
 			for(CpStoreTemplate  message:tempList)
 			{
+				
 				if(TitleUtils.storeMessageMap.get(message.getName())==null)
 				{
 					List<String>dataList=new ArrayList<String>();
 					dataList.add(message.getMessage());
 					TitleUtils.storeMessageMap.put(message.getName(), dataList);
 				}else {
-					List<String>dataList=TitleUtils.messageMap.get(message.getName());
-					if(dataList==null)return;
+					List<String>dataList=TitleUtils.storeMessageMap.get(message.getName());
+					if(dataList==null)continue;
 					dataList.add(message.getMessage());
 					TitleUtils.storeMessageMap.put(message.getName(), dataList);	
 				}
@@ -462,31 +478,7 @@ public class SynDataServiceImpl implements SynDataService {
 
 	}
 
-	// 同步当天的数据，同步完成后，删除当前信息，到备份表
-	/*@Override
-	public void synScrapyData() {
-		try {
 
-			List<TMessage> list = synMessageDataMapper.getScrapyeMessages();
-			for (final TMessage message : list) {
-				executor.execute(new Thread(new Runnable() {
-					@Override
-					public void run() {
-						String objectStr = message.getMessageBody();
-						JSONObject jsonObject = JSONObject.parseObject(objectStr);
-						CateGoryJson json = (CateGoryJson) JSONObject.toJavaObject(jsonObject, CateGoryJson.class);
-						synMessageDataMapper.insertScrapye(json);
-						synMessageDataMapper.updateScMessageStatus(message.getPkId());
-
-					}
-				}, "name"));
-
-			}
-		} catch (Exception e) {
-			logger.debug(e.getMessage());
-		}
-
-	}*/
 
 	@Override
 	public void synTypeData() {
@@ -585,6 +577,26 @@ public class SynDataServiceImpl implements SynDataService {
 		synMessageDataDao.deleteCategoryMessage();
 		synMessageDataDao.deleteCouPonMessages();
 		synMessageDataDao.deleteStoreMessage();
+		
+	}
+
+	@Override
+	public void startScrapy(String scrapy) {
+		CpScrapyRecode recode=cpScrapyRecodeDAO.getBeanByScrapyName(scrapy);
+		if(recode==null)
+		{     recode=new CpScrapyRecode();
+		      recode.setStatus("1");
+		      recode.setScrapyName(scrapy);
+		      recode.setStartTime(new Date());
+		      cpScrapyRecodeDAO.insert(recode);
+		}else {
+			 
+			   recode.setStatus("1");
+			   recode.setStartTime(new Date());
+		      cpScrapyRecodeDAO.updateByPrimaryKey(recode);	
+		}
+	
+		
 		
 	}
 }

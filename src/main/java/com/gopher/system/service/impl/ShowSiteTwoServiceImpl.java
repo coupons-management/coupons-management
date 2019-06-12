@@ -263,17 +263,17 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 			return null;
 		}
 
-		if (StringUtils.isEmpty(store.getShowName())) {
+		if (StringUtils.isEmpty(store.getShowName())||"null".equals(store.getShowName())) {
 			store.setShowName(TitleUtils.getStoreMessage("SHOWNAME"));
 		}
-		if (StringUtils.isEmpty(store.getStoreDes())) {
+		if (StringUtils.isEmpty(store.getStoreDes())||"null".equals(store.getStoreDes())) {
 			store.setHeaderDes(TitleUtils.getStoreMessage("STOREDES"));
 		}
 
-		if (StringUtils.isEmpty(store.getTitle())) {
+		if (StringUtils.isEmpty(store.getTitle())||"null".equals(store.getTitle())) {
 			store.setTitle(TitleUtils.getStoreMessage("TITLE"));
 		}
-		if (StringUtils.isEmpty(store.getKeywords())) {
+		if (StringUtils.isEmpty(store.getKeywords())||"null".equals(store.getKeywords())) {
 			store.setKeywords(TitleUtils.getStoreMessage("KEYWORD"));
 		}
 

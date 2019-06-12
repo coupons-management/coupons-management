@@ -7,13 +7,14 @@
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="ENABLE" jdbcType="VARCHAR" property="enable" />
     <result column="PROJECT" jdbcType="VARCHAR" property="project" />
+    <result column="WEIGHT" jdbcType="INTEGER" property="weight" />
     <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
     <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, OUT_SITE_ID, `NAME`, `ENABLE`, PROJECT, CREATE_USER, UPDATE_USER, CREATE_TIME, 
+    ID, OUT_SITE_ID, `NAME`, `ENABLE`, PROJECT, WEIGHT,CREATE_USER, UPDATE_USER, CREATE_TIME, 
     UPDATE_TIME
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

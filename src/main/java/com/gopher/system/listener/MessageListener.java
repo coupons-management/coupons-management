@@ -2,6 +2,7 @@ package com.gopher.system.listener;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -12,9 +13,11 @@ import javax.servlet.annotation.WebListener;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.gopher.system.model.entity.CpScrapy;
 import com.gopher.system.model.entity.CpScrapyRecode;
 import com.gopher.system.model.entity.TMessage;
 import com.gopher.system.service.MessageDataService;
+import com.gopher.system.util.DataCacheUtils;
 import com.gopher.system.util.JmsConsumer;
 import com.gopher.system.util.MqPropertiesUtils;
 import com.gopher.system.util.SpiderStatusJson;
@@ -54,6 +57,7 @@ public class MessageListener implements ServletContextListener {
         this.synStore();
         this.synCoupon();
         this.synSpiderStatus();
+        this.initScrapy();
 
     }
     
@@ -246,9 +250,25 @@ public class MessageListener implements ServletContextListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
-
 	}
+    
+    
+    
+    
+    public  void initScrapy() {
+    	MessageDataService messageDataService=(MessageDataService) SpringContextUtil.getBean("messageDataService");
+		try {
+			List<CpScrapy> list=messageDataService.getScrapyList();
+			for(CpScrapy cp:list)
+			{
+				DataCacheUtils.scrapyMap.put(cp.getName(), cp.getWeight());
+			}
+	        
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
     
 }

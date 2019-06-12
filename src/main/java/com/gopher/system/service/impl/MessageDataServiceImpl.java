@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gopher.system.dao.mysql.CpCouponCensusDAO;
+import com.gopher.system.dao.mysql.CpScrapyDAO;
 import com.gopher.system.dao.mysql.CpScrapyRecodeDAO;
 import com.gopher.system.dao.mysql.SynMessageDataDao;
 import com.gopher.system.model.entity.CpCouponCensus;
+import com.gopher.system.model.entity.CpScrapy;
 import com.gopher.system.model.entity.CpScrapyRecode;
 import com.gopher.system.model.entity.TMessage;
 import com.gopher.system.service.MessageDataService;
@@ -23,6 +25,8 @@ public class MessageDataServiceImpl implements MessageDataService {
 	CpScrapyRecodeDAO cpScrapyRecodeDAO;
 	@Autowired
 	CpCouponCensusDAO cpCouponCensusDAO;
+	@Autowired
+	CpScrapyDAO cpScrapyDAO;
 	
 	@Override
 	public List<TMessage> getStoreMessages() {
@@ -60,7 +64,8 @@ public class MessageDataServiceImpl implements MessageDataService {
 		
 		CpScrapyRecode recode=cpScrapyRecodeDAO.getBeanByScrapyName(json.getSpider());
 		if(recode==null)
-		{     recode.setScrapyName(json.getSpider());
+		{     recode=new CpScrapyRecode();
+			  recode.setScrapyName(json.getSpider());
 		      recode.setStatus(json.getStatus());
 		      recode.setEndTime(json.getEndTime());
 		      cpScrapyRecodeDAO.insert(recode);
@@ -84,6 +89,11 @@ public class MessageDataServiceImpl implements MessageDataService {
 		
 	
 		
+	}
+	@Override
+	public List<CpScrapy> getScrapyList() {
+		return cpScrapyDAO.getList();
+	
 	}
 	
 	
