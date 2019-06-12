@@ -23,9 +23,9 @@ public class SynBasicsData {
 	@SuppressWarnings("unchecked")
 	public void synDate(){
 		//同步类型
-		synDataService.synTypeData();
+		//synDataService.synTypeData();
 		//同步商家
-		synDataService.synStoreData();
+		//synDataService.synStoreData();
 		//同步优惠卷
 		synDataService.synCouponData();
 		
@@ -92,8 +92,10 @@ public class SynBasicsData {
 			        JSONObject jsonObject = JSONObject.parseObject(sr);
 			        Message json = (Message) JSONObject.toJavaObject(jsonObject, Message.class);
 			        if("ok".equals(json.getStatus()))
-			        {
-			        	 System.out.println("=========================================爬虫 offer 启动成功=================================================================");	
+			        {    
+			        	 System.out.println("=========================================爬虫 offer 启动成功=================================================================");
+			        	 synDataService.startScrapy("offer");
+			        	 
 			        }else {
 			        	 System.out.println("=========================================爬虫 offer 启动失败=================================================================");	
 			        }

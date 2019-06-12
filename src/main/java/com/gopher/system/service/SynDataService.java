@@ -24,6 +24,12 @@ public interface SynDataService {
 	
 	
 	void initData();
+	/**
+	 * 启动爬虫
+	 * @param scrapy
+	 */
+	void startScrapy(String scrapy);
+	
 	
 
 
