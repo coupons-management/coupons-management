@@ -8,7 +8,7 @@ public enum State {
 	private String description;
 	private int state;
 	
-	private State(int state, String description) {
+	 State(int state, String description) {
 		this.state = state;
 		this.description = description;
 	}

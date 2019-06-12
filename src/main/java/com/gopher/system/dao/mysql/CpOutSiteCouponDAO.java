@@ -19,18 +19,18 @@ public interface CpOutSiteCouponDAO extends MyBatisBaseDao<CpOutSiteCoupon, Inte
 	
 	/**
 	 * 修改热门排序
-	 * @param cpSiteStore
+	 * @param cpOutSiteCoupon
 	 */
 	void updateHotSort(CpOutSiteCoupon cpOutSiteCoupon);
 	/**
 	 * 修改热门推荐
-	 * @param cpSiteStore
+	 * @param cpOutSiteCoupon
 	 */
 	void updateAdviseSort(CpOutSiteCoupon cpOutSiteCoupon);
 
 	/**
 	 * 查询热门优惠卷
-	 * @param cpOutSiteCoupon
+	 * @param obj
 	 * @return
 	 */
 	List<CpOutSiteCouponVo> getHotList(CouponPageRequest obj);

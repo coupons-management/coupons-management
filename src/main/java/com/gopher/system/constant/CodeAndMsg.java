@@ -15,7 +15,7 @@ public enum CodeAndMsg {
 	private String msg;
 	private int code;
 	
-	private CodeAndMsg(int code, String msg) {
+	 CodeAndMsg(int code, String msg) {
 		this.code = code;
 		this.msg = msg;
 	}

@@ -25,17 +25,17 @@ public enum SystemConstants {
 	private Integer value;
 	private String description;
 	
-	private SystemConstants(Integer value, String description) {
+	 SystemConstants(Integer value, String description) {
 		this.value = value;
 		this.description = description;
 	}
 	public static String getDescription(Object value) {
 		for (SystemConstants item : SystemConstants.values()) {
-			if (Objects.deepEquals(item.getValue(), value)) {
+			if (Objects.equals(item.getValue(), value)) {
 				return item.description;
 			}
 		}
-		return null;
+		return "";
 	}
 	public Integer getValue() {
 		return value;
