@@ -15,8 +15,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
 
-//@Aspect
-//@Component
+@Aspect
+@Component
 public class ParamAspect {
 	private static final Logger log = LoggerFactory.getLogger(ParamAspect.class);
 
