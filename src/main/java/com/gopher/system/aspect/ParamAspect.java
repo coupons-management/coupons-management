@@ -20,7 +20,7 @@ import com.alibaba.fastjson.JSON;
 public class ParamAspect {
 	private static final Logger log = LoggerFactory.getLogger(ParamAspect.class);
 
-	@Pointcut("execution(public * com.gopher.system.service.*.*(..))")
+	@Pointcut("execution(public * com.gopher.system.controller.*.*(..)) && !execution(* com.gopher.system.controller.FileUploadController.*(..))")
 	public void paramFilter() {
 
 	}

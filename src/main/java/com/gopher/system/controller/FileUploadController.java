@@ -46,4 +46,10 @@ public class FileUploadController {
         result.setData(baseUrl+fileName);
         return result;
     }
+	
+	@RequestMapping(value="/test",method=RequestMethod.GET)
+    public Result test()throws Exception{
+        Result result = new Result();
+        return result;
+    }
 }
