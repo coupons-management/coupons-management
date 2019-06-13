@@ -12,8 +12,23 @@ public interface WebSiteService {
 	 * @return
 	 */
 	Page<CpCouponVo> getCouponListByCategory(CategoryRequest categoryRequest);
-	
+
+	/**
+	 * 获取商家详情 商家信息 和商家下下所有的优惠券列表
+	 * @param storeRequest
+	 * @return
+	 */
 	StoreDetailResponse getStoreDetail(StoreRequest storeRequest);
+
+	/**
+	 * 更新优惠券点击次数
+	 */
+	void updateCouponClickCount(CpCouponVo cpCouponVo);
+
+	/**
+	 * 更新商家访问次数
+	 */
+	void updateStoreVisitCount(StoreRequest storeRequest);
 	
 	
 	

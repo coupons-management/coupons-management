@@ -5,18 +5,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import com.gopher.system.dao.mysql.*;
+import com.gopher.system.model.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
-import com.gopher.system.dao.mysql.CpSitestoreTypeDAO;
-import com.gopher.system.dao.mysql.CpStoreDAO;
-import com.gopher.system.dao.mysql.CpTypeStoreDAO;
 import com.gopher.system.exception.BusinessRuntimeException;
-import com.gopher.system.model.entity.CpSitestoreType;
-import com.gopher.system.model.entity.CpStore;
-import com.gopher.system.model.entity.CpTypeStore;
 import com.gopher.system.model.vo.CpCouponVo;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CategoryRequest;
@@ -33,6 +28,8 @@ public class WebSiteServiceImpl implements WebSiteService {
 	private CpTypeStoreDAO cpTypeStoreDAO;
 	@Autowired
 	private CpOutSiteCouponDAO cpOutSiteCouponDAO;
+	@Autowired
+	private CpOutSiteStoreDAO cpOutSiteStoreDAO;
 	@Autowired
 	private CpStoreDAO cpStoreDAO;
 
@@ -143,6 +140,37 @@ public class WebSiteServiceImpl implements WebSiteService {
 		page.setTotalCount(totalCount);
 		result.setCouponList(page);
 		return result;
+	}
+
+	@Override
+	public void updateCouponClickCount(CpCouponVo cpCouponVo) {
+       if(null ==  cpCouponVo){
+       	throw new BusinessRuntimeException("参数不能为空");
+	   }
+       final Integer id = cpCouponVo.getId();
+       if(null == id || id <=0){
+		   throw new BusinessRuntimeException("无效的ID");
+	   }
+       CpOutSiteCoupon coupon = cpOutSiteCouponDAO.selectByPrimaryKey(id);
+       if(null == coupon){
+		   throw new BusinessRuntimeException("根据ID找不到记录");
+	   }
+		coupon.setClickCount(coupon.getClickCount() +1);
+		cpOutSiteCouponDAO.updateByPrimaryKeySelective(coupon);
+	}
+
+	@Override
+	public void updateStoreVisitCount(StoreRequest storeRequest) {
+		if(null ==  storeRequest){
+			throw new BusinessRuntimeException("参数不能为空");
+		}
+		CpOutSiteStore store = cpOutSiteStoreDAO.selectByPrimaryKey(storeRequest.getId());
+		if(null == store){
+			throw new BusinessRuntimeException("根据ID找不到记录");
+		}
+		store.setVisitCount(store.getVisitCount() + 1);
+		cpOutSiteStoreDAO.updateByPrimaryKeySelective(store);
+
 	}
 
 	/**

@@ -61,6 +61,18 @@ public class CpOutSiteCoupon implements Serializable {
     private Date updateTime;
     
     private String link;
+    /**
+     * 当前优惠券在当前站点下的点击次数
+     */
+    private Integer clickCount;
+
+    public Integer getClickCount() {
+        return clickCount;
+    }
+
+    public void setClickCount(Integer clickCount) {
+        this.clickCount = clickCount;
+    }
 
     public String getLink() {
 		return link;

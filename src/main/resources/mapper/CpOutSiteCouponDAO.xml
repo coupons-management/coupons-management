@@ -22,6 +22,8 @@
 			property="createTime" />
 		<result column="UPDATE_TIME" jdbcType="TIMESTAMP"
 			property="updateTime" />
+		<result column="CLICK_COUNT" jdbcType="INTEGER"
+				property="clickCount" />
 	</resultMap>
 
 	<resultMap id="BaseResultVoMap"
@@ -53,7 +55,7 @@
 		ID, COUPON_ID, OUT_SITE_ID, STORE_ID, TITLE, HOT_SORT,
 		ADVISE_SORT,
 		CREATE_USER,
-		UPDATE_USER, CREATE_TIME, UPDATE_TIME
+		UPDATE_USER, CREATE_TIME, UPDATE_TIME,CLICK_COUNT
 	</sql>
 	<select id="selectByPrimaryKey"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -188,6 +190,12 @@
 			</if>
 			<if test="updateTime != null">
 				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="clickCount != null">
+				CLICK_COUNT = #{clickCount}
+			</if>
+			<if test="visitCount !=null">
+				CLICK_COUNT = #{visitCount}
 			</if>
 		</set>
 		where ID = #{id,jdbcType=INTEGER}

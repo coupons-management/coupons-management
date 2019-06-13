@@ -3,10 +3,19 @@ package com.gopher.system.model.vo.request;
 import com.gopher.system.model.vo.PageRequestBase;
 
 public class StoreRequest extends PageRequestBase{
+	private int id;
 	private int storeId;
 	private int siteId;
 	private String couponType;
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getCouponType() {
 		return couponType;
 	}

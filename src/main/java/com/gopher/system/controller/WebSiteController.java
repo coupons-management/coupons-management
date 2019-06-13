@@ -1,5 +1,6 @@
 package com.gopher.system.controller;
 
+import com.gopher.system.model.vo.CpCouponVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,27 +26,41 @@ public class WebSiteController {
 	/**
 	 * 获取商家详情 涵盖商家所有信息
 	 *          商家下的所有优惠券
-	 * @param quest
+	 * @param storeRequest
 	 * @return
 	 */
 	@RequestMapping(path="/getStoreDetail")
-	Result getStoreDetail(@RequestBody StoreRequest storeRequest){
+	public Result getStoreDetail(@RequestBody StoreRequest storeRequest){
 		Result result = new Result();
 		result.setData(webSiteService.getStoreDetail(storeRequest));
 		return result;
 	}
 	
 	@RequestMapping(path="/getCouponsByCategory")
-	Result getCouponsByCategory(@RequestBody CategoryRequest categoryRequest){
+	public Result getCouponsByCategory(@RequestBody CategoryRequest categoryRequest){
 		Result result = new Result();
 		result.setData(webSiteService.getCouponListByCategory(categoryRequest));
 		return result;
 	}
 	
 	@RequestMapping(path="/getCategoryChild")
-	Result getCategoryChild(@RequestBody CategoryRequest categoryRequest){
+	public Result getCategoryChild(@RequestBody CategoryRequest categoryRequest){
 		Result result = new Result();
 		result.setData(showSiteTypeService.getSonList(categoryRequest.getId()));
+		return result;
+	}
+
+	@RequestMapping(path="/visitStore")
+	public Result visitStore(@RequestBody StoreRequest storeRequest){
+		Result result = new Result();
+		webSiteService.updateStoreVisitCount(storeRequest);
+		return result;
+	}
+
+	@RequestMapping(path="/clickCoupon")
+	public Result visitStore(@RequestBody CpCouponVo cpCouponVo){
+		Result result = new Result();
+		webSiteService.updateCouponClickCount(cpCouponVo);
 		return result;
 	}
 }

@@ -36,6 +36,8 @@
 		<result column="HOT_SORT" jdbcType="INTEGER" property="hotSort" />
 		<result column="ADVISE_SORT" jdbcType="INTEGER"
 			property="adviseSort" />
+		<result column="VISIT_COUNT" jdbcType="INTEGER"
+				property="visitCount" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID, OUT_ID, STORE_ID, CREATE_USER, UPDATE_USER,
@@ -45,7 +47,7 @@
 		IS_MANUAL, TITLE, KEYWORDS, DES, SHOW_NAME,
 		STORE_DES,
 		HEADER_DES,
-		HOT_SORT, ADVISE_SORT
+		HOT_SORT, ADVISE_SORT,VISIT_COUNT
 	</sql>
 
 
@@ -88,6 +90,7 @@
 		<result column="TITLE" jdbcType="VARCHAR" property="title" />
 		<result column="DES" jdbcType="VARCHAR" property="des" />
 	</resultMap>
+
 	<sql id="BaseCount_Column_List">
 		ID, STORE_ID, `NAME`, CODE, EXPIRE_AT, STORE_WEBSITE_CRC,
 		STORE_NAME_CRC,
@@ -325,6 +328,9 @@
 			</if>
 			<if test="adviseSort != null">
 				ADVISE_SORT = #{adviseSort,jdbcType=INTEGER},
+			</if>
+			<if test="visitCount != null">
+				VISIT_COUNT = #{visitCount,jdbcType=INTEGER},
 			</if>
 		</set>
 		where ID = #{id,jdbcType=INTEGER}

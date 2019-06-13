@@ -72,6 +72,18 @@ public class CpOutSiteStore implements Serializable {
 	 * 商家logo
 	 */
 	private String logo;
+	/**
+	 * 该商家在当前官网被访问的次数
+	 */
+	private Integer visitCount;
+
+	public Integer getVisitCount() {
+		return visitCount;
+	}
+
+	public void setVisitCount(Integer visitCount) {
+		this.visitCount = visitCount;
+	}
 
 	public String getLogo() {
 		return logo;

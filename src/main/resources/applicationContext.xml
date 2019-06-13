@@ -28,7 +28,5 @@
 	<bean id="messageDataService"
 		class="com.gopher.system.service.impl.MessageDataServiceImpl">
 	</bean>
-	<!-- 使AspectJ注解自动为匹配的类生成代理对象 -->
-	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
 </beans>
