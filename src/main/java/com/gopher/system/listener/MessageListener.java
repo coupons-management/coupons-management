@@ -254,7 +254,9 @@ public class MessageListener implements ServletContextListener {
     
     
     
-    
+    /**
+     * 初始化爬虫数据
+     */
     public  void initScrapy() {
     	MessageDataService messageDataService=(MessageDataService) SpringContextUtil.getBean("messageDataService");
 		try {
