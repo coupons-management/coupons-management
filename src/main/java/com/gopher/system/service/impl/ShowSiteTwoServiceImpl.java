@@ -277,8 +277,8 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 			store.setKeywords(TitleUtils.getStoreMessage("KEYWORD"));
 		}
 
-		if (StringUtils.isEmpty(store.getDes())) {
-			store.setHeaderDes(TitleUtils.getStoreMessage("DESCRIPTION"));
+		if (StringUtils.isEmpty(store.getStoreDes())) {
+			store.setStoreDes(TitleUtils.getStoreMessage("DESCRIPTION"));
 		}
 
 		return store;
