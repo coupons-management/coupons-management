@@ -15,7 +15,14 @@ import com.gopher.system.model.vo.request.StorePageRequst;
  */
 @Repository
 public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
-	public CpStore getBeanByWebSite(String website);
+	 CpStore getBeanByWebSite(String website);
+
+	/**
+	 * 根据爬虫ID 获取商家列表
+	 * @param scrapyId
+	 * @return
+	 */
+	 List<CpStore> getListByScrayp(int scrapyId);
 
 	/**
 	 * 获得分页列表
@@ -36,7 +43,7 @@ public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
 	/**
 	 * 获得爬虫商家分页列表
 	 * 
-	 * @param storePageRequest
+	 * @param storeAllPageRequst
 	 * @return
 	 */
 	List<StoreAllPageRequst> getScrapyPageList(StoreAllPageRequst storeAllPageRequst);
@@ -44,7 +51,7 @@ public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
 	/**
 	 * 获得爬虫总数
 	 * 
-	 * @param storePageRequest
+	 * @param storeAllPageRequst
 	 * @return
 	 */
 	int getScrapyCount(StoreAllPageRequst storeAllPageRequst);	
@@ -53,7 +60,7 @@ public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
 	/**
 	 * 获得爬虫商家分页列表
 	 * 
-	 * @param storePageRequest
+	 * @param storeAllPageRequst
 	 * @return
 	 */
 	List<StoreAllPageRequst> getErrScrapyPageList(StoreAllPageRequst storeAllPageRequst);
@@ -61,7 +68,7 @@ public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
 	/**
 	 * 获得爬虫总数
 	 * 
-	 * @param storePageRequest
+	 * @param storeAllPageRequst
 	 * @return
 	 */
 	int getErrScrapyCount(StoreAllPageRequst storeAllPageRequst);	
@@ -71,10 +78,19 @@ public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
 	 * @return
 	 */
 	 void updateLogo(CpStore website);
+
 	 List<CpStoreVo> getOffWebStorePageList(StorePageRequst quest);
+
 	 int getOffWebTotalCount(StorePageRequst quest);
-	 
+
+	/**
+	 *
+	 * @param quest
+	 * @return
+	 */
 	 List<CpStoreVo> getTopStoreList(CpSitestoreRequest quest);
+
+
 	
 }
 

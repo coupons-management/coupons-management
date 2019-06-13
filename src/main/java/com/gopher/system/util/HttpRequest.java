@@ -145,9 +145,19 @@ public class HttpRequest {
         
         String m=HttpRequest.sendPost("http://18.234.205.204:6800/cancel.json", "project=coupon_spider&job=6487ec79947edab326d6db28a2d86511e8247444");
         System.out.println(m);*/
-    	
-    	   String s=HttpRequest.sendPost("http://localhost:8080/system/showSiteTwo/getTwoList", "");
-           System.out.println(s);
+//
+//    	   String s=HttpRequest.sendPost("http://localhost:8080/system/showSiteTwo/getTwoList", "");
+//           System.out.println(s);
+
+        String sr=HttpRequest.sendPost("http://18.234.205.204:6800/schedule.json", "project=coupon_spider&spider=couponpatwo");
+        JSONObject jsonObject = JSONObject.parseObject(sr);
+        Message json = (Message) JSONObject.toJavaObject(jsonObject, Message.class);
+        if("ok".equals(json.getStatus()))
+        {
+            System.out.println("=========================================爬虫 offer 启动成功=================================================================");
+        }else {
+            System.out.println("=========================================爬虫 offer 启动失败=================================================================");
+        }
        
     }
 

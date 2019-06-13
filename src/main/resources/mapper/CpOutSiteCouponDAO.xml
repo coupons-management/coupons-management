@@ -402,8 +402,8 @@
 		cp.IS_PASS AS isPass,
 		cp.CREATE_TIME AS createTime,
 		osp.CREATE_TIME AS joinTime,
-		cp.IN_TYPE AS
-		inType
+		cp.IN_TYPE AS inType,
+		osp.CLICK_COUNT AS clickCount
 		FROM
 		CP_COUPON cp
 		INNER JOIN

@@ -36,7 +36,16 @@ public class ShowSiteCouponResponse {
 	private String inType;
 	
 	private boolean isManual;
-	
+
+	private int clickCount;
+
+	public int getClickCount() {
+		return clickCount;
+	}
+
+	public void setClickCount(int clickCount) {
+		this.clickCount = clickCount;
+	}
 
 	public Integer getMapId() {
 		return mapId;
