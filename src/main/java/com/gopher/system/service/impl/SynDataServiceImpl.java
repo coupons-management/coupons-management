@@ -590,13 +590,11 @@ public class SynDataServiceImpl implements SynDataService {
 		      recode.setStartTime(new Date());
 		      cpScrapyRecodeDAO.insert(recode);
 		}else {
-			 
 			   recode.setStatus("1");
 			   recode.setStartTime(new Date());
 		      cpScrapyRecodeDAO.updateByPrimaryKey(recode);	
 		}
-	
-		
+
 		
 	}
 }

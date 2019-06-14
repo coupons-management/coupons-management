@@ -4,12 +4,21 @@ import com.gopher.system.model.vo.CpCouponVo;
 import com.gopher.system.model.vo.Page;
 
 public class StoreDetailResponse {
+	private int id;
     private String name;
     private String description;
     private String logo;
     private String website;
-    
-    private Page<CpCouponVo> couponList;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	private Page<CpCouponVo> couponList;
 
 	public String getName() {
 		return name;

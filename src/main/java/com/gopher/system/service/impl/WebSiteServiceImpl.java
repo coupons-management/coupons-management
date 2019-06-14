@@ -129,9 +129,17 @@ public class WebSiteServiceImpl implements WebSiteService {
 		if (null == cpStore) {
 			throw new BusinessRuntimeException("根据商家ID找不到商家信息");
 		}
+		CpOutSiteStore cpOutSiteStore = new CpOutSiteStore();
+		cpOutSiteStore.setOutId(siteId);
+		cpOutSiteStore.setStoreId(storeId);
+		cpOutSiteStore = cpOutSiteStoreDAO.getOne(cpOutSiteStore);
+		if(null == cpOutSiteStore){
+           throw new BusinessRuntimeException("当前站点:"+siteId+"找不到该商家:"+storeId);
+		}
+		result.setId(cpOutSiteStore.getId());
 		result.setDescription(cpStore.getDes());
 		result.setLogo(cpStore.getLogoUrl());
-		result.setName(cpStore.getName());
+		result.setName(cpOutSiteStore.getShowName());
 		result.setWebsite(cpStore.getWebsite());
 		Page<CpCouponVo> page = new Page<>();
 		page.setPageNumber(storeRequest.getPageNumber());
@@ -190,7 +198,7 @@ public class WebSiteServiceImpl implements WebSiteService {
 
 	private static String getSale(String title, String couponType) {
 		String sale = "";
-		String[] temp = null;
+		String[] temp;
 		if (title.contains("%")) {
 			int mark_index = title.indexOf("%");
 			temp = title.substring(mark_index).split(" ");

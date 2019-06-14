@@ -789,6 +789,21 @@
 		COSC.STORE_ID=#{storeId}
 	</select>
 
+	<select id="getOne" parameterType="com.gopher.system.model.entity.CpOutSiteStore" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CP_OUT_SITE_STORE
+		<where>
+			<if test="outId !=null and outId !=''">
+			    OUT_ID = #{outId}
+			</if>
+            <if test="storeId !=null and storeId != '' ">
+                AND STORE_ID = #{storeId}
+			</if>
+		</where>
+        LIMIT 1
+	</select>
+
 	<update id="clearHotSort">
 		UPDATE CP_OUT_SITE_STORE
 		SET HOT_SORT = 0
