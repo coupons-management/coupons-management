@@ -16,6 +16,10 @@ import com.gopher.system.service.StatisticService;
 
 import java.util.*;
 
+/**
+ * @author dongyangyang
+ * 统计
+ */
 @Service
 public class StatisticServiceImpl implements StatisticService {
     @Autowired
