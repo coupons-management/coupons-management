@@ -46,7 +46,9 @@ public class StatisticServiceImpl implements StatisticService {
         statisticRequest.setEndDate(new Date(endTime));
         List<StatisticResponse> result = new ArrayList<>();
         Map<String, StatisticResponse> temp = new HashMap<>();
+        Set<Integer> store_update = new HashSet<>();
         List<SpiderStatistic> list = spiderStatisticDAO.findList(statisticRequest);
+
         if (null != list) {
             for (SpiderStatistic spiderStatistic : list) {
                 String key = "";
@@ -66,7 +68,7 @@ public class StatisticServiceImpl implements StatisticService {
                 value.setTotalCoupon(value.getTotalCoupon() + spiderStatistic.getTotalCoupon());
                 value.setValidCoupon(value.getValidCoupon() + spiderStatistic.getValidCoupon());
                 value.setIncrementStore(value.getIncrementStore() + spiderStatistic.getIsNewStore());
-                if (spiderStatistic.getIncrementCoupon() > 0) {
+                if (spiderStatistic.getIncrementCoupon() > 0 && store_update.add(spiderStatistic.getStoreId())) {
                     value.setUpdateStore(value.getUpdateStore() + 1);
                 }
                 temp.put(key, value);
