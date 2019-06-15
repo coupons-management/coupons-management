@@ -51,7 +51,53 @@ public class StorePageRequst extends PageRequestBase{
 	 * 信息是否完整
 	 */
 	private String isComplete;
-	
+
+	//======================维护操作的参数===========================
+
+	private int spiderId;
+
+	private long beginTime;
+
+	private long endTime;
+	/**
+	 * 1= 有新增优惠券
+	 * 2= 无新增优惠券
+	 * 3= 新增的商家
+	 */
+	private int range;
+
+	public int getSpiderId() {
+		return spiderId;
+	}
+
+	public void setSpiderId(int spiderId) {
+		this.spiderId = spiderId;
+	}
+
+	public long getBeginTime() {
+		return beginTime;
+	}
+
+	public void setBeginTime(long beginTime) {
+		this.beginTime = beginTime;
+	}
+
+	public long getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(long endTime) {
+		this.endTime = endTime;
+	}
+
+	public int getRange() {
+		return range;
+	}
+
+	public void setRange(int range) {
+		this.range = range;
+	}
+
 	public String getName() {
 		return name;
 	}

@@ -392,7 +392,7 @@
             </if>
             <if test="storeIdList != null ">
                 AND ID IN
-                <foreach collection="list" item="id" index="index" open="("
+                <foreach collection="storeIdList" item="id" index="index" open="("
                          close=")" separator=",">
                     #{id}
                 </foreach>
@@ -434,7 +434,7 @@
             </if>
             <if test="storeIdList != null ">
                 AND ID IN
-                <foreach collection="list" item="id" index="index" open="("
+                <foreach collection="storeIdList" item="id" index="index" open="("
                          close=")" separator=",">
                     #{id}
                 </foreach>

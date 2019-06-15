@@ -44,11 +44,11 @@ public class StatisticServiceImpl implements StatisticService {
         }
         statisticRequest.setBeginDate(new Date(beginTime));
         statisticRequest.setEndDate(new Date(endTime));
+        List<SpiderStatistic> list = spiderStatisticDAO.findList(statisticRequest);
+
         List<StatisticResponse> result = new ArrayList<>();
         Map<String, StatisticResponse> temp = new HashMap<>();
         Set<Integer> store_update = new HashSet<>();
-        List<SpiderStatistic> list = spiderStatisticDAO.findList(statisticRequest);
-
         if (null != list) {
             for (SpiderStatistic spiderStatistic : list) {
                 String key = "";

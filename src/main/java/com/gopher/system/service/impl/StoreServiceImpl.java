@@ -119,7 +119,10 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public Page<StoreResponse> getPage(StorePageRequst storePageRequest) {
-		Page<StoreResponse> result = new Page<StoreResponse>();
+		if(null == storePageRequest){
+			throw new BusinessRuntimeException("参数不能为空");
+		}
+		Page<StoreResponse> result = new Page<>();
 		result.setPageNumber(storePageRequest.getPageNumber());
 		result.setPageSize(storePageRequest.getPageSize());
 		// 爬虫站
@@ -158,7 +161,6 @@ public class StoreServiceImpl implements StoreService {
 				rsp.setShowSiteNameList(this.getInShowSiteNameList(storeId));
 				// 在爬虫站
 				rsp.setSpiderSiteNameList(this.getSpiderSiteNameList(storeId));
-				//TODO 爬虫爬回来的不准 已实际入库的为准 有效优惠券数量
 				rsp.setValidCouponsCount(couponService.getValidCountByStore(storeId) + "/"
 						+couponService.getTotalCountByStore(storeId));
 				rsp.setCreateTime(DateUtils.getDatetimeString(cpStore.getCreateTime()));
