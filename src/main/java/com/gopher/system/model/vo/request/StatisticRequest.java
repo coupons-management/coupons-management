@@ -1,19 +1,46 @@
 package com.gopher.system.model.vo.request;
 
-import com.gopher.system.model.vo.PageRequestBase;
+import java.util.Date;
 
-public class StatisticRequest extends PageRequestBase{
+public class StatisticRequest {
+	/**
+	 * 爬虫id
+	 */
 	private int spiderId;
-	
+	/**
+	 * 开始时间
+	 */
 	private long beginTime;
-	
+	/**
+	 * 结束时间
+	 */
 	private long endTime;
 	/**
 	 * 时间范围 
 	 * @see com.gopher.system.constant.SystemConstants
 	 */
 	private int range;
-	
+
+	private Date beginDate;
+
+	private Date endDate;
+
+	public Date getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
 	public int getSpiderId() {
 		return spiderId;
 	}

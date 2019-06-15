@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gopher.system.dao.mysql.CpStoreDAO">
-	<resultMap id="BaseResultMap"
-		type="com.gopher.system.model.entity.CpStore">
-		<id column="ID" jdbcType="INTEGER" property="id" />
-		<result column="TYPE_ID" jdbcType="INTEGER" property="typeId" />
-		<result column="NAME" jdbcType="VARCHAR" property="name" />
-		<result column="WEBSITE" jdbcType="VARCHAR" property="website" />
-		<result column="TYPE_NAME" jdbcType="VARCHAR"
-			property="typeName" />
-		<result column="LOGO_URL" jdbcType="VARCHAR" property="logoUrl" />
-		<result column="ADVERTISING" jdbcType="VARCHAR"
-			property="advertising" />
-		<result column="CREATED_AT" jdbcType="TIMESTAMP"
-			property="createdAt" />
-		<result column="UUID" jdbcType="VARCHAR" property="uuid" />
-		<result column="DES" jdbcType="VARCHAR" property="des" />
-		<result column="COUNTRY" jdbcType="VARCHAR" property="country" />
-		<result column="NAME_CRC" jdbcType="VARCHAR" property="nameCrc" />
-		<result column="WEBSITE_CRC" jdbcType="VARCHAR"
-			property="websiteCrc" />
-		<result column="COUPON_COUNT" jdbcType="INTEGER"
-			property="couponCount" />
-		<result column="IS_COMPLETE" jdbcType="VARCHAR"
-			property="isComplete" />
+    <resultMap id="BaseResultMap"
+               type="com.gopher.system.model.entity.CpStore">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="TYPE_ID" jdbcType="INTEGER" property="typeId"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="WEBSITE" jdbcType="VARCHAR" property="website"/>
+        <result column="TYPE_NAME" jdbcType="VARCHAR"
+                property="typeName"/>
+        <result column="LOGO_URL" jdbcType="VARCHAR" property="logoUrl"/>
+        <result column="ADVERTISING" jdbcType="VARCHAR"
+                property="advertising"/>
+        <result column="CREATED_AT" jdbcType="TIMESTAMP"
+                property="createdAt"/>
+        <result column="UUID" jdbcType="VARCHAR" property="uuid"/>
+        <result column="DES" jdbcType="VARCHAR" property="des"/>
+        <result column="COUNTRY" jdbcType="VARCHAR" property="country"/>
+        <result column="NAME_CRC" jdbcType="VARCHAR" property="nameCrc"/>
+        <result column="WEBSITE_CRC" jdbcType="VARCHAR"
+                property="websiteCrc"/>
+        <result column="COUPON_COUNT" jdbcType="INTEGER"
+                property="couponCount"/>
+        <result column="IS_COMPLETE" jdbcType="VARCHAR"
+                property="isComplete"/>
 
-		<result column="COUPON_COUNT_VALID" jdbcType="INTEGER"
-			property="couponCountValid" />
-		<result column="IN_TYPE" jdbcType="CHAR" property="inType" />
-		<result column="APPROVAL" jdbcType="CHAR" property="approval" />
-		<result column="TITLE" jdbcType="VARCHAR" property="title" />
-		<result column="CREATE_USER" jdbcType="INTEGER"
-			property="createUser" />
-		<result column="UPDATE_USER" jdbcType="INTEGER"
-			property="updateUser" />
-		<result column="CREATE_TIME" jdbcType="TIMESTAMP"
-			property="createTime" />
-		<result column="UPDATE_TIME" jdbcType="TIMESTAMP"
-			property="updateTime" />
-	</resultMap>
-	<sql id="Base_Column_List">
+        <result column="COUPON_COUNT_VALID" jdbcType="INTEGER"
+                property="couponCountValid"/>
+        <result column="IN_TYPE" jdbcType="CHAR" property="inType"/>
+        <result column="APPROVAL" jdbcType="CHAR" property="approval"/>
+        <result column="TITLE" jdbcType="VARCHAR" property="title"/>
+        <result column="CREATE_USER" jdbcType="INTEGER"
+                property="createUser"/>
+        <result column="UPDATE_USER" jdbcType="INTEGER"
+                property="updateUser"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP"
+                property="createTime"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP"
+                property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
 		ID, TYPE_ID, `NAME`, WEBSITE, TYPE_NAME, LOGO_URL,
 		ADVERTISING,
 		CREATED_AT, UUID,
@@ -50,21 +50,21 @@
 		CREATE_USER,IS_COMPLETE,
 		UPDATE_USER, CREATE_TIME, UPDATE_TIME
 	</sql>
-	<select id="selectByPrimaryKey"
-		parameterType="java.lang.Integer" resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from CP_STORE
-		where ID = #{id,jdbcType=INTEGER}
-	</select>
-	<delete id="deleteByPrimaryKey"
-		parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey"
+            parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from CP_STORE
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey"
+            parameterType="java.lang.Integer">
 		delete from CP_STORE
 		where ID = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" keyColumn="ID" keyProperty="id"
-		parameterType="com.gopher.system.model.entity.CpStore"
-		useGeneratedKeys="true">
+    <insert id="insert" keyColumn="ID" keyProperty="id"
+            parameterType="com.gopher.system.model.entity.CpStore"
+            useGeneratedKeys="true">
 		insert into CP_STORE (TYPE_ID, `NAME`, WEBSITE,
 		TYPE_NAME, LOGO_URL, ADVERTISING,
 		CREATED_AT, UUID, DES,
@@ -98,227 +98,227 @@
 		#{updateTime,jdbcType=TIMESTAMP},#{isComplete,jdbcType=VARCHAR}
 		)
 	</insert>
-	<insert id="insertSelective" keyColumn="ID" keyProperty="id"
-		parameterType="com.gopher.system.model.entity.CpStore"
-		useGeneratedKeys="true">
-		insert into CP_STORE
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="typeId != null">
-				TYPE_ID,
-			</if>
-			<if test="name != null">
-				`NAME`,
-			</if>
-			<if test="website != null">
-				WEBSITE,
-			</if>
-			<if test="typeName != null">
-				TYPE_NAME,
-			</if>
-			<if test="logoUrl != null">
-				LOGO_URL,
-			</if>
-			<if test="advertising != null">
-				ADVERTISING,
-			</if>
-			<if test="createdAt != null">
-				CREATED_AT,
-			</if>
-			<if test="uuid != null">
-				UUID,
-			</if>
-			<if test="des != null">
-				DES,
-			</if>
-			<if test="country != null">
-				COUNTRY,
-			</if>
-			<if test="nameCrc != null">
-				NAME_CRC,
-			</if>
-			<if test="websiteCrc != null">
-				WEBSITE_CRC,
-			</if>
-			<if test="couponCount != null">
-				COUPON_COUNT,
-			</if>
-			<if test="couponCountValid != null">
-				COUPON_COUNT_VALID,
-			</if>
-			<if test="inType != null">
-				IN_TYPE,
-			</if>
-			<if test="approval != null">
-				APPROVAL,
-			</if>
-			<if test="title != null">
-				TITLE,
-			</if>
-			<if test="createUser != null">
-				CREATE_USER,
-			</if>
-			<if test="updateUser != null">
-				UPDATE_USER,
-			</if>
-			<if test="createTime != null">
-				CREATE_TIME,
-			</if>
-			<if test="updateTime != null">
-				UPDATE_TIME,
-			</if>
-			<if test="isComplete != null">
-				IS_COMPLETE,
-			</if>
+    <insert id="insertSelective" keyColumn="ID" keyProperty="id"
+            parameterType="com.gopher.system.model.entity.CpStore"
+            useGeneratedKeys="true">
+        insert into CP_STORE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="typeId != null">
+                TYPE_ID,
+            </if>
+            <if test="name != null">
+                `NAME`,
+            </if>
+            <if test="website != null">
+                WEBSITE,
+            </if>
+            <if test="typeName != null">
+                TYPE_NAME,
+            </if>
+            <if test="logoUrl != null">
+                LOGO_URL,
+            </if>
+            <if test="advertising != null">
+                ADVERTISING,
+            </if>
+            <if test="createdAt != null">
+                CREATED_AT,
+            </if>
+            <if test="uuid != null">
+                UUID,
+            </if>
+            <if test="des != null">
+                DES,
+            </if>
+            <if test="country != null">
+                COUNTRY,
+            </if>
+            <if test="nameCrc != null">
+                NAME_CRC,
+            </if>
+            <if test="websiteCrc != null">
+                WEBSITE_CRC,
+            </if>
+            <if test="couponCount != null">
+                COUPON_COUNT,
+            </if>
+            <if test="couponCountValid != null">
+                COUPON_COUNT_VALID,
+            </if>
+            <if test="inType != null">
+                IN_TYPE,
+            </if>
+            <if test="approval != null">
+                APPROVAL,
+            </if>
+            <if test="title != null">
+                TITLE,
+            </if>
+            <if test="createUser != null">
+                CREATE_USER,
+            </if>
+            <if test="updateUser != null">
+                UPDATE_USER,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME,
+            </if>
+            <if test="isComplete != null">
+                IS_COMPLETE,
+            </if>
 
 
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="typeId != null">
-				#{typeId,jdbcType=INTEGER},
-			</if>
-			<if test="name != null">
-				#{name,jdbcType=VARCHAR},
-			</if>
-			<if test="website != null">
-				#{website,jdbcType=VARCHAR},
-			</if>
-			<if test="typeName != null">
-				#{typeName,jdbcType=VARCHAR},
-			</if>
-			<if test="logoUrl != null">
-				#{logoUrl,jdbcType=VARCHAR},
-			</if>
-			<if test="advertising != null">
-				#{advertising,jdbcType=VARCHAR},
-			</if>
-			<if test="createdAt != null">
-				#{createdAt,jdbcType=TIMESTAMP},
-			</if>
-			<if test="uuid != null">
-				#{uuid,jdbcType=VARCHAR},
-			</if>
-			<if test="des != null">
-				#{des,jdbcType=VARCHAR},
-			</if>
-			<if test="country != null">
-				#{country,jdbcType=VARCHAR},
-			</if>
-			<if test="nameCrc != null">
-				#{nameCrc,jdbcType=VARCHAR},
-			</if>
-			<if test="websiteCrc != null">
-				#{websiteCrc,jdbcType=VARCHAR},
-			</if>
-			<if test="couponCount != null">
-				#{couponCount,jdbcType=INTEGER},
-			</if>
-			<if test="couponCountValid != null">
-				#{couponCountValid,jdbcType=INTEGER},
-			</if>
-			<if test="inType != null">
-				#{inType,jdbcType=CHAR},
-			</if>
-			<if test="approval != null">
-				#{approval,jdbcType=CHAR},
-			</if>
-			<if test="title != null">
-				#{title,jdbcType=VARCHAR},
-			</if>
-			<if test="createUser != null">
-				#{createUser,jdbcType=INTEGER},
-			</if>
-			<if test="updateUser != null">
-				#{updateUser,jdbcType=INTEGER},
-			</if>
-			<if test="createTime != null">
-				#{createTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="updateTime != null">
-				#{updateTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="isComplete != null">
-				#{isComplete,jdbcType=VARCHAR},
-			</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="typeId != null">
+                #{typeId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="website != null">
+                #{website,jdbcType=VARCHAR},
+            </if>
+            <if test="typeName != null">
+                #{typeName,jdbcType=VARCHAR},
+            </if>
+            <if test="logoUrl != null">
+                #{logoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advertising != null">
+                #{advertising,jdbcType=VARCHAR},
+            </if>
+            <if test="createdAt != null">
+                #{createdAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uuid != null">
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="des != null">
+                #{des,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null">
+                #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="nameCrc != null">
+                #{nameCrc,jdbcType=VARCHAR},
+            </if>
+            <if test="websiteCrc != null">
+                #{websiteCrc,jdbcType=VARCHAR},
+            </if>
+            <if test="couponCount != null">
+                #{couponCount,jdbcType=INTEGER},
+            </if>
+            <if test="couponCountValid != null">
+                #{couponCountValid,jdbcType=INTEGER},
+            </if>
+            <if test="inType != null">
+                #{inType,jdbcType=CHAR},
+            </if>
+            <if test="approval != null">
+                #{approval,jdbcType=CHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=INTEGER},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isComplete != null">
+                #{isComplete,jdbcType=VARCHAR},
+            </if>
 
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective"
-		parameterType="com.gopher.system.model.entity.CpStore">
-		update CP_STORE
-		<set>
-			<if test="typeId != null">
-				TYPE_ID = #{typeId,jdbcType=INTEGER},
-			</if>
-			<if test="name != null">
-				`NAME` = #{name,jdbcType=VARCHAR},
-			</if>
-			<if test="website != null">
-				WEBSITE = #{website,jdbcType=VARCHAR},
-			</if>
-			<if test="typeName != null">
-				TYPE_NAME = #{typeName,jdbcType=VARCHAR},
-			</if>
-			<if test="logoUrl != null">
-				LOGO_URL = #{logoUrl,jdbcType=VARCHAR},
-			</if>
-			<if test="advertising != null">
-				ADVERTISING = #{advertising,jdbcType=VARCHAR},
-			</if>
-			<if test="createdAt != null">
-				CREATED_AT = #{createdAt,jdbcType=TIMESTAMP},
-			</if>
-			<if test="uuid != null">
-				UUID = #{uuid,jdbcType=VARCHAR},
-			</if>
-			<if test="des != null">
-				DES = #{des,jdbcType=VARCHAR},
-			</if>
-			<if test="country != null">
-				COUNTRY = #{country,jdbcType=VARCHAR},
-			</if>
-			<if test="nameCrc != null">
-				NAME_CRC = #{nameCrc,jdbcType=VARCHAR},
-			</if>
-			<if test="websiteCrc != null">
-				WEBSITE_CRC = #{websiteCrc,jdbcType=VARCHAR},
-			</if>
-			<if test="couponCount != null">
-				COUPON_COUNT = #{couponCount,jdbcType=INTEGER},
-			</if>
-			<if test="couponCountValid != null">
-				COUPON_COUNT_VALID =
-				#{couponCountValid,jdbcType=INTEGER},
-			</if>
-			<if test="inType != null">
-				IN_TYPE = #{inType,jdbcType=CHAR},
-			</if>
-			<if test="approval != null">
-				APPROVAL = #{approval,jdbcType=CHAR},
-			</if>
-			<if test="title != null">
-				TITLE = #{title,jdbcType=VARCHAR},
-			</if>
-			<if test="createUser != null">
-				CREATE_USER = #{createUser,jdbcType=INTEGER},
-			</if>
-			<if test="updateUser != null">
-				UPDATE_USER = #{updateUser,jdbcType=INTEGER},
-			</if>
-			<if test="createTime != null">
-				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="updateTime != null">
-				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="isComplete != null">
-				IS_COMPLETE = #{isComplete,jdbcType=VARCHAR},
-			</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.gopher.system.model.entity.CpStore">
+        update CP_STORE
+        <set>
+            <if test="typeId != null">
+                TYPE_ID = #{typeId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                `NAME` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="website != null">
+                WEBSITE = #{website,jdbcType=VARCHAR},
+            </if>
+            <if test="typeName != null">
+                TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+            </if>
+            <if test="logoUrl != null">
+                LOGO_URL = #{logoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="advertising != null">
+                ADVERTISING = #{advertising,jdbcType=VARCHAR},
+            </if>
+            <if test="createdAt != null">
+                CREATED_AT = #{createdAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uuid != null">
+                UUID = #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="des != null">
+                DES = #{des,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null">
+                COUNTRY = #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="nameCrc != null">
+                NAME_CRC = #{nameCrc,jdbcType=VARCHAR},
+            </if>
+            <if test="websiteCrc != null">
+                WEBSITE_CRC = #{websiteCrc,jdbcType=VARCHAR},
+            </if>
+            <if test="couponCount != null">
+                COUPON_COUNT = #{couponCount,jdbcType=INTEGER},
+            </if>
+            <if test="couponCountValid != null">
+                COUPON_COUNT_VALID =
+                #{couponCountValid,jdbcType=INTEGER},
+            </if>
+            <if test="inType != null">
+                IN_TYPE = #{inType,jdbcType=CHAR},
+            </if>
+            <if test="approval != null">
+                APPROVAL = #{approval,jdbcType=CHAR},
+            </if>
+            <if test="title != null">
+                TITLE = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null">
+                CREATE_USER = #{createUser,jdbcType=INTEGER},
+            </if>
+            <if test="updateUser != null">
+                UPDATE_USER = #{updateUser,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isComplete != null">
+                IS_COMPLETE = #{isComplete,jdbcType=VARCHAR},
+            </if>
 
-		</set>
-		where ID = #{id,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKey"
-		parameterType="com.gopher.system.model.entity.CpStore">
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey"
+            parameterType="com.gopher.system.model.entity.CpStore">
 		update CP_STORE
 		set TYPE_ID = #{typeId,jdbcType=INTEGER},
 		`NAME` = #{name,jdbcType=VARCHAR},
@@ -359,13 +359,10 @@
 
 		where ID = #{id,jdbcType=INTEGER}
 	</update>
-	
-	
-	
-	
-	
-		<update id="updateLogo"
-		parameterType="com.gopher.system.model.entity.CpStore">
+
+
+    <update id="updateLogo"
+            parameterType="com.gopher.system.model.entity.CpStore">
 		update CP_STORE
 		LOGO_URL = #{logoUrl,jdbcType=VARCHAR},
 		UPDATE_USER =#{updateUser,jdbcType=INTEGER},
@@ -373,331 +370,340 @@
 
 		where ID = #{id,jdbcType=INTEGER}
 	</update>
-	
-	<select id="getBeanByWebSite" parameterType="String"
-		resultType="com.gopher.system.model.entity.CpStore">
-		select
-		<include refid="Base_Column_List" />
-		from CP_STORE
-		where WEBSITE = #{website,jdbcType=VARCHAR} limit 1
-	</select>
+
+    <select id="getBeanByWebSite" parameterType="String"
+            resultType="com.gopher.system.model.entity.CpStore">
+        select
+        <include refid="Base_Column_List"/>
+        from CP_STORE
+        where WEBSITE = #{website,jdbcType=VARCHAR} limit 1
+    </select>
 
 
-	<select id="getPageList"
-		parameterType="com.gopher.system.model.vo.request.StorePageRequst"
-		resultMap="BaseResultMap">
-		SELECT
-		<include refid="Base_Column_List" />
-		FROM CP_STORE
-		<where>
-			<if test="search != null and search!=''">
-				NAME LIKE "%"#{search}"%" OR WEBSITE LIKE "%"#{search}"%"
-			</if>
-			<if test="storeIdList != null ">
-				AND ID IN
-				<foreach collection="list" item="id" index="index" open="("
-					close=")" separator=",">
-					#{id}
-				</foreach>
-			</if>
-			<if test="excludeStoreIdList != null ">
-				AND ID NOT IN
-				<foreach collection="excludeStoreIdList" item="id"
-					index="index" open="(" close=")" separator=",">
-					#{id}
-				</foreach>
-			</if>
-			<if test="country != null and country != ''">
-				AND COUNTRY = #{country}
-			</if>
-			<if test="scrapyType != null and scrapyType == 1">
-				AND TYPE_ID != 0
-			</if>
-			<if test="scrapyType != null and scrapyType == 2">
-				AND TYPE_ID IS NULL
-			</if>
-			<if test="approval != null and approval != ''">
-				AND APPROVAL = #{approval}
-			</if>
-			<if test="isComplete != null and isComplete != ''">
-				AND IS_COMPLETE = #{isComplete}
-			</if>
-		</where>
-		ORDER BY ID ASC
-		limit #{beginIndex},#{pageSize}
-	</select>
+    <select id="getPageList"
+            parameterType="com.gopher.system.model.vo.request.StorePageRequst"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM CP_STORE
+        <where>
+            <if test="search != null and search!=''">
+                NAME LIKE "%"#{search}"%" OR WEBSITE LIKE "%"#{search}"%"
+            </if>
+            <if test="storeIdList != null ">
+                AND ID IN
+                <foreach collection="list" item="id" index="index" open="("
+                         close=")" separator=",">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="excludeStoreIdList != null ">
+                AND ID NOT IN
+                <foreach collection="excludeStoreIdList" item="id"
+                         index="index" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="country != null and country != ''">
+                AND COUNTRY = #{country}
+            </if>
+            <if test="scrapyType != null and scrapyType == 1">
+                AND TYPE_ID != 0
+            </if>
+            <if test="scrapyType != null and scrapyType == 2">
+                AND TYPE_ID IS NULL
+            </if>
+            <if test="approval != null and approval != ''">
+                AND APPROVAL = #{approval}
+            </if>
+            <if test="isComplete != null and isComplete != ''">
+                AND IS_COMPLETE = #{isComplete}
+            </if>
+        </where>
+        ORDER BY ID ASC
+        limit #{beginIndex},#{pageSize}
+    </select>
 
-	<select id="getCount"
-		parameterType="com.gopher.system.model.vo.request.StorePageRequst"
-		resultType="java.lang.Integer">
-		SELECT COUNT(1) FROM CP_STORE
-		<where>
-			<if test="search != null and search!=''">
-				NAME LIKE "%"#{search}"%" OR WEBSITE LIKE "%"#{search}"%"
-			</if>
-			<if test="storeIdList != null ">
-				AND ID IN
-				<foreach collection="list" item="id" index="index" open="("
-					close=")" separator=",">
-					#{id}
-				</foreach>
-			</if>
-			<if test="excludeStoreIdList != null ">
-				AND ID NOT IN
-				<foreach collection="excludeStoreIdList" item="id"
-					index="index" open="(" close=")" separator=",">
-					#{id}
-				</foreach>
-			</if>
-			<if test="country != null and country != ''">
-				AND COUNTRY = #{country}
-			</if>
-			<if test="scrapyType != null and scrapyType == 1">
-				AND TYPE_ID != 0
-			</if>
-			<if test="scrapyType != null and scrapyType == 2">
-				AND TYPE_ID IS NULL
-			</if>
-			<if test="approval != null and approval != ''">
-				AND APPROVAL = #{approval}
-			</if>
-			<if test="isComplete != null and isComplete != ''">
-				AND IS_COMPLETE = #{isComplete}
-			</if>
-		</where>
-	</select>
-
-
-	<select id="getScrapyPageList"
-		parameterType="com.gopher.system.model.vo.request.StoreAllPageRequst"
-		resultType="com.gopher.system.model.vo.request.StoreAllPageRequst">
-		 SELECT *  FROM (
-		  SELECT STORE.ID id ,NAME,WEBSITE website,LOGO_URL logo,TYPE_ID typeId,TYPE_NAME typeName ,COUNTRY country,(SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)toalCount,
- (SELECT COUNT(*)   FROM  CP_COUPON  WHERE STORE_ID=STORE.ID  AND  EXPIRE_AT >=NOW()) validCount FROM CP_STORE STORE ,CP_SCRAPY_STORE SCSTORE 
-	<where>
-	STORE.ID=SCSTORE.STORE_ID 
-	AND IN_TYPE=0
-			<if test="search != null and  search !='' ">
-				NAME LIKE "%"#{search}"%"  OR WEBSITE LIKE "%"#{search}"%"
-			</if>
-			<if test="country != null and country !='' ">
-				AND COUNTRY like "%"#{country}"%"
-			</if>
-			<!-- 
-			<if test="isComplete != null and isComplete >=0 ">
-				AND IS_COMPLETE  =#{isComplete}
-			</if> -->
-			
-			
-			
-			<if test="typeName != null and typeName !='' ">
-				AND TYPE_NAME = #{typeName}
-			</if>
-			
-			<if test="scrapyId != null and scrapyId >0">
-				AND SCSTORE.SCRAPY_ID = #{scrapyId}
-			</if>
-		</where>
-		
-		 )temp
-		 <where>
-			<if test="validCount != null and validCount >0">
-				temp.VALIDCOUNT>=#{validCount}
-			</if>
-		
-		</where>
-		ORDER BY ID ASC
-		limit #{beginIndex},#{pageSize}
-	</select>
-
-<select id="getScrapyCount"
-		parameterType="com.gopher.system.model.vo.request.StoreAllPageRequst"
-		resultType="java.lang.Integer">
-		 SELECT COUNT(*)  FROM (
-		  SELECT STORE.ID,NAME,WEBSITE,LOGO_URL LOGOURL,TYPE_ID TYPEID,TYPE_NAME TYPENAME ,COUNTRY,(SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)TOALCOUNT,
- (SELECT COUNT(*)   FROM  CP_COUPON  WHERE STORE_ID=STORE.ID  AND  EXPIRE_AT >=NOW()) VALIDCOUNT FROM CP_STORE STORE ,CP_SCRAPY_STORE SCSTORE 
-	<where>
-	STORE.ID=SCSTORE.STORE_ID 
-	AND IN_TYPE=0
-			<if test="search != null and  search !='' ">
-				NAME LIKE "%"#{search}"%"  OR WEBSITE LIKE "%"#{search}"%"
-			</if>
-			<if test="country != null and country !='' ">
-				AND COUNTRY like "%"#{country}"%"
-			</if>
-			
-			<if test="typeName != null and typeName !='' ">
-				AND TYPE_NAME = #{typeName}
-			</if>
-			<!-- <if test="isComplete != null and isComplete >=0 ">
-				AND IS_COMPLETE  =#{isComplete}
-			</if> -->
-			<if test="scrapyId != null and scrapyId >0 ">
-				AND SCSTORE.SCRAPY_ID = #{scrapyId}
-			</if>
-		</where>
-		
-		 )temp
-		 <where>
-			<if test="validCount != null and validCount >0">
-				temp.VALIDCOUNT>#{validCount}
-			</if>
-		
-		</where>
-	</select>
+    <select id="getCount"
+            parameterType="com.gopher.system.model.vo.request.StorePageRequst"
+            resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM CP_STORE
+        <where>
+            <if test="search != null and search!=''">
+                NAME LIKE "%"#{search}"%" OR WEBSITE LIKE "%"#{search}"%"
+            </if>
+            <if test="storeIdList != null ">
+                AND ID IN
+                <foreach collection="list" item="id" index="index" open="("
+                         close=")" separator=",">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="excludeStoreIdList != null ">
+                AND ID NOT IN
+                <foreach collection="excludeStoreIdList" item="id"
+                         index="index" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="country != null and country != ''">
+                AND COUNTRY = #{country}
+            </if>
+            <if test="scrapyType != null and scrapyType == 1">
+                AND TYPE_ID != 0
+            </if>
+            <if test="scrapyType != null and scrapyType == 2">
+                AND TYPE_ID IS NULL
+            </if>
+            <if test="approval != null and approval != ''">
+                AND APPROVAL = #{approval}
+            </if>
+            <if test="isComplete != null and isComplete != ''">
+                AND IS_COMPLETE = #{isComplete}
+            </if>
+        </where>
+    </select>
 
 
+    <select id="getScrapyPageList"
+            parameterType="com.gopher.system.model.vo.request.StoreAllPageRequst"
+            resultType="com.gopher.system.model.vo.request.StoreAllPageRequst">
+        SELECT * FROM (
+        SELECT STORE.ID id ,NAME,WEBSITE website,LOGO_URL logo,TYPE_ID typeId,TYPE_NAME typeName ,COUNTRY
+        country,(SELECT COUNT(*) FROM CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)toalCount,
+        (SELECT COUNT(*) FROM CP_COUPON WHERE STORE_ID=STORE.ID AND EXPIRE_AT >=NOW()) validCount FROM CP_STORE STORE
+        ,CP_SCRAPY_STORE SCSTORE
+        <where>
+            STORE.ID=SCSTORE.STORE_ID
+            AND IN_TYPE=0
+            <if test="search != null and  search !='' ">
+                NAME LIKE "%"#{search}"%" OR WEBSITE LIKE "%"#{search}"%"
+            </if>
+            <if test="country != null and country !='' ">
+                AND COUNTRY like "%"#{country}"%"
+            </if>
+            <!--
+            <if test="isComplete != null and isComplete >=0 ">
+                AND IS_COMPLETE  =#{isComplete}
+            </if> -->
 
 
+            <if test="typeName != null and typeName !='' ">
+                AND TYPE_NAME = #{typeName}
+            </if>
+
+            <if test="scrapyId != null and scrapyId >0">
+                AND SCSTORE.SCRAPY_ID = #{scrapyId}
+            </if>
+        </where>
+
+        )temp
+        <where>
+            <if test="validCount != null and validCount >0">
+                temp.VALIDCOUNT>=#{validCount}
+            </if>
+
+        </where>
+        ORDER BY ID ASC
+        limit #{beginIndex},#{pageSize}
+    </select>
+
+    <select id="getScrapyCount"
+            parameterType="com.gopher.system.model.vo.request.StoreAllPageRequst"
+            resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM (
+        SELECT STORE.ID,NAME,WEBSITE,LOGO_URL LOGOURL,TYPE_ID TYPEID,TYPE_NAME TYPENAME ,COUNTRY,(SELECT COUNT(*) FROM
+        CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)TOALCOUNT,
+        (SELECT COUNT(*) FROM CP_COUPON WHERE STORE_ID=STORE.ID AND EXPIRE_AT >=NOW()) VALIDCOUNT FROM CP_STORE STORE
+        ,CP_SCRAPY_STORE SCSTORE
+        <where>
+            STORE.ID=SCSTORE.STORE_ID
+            AND IN_TYPE=0
+            <if test="search != null and  search !='' ">
+                NAME LIKE "%"#{search}"%" OR WEBSITE LIKE "%"#{search}"%"
+            </if>
+            <if test="country != null and country !='' ">
+                AND COUNTRY like "%"#{country}"%"
+            </if>
+
+            <if test="typeName != null and typeName !='' ">
+                AND TYPE_NAME = #{typeName}
+            </if>
+            <!-- <if test="isComplete != null and isComplete >=0 ">
+                AND IS_COMPLETE  =#{isComplete}
+            </if> -->
+            <if test="scrapyId != null and scrapyId >0 ">
+                AND SCSTORE.SCRAPY_ID = #{scrapyId}
+            </if>
+        </where>
+
+        )temp
+        <where>
+            <if test="validCount != null and validCount >0">
+                temp.VALIDCOUNT>#{validCount}
+            </if>
+
+        </where>
+    </select>
 
 
-
-	<select id="getErrScrapyPageList"
-		parameterType="com.gopher.system.model.vo.request.StoreAllPageRequst"
-		resultType="com.gopher.system.model.vo.request.StoreAllPageRequst">
-		 SELECT *  FROM (
-		  SELECT STORE.ID id ,NAME,WEBSITE website,LOGO_URL logo,TYPE_ID typeId,TYPE_NAME typeName ,COUNTRY country,(SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)toalCount,
- (SELECT COUNT(*)   FROM  CP_COUPON  WHERE STORE_ID=STORE.ID  AND  EXPIRE_AT >=NOW()) validCount FROM CP_STORE STORE ,CP_SCRAPY_STORE SCSTORE 
-	<where>
-	STORE.ID=SCSTORE.STORE_ID 
-	AND IN_TYPE=0
-			<if test="search != null and  search !='' ">
-				NAME LIKE "%"#{search}"%"  OR WEBSITE LIKE "%"#{search}"%"
-			</if>
-			<if test="country != null and country !='' ">
-				AND COUNTRY like "%"#{country}"%"
-			</if>
-			<!-- 
-			<if test="isComplete != null and isComplete >=0 ">
-				AND IS_COMPLETE  =#{isComplete}
-			</if> -->
-			
-			
-			
-			<if test="typeName != null and typeName !='' ">
-				AND TYPE_NAME = #{typeName}
-			</if>
-			
-			<if test="scrapyId != null and scrapyId >0">
-				AND SCSTORE.SCRAPY_ID = #{scrapyId}
-			</if>
-		</where>
-		
-		 )temp
-		 <where>
-			<if test="validCount != null and validCount >0">
-				temp.VALIDCOUNT>=#{validCount}
-			</if>
-		
-		</where>
-		ORDER BY ID ASC
-		limit #{beginIndex},#{pageSize}
-	</select>
-
-<select id="getErrScrapyCount"
-		parameterType="com.gopher.system.model.vo.request.StoreAllPageRequst"
-		resultType="java.lang.Integer">
-		 SELECT COUNT(*)  FROM (
-		  SELECT STORE.ID,NAME,WEBSITE,LOGO_URL LOGOURL,TYPE_ID TYPEID,TYPE_NAME TYPENAME ,COUNTRY,(SELECT COUNT(*)   FROM  CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)TOALCOUNT,
- (SELECT COUNT(*)   FROM  CP_COUPON  WHERE STORE_ID=STORE.ID  AND  EXPIRE_AT >=NOW()) VALIDCOUNT FROM CP_STORE STORE ,CP_SCRAPY_STORE SCSTORE 
-	<where>
-	STORE.ID=SCSTORE.STORE_ID 
-	AND IN_TYPE=0
-			<if test="search != null and  search !='' ">
-				NAME LIKE "%"#{search}"%"  OR WEBSITE LIKE "%"#{search}"%"
-			</if>
-			<if test="country != null and country !='' ">
-				AND COUNTRY like "%"#{country}"%"
-			</if>
-			
-			<if test="typeName != null and typeName !='' ">
-				AND TYPE_NAME = #{typeName}
-			</if>
-			<!-- <if test="isComplete != null and isComplete >=0 ">
-				AND IS_COMPLETE  =#{isComplete}
-			</if> -->
-			<if test="scrapyId != null and scrapyId >0 ">
-				AND SCSTORE.SCRAPY_ID = #{scrapyId}
-			</if>
-		</where>
-		
-		 )temp
-		 <where>
-			<if test="validCount != null and validCount >0">
-				temp.VALIDCOUNT>#{validCount}
-			</if>
-		
-		</where>
-	</select>
+    <select id="getErrScrapyPageList"
+            parameterType="com.gopher.system.model.vo.request.StoreAllPageRequst"
+            resultType="com.gopher.system.model.vo.request.StoreAllPageRequst">
+        SELECT * FROM (
+        SELECT STORE.ID id ,NAME,WEBSITE website,LOGO_URL logo,TYPE_ID typeId,TYPE_NAME typeName ,COUNTRY
+        country,(SELECT COUNT(*) FROM CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)toalCount,
+        (SELECT COUNT(*) FROM CP_COUPON WHERE STORE_ID=STORE.ID AND EXPIRE_AT >=NOW()) validCount FROM CP_STORE STORE
+        ,CP_SCRAPY_STORE SCSTORE
+        <where>
+            STORE.ID=SCSTORE.STORE_ID
+            AND IN_TYPE=0
+            <if test="search != null and  search !='' ">
+                NAME LIKE "%"#{search}"%" OR WEBSITE LIKE "%"#{search}"%"
+            </if>
+            <if test="country != null and country !='' ">
+                AND COUNTRY like "%"#{country}"%"
+            </if>
+            <!--
+            <if test="isComplete != null and isComplete >=0 ">
+                AND IS_COMPLETE  =#{isComplete}
+            </if> -->
 
 
+            <if test="typeName != null and typeName !='' ">
+                AND TYPE_NAME = #{typeName}
+            </if>
 
-<select id="getOffWebStorePageList"
-		parameterType="com.gopher.system.model.vo.request.StorePageRequst"
-		resultType="com.gopher.system.model.vo.CpStoreVo">
-			
-		SELECT  STORE.NAME name , 
-		STORE.LOGO_URL logoUrl,
-		STORE.WEBSITE  webSite ,
-		STORE.ID AS storeId,
-		SITESTORE.SHOW_NAME showName 
-		FROM CP_STORE  STORE,CP_OUT_SITE_STORE  SITESTORE   
-	<where>
-	       STORE.ID=SITESTORE.STORE_ID 
-			<if test="siteId != null and  siteId >0 ">
-				AND OUT_ID=#{siteId}
-			</if>
-			<if test="name != null and  name !='' ">
-				AND STORE.NAME LIKE "%"#{name}"%"
-			</if>
-     </where>
-     ORDER BY SITESTORE.ID ASC
-		limit #{beginIndex},#{pageSize}
-	</select>
+            <if test="scrapyId != null and scrapyId >0">
+                AND SCSTORE.SCRAPY_ID = #{scrapyId}
+            </if>
+        </where>
 
-<select id="getOffWebTotalCount"
-		parameterType="com.gopher.system.model.vo.request.StorePageRequst"
-		resultType="java.lang.Integer">
-		SELECT  COUNT(*)   FROM  CP_STORE  STORE,CP_OUT_SITE_STORE  SITESTORE   
-	<where>
-	       STORE.ID=SITESTORE.STORE_ID 
-			<if test="siteId != null and  siteId >0 ">
-				AND OUT_ID=#{siteId}
-			</if>
-			<if test="name != null and  name !='' ">
-				AND STORE.NAME LIKE "%"#{name}"%"
-			</if>
-     </where>
+        )temp
+        <where>
+            <if test="validCount != null and validCount >0">
+                temp.VALIDCOUNT>=#{validCount}
+            </if>
 
-	</select>
-	
-	
-	
-	
-	
-	
-<select id="getTopStoreList"
-		parameterType="com.gopher.system.model.vo.request.CpSitestoreRequest"
-		resultType="com.gopher.system.model.vo.CpStoreVo">
-		SELECT  STORE.NAME name , 
-		STORE.LOGO_URL logoUrl,
-		STORE.WEBSITE  webSite ,
-		SITESTORE.SHOW_NAME showName,
-		SITESTORE.STORE_ID storeId
-		FROM 
-		CP_STORE  STORE 
-		INNER JOIN
-		CP_OUT_SITE_STORE SITESTORE  
-		ON STORE.ID = SITESTORE.STORE_ID 
-	<where>
-	       AND 
-	       HOT_SORT <![CDATA[<>]]> 0
-			<if test="siteId != null and  siteId >0 ">
-				AND OUT_ID=#{siteId}
-			</if>
-     </where>
-	</select>
-	
-	
+        </where>
+        ORDER BY ID ASC
+        limit #{beginIndex},#{pageSize}
+    </select>
 
+    <select id="getErrScrapyCount"
+            parameterType="com.gopher.system.model.vo.request.StoreAllPageRequst"
+            resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM (
+        SELECT STORE.ID,NAME,WEBSITE,LOGO_URL LOGOURL,TYPE_ID TYPEID,TYPE_NAME TYPENAME ,COUNTRY,(SELECT COUNT(*) FROM
+        CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)TOALCOUNT,
+        (SELECT COUNT(*) FROM CP_COUPON WHERE STORE_ID=STORE.ID AND EXPIRE_AT >=NOW()) VALIDCOUNT FROM CP_STORE STORE
+        ,CP_SCRAPY_STORE SCSTORE
+        <where>
+            STORE.ID=SCSTORE.STORE_ID
+            AND IN_TYPE=0
+            <if test="search != null and  search !='' ">
+                NAME LIKE "%"#{search}"%" OR WEBSITE LIKE "%"#{search}"%"
+            </if>
+            <if test="country != null and country !='' ">
+                AND COUNTRY like "%"#{country}"%"
+            </if>
+
+            <if test="typeName != null and typeName !='' ">
+                AND TYPE_NAME = #{typeName}
+            </if>
+            <!-- <if test="isComplete != null and isComplete >=0 ">
+                AND IS_COMPLETE  =#{isComplete}
+            </if> -->
+            <if test="scrapyId != null and scrapyId >0 ">
+                AND SCSTORE.SCRAPY_ID = #{scrapyId}
+            </if>
+        </where>
+
+        )temp
+        <where>
+            <if test="validCount != null and validCount >0">
+                temp.VALIDCOUNT>#{validCount}
+            </if>
+
+        </where>
+    </select>
+
+
+    <select id="getOffWebStorePageList"
+            parameterType="com.gopher.system.model.vo.request.StorePageRequst"
+            resultType="com.gopher.system.model.vo.CpStoreVo">
+
+        SELECT STORE.NAME name ,
+        STORE.LOGO_URL logoUrl,
+        STORE.WEBSITE webSite ,
+        STORE.ID AS storeId,
+        SITESTORE.SHOW_NAME showName
+        FROM CP_STORE STORE,CP_OUT_SITE_STORE SITESTORE
+        <where>
+            STORE.ID=SITESTORE.STORE_ID
+            <if test="siteId != null and  siteId >0 ">
+                AND OUT_ID=#{siteId}
+            </if>
+            <if test="name != null and  name !='' ">
+                AND STORE.NAME LIKE "%"#{name}"%"
+            </if>
+        </where>
+        ORDER BY SITESTORE.ID ASC
+        limit #{beginIndex},#{pageSize}
+    </select>
+
+    <select id="getOffWebTotalCount"
+            parameterType="com.gopher.system.model.vo.request.StorePageRequst"
+            resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM CP_STORE STORE,CP_OUT_SITE_STORE SITESTORE
+        <where>
+            STORE.ID=SITESTORE.STORE_ID
+            <if test="siteId != null and  siteId >0 ">
+                AND OUT_ID=#{siteId}
+            </if>
+            <if test="name != null and  name !='' ">
+                AND STORE.NAME LIKE "%"#{name}"%"
+            </if>
+        </where>
+
+    </select>
+
+
+    <select id="getTopStoreList"
+            parameterType="com.gopher.system.model.vo.request.CpSitestoreRequest"
+            resultType="com.gopher.system.model.vo.CpStoreVo">
+        SELECT STORE.NAME name ,
+        STORE.LOGO_URL logoUrl,
+        STORE.WEBSITE webSite ,
+        SITESTORE.SHOW_NAME showName,
+        SITESTORE.STORE_ID storeId
+        FROM
+        CP_STORE STORE
+        INNER JOIN
+        CP_OUT_SITE_STORE SITESTORE
+        ON STORE.ID = SITESTORE.STORE_ID
+        <where>
+            AND
+            HOT_SORT <![CDATA[<>]]> 0
+            <if test="siteId != null and  siteId >0 ">
+                AND OUT_ID=#{siteId}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="getListBySpider"
+            parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        SELECT
+        STORE.*
+        FROM
+        CP_STORE STORE
+        INNER JOIN
+        CP_SCRAPY_STORE SCRAPY
+        ON STORE.ID = SCRAPY.STORE_ID
+        <where>
+            SCRAPY.SCRAPY_ID = #{siteId}
+        </where>
+    </select>
 </mapper>

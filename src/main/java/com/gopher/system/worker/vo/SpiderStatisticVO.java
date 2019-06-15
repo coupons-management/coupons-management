@@ -11,7 +11,31 @@ public class SpiderStatisticVO {
 	 * 爬虫站点Id
 	 */
 	private int spiderId;
-	
+	/**
+	 * 商家Id
+	 */
+	private int storeId;
+	/**
+	 * 有效优惠券
+	 */
+	private Date expiryTime;
+
+	public Date getExpiryTime() {
+		return expiryTime;
+	}
+
+	public void setExpiryTime(Date expiryTime) {
+		this.expiryTime = expiryTime;
+	}
+
+	public int getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(int storeId) {
+		this.storeId = storeId;
+	}
+
 	public Date getBeginTime() {
 		return beginTime;
 	}

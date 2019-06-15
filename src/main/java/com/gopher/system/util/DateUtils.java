@@ -61,6 +61,38 @@ public class DateUtils {
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FMT);
 		return sdf.format(date);
 	}
+	public static String getDateString(Date date,String fmt) {
+		if(null == date) {
+			return "";
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat(fmt);
+		return sdf.format(date);
+	}
+	public static String getDatetimeString(long timestamp) {
+		if( timestamp<=0) {
+			return "";
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FMT);
+		return sdf.format(new Date(timestamp));
+	}
+
+
+	public static String getDatetimeString(Date date) {
+		if(null == date) {
+			return "";
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FMT);
+		return sdf.format(date);
+	}
+
+	public static String getTimeString(Date date) {
+		if(null == date) {
+			return "";
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat(TIME_FMT);
+		return sdf.format(date);
+	}
+
 
 	public static String getYearMonthString(Long timeMillis) {
 		if(null == timeMillis || timeMillis<=0) {
@@ -122,12 +154,32 @@ public class DateUtils {
 		Calendar ca = Calendar.getInstance();
 		ca.setTimeInMillis(datetime);
 		ca.set(Calendar.MONTH, 0);
-		ca.set(Calendar.DAY_OF_MONTH, 1);
+		ca.set(Calendar.DAY_OF_YEAR, 1);
 		ca.set(Calendar.HOUR_OF_DAY, 0);
 		ca.set(Calendar.MINUTE, 0);
 		ca.set(Calendar.SECOND, 0);
 		ca.set(Calendar.MILLISECOND, 0);
-		return ca.getTimeInMillis() / 1000l;
+		return ca.getTimeInMillis() ;
+
+	}
+
+	public static long getWeekStart(Date date) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		int dayofweek = cal.get(Calendar.DAY_OF_WEEK);
+		if (dayofweek == 1) {
+			dayofweek += 7;
+		}
+		cal.add(Calendar.DATE, 2 - dayofweek);
+		return cal.getTimeInMillis();
+
+	}
+
+	public static long getWeekEnd(Date date) {
+		Calendar ca = Calendar.getInstance();
+		ca.setTimeInMillis(getWeekStart(date));
+		ca.add(Calendar.DAY_OF_WEEK, 6);
+		return ca.getTimeInMillis();
 
 	}
 
@@ -142,7 +194,7 @@ public class DateUtils {
 		ca.set(Calendar.MILLISECOND, 999);
 		ca.add(Calendar.YEAR, 1);
 		ca.add(Calendar.DAY_OF_MONTH, -1);
-		return ca.getTimeInMillis() / 1000l;
+		return ca.getTimeInMillis() ;
 	}
 
 	public static long getMonthStart(long datetime) {
@@ -153,7 +205,7 @@ public class DateUtils {
 		ca.set(Calendar.MINUTE, 0);
 		ca.set(Calendar.SECOND, 0);
 		ca.set(Calendar.MILLISECOND, 0);
-		return ca.getTimeInMillis() / 1000l;
+		return ca.getTimeInMillis() ;
 
 	}
 
@@ -167,7 +219,7 @@ public class DateUtils {
 		ca.set(Calendar.MILLISECOND, 999);
 		ca.add(Calendar.MONTH, 1);
 		ca.add(Calendar.DAY_OF_MONTH, -1);
-		return ca.getTimeInMillis() / 1000l;
+		return ca.getTimeInMillis() ;
 	}
 
 	/**
@@ -181,30 +233,7 @@ public class DateUtils {
 		return ca.get(Calendar.MONTH) + 1;
 	}
 	
-	public static String getDatetimeString(long timestamp) {
-		if( timestamp<=0) {
-			return "";
-		}
-		SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FMT);
-		return sdf.format(new Date(timestamp));
-	}
 
-	
-	public static String getDatetimeString(Date date) {
-		if(null == date) {
-			return "";
-		}
-		SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FMT);
-		return sdf.format(date);
-	}
-
-	public static String getTimeString(Date date) {
-		if(null == date) {
-			return "";
-		}
-		SimpleDateFormat sdf = new SimpleDateFormat(TIME_FMT);
-		return sdf.format(date);
-	}
 
 	public static long getTheFirstDayOfMonth(Date date) {
 		Calendar ca = Calendar.getInstance();
@@ -491,12 +520,16 @@ public class DateUtils {
 	}
 	
 	public static void main(String[] args) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(getDateTime("2018-10-10"));
-		List<Long> list = getDayBetween(calendar.getTimeInMillis(),System.currentTimeMillis());
-		int theDays = list.size();
-		System.out.println(theDays / 7);
-		System.out.println(theDays % 7);
+//		Calendar calendar = Calendar.getInstance();
+//		calendar.setTime(getDateTime("2018-10-10"));
+//		List<Long> list = getDayBetween(calendar.getTimeInMillis(),System.currentTimeMillis());
+//		int theDays = list.size();
+//		System.out.println(theDays / 7);
+//		System.out.println(theDays % 7);
+
+		System.out.println(getDateString(getWeekStart(new Date())));
+		System.out.println(getDateString(getWeekEnd(new Date())));
+		System.out.println(getDateString(new Date(),"yyyy-MM"));
 	}
 
 }

@@ -19,10 +19,10 @@ public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
 
 	/**
 	 * 根据爬虫ID 获取商家列表
-	 * @param scrapyId
+	 * @param spiderId
 	 * @return
 	 */
-	 List<CpStore> getListByScrayp(int scrapyId);
+	 List<CpStore> getListBySpider(int spiderId);
 
 	/**
 	 * 获得分页列表

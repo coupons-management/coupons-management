@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"  
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
-    xmlns:aop="http://www.springframework.org/schema/aop"  
-    xmlns:context="http://www.springframework.org/schema/context"  
-    xmlns:task="http://www.springframework.org/schema/task"  
-    xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd  
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd  
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
-        
-     <!-- 配置线程池线程数量 -->
-    <task:scheduler id="taskScheduler" pool-size="5"/> 
-     <!-- 定义调用对象-->
-	<bean id="synBasicsData" class="com.gopher.system.worker.SynBasicsData"> </bean> 
-    <!-- 配置相关类中方法的执行时间-->
-    <task:scheduled-tasks scheduler="taskScheduler" > 
-      <!-- 每隔 2秒执行一次 -->
-     <task:scheduled ref="synBasicsData" method="synDate" cron="*/20 * * * * ?"/>
-    	<!-- 同步数据 -->
-    	<!--  <task:scheduled ref="synBasicsData"  method="synDate" initial-delay="20000" fixed-delay="90000000"/>   -->
-    	
-    	<!-- 初始化标题规则数据 -->  
-        <task:scheduled ref="synBasicsData"  method="initData" initial-delay="20000" fixed-delay="90000000"/>  
-        <!-- 启动爬虫 -->
-<!--
-        <task:scheduled ref="synBasicsData"  method="initScrapy" initial-delay="90000" fixed-delay="900000000"/>
--->
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- 配置线程池线程数量 -->
+    <task:scheduler id="taskScheduler" pool-size="5"/>
+    <!-- 定义调用对象-->
+    <bean id="synBasicsData" class="com.gopher.system.worker.SynBasicsData"></bean>
+    <!-- 统计任务-->
+    <bean id="statistic" class="com.gopher.system.worker.SpiderStatisticJob"></bean>
+    <!-- 配置相关类中方法的执行时间-->
+    <task:scheduled-tasks scheduler="taskScheduler">
+        <!-- 每隔 2秒执行一次 -->
+        <task:scheduled ref="synBasicsData" method="synDate" cron="*/20 * * * * ?"/>
+        <!-- 同步数据 -->
+        <!--  <task:scheduled ref="synBasicsData"  method="synDate" initial-delay="20000" fixed-delay="90000000"/>   -->
+
+        <!-- 初始化标题规则数据 -->
+        <task:scheduled ref="synBasicsData" method="initData" initial-delay="20000" fixed-delay="90000000"/>
+        <!-- 启动爬虫 -->
+        <!--
+        <task:scheduled ref="synBasicsData"  method="initScrapy" initial-delay="90000" fixed-delay="900000000"/>
+        -->
         <!-- 删除2天前数据-->
-       <!-- <task:scheduled ref="synBasicsData"   method="clearDatd" cron="0 0 1 * * ?"/> -->
-       <!--   <task:scheduled ref="synBasicsData" method="test" cron="*/20 * * * * ?"/>  -->
+        <!-- <task:scheduled ref="synBasicsData"   method="clearDatd" cron="0 0 1 * * ?"/> -->
+        <!--   <task:scheduled ref="synBasicsData" method="test" cron="*/20 * * * * ?"/>  -->
+        <task:scheduled ref="synBasicsData" method="test" cron="*/20 * * * * ?"/>
+
+        <!-- 每天凌晨两点 统计昨天的爬虫情况 -->
+        <task:scheduled ref="statistic" method="statisticBySpider" cron="0 0 2 * * ?"/>
     </task:scheduled-tasks>
- 
- </beans>
+
+</beans>

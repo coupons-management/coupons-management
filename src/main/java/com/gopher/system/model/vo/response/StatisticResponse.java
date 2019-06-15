@@ -6,7 +6,7 @@ public class StatisticResponse {
 	
 	private int incrementStore;
 	
-	private int totalStore;
+	private int updateStore;
 	
 	private int incrementCoupon;
 	
@@ -30,12 +30,12 @@ public class StatisticResponse {
 		this.incrementStore = incrementStore;
 	}
 
-	public int getTotalStore() {
-		return totalStore;
+	public int getUpdateStore() {
+		return updateStore;
 	}
 
-	public void setTotalStore(int totalStore) {
-		this.totalStore = totalStore;
+	public void setUpdateStore(int updateStore) {
+		this.updateStore = updateStore;
 	}
 
 	public int getIncrementCoupon() {

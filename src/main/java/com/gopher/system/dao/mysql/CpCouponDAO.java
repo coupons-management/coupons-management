@@ -25,8 +25,6 @@ public interface CpCouponDAO extends MyBatisBaseDao<CpCoupon, Integer> {
 
 	CpCoupon getNewOneByStore(Integer storeId);
 
-	int getCountBySpiderAndTime(SpiderStatisticVO spiderStatisticVO);
-
 	List<CpCoupon> getScapyPageList(CouponPageRequest couponPageRequest);
 
 	int getScapyCount(CouponPageRequest couponPageRequest);
@@ -44,8 +42,14 @@ public interface CpCouponDAO extends MyBatisBaseDao<CpCoupon, Integer> {
 	List<CpCouponVo> getStoreExpCouponList(CouponPageRequest quest);
 	List<CpCouponVo> getStoreCouponList(CouponPageRequest quest);
 	List<CpCouponVo> getStoreCategoryCouponList(CouponPageRequest quest);
-	
-	
+
+	/**
+	 * 当天优惠卷数量
+	 * @param spiderStatisticVO
+	 * @return
+	 */
+	int getTotalCounBySpiderAndTime(SpiderStatisticVO spiderStatisticVO);
+;
 	
 	
 	
