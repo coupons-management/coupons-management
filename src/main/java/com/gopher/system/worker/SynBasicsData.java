@@ -30,18 +30,18 @@ public class SynBasicsData {
 		synDataService.synCouponData();
 	}
 	
-	 String getDay(int i){
-		Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.set(Calendar.DAY_OF_MONTH, i);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        Date zero = calendar.getTime();
-    	SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return format.format(zero);
-		
-	}
+//	 String getDay(int i){
+//		Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(new Date());
+//        calendar.set(Calendar.DAY_OF_MONTH, i);
+//        calendar.set(Calendar.HOUR_OF_DAY, 0);
+//        calendar.set(Calendar.MINUTE, 0);
+//        calendar.set(Calendar.SECOND, 0);
+//        Date zero = calendar.getTime();
+//    	SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        return format.format(zero);
+//
+//	}
 	 @SuppressWarnings("unchecked")
 		public void initData(){
 			synDataService.initData();

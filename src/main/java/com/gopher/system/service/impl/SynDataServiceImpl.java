@@ -292,11 +292,6 @@ public class SynDataServiceImpl implements SynDataService {
 					}
 					cpStoreDAO.insert(cpStore);
 				}
-
-			
-
-				
-
 				// 3、增加优惠卷
 				CpCoupon qcpCoupon = new CpCoupon();
 				qcpCoupon.setStoreId(cpStore.getId());
@@ -408,9 +403,7 @@ public class SynDataServiceImpl implements SynDataService {
 				census.setScrapyName(cpScrapy.getName());
 				census.setStoreId(cpStore.getId());
 				//census.setSort(stu.getIndex());
-				
 				census.setSort(weight*(DataCacheUtils.VALUES-stu.getIndex()));
-				
 				census.setScrapyTime(new Date());
 				census.setCreateTime(new Date());
 				cpCouponCensusDAO.insert(census);
