@@ -23,7 +23,7 @@ public class OfficialWebsiteController {
 	ShowSiteTypeService showSiteTypeServiceImpl;
 
 	@RequestMapping(path = "/getCategoriesList")
-	Result getCategoriesList(@RequestBody CpSitestoreRequest quest) {
+	public Result getCategoriesList(@RequestBody CpSitestoreRequest quest) {
 		Result result = new Result();
 		result.setData(showSiteTypeServiceImpl.getList(quest.getSiteId(), 1));
 		return result;
@@ -31,63 +31,63 @@ public class OfficialWebsiteController {
 
 	// TODO
 	@RequestMapping(path = "/getPopularStoresList")
-	Result getPopularStoresList(@RequestBody CpSitestoreRequest quest) {
+	public Result getPopularStoresList(@RequestBody CpSitestoreRequest quest) {
 		Result result = new Result();
 		result.setData(showSiteTypeServiceImpl.getList(quest.getSiteId(), 2));
 		return result;
 	}
 
 	@RequestMapping(path = "/getStorePageList")
-	Result getStorePageList(@RequestBody StorePageRequst quest) {
+	public Result getStorePageList(@RequestBody StorePageRequst quest) {
 		Result result = new Result();
 		result.setData(officialWebsiteService.getStorePageList(quest));
 		return result;
 	}
 
 	@RequestMapping(path = "/getCategoriesPageList")
-	Result getCategoriesPageList(@RequestBody CpSitestoreRequest quest) {
+	public Result getCategoriesPageList(@RequestBody CpSitestoreRequest quest) {
 		Result result = new Result();
 		result.setData(showSiteTypeServiceImpl.getList(quest.getSiteId(), 1));
 		return result;
 	}
 
 	@RequestMapping(path = "/getCouponPageList")
-	Result getCouponPageList(@RequestBody CouponPageRequest quest) {
+	public Result getCouponPageList(@RequestBody CouponPageRequest quest) {
 		Result result = new Result();
 		result.setData(officialWebsiteService.getCouponPageList(quest));
 		return result;
 	}
 
 	@RequestMapping(path = "/getTopStoreList")
-	Result getTopStoreList(@RequestBody CpSitestoreRequest quest) {
+	public Result getTopStoreList(@RequestBody CpSitestoreRequest quest) {
 		Result result = new Result();
 		result.setData(officialWebsiteService.getTopStoreList(quest));
 		return result;
 	}
 
 	@RequestMapping(path = "/getTopCouponList")
-	Result getTopCouponList(@RequestBody CouponPageRequest quest) {
+	public Result getTopCouponList(@RequestBody CouponPageRequest quest) {
 		Result result = new Result();
 		result.setData(officialWebsiteService.getTopCouponList(quest));
 		return result;
 	}
 
 	@RequestMapping(path = "/getStoreCouponList")
-	Result getStoreCouponList(@RequestBody CouponPageRequest quest) {
+	public Result getStoreCouponList(@RequestBody CouponPageRequest quest) {
 		Result result = new Result();
 		result.setData(officialWebsiteService.getStoreCouponList(quest));
 		return result;
 	}
 
 	@RequestMapping(path = "/getStoreExpCouponList")
-	Result getStoreExpCouponList(@RequestBody CouponPageRequest quest) {
+	public Result getStoreExpCouponList(@RequestBody CouponPageRequest quest) {
 		Result result = new Result();
 		result.setData(officialWebsiteService.getStoreExpCouponList(quest));
 		return result;
 	}
 
 	@RequestMapping(path = "/getStoreCategoryCouponList")
-	Result getStoreCategoryCouponList(@RequestBody CouponPageRequest quest) {
+	public Result getStoreCategoryCouponList(@RequestBody CouponPageRequest quest) {
 		Result result = new Result();
 		result.setData(officialWebsiteService.getStoreCategoryCouponList(quest));
 		return result;

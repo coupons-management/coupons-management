@@ -1,37 +1,17 @@
 package com.gopher.system.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import com.gopher.system.constant.CodeAndMsg;
-import com.gopher.system.dao.mysql.CpCouponDAO;
-import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
-import com.gopher.system.dao.mysql.CpOutSiteDAO;
-import com.gopher.system.dao.mysql.CpOutSiteStoreDAO;
-import com.gopher.system.dao.mysql.CpSitestoreTypeDAO;
-import com.gopher.system.dao.mysql.CpSitestoreTypeMapDAO;
-import com.gopher.system.dao.mysql.CpStoreDAO;
-import com.gopher.system.dao.mysql.CpTypeStoreDAO;
+import com.gopher.system.dao.mysql.*;
 import com.gopher.system.exception.BusinessRuntimeException;
-import com.gopher.system.model.entity.CpCoupon;
-import com.gopher.system.model.entity.CpOutSite;
-import com.gopher.system.model.entity.CpOutSiteCoupon;
-import com.gopher.system.model.entity.CpOutSiteStore;
-import com.gopher.system.model.entity.CpSitestoreType;
-import com.gopher.system.model.entity.CpSitestoreTypeMap;
-import com.gopher.system.model.entity.CpStore;
-import com.gopher.system.model.entity.CpTypeStore;
+import com.gopher.system.model.entity.*;
 import com.gopher.system.model.vo.CpOutSiteStoreVo;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
-import com.gopher.system.model.vo.response.StoreResponse;
 import com.gopher.system.service.ShowSiteTwoService;
-import com.gopher.system.util.TitleUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
@@ -45,6 +25,8 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 	private CpOutSiteCouponDAO cpOutSiteCouponDAO;
 	@Autowired
 	private CpCouponDAO cpCouponDAO;
+    @Autowired
+	private CpStoreDAO cpStoreDAO;
 
 	@Override
 	public List<CpOutSite> getSiteList() {
@@ -89,10 +71,19 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
           throw new BusinessRuntimeException("参数不能为空");
 		}
 		final Integer id = cpOutSiteStore.getId();
+		final Integer storeId = cpOutSiteStore.getStoreId();
 		if(null == id && id <= 0){
 			throw new BusinessRuntimeException("非法的ID");
 		}
+		if(null == storeId && storeId <=0){
+			throw new BusinessRuntimeException("无效的商家ID");
+		}
 		cpOutSiteStoreDAO.updateByPrimaryKey(cpOutSiteStore);
+		CpStore cpStore = new CpStore();
+		cpStore.setId(storeId);
+		// 同步主表logo
+		cpStore.setLogoUrl(cpOutSiteStore.getLogo());
+		cpStoreDAO.updateByPrimaryKeySelective(cpStore);
 
 	}
 
@@ -130,8 +121,7 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 	public List<CpSitestoreType> getStoreSort(CpSitestoreRequest request) {
 		return cpSitestoreTypeDAO.getStoreSort(request);
 	}
-	@Autowired
-    private CpStoreDAO cpStoreDAO;
+
 	@Override
 	public CpOutSiteStore getSiteStroreById(CpOutSiteStore obj) {
 		if(null == obj){

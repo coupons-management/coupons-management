@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gopher.system.dao.mysql.CpCouponCensusDAO">
-  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.CpCouponCensus">
-    <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="SCRAPY_NAME" jdbcType="VARCHAR" property="scrapyName" />
-    <result column="SCRAPY_ID" jdbcType="INTEGER" property="scrapyId" />
-    <result column="SORT" jdbcType="INTEGER" property="sort" />
-    <result column="SCRAPY_TIME" jdbcType="TIMESTAMP" property="scrapyTime" />
-    <result column="COUPON_NAME" jdbcType="VARCHAR" property="couponName" />
-    <result column="COUPON_ID" jdbcType="INTEGER" property="couponId" />
-    <result column="STORE_ID" jdbcType="INTEGER" property="storeId" />
-    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
-    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.CpCouponCensus">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="SCRAPY_NAME" jdbcType="VARCHAR" property="scrapyName"/>
+        <result column="SCRAPY_ID" jdbcType="INTEGER" property="scrapyId"/>
+        <result column="SORT" jdbcType="INTEGER" property="sort"/>
+        <result column="SCRAPY_TIME" jdbcType="TIMESTAMP" property="scrapyTime"/>
+        <result column="COUPON_NAME" jdbcType="VARCHAR" property="couponName"/>
+        <result column="COUPON_ID" jdbcType="INTEGER" property="couponId"/>
+        <result column="STORE_ID" jdbcType="INTEGER" property="storeId"/>
+        <result column="CREATE_USER" jdbcType="INTEGER" property="createUser"/>
+        <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     ID, SCRAPY_NAME, SCRAPY_ID, SORT, SCRAPY_TIME, COUPON_NAME, COUPON_ID, STORE_ID, 
     CREATE_USER, UPDATE_USER, CREATE_TIME, UPDATE_TIME
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from CP_COUPON_CENSUS
-    where ID = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from CP_COUPON_CENSUS
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from CP_COUPON_CENSUS
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpCouponCensus" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpCouponCensus"
+            useGeneratedKeys="true">
     insert into CP_COUPON_CENSUS (SCRAPY_NAME, SCRAPY_ID, SORT, 
       SCRAPY_TIME, COUPON_NAME, COUPON_ID, 
       STORE_ID, CREATE_USER, UPDATE_USER, 
@@ -39,119 +40,120 @@
       #{storeId,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, #{updateUser,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpCouponCensus" useGeneratedKeys="true">
-    insert into CP_COUPON_CENSUS
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="scrapyName != null">
-        SCRAPY_NAME,
-      </if>
-      <if test="scrapyId != null">
-        SCRAPY_ID,
-      </if>
-      <if test="sort != null">
-        SORT,
-      </if>
-      <if test="scrapyTime != null">
-        SCRAPY_TIME,
-      </if>
-      <if test="couponName != null">
-        COUPON_NAME,
-      </if>
-      <if test="couponId != null">
-        COUPON_ID,
-      </if>
-      <if test="storeId != null">
-        STORE_ID,
-      </if>
-      <if test="createUser != null">
-        CREATE_USER,
-      </if>
-      <if test="updateUser != null">
-        UPDATE_USER,
-      </if>
-      <if test="createTime != null">
-        CREATE_TIME,
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="scrapyName != null">
-        #{scrapyName,jdbcType=VARCHAR},
-      </if>
-      <if test="scrapyId != null">
-        #{scrapyId,jdbcType=INTEGER},
-      </if>
-      <if test="sort != null">
-        #{sort,jdbcType=INTEGER},
-      </if>
-      <if test="scrapyTime != null">
-        #{scrapyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="couponName != null">
-        #{couponName,jdbcType=VARCHAR},
-      </if>
-      <if test="couponId != null">
-        #{couponId,jdbcType=INTEGER},
-      </if>
-      <if test="storeId != null">
-        #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="createUser != null">
-        #{createUser,jdbcType=INTEGER},
-      </if>
-      <if test="updateUser != null">
-        #{updateUser,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpCouponCensus">
-    update CP_COUPON_CENSUS
-    <set>
-      <if test="scrapyName != null">
-        SCRAPY_NAME = #{scrapyName,jdbcType=VARCHAR},
-      </if>
-      <if test="scrapyId != null">
-        SCRAPY_ID = #{scrapyId,jdbcType=INTEGER},
-      </if>
-      <if test="sort != null">
-        SORT = #{sort,jdbcType=INTEGER},
-      </if>
-      <if test="scrapyTime != null">
-        SCRAPY_TIME = #{scrapyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="couponName != null">
-        COUPON_NAME = #{couponName,jdbcType=VARCHAR},
-      </if>
-      <if test="couponId != null">
-        COUPON_ID = #{couponId,jdbcType=INTEGER},
-      </if>
-      <if test="storeId != null">
-        STORE_ID = #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="createUser != null">
-        CREATE_USER = #{createUser,jdbcType=INTEGER},
-      </if>
-      <if test="updateUser != null">
-        UPDATE_USER = #{updateUser,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpCouponCensus">
+    <insert id="insertSelective" keyColumn="ID" keyProperty="id"
+            parameterType="com.gopher.system.model.entity.CpCouponCensus" useGeneratedKeys="true">
+        insert into CP_COUPON_CENSUS
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scrapyName != null">
+                SCRAPY_NAME,
+            </if>
+            <if test="scrapyId != null">
+                SCRAPY_ID,
+            </if>
+            <if test="sort != null">
+                SORT,
+            </if>
+            <if test="scrapyTime != null">
+                SCRAPY_TIME,
+            </if>
+            <if test="couponName != null">
+                COUPON_NAME,
+            </if>
+            <if test="couponId != null">
+                COUPON_ID,
+            </if>
+            <if test="storeId != null">
+                STORE_ID,
+            </if>
+            <if test="createUser != null">
+                CREATE_USER,
+            </if>
+            <if test="updateUser != null">
+                UPDATE_USER,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scrapyName != null">
+                #{scrapyName,jdbcType=VARCHAR},
+            </if>
+            <if test="scrapyId != null">
+                #{scrapyId,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="scrapyTime != null">
+                #{scrapyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="couponName != null">
+                #{couponName,jdbcType=VARCHAR},
+            </if>
+            <if test="couponId != null">
+                #{couponId,jdbcType=INTEGER},
+            </if>
+            <if test="storeId != null">
+                #{storeId,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=INTEGER},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpCouponCensus">
+        update CP_COUPON_CENSUS
+        <set>
+            <if test="scrapyName != null">
+                SCRAPY_NAME = #{scrapyName,jdbcType=VARCHAR},
+            </if>
+            <if test="scrapyId != null">
+                SCRAPY_ID = #{scrapyId,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                SORT = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="scrapyTime != null">
+                SCRAPY_TIME = #{scrapyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="couponName != null">
+                COUPON_NAME = #{couponName,jdbcType=VARCHAR},
+            </if>
+            <if test="couponId != null">
+                COUPON_ID = #{couponId,jdbcType=INTEGER},
+            </if>
+            <if test="storeId != null">
+                STORE_ID = #{storeId,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                CREATE_USER = #{createUser,jdbcType=INTEGER},
+            </if>
+            <if test="updateUser != null">
+                UPDATE_USER = #{updateUser,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.CpCouponCensus">
     update CP_COUPON_CENSUS
     set SCRAPY_NAME = #{scrapyName,jdbcType=VARCHAR},
       SCRAPY_ID = #{scrapyId,jdbcType=INTEGER},
@@ -166,38 +168,43 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  
-   <select id="getBeanByCouponId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from CP_COUPON_CENSUS
-    where COUPON_ID = #{couponId,jdbcType=INTEGER}
-  </select>
-  
-  
-     <select id="getBean" parameterType="com.gopher.system.model.entity.CpCouponCensus" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from CP_COUPON_CENSUS
-    where SCRAPY_NAME = #{scrapyName,jdbcType=VARCHAR}  AND COUPON_NAME = #{couponName,jdbcType=VARCHAR} AND STORE_ID = #{storeId,jdbcType=INTEGER}
-  </select>
-  
-  
-   <update id="updateExpire" parameterType="com.gopher.system.model.entity.CpCouponCensus">
+
+    <select id="getBeanByCouponId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from CP_COUPON_CENSUS
+        where COUPON_ID = #{couponId,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="getBean" parameterType="com.gopher.system.model.entity.CpCouponCensus" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from CP_COUPON_CENSUS
+        where SCRAPY_NAME = #{scrapyName,jdbcType=VARCHAR} AND COUPON_NAME = #{couponName,jdbcType=VARCHAR} AND STORE_ID
+        = #{storeId,jdbcType=INTEGER}
+    </select>
+
+
+    <update id="updateExpire" parameterType="com.gopher.system.model.entity.CpCouponCensus">
     update CP_COUPON_CENSUS
     set SORT = #{sort,jdbcType=INTEGER},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where SCRAPY_NAME = #{scrapyName,jdbcType=VARCHAR} AND SCRAPY_TIME &gt;= #{scrapyTime}
   </update>
-  
-  
-     <update id="updateCouponIndex">
-    update CP_COUPON cou 
-SET `INDEX` =(select sum(sort)  from CP_COUPON_CENSUS cen 
- where cen.STORE_ID=cou.STORE_ID and cou.name= cen.COUPON_NAME)
-  </update>
-  
-  
 
-  
+
+    <update id="updateCouponIndex">
+    update CP_COUPON cou 
+       SET `INDEX` =(select sum(sort)  from CP_COUPON_CENSUS cen
+    where cen.STORE_ID=cou.STORE_ID and cou.name= cen.COUPON_NAME)
+  </update>
+
+    <select id='getCouponResultsOfScore' resultType="com.gopher.system.model.vo.response.CouponResultsOfScore">
+  	select a.COUPON_ID couponId,  a.SCRAPY_ID scrapyId, a.SORT sort, b.WEIGHT weight from CP_COUPON_CENSUS a
+	INNER JOIN CP_SCRAPY b 
+	ON b.ID = a.SCRAPY_ID 
+  </select>
+
+
 </mapper>

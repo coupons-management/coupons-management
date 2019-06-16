@@ -1,19 +1,25 @@
 package com.gopher.system.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gopher.system.dao.mysql.CpCouponCensusDAO;
+import com.gopher.system.dao.mysql.CpCouponDAO;
 import com.gopher.system.dao.mysql.CpScrapyDAO;
 import com.gopher.system.dao.mysql.CpScrapyRecodeDAO;
 import com.gopher.system.dao.mysql.SynMessageDataDao;
+import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpCouponCensus;
 import com.gopher.system.model.entity.CpScrapy;
 import com.gopher.system.model.entity.CpScrapyRecode;
 import com.gopher.system.model.entity.TMessage;
+import com.gopher.system.model.vo.response.CouponResultsOfScore;
 import com.gopher.system.service.MessageDataService;
 import com.gopher.system.util.CouPonJson;
 import com.gopher.system.util.SpiderStatusJson;
@@ -27,6 +33,8 @@ public class MessageDataServiceImpl implements MessageDataService {
 	CpCouponCensusDAO cpCouponCensusDAO;
 	@Autowired
 	CpScrapyDAO cpScrapyDAO;
+	@Autowired
+	CpCouponDAO cpCouponDAO;
 	
 	@Override
 	public List<TMessage> getStoreMessages() {
@@ -70,24 +78,36 @@ public class MessageDataServiceImpl implements MessageDataService {
 		      recode.setEndTime(json.getEndTime());
 		      cpScrapyRecodeDAO.insert(recode);
 		}else {
-			   recode.setScrapyName(json.getSpider());
-			   recode.setStatus(json.getStatus());
-			   recode.setEndTime(json.getEndTime());
+			  recode.setScrapyName(json.getSpider());
+			  recode.setStatus(json.getStatus());
+			  recode.setEndTime(json.getEndTime());
 		      cpScrapyRecodeDAO.updateByPrimaryKey(recode);	
 		}
 		
+		// 查找站点下的所有权重
+		List<CouponResultsOfScore> scoreList = cpCouponCensusDAO.getCouponResultsOfScore();
+		Map<Integer,Integer> final_sort = new HashMap<>();
 		
+		// 计算和
+		for (CouponResultsOfScore couponResultsOfScore : scoreList) {	
+			final int cooupon_id = couponResultsOfScore.getCouponId();
+			Integer score = final_sort.get(cooupon_id);
+			if(null == score){
+				score = couponResultsOfScore.getSort() *couponResultsOfScore.getWeight();
+			}else{
+				score += couponResultsOfScore.getSort() *couponResultsOfScore.getWeight();
+			}
+			final_sort.put(cooupon_id, score);
+		}
+		Set<Integer> keys = final_sort.keySet();
 		
-		//1:爬虫更新时间小于本次开始时间的爬虫数据清0
-		CpCouponCensus cen=new CpCouponCensus();
-		cen.setScrapyTime(recode.getStartTime());
-		cen.setScrapyName(json.getSpider());
-		cpCouponCensusDAO.updateExpire(cen);
-		
-		//2:修改优惠卷中的排名
-		cpCouponCensusDAO.updateCouponIndex();
-		
-	
+		for (Integer cooupon_id : keys) {
+			// 更新每一条
+			CpCoupon pon = new CpCoupon();
+			pon.setId(cooupon_id);
+			pon.setIndex(final_sort.get(cooupon_id));
+			cpCouponDAO.updateByPrimaryKeySelective(pon);
+		}
 		
 	}
 	@Override

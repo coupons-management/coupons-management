@@ -73,7 +73,7 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 				final String showName = e.getShowName();
 				final String title    = e.getTitle();
 				if(StringUtils.hasText(showName)){
-					e.setShowName(showName.replace(e.getName(),"{{store_name}}"));
+					e.setShowName(showName.replace("{{store_name}}",e.getName()));
 				}else{
 					e.setShowName(e.getName());
 				}
@@ -90,7 +90,7 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 	}
 
 	public static void main(String[] args) {
-		TitleUtils.getStoreMessage(TemplateKeys.STORE_SHOW_NAME);
+		System.out.println("{{store_name}} promo & promo codes".replace("{{store_name}}","test"));
 
 	}
 	@Override

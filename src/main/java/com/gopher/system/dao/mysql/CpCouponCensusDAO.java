@@ -1,15 +1,20 @@
 package com.gopher.system.dao.mysql;
 
 import com.gopher.system.model.entity.CpCouponCensus;
+import com.gopher.system.model.vo.response.CouponResultsOfScore;
 import com.gopher.system.util.SpiderStatusJson;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * CpCouponCensusDAO继承基类
  */
 @Repository
 public interface CpCouponCensusDAO extends MyBatisBaseDao<CpCouponCensus, Integer> {
+
 	CpCouponCensus getBeanByCouponId(int couponId);
+
 	CpCouponCensus getBean(CpCouponCensus cen);
 	/**
 	 * 
@@ -24,9 +29,11 @@ public interface CpCouponCensusDAO extends MyBatisBaseDao<CpCouponCensus, Intege
 	void updateExpire(CpCouponCensus obj);
 	/**
 	 * 重新统计优惠卷
-	 * @param obj
+	 * @param
 	 */
 	void updateCouponIndex();
+
+	List<CouponResultsOfScore>  getCouponResultsOfScore();
 
 	
 	  
