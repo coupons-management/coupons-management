@@ -23,7 +23,7 @@ public class ScrapyStoreServiceImpl implements ScrapyStoreService {
 	/**
 	 * 获得爬虫商家分页列表
 	 * 
-	 * @param storePageRequest
+	 * @param storeAllPageRequst
 	 * @return
 	 */
     public Page<StoreAllPageRequst> getScrapyPageList(StoreAllPageRequst storeAllPageRequst)
@@ -47,7 +47,7 @@ public class ScrapyStoreServiceImpl implements ScrapyStoreService {
     /**
 	 * 获得爬虫商家分页列表
 	 * 
-	 * @param storePageRequest
+	 * @param storeAllPageRequst
 	 * @return
 	 */
     public Page<StoreAllPageRequst> getErrScrapyPageList(StoreAllPageRequst storeAllPageRequst)
@@ -69,7 +69,7 @@ public class ScrapyStoreServiceImpl implements ScrapyStoreService {
     /**
  	 * 获得优惠卷分页列表
  	 * 
- 	 * @param storePageRequest
+ 	 * @param couponPageRequest
  	 * @return
  	 */
      public Page<CpCoupon> getScrapyCouponPageList(CouponPageRequest couponPageRequest)
@@ -88,7 +88,7 @@ public class ScrapyStoreServiceImpl implements ScrapyStoreService {
     /**
 	 * 获得优惠卷分页列表
 	 * 
-	 * @param storePageRequest
+	 * @param couponPageRequest
 	 * @return
 	 */
     public Page<CpCoupon> getErrScrapyCouponPageList(CouponPageRequest couponPageRequest)
@@ -111,7 +111,7 @@ public class ScrapyStoreServiceImpl implements ScrapyStoreService {
 	/**
 	 * 获得爬虫总数
 	 * 
-	 * @param storePageRequest
+	 * @param storeAllPageRequst
 	 * @return
 	 */
 	int getScrapyCount(StoreAllPageRequst storeAllPageRequst) {
