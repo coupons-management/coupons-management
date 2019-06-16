@@ -550,23 +550,21 @@
 	<select id="getTwoList"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultType="com.gopher.system.model.vo.CpOutSiteStoreVo">
-		SELECT * FROM (
-		SELECT DISTINCT OUTSTORE.ID outSiteId,OUTSTORE.ID
-		id,STORE.ID storeId,
+		SELECT
+		OUTSTORE.ID id,
+		OUTSTORE.ID outSiteId,
+		STORE.ID storeId,
 		STORE.NAME storeName,
 		STORE.WEBSITE webSite,
 		STORE.LOGO_URL logo,
 		COUPON_COUNT_VALID couponCountValid,
-		(SELECT COUNT(*) FROM CP_COUPON COU WHERE
-		COU.STORE_ID=STORE.ID)toalCount,
-		(SELECT COUNT(*) FROM CP_COUPON COU
-		WHERE COU.STORE_ID=STORE.ID AND
-		EXPIRE_AT >=now())validCount,
+		(SELECT COUNT(*) FROM CP_COUPON COU WHERE COU.STORE_ID = STORE.ID ) toalCount,
+		(SELECT COUNT(*) FROM CP_COUPON COU WHERE COU.STORE_ID = STORE.ID AND EXPIRE_AT >=now())validCount,
 		OUTSTORE.VISIT_COUNT AS visitCount,
-		date_format( CREATED_AT, '%Y-%c-%d %h:%i:%s' ) addTime,
+		date_format( OUTSTORE.CREATE_TIME, '%Y-%c-%d %h:%i:%s' ) addTime,
 		(SELECT
 		date_format( MAX(EXPIRE_AT), '%Y-%c-%d %h:%i:%s' ) FROM CP_COUPON
-		WHERE STORE_ID=STORE.ID) endTime,STORE.TYPE_NAME typeName
+		WHERE STORE_ID = STORE.ID) endTime,STORE.TYPE_NAME typeName
 		,STORE.TYPE_ID typeId 
 		FROM
 		CP_OUT_SITE_STORE OUTSTORE 
@@ -588,17 +586,19 @@
 					AND STORE.TYPE_ID = #{typeId}
 				</if>
 			</if>
-
-			<if
+			<if test="range != null and range >0 ">
+				validCount>= #{range}
+			</if>
+<!--			<if
 				test="storeType ='0'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
-				AND EXISTS (SELECT * FROM CP_COUPON WHERE STORE_ID=STORE.ID  
+				AND EXISTS (SELECT * FROM CP_COUPON WHERE STORE_ID=STORE.ID
           <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
 		  <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>)
 			</if>
 
 			<if
 				test="storeType ='1'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
-				AND NOT EXISTS(SELECT * FROM CP_COUPON WHERE STORE_ID=STORE.ID  
+				AND NOT EXISTS(SELECT * FROM CP_COUPON WHERE STORE_ID=STORE.ID
           <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
 		  <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>)
 			</if>
@@ -607,16 +607,10 @@
 				test="storeType ='2'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
 		 <![CDATA[ AND DATE_FORMAT(CREATED_AT, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
 		  <![CDATA[ AND DATE_FORMAT(CREATED_AT, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
-			</if>
+			</if>-->
 
 		</where>
 		ORDER BY STORE.ID ASC
-		)TEMP
-		<where>
-			<if test="range != null and range >0 ">
-				validCount>= #{range}
-			</if>
-		</where>
 		LIMIT #{beginIndex},#{pageSize}
 	</select>
 
@@ -625,11 +619,12 @@
 	<select id="getTwoCount"
 		parameterType="com.gopher.system.model.vo.request.ShowSiteStoreRequest"
 		resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM (
+		SELECT COUNT(1) FROM (
 		SELECT (SELECT COUNT(*) FROM CP_COUPON COU WHERE
 		COU.STORE_ID=STORE.ID AND
-		EXPIRE_AT >=now())validCount FROM
-		CP_OUT_SITE_STORE OUTSTORE 
+		EXPIRE_AT >=now())validCount
+		FROM
+		CP_OUT_SITE_STORE OUTSTORE
 		INNER JOIN 
 		CP_STORE STORE 
 		ON OUTSTORE.STORE_ID=STORE.ID
@@ -649,63 +644,11 @@
 				</if>
 			</if>
 
-			<if
-				test="storeType ='0'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
-				AND EXISTS (SELECT * FROM CP_COUPON WHERE STORE_ID=STORE.ID  
-          <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
-		  <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>)
-			</if>
-
-			<if
-				test="storeType ='1'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
-				AND NOT EXISTS(SELECT * FROM CP_COUPON WHERE STORE_ID=STORE.ID  
-          <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
-		  <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>)
-			</if>
-
-			<if
-				test="storeType ='2'  and startTime!=null and startTime!='' and endTime!='' and endTime!=null ">
-		 <![CDATA[ AND DATE_FORMAT(CREATED_AT, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
-		  <![CDATA[ AND DATE_FORMAT(CREATED_AT, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
-			</if>
-
-		</where>
-		)TEMP
-		<where>
 			<if test="range != null and range >0 ">
 				validCount>= #{range}
 			</if>
 		</where>
-
-
-
-
-		<!-- SELECT COUNT(*) FROM ( SELECT DISTINCT STORE.ID id, STORE.NAME storeName,STORE.WEBSITE 
-			webSite,STORE.LOGO_URL logo, COUPON_COUNT_VALID couponCountValid, (SELECT 
-			COUNT(*) FROM CP_COUPON COU WHERE COU.STORE_ID=STORE.ID)toalCount, (SELECT 
-			COUNT(*) FROM CP_COUPON COU WHERE COU.STORE_ID=STORE.ID AND EXPIRE_AT >=now())validCount, 
-			CREATED_AT addTime, (SELECT MAX(EXPIRE_AT) FROM CP_COUPON WHERE STORE_ID=STORE.ID) 
-			endTime,STORE.TYPE_ID typeId FROM CP_OUT_SITE_STORE OUTSTORE ,CP_STORE STORE 
-			<where> OUTSTORE.STORE_ID=STORE.ID AND OUTSTORE.OUT_ID = #{siteId} <if test="storeType 
-			== null or search == '' "> <if test="search != null and search != '' "> AND 
-			STORE.NAME LIKE "%"#{search}"%" OR STORE.WEBSITE LIKE "%"#{search}"%" </if> 
-			<if test="country != null and country !=''"> AND COUNTRY like "%"#{country}"%" 
-			</if> <if test="typeId != null and typeId >0 "> AND STORE.TYPE_ID = #{typeId} 
-			</if> </if> <if test="storeType ='0' and startTime!=null and startTime!='' 
-			and endTime!='' and endTime!=null "> AND EXISTS (SELECT * FROM CP_COUPON 
-			WHERE STORE_ID=STORE.ID <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, 
-			'%Y-%m-%d') ]]> <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, 
-			'%Y-%m-%d') ]]>) </if> <if test="storeType ='1' and startTime!=null and startTime!='' 
-			and endTime!='' and endTime!=null "> AND NOT EXISTS(SELECT * FROM CP_COUPON 
-			WHERE STORE_ID=STORE.ID <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')>=DATE_FORMAT(#{startTime}, 
-			'%Y-%m-%d') ]]> <![CDATA[ AND DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')<=DATE_FORMAT(#{endTime}, 
-			'%Y-%m-%d') ]]>) </if> <if test="storeType ='2' and startTime!=null and startTime!='' 
-			and endTime!='' and endTime!=null "> <![CDATA[ AND DATE_FORMAT(CREATED_AT, 
-			'%Y-%m-%d')>=DATE_FORMAT(#{startTime}, '%Y-%m-%d') ]]> <![CDATA[ AND DATE_FORMAT(CREATED_AT, 
-			'%Y-%m-%d')<=DATE_FORMAT(#{endTime}, '%Y-%m-%d') ]]> </if> </where> ORDER 
-			BY STORE.ID ASC )TEMP <where> <if test="range != null and range >0 "> validCount>= 
-			#{range} </if> </where> -->
-
+		)TEMP
 	</select>
 
 

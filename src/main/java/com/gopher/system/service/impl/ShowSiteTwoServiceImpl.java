@@ -45,8 +45,6 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 	private CpOutSiteCouponDAO cpOutSiteCouponDAO;
 	@Autowired
 	private CpCouponDAO cpCouponDAO;
-	@Autowired
-	private CpStoreDAO cpStoreDAO;
 
 	@Override
 	public List<CpOutSite> getSiteList() {
@@ -95,19 +93,6 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 			throw new BusinessRuntimeException("非法的ID");
 		}
 		cpOutSiteStoreDAO.updateByPrimaryKey(cpOutSiteStore);
-		// 修改商家logo
-//		CpStore store = new CpStore();
-//		if(cpOutSiteStore.getStoreId() == null && cpOutSiteStore.getStoreId() <=0){
-//			throw new BusinessRuntimeException("商家ID不能为空");
-//		}
-//		store.setId(cpOutSiteStore.getStoreId());
-//		if (StringUtils.isEmpty(cpOutSiteStore.getLogo()))) {
-//			throw new BusinessRuntimeException("logo不能为空");
-//		}
-//		store.setLogoUrl(cpOutSiteStore.getLogo());
-//		store.setUpdateTime(new Date());
-//		store.setUpdateUser(1);
-//		cpStoreDAO.updateLogo(store);
 
 	}
 
@@ -143,15 +128,24 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 
 	@Override
 	public List<CpSitestoreType> getStoreSort(CpSitestoreRequest request) {
-		// TODO Auto-generated method stub
 		return cpSitestoreTypeDAO.getStoreSort(request);
 	}
-
+	@Autowired
+    private CpStoreDAO cpStoreDAO;
 	@Override
 	public CpOutSiteStore getSiteStroreById(CpOutSiteStore obj) {
+		if(null == obj){
+			throw new BusinessRuntimeException("参数不能为空");
+		}
+
 		CpOutSiteStore store = cpOutSiteStoreDAO.selectByPrimaryKey(obj.getId());
-		if (store == null) {
-			return null;
+
+		if(null == store){
+			throw new BusinessRuntimeException("根据ID找不到商家记录");
+		}
+		CpStore cpStore = cpStoreDAO.selectByPrimaryKey(store.getStoreId());
+		if(null != cpStore){
+			store.setLogo(cpStore.getLogoUrl());
 		}
 //
 //		if (StringUtils.isEmpty(store.getShowName())||"null".equals(store.getShowName())) {
