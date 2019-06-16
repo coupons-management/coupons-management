@@ -11,8 +11,8 @@ import org.springframework.util.StringUtils;
 
 public class TitleUtils {
 	static List<String> list=new ArrayList<String>();
-	public static Map<String,List<String>> messageMap=new HashMap<String,List<String>>();
-	public static Map<String,List<String>> storeMessageMap=new HashMap<String,List<String>>();
+	public static Map<String,List<String>> messageMap = new HashMap<String,List<String>>();
+	public static Map<String,List<String>> storeMessageMap = new HashMap<String,List<String>>();
 	public static Map<String,String> keyWordsMap=new HashMap<String,String>();
 	static String mark="$";
 	static final String PERCENT ="%";
@@ -460,7 +460,6 @@ public class TitleUtils {
 	 * 替换模板消息A2类
 	 * @param title
 	 * @param mode
-	 * @param mark
 	 * @return
 	 */
 	 static String getA2Message(String  title,String mode) {
@@ -534,11 +533,8 @@ public class TitleUtils {
 		
 		}
 		}
-		
 		mode=mode.replace(mark, values[0]);
 		mode=mode.replace("%", values[1]);
-		
-		//System.out.println(mode);
 		return mode;
 	}
 	

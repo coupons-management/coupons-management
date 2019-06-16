@@ -6,7 +6,16 @@ public class CpStoreVo {
 	private String logoUrl;
 	private String webSite;
 	private String showName;
-	
+	private String title;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public int getStoreId() {
 		return storeId;
 	}

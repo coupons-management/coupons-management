@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.gopher.system.constant.TemplateKeys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -97,7 +98,11 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 		final Date now = new Date();
 		outSiteStore.setOutId(siteId);
 		outSiteStore.setStoreId(storeId);
-		outSiteStore.setShowName(cpStore.getName());
+		outSiteStore.setShowName(TitleUtils.getStoreMessage(TemplateKeys.STORE_SHOW_NAME));
+		outSiteStore.setKeywords(TitleUtils.getStoreMessage(TemplateKeys.STORE_KEYWORD));
+		outSiteStore.setStoreDes(TitleUtils.getStoreMessage(TemplateKeys.STORE_DES));
+		outSiteStore.setDes(TitleUtils.getStoreMessage(TemplateKeys.STORE_DESCRIPTION));
+		outSiteStore.setTitle(TitleUtils.getStoreMessage(TemplateKeys.STORE_TITLE));
 		outSiteStore.setCreateTime(now);
 		outSiteStore.setUpdateTime(now);
 		cpOutSiteStoreDAO.insert(outSiteStore);

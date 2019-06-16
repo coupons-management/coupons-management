@@ -28,21 +28,7 @@ public class ShowSiteTwoController {
 		result.setData(showSiteTwoService.getSiteList());
 		return result;
 	}
-	
-	
-	@RequestMapping(path="/addStoreToSiteBatch")
-	public Result addSiteStore(@RequestBody List<ShowSiteStoreRequest> showSiteStoreList) {
-		Result result = new Result();
-		showSiteTwoService.addStoreToSiteBatch(showSiteStoreList);
-		return result;
-	}
-	@RequestMapping(path="/addStoreToSite")
-	public Result addSiteStoreBatch(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
-		Result result = new Result();
-		showSiteTwoService.addStoreToSite(showSiteStoreRequest);
-		return result;
-	}
-	
+
 	
 	@RequestMapping(path="/getTwoList")
 	public Result getTwoList(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {

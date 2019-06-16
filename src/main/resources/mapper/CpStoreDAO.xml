@@ -637,7 +637,8 @@
         STORE.LOGO_URL logoUrl,
         STORE.WEBSITE webSite ,
         STORE.ID AS storeId,
-        SITESTORE.SHOW_NAME showName
+        SITESTORE.SHOW_NAME showName,
+        SITESTORE.title title,
         FROM CP_STORE STORE,CP_OUT_SITE_STORE SITESTORE
         <where>
             STORE.ID=SITESTORE.STORE_ID

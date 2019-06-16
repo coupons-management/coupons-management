@@ -2,6 +2,8 @@ package com.gopher.system.service.impl;
 
 import java.util.List;
 
+import com.gopher.system.constant.TemplateKeys;
+import com.gopher.system.util.TitleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.CpTypePageRequest;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.service.OfficialWebsiteService;
+import org.springframework.util.StringUtils;
 
 @Service
 public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
@@ -65,12 +68,31 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 		result.setPageNumber(quest.getPageNumber());
 		result.setPageSize(quest.getPageSize());
 		List<CpStoreVo> list = cpStoreDAO.getOffWebStorePageList(quest);
+		if(null != list){
+			list.forEach(e->{
+				final String showName = e.getShowName();
+				final String title    = e.getTitle();
+				if(StringUtils.hasText(showName)){
+					e.setShowName(showName.replace(e.getName(),"{{store_name}}"));
+				}else{
+					e.setShowName(e.getName());
+				}
+
+				if(StringUtils.hasText(title)){
+                  //TODO
+				}
+			});
+		}
 		final int count = cpStoreDAO.getOffWebTotalCount(quest);
 		result.setList(list);
 		result.setTotalCount(count);
 		return result;
 	}
 
+	public static void main(String[] args) {
+		TitleUtils.getStoreMessage(TemplateKeys.STORE_SHOW_NAME);
+
+	}
 	@Override
 	public List<CpType> getAllCategoriesList() {
 		return cpTypeDAO.getList();
