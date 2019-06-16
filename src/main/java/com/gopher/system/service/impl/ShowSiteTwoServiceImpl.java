@@ -87,18 +87,27 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 
 	@Override
 	public void updateOutSiteStore(CpOutSiteStore cpOutSiteStore) {
+		if(cpOutSiteStore == null){
+          throw new BusinessRuntimeException("参数不能为空");
+		}
+		final Integer id = cpOutSiteStore.getId();
+		if(null == id && id <= 0){
+			throw new BusinessRuntimeException("非法的ID");
+		}
 		cpOutSiteStoreDAO.updateByPrimaryKey(cpOutSiteStore);
 		// 修改商家logo
-		CpStore store = new CpStore();
-
-		store.setId(cpOutSiteStore.getStoreId());
-		if (StringUtils.isEmpty(cpOutSiteStore.getLogo()) || StringUtils.isEmpty(cpOutSiteStore.getStoreId())) {
-			return;
-		}
-		store.setLogoUrl(cpOutSiteStore.getLogo());
-		store.setUpdateTime(new Date());
-		store.setUpdateUser(1);
-		cpStoreDAO.updateLogo(store);
+//		CpStore store = new CpStore();
+//		if(cpOutSiteStore.getStoreId() == null && cpOutSiteStore.getStoreId() <=0){
+//			throw new BusinessRuntimeException("商家ID不能为空");
+//		}
+//		store.setId(cpOutSiteStore.getStoreId());
+//		if (StringUtils.isEmpty(cpOutSiteStore.getLogo()))) {
+//			throw new BusinessRuntimeException("logo不能为空");
+//		}
+//		store.setLogoUrl(cpOutSiteStore.getLogo());
+//		store.setUpdateTime(new Date());
+//		store.setUpdateUser(1);
+//		cpStoreDAO.updateLogo(store);
 
 	}
 
@@ -144,24 +153,24 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 		if (store == null) {
 			return null;
 		}
-
-		if (StringUtils.isEmpty(store.getShowName())||"null".equals(store.getShowName())) {
-			store.setShowName(TitleUtils.getStoreMessage("SHOWNAME"));
-		}
-		if (StringUtils.isEmpty(store.getStoreDes())||"null".equals(store.getStoreDes())) {
-			store.setHeaderDes(TitleUtils.getStoreMessage("STOREDES"));
-		}
-
-		if (StringUtils.isEmpty(store.getTitle())||"null".equals(store.getTitle())) {
-			store.setTitle(TitleUtils.getStoreMessage("TITLE"));
-		}
-		if (StringUtils.isEmpty(store.getKeywords())||"null".equals(store.getKeywords())) {
-			store.setKeywords(TitleUtils.getStoreMessage("KEYWORD"));
-		}
-
-		if (StringUtils.isEmpty(store.getStoreDes())) {
-			store.setStoreDes(TitleUtils.getStoreMessage("DESCRIPTION"));
-		}
+//
+//		if (StringUtils.isEmpty(store.getShowName())||"null".equals(store.getShowName())) {
+//			store.setShowName(TitleUtils.getStoreMessage("SHOWNAME"));
+//		}
+//		if (StringUtils.isEmpty(store.getStoreDes())||"null".equals(store.getStoreDes())) {
+//			store.setHeaderDes(TitleUtils.getStoreMessage("STOREDES"));
+//		}
+//
+//		if (StringUtils.isEmpty(store.getTitle())||"null".equals(store.getTitle())) {
+//			store.setTitle(TitleUtils.getStoreMessage("TITLE"));
+//		}
+//		if (StringUtils.isEmpty(store.getKeywords())||"null".equals(store.getKeywords())) {
+//			store.setKeywords(TitleUtils.getStoreMessage("KEYWORD"));
+//		}
+//
+//		if (StringUtils.isEmpty(store.getStoreDes())) {
+//			store.setStoreDes(TitleUtils.getStoreMessage("DESCRIPTION"));
+//		}
 
 		return store;
 	}
