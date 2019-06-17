@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="
+     http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/rabbit
+        http://www.springframework.org/schema/rabbit/spring-rabbit-2.0.xsd"
+       default-autowire="byName">
+
+    <bean id="rabbitConnectionFactory"
+          class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
+        <constructor-arg value="${rabbitMQ.host}"/>
+        <property name="username" value="${rabbitMQ.username}"/>
+        <property name="password" value="${rabbitMQ.password}"/>
+        <property name="port" value="${rabbitMQ.port}"/>
+        <property name="channelCacheSize" value="${rabbitMQ.channelCacheSize}"/>
+        <!-- <property name="virtualHost" value="/"/>-->
+    </bean>
+    <!--Spring的rabbitmq admin-->
+    <rabbit:admin connection-factory="rabbitConnectionFactory"/>
+    <!-- 定义消息队列 -->
+    <rabbit:queue name="online_coupon_queue" durable="false"/>
+    <rabbit:queue name="online_category_queue" durable="false"/>
+    <rabbit:queue name="online_store_queue" durable="false"/>
+    <rabbit:queue name="spider_status" durable="false"/>
+    <!-- 定义交换机 -->
+    <rabbit:direct-exchange name="scrapy" id="scrapy">
+        <rabbit:bindings>
+            <rabbit:binding key="coupon" queue="online_coupon_queue"></rabbit:binding>
+            <rabbit:binding key="category" queue="online_category_queue"></rabbit:binding>
+            <rabbit:binding key="store" queue="online_store_queue"></rabbit:binding>
+            <rabbit:binding key="spider_status" queue="spider_status"></rabbit:binding>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <!--定义Spring的RabbitMQ的连接模板  -->
+    <bean id="rabbitTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate">
+        <constructor-arg ref="rabbitConnectionFactory"></constructor-arg>
+    </bean>
+
+    <!--监听容器-->
+    <rabbit:listener-container connection-factory="rabbitConnectionFactory">
+        <rabbit:listener ref="spiderMessageListener"
+                         queues="online_coupon_queue,
+                                 online_category_queue,
+                                 online_store_queue,
+                                 spider_status"
+                         method="onMessage"/>
+    </rabbit:listener-container>
+
+    <bean id="spiderMessageListener" class="com.gopher.system.listener.SpiderMessageListener"></bean>
+</beans>

@@ -22,7 +22,7 @@
 
     <insert id="insertCouponMessages" parameterType="com.gopher.system.model.entity.TMessage">
         <selectKey keyProperty="pkId" resultType="String" order="BEFORE">
-            select replace(uuid(),'-','') from dual
+            SELECT replace(uuid(),'-','') FROM dual
         </selectKey>
         INSERT INTO T_MESSAGE_COUPON
         (PK_ID,MESSAGE_BODY,CREATE_TIME)
@@ -32,7 +32,7 @@
 
     <insert id="insertCategoryMessages" parameterType="com.gopher.system.model.entity.TMessage">
         <selectKey keyProperty="pkId" resultType="String" order="BEFORE">
-            select replace(uuid(),'-','') from dual
+            SELECT replace(uuid(),'-','') FROM dual
         </selectKey>
         INSERT INTO T_MESSAGE_CATEGORY
         (PK_ID,MESSAGE_BODY,CREATE_TIME)
@@ -42,7 +42,7 @@
 
     <insert id="insertStoreMessages" parameterType="com.gopher.system.model.entity.TMessage">
         <selectKey keyProperty="pkId" resultType="String" order="BEFORE">
-            select replace(uuid(),'-','') from dual
+            SELECT replace(uuid(),'-','') FROM dual
         </selectKey>
         INSERT INTO T_MESSAGE_STORE
         (PK_ID,MESSAGE_BODY,CREATE_TIME)
@@ -52,19 +52,19 @@
 
     <update id="updateCategoryMessageStatus" parameterType="String">
 		UPDATE T_MESSAGE_CATEGORY
-		set status=1
+		SET status=1
 	   WHERE PK_ID=#{id}
 	</update>
 
     <update id="updateStoreMessageStatus" parameterType="String">
 		UPDATE T_MESSAGE_STORE
-		set status=1
+		SET status=1
 	   WHERE PK_ID=#{id}
 	</update>
 
     <update id="updateCouPonMessageStatus" parameterType="String">
 		UPDATE T_MESSAGE_COUPON
-		set status=1
+		SET status=1
 	   WHERE PK_ID=#{id}
 
 	</update>
