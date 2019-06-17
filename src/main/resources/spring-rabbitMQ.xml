@@ -41,7 +41,7 @@
     </bean>
 
     <!--监听容器-->
-    <rabbit:listener-container connection-factory="rabbitConnectionFactory">
+    <rabbit:listener-container  acknowledge="auto" connection-factory="rabbitConnectionFactory">
         <rabbit:listener ref="spiderMessageListener"
                          queues="online_coupon_queue,
                                  online_category_queue,
