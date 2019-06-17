@@ -14,6 +14,7 @@ import com.gopher.system.service.SynDataService;
 import com.gopher.system.util.HttpRequest;
 import com.gopher.system.util.Message;
 import com.gopher.system.util.TitleUtils;
+import org.springframework.stereotype.Service;
 
 public class SynBasicsData {
 	@Autowired

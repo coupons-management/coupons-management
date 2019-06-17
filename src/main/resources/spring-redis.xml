@@ -13,7 +13,7 @@
     </bean> 
 
     <!-- jedis连接工程的配置 -->
-    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"> 
+    <bean id="redisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <property name="hostName" value="${redis.host}" />
         <property name="port" value="${redis.port}" />
         <property name="poolConfig" ref="jedisPoolConfig" /> 
@@ -24,7 +24,7 @@
 
     <!-- redisTemplate配置 -->
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">   
-        <property name="connectionFactory"   ref="connectionFactory" />  
+        <property name="connectionFactory"   ref="redisConnectionFactory" />
         <property name="keySerializer">   
             <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />   
         </property>      

@@ -1,30 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="
      http://www.springframework.org/schema/beans
      http://www.springframework.org/schema/beans/spring-beans.xsd
      http://www.springframework.org/schema/context
-     http://www.springframework.org/schema/context/spring-context.xsd"
-	default-autowire="byName">
+     http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/rabbit
+        http://www.springframework.org/schema/rabbit/spring-rabbit-2.0.xsd"
+       default-autowire="byName">
 
-	<context:component-scan
-		base-package="com.gopher.system.dao,
+    <context:component-scan
+            base-package="com.gopher.system.dao,
 	                                      com.gopher.system.service,
 	                                      com.gopher.system.exception,
 	                                      com.gopher.system.aspect,
-                                          com.gopher.system.worker" />
-	<context:property-placeholder
-		location="classpath:config.properties" />
-	<import resource="classpath:spring-mybatis.xml" />
-	 <import resource="classpath:spring-task.xml" />
-	<import resource="classpath:spring-redis.xml" />
-	<bean id="SpringContextUtil"
-		class="com.gopher.system.util.SpringContextUtil">
-	</bean>
-	<bean id="messageDataService"
-		class="com.gopher.system.service.impl.MessageDataServiceImpl">
-	</bean>
+                                          com.gopher.system.worker"/>
+    <context:property-placeholder
+            location="classpath:config.properties"/>
+    <import resource="classpath:spring-mybatis.xml"/>
+<!--
+    <import resource="classpath:spring-task.xml"/>
+-->
+    <import resource="classpath:spring-redis.xml"/>
 
+    <!--<bean id="SpringContextUtil"-->
+          <!--class="com.gopher.system.util.SpringContextUtil">-->
+    <!--</bean>-->
+    <!--<bean id="messageDataService"-->
+          <!--class="com.gopher.system.service.impl.MessageDataServiceImpl">-->
+    <!--</bean>-->
+
+
+    <!-- rabbitMQ配置 -->
+    <bean id="rabbitConnectionFactory"
+          class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
+        <constructor-arg value="18.234.205.204"/>
+        <property name="username" value="coupon"/>
+        <property name="password" value="Ppp12345"/>
+        <property name="port" value="5672"></property>
+        <property name="channelCacheSize" value="8"/>
+    </bean>
+    <!--Spring的rabbitmq admin-->
+    <rabbit:admin connection-factory="rabbitConnectionFactory"/>
+    <!--生产者创建队列-->
+    <rabbit:queue name="online_coupon_queue" durable="false"/>
+    <rabbit:queue name="online_category_queue" durable="false"/>
+    <rabbit:queue name="online_store_queue" durable="false"/>
+    <rabbit:queue name="spider_status" durable="false"/>
+
+    <rabbit:direct-exchange name="scrapy" id="scrapy">
+        <rabbit:bindings>
+        <rabbit:binding queue="online_coupon_queue"></rabbit:binding>
+        <rabbit:binding queue="online_category_queue"></rabbit:binding>
+        <rabbit:binding queue="online_store_queue"></rabbit:binding>
+        <rabbit:binding queue="spider_status"></rabbit:binding>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <!--定义Spring的RabbitMQ的连接模板  -->
+    <bean id="rabbitTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate">
+        <constructor-arg ref="rabbitConnectionFactory"></constructor-arg>
+    </bean>
+
+    <!--监听容器-->
+    <rabbit:listener-container connection-factory="rabbitConnectionFactory">
+        <rabbit:listener ref="spiderMessageListener" queues="online_coupon_queue,online_category_queue,online_store_queue,spider_status" method="onMessage" />
+    </rabbit:listener-container>
+
+    <bean id="spiderMessageListener" class="com.gopher.system.listener.SpiderMessageListener"></bean>
 </beans>
