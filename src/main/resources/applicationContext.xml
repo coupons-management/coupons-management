@@ -21,42 +21,45 @@
     <context:property-placeholder
             location="classpath:config.properties"/>
     <import resource="classpath:spring-mybatis.xml"/>
-<!--
-    <import resource="classpath:spring-task.xml"/>
--->
+    <!--
+        <import resource="classpath:spring-task.xml"/>
+    -->
     <import resource="classpath:spring-redis.xml"/>
 
     <!--<bean id="SpringContextUtil"-->
-          <!--class="com.gopher.system.util.SpringContextUtil">-->
+    <!--class="com.gopher.system.util.SpringContextUtil">-->
     <!--</bean>-->
     <!--<bean id="messageDataService"-->
-          <!--class="com.gopher.system.service.impl.MessageDataServiceImpl">-->
+    <!--class="com.gopher.system.service.impl.MessageDataServiceImpl">-->
     <!--</bean>-->
 
 
     <!-- rabbitMQ配置 -->
     <bean id="rabbitConnectionFactory"
           class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
-        <constructor-arg value="18.234.205.204"/>
-        <property name="username" value="coupon"/>
-        <property name="password" value="Ppp12345"/>
-        <property name="port" value="5672"></property>
-        <property name="channelCacheSize" value="8"/>
+        <constructor-arg value="${rabbitMQ.host}"/>
+        <property name="username" value="${rabbitMQ.username}"/>
+        <property name="password" value="${rabbitMQ.password}"/>
+        <property name="port" value="${rabbitMQ.port}"/>
+        <property name="channelCacheSize" value="${rabbitMQ.channelCacheSize}"/>
+       <!-- <property name="virtualHost" value="/"/>-->
     </bean>
     <!--Spring的rabbitmq admin-->
     <rabbit:admin connection-factory="rabbitConnectionFactory"/>
-    <!--生产者创建队列-->
+    <!-- 定义消息队列 -->
     <rabbit:queue name="online_coupon_queue" durable="false"/>
     <rabbit:queue name="online_category_queue" durable="false"/>
     <rabbit:queue name="online_store_queue" durable="false"/>
     <rabbit:queue name="spider_status" durable="false"/>
 
+
+    <!-- 定义交换机 -->
     <rabbit:direct-exchange name="scrapy" id="scrapy">
         <rabbit:bindings>
-        <rabbit:binding queue="online_coupon_queue"></rabbit:binding>
-        <rabbit:binding queue="online_category_queue"></rabbit:binding>
-        <rabbit:binding queue="online_store_queue"></rabbit:binding>
-        <rabbit:binding queue="spider_status"></rabbit:binding>
+            <rabbit:binding key="coupon" queue="online_coupon_queue"></rabbit:binding>
+            <rabbit:binding key="category" queue="online_category_queue" ></rabbit:binding>
+            <rabbit:binding key="store" queue="online_store_queue"></rabbit:binding>
+            <rabbit:binding key="spider_status" queue="spider_status"></rabbit:binding>
         </rabbit:bindings>
     </rabbit:direct-exchange>
 
@@ -67,7 +70,12 @@
 
     <!--监听容器-->
     <rabbit:listener-container connection-factory="rabbitConnectionFactory">
-        <rabbit:listener ref="spiderMessageListener" queues="online_coupon_queue,online_category_queue,online_store_queue,spider_status" method="onMessage" />
+        <rabbit:listener ref="spiderMessageListener"
+                         queues="online_coupon_queue,
+                                 online_category_queue,
+                                 online_store_queue,
+                                 spider_status"
+                         method="onMessage"/>
     </rabbit:listener-container>
 
     <bean id="spiderMessageListener" class="com.gopher.system.listener.SpiderMessageListener"></bean>

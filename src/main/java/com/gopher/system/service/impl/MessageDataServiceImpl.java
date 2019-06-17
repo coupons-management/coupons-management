@@ -1,9 +1,6 @@
 package com.gopher.system.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +64,8 @@ public class MessageDataServiceImpl implements MessageDataService {
 	}
 	@Override
 	public void updateCouponIndex(String msg) {
+		final String status_start = "start";
+		final String status_stop  = "stop";
 		JSONObject jsonObject = JSONObject.parseObject(msg);
 		SpiderStatusJson json = (SpiderStatusJson) JSONObject.toJavaObject(jsonObject, SpiderStatusJson.class);
 		
@@ -74,12 +73,20 @@ public class MessageDataServiceImpl implements MessageDataService {
 		if(recode==null)
 		{     recode=new CpScrapyRecode();
 			  recode.setScrapyName(json.getSpider());
-		      recode.setStatus(json.getStatus());
+			  if(Objects.equals(status_start,json.getStatus())){
+				  recode.setStatus("1");
+			  }else{
+				  recode.setStatus("0");
+			  }
 		      recode.setEndTime(json.getEndTime());
 		      cpScrapyRecodeDAO.insert(recode);
 		}else {
 			  recode.setScrapyName(json.getSpider());
-			  recode.setStatus(json.getStatus());
+			if(Objects.equals(status_start,json.getStatus())){
+				recode.setStatus("1");
+			}else{
+				recode.setStatus("0");
+			}
 			  recode.setEndTime(json.getEndTime());
 		      cpScrapyRecodeDAO.updateByPrimaryKey(recode);	
 		}

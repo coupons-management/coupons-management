@@ -3,124 +3,83 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gopher.system.dao.mysql.SynMessageDataDao">
-	<select id="getCouPonMessages" resultType="com.gopher.system.model.entity.TMessage">
-		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
-		FROM T_MESSAGE_COUPON  WHERE STATUS=0 LIMIT 2000
-	</select>
-	
-	<select id="getStoreMessages" resultType="com.gopher.system.model.entity.TMessage">
-		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
-		FROM T_MESSAGE_STORE WHERE STATUS=0  
-	</select>
-	<!-- <delete id="delete" parameterType="java.lang.Integer">
-		DELETE FROM T_MESSAGE_COUPON WHERE PK_ID =
-		#{id}
-	</delete> -->
-	
-	
-		<insert id="insertCouponMessages" 	parameterType="com.gopher.system.model.entity.TMessage">
-       <selectKey keyProperty="pkId" resultType="String" order="BEFORE">
-        select replace(uuid(),'-','') from dual
-       </selectKey>
-		INSERT INTO T_MESSAGE_COUPON
-		(PK_ID,MESSAGE_BODY,CREATE_TIME)
-		VALUES
-		(#{pkId},#{messageBody},now())
-	</insert>
-	
-		<insert id="insertCategoryMessages" 	parameterType="com.gopher.system.model.entity.TMessage">
-       <selectKey keyProperty="pkId" resultType="String" order="BEFORE">
-        select replace(uuid(),'-','') from dual
-       </selectKey>
-		INSERT INTO T_MESSAGE_CATEGORY
-		(PK_ID,MESSAGE_BODY,CREATE_TIME)
-		VALUES
-		(#{pkId},#{messageBody},now())
-	</insert>
-	
-	
-	<insert id="insertStoreMessages" 	parameterType="com.gopher.system.model.entity.TMessage">
-       <selectKey keyProperty="pkId" resultType="String" order="BEFORE">
-        select replace(uuid(),'-','') from dual
-       </selectKey>
-		INSERT INTO T_MESSAGE_STORE
-		(PK_ID,MESSAGE_BODY,CREATE_TIME)
-		VALUES
-		(#{pkId},#{messageBody},now())
-	</insert>
-	
-	
-	
-	
-	<select id="getScrapyeMessages"
-		resultType="com.gopher.system.model.entity.TMessage">
-		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
-		FROM T_MESSAGE_CATEGORY  WHERE STATUS=0
-	</select>
-	<!-- 
-	<insert id="insertScrapye" 	parameterType="com.gopher.system.util.CateGoryJson">
-       <selectKey keyProperty="id" resultType="String" order="BEFORE">
-        select replace(uuid(),'-','') from dual
-       </selectKey>
-		INSERT INTO cp_scrapy
-		(id,name,ENABLE,create_time)
-		VALUES
-		(#{id},#{name},#{status},now())
-	</insert>  -->
 
+    <select id="getCouPonMessages" resultType="com.gopher.system.model.entity.TMessage">
+		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
+		FROM T_MESSAGE_COUPON  WHERE STATUS=0 ORDER BY STATUS ASC LIMIT 200
+	</select>
 
-<update id="updateCategoryMessageStatus" parameterType="String">
+    <select id="getStoreMessages" resultType="com.gopher.system.model.entity.TMessage">
+		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
+		FROM T_MESSAGE_STORE WHERE STATUS=0  ORDER BY STATUS ASC LIMIT 200
+	</select>
+
+    <select id="getScrapyeMessages"
+            resultType="com.gopher.system.model.entity.TMessage">
+		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
+		FROM T_MESSAGE_CATEGORY  WHERE STATUS=0  ORDER BY STATUS ASC LIMIT 200
+	</select>
+
+    <insert id="insertCouponMessages" parameterType="com.gopher.system.model.entity.TMessage">
+        <selectKey keyProperty="pkId" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        INSERT INTO T_MESSAGE_COUPON
+        (PK_ID,MESSAGE_BODY,CREATE_TIME)
+        VALUES
+        (#{pkId},#{messageBody},now())
+    </insert>
+
+    <insert id="insertCategoryMessages" parameterType="com.gopher.system.model.entity.TMessage">
+        <selectKey keyProperty="pkId" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        INSERT INTO T_MESSAGE_CATEGORY
+        (PK_ID,MESSAGE_BODY,CREATE_TIME)
+        VALUES
+        (#{pkId},#{messageBody},now())
+    </insert>
+
+    <insert id="insertStoreMessages" parameterType="com.gopher.system.model.entity.TMessage">
+        <selectKey keyProperty="pkId" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        INSERT INTO T_MESSAGE_STORE
+        (PK_ID,MESSAGE_BODY,CREATE_TIME)
+        VALUES
+        (#{pkId},#{messageBody},now())
+    </insert>
+
+    <update id="updateCategoryMessageStatus" parameterType="String">
 		UPDATE T_MESSAGE_CATEGORY
 		set status=1
 	   WHERE PK_ID=#{id}
 	</update>
-	
-	<update id="updateStoreMessageStatus" parameterType="String">
+
+    <update id="updateStoreMessageStatus" parameterType="String">
 		UPDATE T_MESSAGE_STORE
 		set status=1
 	   WHERE PK_ID=#{id}
 	</update>
-	
-	<update id="updateCouPonMessageStatus" parameterType="String">
+
+    <update id="updateCouPonMessageStatus" parameterType="String">
 		UPDATE T_MESSAGE_COUPON
 		set status=1
 	   WHERE PK_ID=#{id}
 
 	</update>
-	
-	
-	<!-- 
-	 <insert id="insertStoreByMessage" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.util.StoreJson" useGeneratedKeys="true">
-    insert into CP_STORE (`NAME`, WEBSITE,  COUNTRY, COUPON_COUNT,UUID,IN_TYPE,DES,LOGO_URL)
-    values (#{name,jdbcType=VARCHAR}, #{finalWebsite,jdbcType=VARCHAR},#{country,jdbcType=VARCHAR},#{couponCount,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR},'0',
-    #{description,jdbcType=VARCHAR},  #{logoUrl,jdbcType=VARCHAR})
-  </insert> -->
-  
-  
-  <!-- 
-    <insert id="insertType" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpType" useGeneratedKeys="true">
-    insert into CP_TYPE (OUT_SITE_ID, `NAME`, DES, 
-      CREATE_USER, UPDATE_USER, CREATE_TIME, 
-      UPDATE_TIME)
-    values (#{outSiteId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, 
-      #{createUser,jdbcType=INTEGER}, #{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
-	 -->
-	
-	
-	
-	<update id="deleteCouPonMessages">
+
+
+    <update id="deleteCouPonMessages">
        DELETE FROM T_MESSAGE_COUPON WHERE DATEDIFF(CREATE_TIME,NOW())<![CDATA[<]]> -1  AND STATUS=1 
     </update>
-	<update id="deleteStoreMessage">
+    <update id="deleteStoreMessage">
        DELETE FROM T_MESSAGE_STORE WHERE DATEDIFF(CREATE_TIME,NOW())<![CDATA[<]]>-1  AND STATUS=1 
     </update>
-    
+
     <update id="deleteCategoryMessage">
        DELETE FROM T_MESSAGE_CATEGORY WHERE DATEDIFF(CREATE_TIME,NOW())<![CDATA[<]]>-1  AND STATUS=1 
     </update>
-	
-	
-	
+
+
 </mapper>

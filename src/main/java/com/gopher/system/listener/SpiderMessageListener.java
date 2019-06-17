@@ -17,13 +17,13 @@ public class SpiderMessageListener implements MessageListener {
     private final String online_category_queue = "online_category_queue";
     private final String online_store_queue = "online_store_queue";
     private final String spider_status = "spider_status";
-
+    @Override
     public void onMessage(Message message) {
         try {
             final String queue = message.getMessageProperties().getConsumerQueue();
             final String message_content = new String(message.getBody(), "UTF-8");
-//            logger.info("queue name:{}", queue);
-//            logger.info("message:{}", message_content);
+            logger.info("queue name:{}", queue);
+            logger.info("message:{}", message_content);
             TMessage tmessage = new TMessage();
             tmessage.setMessageBody(message_content);
             switch (queue) {

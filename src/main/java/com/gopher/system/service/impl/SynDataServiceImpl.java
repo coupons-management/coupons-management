@@ -331,7 +331,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpCoupon.setIndex(stu.getIndex());
 
 					cpCoupon.setTitle(TitleUtils.getMessage(stu.getName()));
-					cpCouponDAO.updateByPrimaryKey(cpCoupon);
+					cpCouponDAO.updateByPrimaryKeySelective(cpCoupon);
 				}
 				// 4、增加爬虫
 
@@ -412,7 +412,7 @@ public class SynDataServiceImpl implements SynDataService {
 					census.setSort(weight*(DataCacheUtils.VALUES-stu.getIndex()));
 					census.setScrapyTime(new Date());
 					census.setUpdateTime(new Date());
-					cpCouponCensusDAO.updateByPrimaryKey(census);
+					cpCouponCensusDAO.updateByPrimaryKeySelective(census);
 				}
 
 				/*
@@ -503,7 +503,7 @@ public class SynDataServiceImpl implements SynDataService {
 					cpType.setName(json.getName());
 					cpType.setDes(json.getDescription());
 					cpType.setUpdateTime(new Date());
-					cpTypeDAO.updateByPrimaryKey(cpType);
+					cpTypeDAO.updateByPrimaryKeySelective(cpType);
 					// synMessageDataMapper.insertType(type);
 				}
 
