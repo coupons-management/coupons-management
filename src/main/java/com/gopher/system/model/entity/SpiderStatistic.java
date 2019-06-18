@@ -9,20 +9,30 @@ import java.util.Date;
  */
 public class SpiderStatistic implements Serializable {
     private Integer id;
-
+    /**
+     * 爬虫ID
+     */
     private Integer spiderId;
-
+    /**
+     * 商家ID
+     */
     private Integer storeId;
 
     /**
      * 是否是新增的商家 1=是 0=否
      */
     private Integer isNewStore;
-
+    /**
+     * 新增优惠券数量
+     */
     private Integer incrementCoupon;
-
+    /**
+     * 有效优惠券数量
+     */
     private Integer validCoupon;
-
+    /**
+     * 优惠券总量
+     */
     private Integer totalCoupon;
 
     private Date createTime;

@@ -142,7 +142,6 @@ public class DateUtils {
 	/**
 	 * 获得当前年
 	 * 
-	 * @param date
 	 * @return
 	 */
 	public static int getLocaleYear() {
@@ -225,7 +224,6 @@ public class DateUtils {
 	/**
 	 * 获得当前年
 	 * 
-	 * @param date
 	 * @return
 	 */
 	public static int getLocaleMonth() {
@@ -270,7 +268,7 @@ public class DateUtils {
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
-		return calendar.getTimeInMillis() / 1000;
+		return calendar.getTimeInMillis();
 	}
 
 	public static long getYesterdayEnd() {
@@ -291,7 +289,7 @@ public class DateUtils {
 		calendar.set(Calendar.MINUTE, 59);
 		calendar.set(Calendar.SECOND, 59);
 		calendar.set(Calendar.MILLISECOND, 999);
-		return calendar.getTimeInMillis() / 1000;
+		return calendar.getTimeInMillis();
 	}
 	
 	/**
@@ -326,7 +324,7 @@ public class DateUtils {
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
-		return calendar.getTimeInMillis() / 1000;
+		return calendar.getTimeInMillis() ;
 	}
 	
 	public static Date getOneDayStartDate(long dateTime) {
@@ -370,7 +368,7 @@ public class DateUtils {
 		calendar.set(Calendar.MINUTE, 59);
 		calendar.set(Calendar.SECOND, 59);
 		calendar.set(Calendar.MILLISECOND, 999);
-		return calendar.getTimeInMillis() / 1000;
+		return calendar.getTimeInMillis() ;
 	}
 
 	/**
@@ -386,7 +384,7 @@ public class DateUtils {
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
-		return calendar.getTimeInMillis() / 1000;
+		return calendar.getTimeInMillis() ;
 	}
 
 	/**
@@ -402,7 +400,7 @@ public class DateUtils {
 		calendar.set(Calendar.MINUTE, 59);
 		calendar.set(Calendar.SECOND, 59);
 		calendar.set(Calendar.MILLISECOND, 999);
-		return calendar.getTimeInMillis() / 1000;
+		return calendar.getTimeInMillis() ;
 	}
 
 	/**
@@ -442,7 +440,6 @@ public class DateUtils {
 	/**
 	 * 指定时间，获取这个时间的本月的结束
 	 * 
-	 * @param monnth
 	 * @return
 	 */
 	public static long getOneMonthEnd(int year, int month) {
@@ -461,7 +458,7 @@ public class DateUtils {
 	/**
 	 * 指定时间，获得当前时间的月
 	 * 
-	 * @param time
+	 * @param timestamp
 	 * @return
 	 */
 	public static int getMonth(long timestamp) {
@@ -473,7 +470,7 @@ public class DateUtils {
 	/**
 	 * 指定时间，获得当前时间的年
 	 * 
-	 * @param time
+	 * @param timestamp
 	 * @return
 	 */
 	public static int getYear(long timestamp) {
@@ -504,7 +501,7 @@ public class DateUtils {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
 		calendar.add(Calendar.MONTH, m);
-		return calendar.getTime().getTime() / 1000;
+		return calendar.getTime().getTime() ;
 	}
 
 	public static long getTimestamp(int year, int month, int date) {

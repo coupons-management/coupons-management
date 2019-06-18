@@ -91,7 +91,6 @@ public class SpiderStatisticJob {
 		SpiderStatisticVO query = new SpiderStatisticVO();
 		final Date yesterday = DateUtils.getOneDayEndDate(-1);
 		final Date beforeYesterday = DateUtils.getOneDayEndDate(-2);
-		LOGGER.info("时间范围:{}~{}",DateUtils.getDatetimeString(beforeYesterday),DateUtils.getDatetimeString(yesterday));
 		query.setBeginTime(beforeYesterday);
 		query.setEndTime(yesterday);
 		query.setStoreId(storeId);
@@ -124,6 +123,10 @@ public class SpiderStatisticJob {
 		// 当天新增得优惠券
 		return cpCouponDAO.getTotalCounBySpiderAndTime(query);
 	}
-	
+
+
+	public static void main(String[] args) {
+		System.out.println(DateUtils.getDateString(DateUtils.getOneDayEnd(-1)));
+	}
 
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.CharsetUtils;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,21 +85,50 @@ public class HttpConenection {
      * @param httpUrl 地址 
      * @param maps 参数 
      */  
-    public String sendHttpPost(String httpUrl, Map<String, String> maps) {  
+    public String sendHttpPost(String httpUrl, Map<String, String> maps) {
         HttpPost httpPost = new HttpPost(httpUrl);// 创建httpPost    
         // 创建参数队列    
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();  
         for (String key : maps.keySet()) {  
             nameValuePairs.add(new BasicNameValuePair(key, maps.get(key)));  
         }  
-        try {  
-            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));  
+        try {
+            httpPost.setHeader("contentType","application/json");
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
         } catch (Exception e) {  
         	LOG.error(e.getMessage(), "HTTP请求发送失败");
         }  
         return sendHttpPost(httpPost);  
-    }  
-      
+    }
+
+    public String sendJsonHttpPost(String url, String json) {
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        String responseInfo = null;
+        try {
+            HttpPost httpPost = new HttpPost(url);
+            httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
+            ContentType contentType = ContentType.create("application/json", CharsetUtils.get("UTF-8"));
+            httpPost.setEntity(new StringEntity(json, contentType));
+            CloseableHttpResponse response = httpclient.execute(httpPost);
+            HttpEntity entity = response.getEntity();
+            int status = response.getStatusLine().getStatusCode();
+            if (status >= 200 && status < 300) {
+                if (null != entity) {
+                    responseInfo = EntityUtils.toString(entity);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                httpclient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return responseInfo;
+    }
       
     /** 
      * 发送 post请求（带文件） 
@@ -164,7 +195,7 @@ public class HttpConenection {
         HttpGet httpGet = new HttpGet(httpUrl);// 创建get请求  
         return sendHttpGet(httpGet);  
     }  
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Exception {
     /*	for (int i=0;i<50;i++) {
     	    Thread.sleep(1*1000);
     		String result_json = HttpConenection.getInstance().sendHttpGet("http://iot.ideyee.com/business/device/getList?token=f93c0943-e640-4496-ab4d-b5f4bfb7b733");
@@ -175,9 +206,17 @@ public class HttpConenection {
     			System.out.println("success:"+result.isSuccess());
     	 	}
 		}*/
-    	String url="http://39.98.53.2:3332/system/sourceType/getList";
-    	String result_json = HttpConenection.getInstance().sendHttpPost(url,"sessionKey=14e1b600b1fd579f47433b88e8d85291");
-    	System.out.println(result_json);
+         // 服务地址
+    	String url="http://10.4.0.130:9000";
+    	String base64= Base64Utils.encodeBase64File("C:\\Users\\dongyangyang\\Desktop\\微信图片_20190618160337.jpg");
+//        System.out.println(base64);
+        Map<String,Object> map = new HashMap<>();
+        map.put("test_ID",8);
+        map.put("test_image",base64);
+        // 我们的controller 地址
+        map.put("test_url","http://10.4.1.147:8080/system/base/test");
+    	String result_json = HttpConenection.getInstance().sendJsonHttpPost(url,JSON.toJSONString(map));
+    	System.out.println("收到的数据:"+result_json);
    	}
     /** 
      * 发送 get请求Https 
@@ -190,7 +229,7 @@ public class HttpConenection {
       
     /** 
      * 发送Get请求 
-     * @param httpPost 
+     * @param httpGet
      * @return 
      */  
     private String sendHttpGet(HttpGet httpGet) {  
@@ -226,7 +265,7 @@ public class HttpConenection {
       
     /** 
      * 发送Get请求Https 
-     * @param httpPost 
+     * @param httpGet
      * @return 
      */  
     private String sendHttpsGet(HttpGet httpGet) {  
@@ -256,9 +295,11 @@ public class HttpConenection {
                     httpClient.close();  
                 }  
             } catch (IOException e) {  
-            	LOG.info(e.getMessage(),"");
+            	LOG.info(e.getMessage(),e);
             }  
         }  
         return responseContent;  
-    }  
+    }
+
+
 }

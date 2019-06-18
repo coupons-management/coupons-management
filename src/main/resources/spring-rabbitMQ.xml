@@ -26,6 +26,7 @@
     <rabbit:queue name="online_store_queue" durable="false"/>
     <rabbit:queue name="spider_status" durable="false"/>
     <!-- 定义交换机 -->
+
     <rabbit:direct-exchange name="scrapy" id="scrapy">
         <rabbit:bindings>
             <rabbit:binding key="coupon" queue="online_coupon_queue"></rabbit:binding>
