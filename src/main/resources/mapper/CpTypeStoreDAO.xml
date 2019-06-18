@@ -143,4 +143,13 @@
 		from CP_TYPE_STORE
 		where TYPE_ID = #{typeId,jdbcType=INTEGER}
 	</select>
+
+	<select id="getByStore"
+			parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CP_TYPE_STORE
+		where STORE_ID = #{storeId,jdbcType=INTEGER}
+        LIMIT 1
+	</select>
 </mapper>

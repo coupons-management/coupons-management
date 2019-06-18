@@ -139,7 +139,7 @@ public class WebSiteServiceImpl implements WebSiteService {
 		result.setId(cpOutSiteStore.getId());
 		result.setDescription(cpStore.getDes());
 		result.setLogo(cpStore.getLogoUrl());
-		result.setName(cpOutSiteStore.getShowName());
+		result.setName(cpOutSiteStore.getShowName().replace("{{store_name}}",cpStore.getName()));
 		result.setWebsite(cpStore.getWebsite());
 		Page<CpCouponVo> page = new Page<>();
 		page.setPageNumber(storeRequest.getPageNumber());

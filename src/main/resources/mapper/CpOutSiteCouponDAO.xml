@@ -157,6 +157,7 @@
 			</if>
 		</trim>
 	</insert>
+
 	<update id="updateByPrimaryKeySelective"
 		parameterType="com.gopher.system.model.entity.CpOutSiteCoupon">
 		update CP_OUT_SITE_COUPON
@@ -193,9 +194,6 @@
 			</if>
 			<if test="clickCount != null">
 				CLICK_COUNT = #{clickCount}
-			</if>
-			<if test="visitCount !=null">
-				CLICK_COUNT = #{visitCount}
 			</if>
 		</set>
 		where ID = #{id,jdbcType=INTEGER}

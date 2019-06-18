@@ -10,6 +10,8 @@ import java.util.List;
 public class StoreResponse {
 	
 	private Integer id;
+
+	private Integer storeId;
 	
 	private String name;
 	
@@ -159,7 +161,12 @@ public class StoreResponse {
 	public void setCouponUpdateTime(String couponUpdateTime) {
 		this.couponUpdateTime = couponUpdateTime;
 	}
-	
-	
 
+	public Integer getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(Integer storeId) {
+		this.storeId = storeId;
+	}
 }

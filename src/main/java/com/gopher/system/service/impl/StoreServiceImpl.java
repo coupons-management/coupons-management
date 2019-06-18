@@ -99,6 +99,7 @@ public class StoreServiceImpl implements StoreService {
 		}
 		return result;
 	}
+
     private List<Integer> getExcludeSiteIdList(Integer siteId){
     	List<Integer> result = null;
     	if(siteId == null) {
@@ -168,6 +169,7 @@ public class StoreServiceImpl implements StoreService {
 				rsp.setApproval(cpStore.getApproval());
 				rsp.setCountry(cpStore.getCountry());
 				rsp.setScrapyType(cpStore.getTypeName());
+				rsp.setStoreId(storeId);
 				CpCoupon coupon = couponService.getNewOne(storeId);
 				if(null != coupon) {
 					rsp.setCouponUpdateTime(DateUtils.getDatetimeString(coupon.getCreateTime()));
@@ -191,8 +193,7 @@ public class StoreServiceImpl implements StoreService {
 		}
 		final String approval = cpStore.getApproval();
 		if(StringUtils.hasText(approval) && Objects.equals("2", approval)) {
-			//TODO 如果是审核 且当前商家未审核通过 同步当前商家下面的所有优惠券审核状态
-			
+
 		}
 		cpStoreDAO.updateByPrimaryKeySelective(cpStore);
 	}

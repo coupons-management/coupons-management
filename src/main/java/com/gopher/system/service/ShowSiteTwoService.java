@@ -8,6 +8,7 @@ import com.gopher.system.model.vo.CpOutSiteStoreVo;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
+import com.gopher.system.model.vo.response.OutSiteStoreRsp;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public interface ShowSiteTwoService {
      *
      * @param cpOutSiteStore
      */
-    void updateOutSiteStore(CpOutSiteStore cpOutSiteStore);
+    void updateOutSiteStore(OutSiteStoreRsp cpOutSiteStore);
 
 
     /**
@@ -58,7 +59,7 @@ public interface ShowSiteTwoService {
      * @param request
      * @return
      */
-    public List<CpSitestoreType> getStoreSort(CpSitestoreRequest request);
+    List<CpSitestoreType> getStoreSort(CpSitestoreRequest request);
 
     /**
      * 根据ID取出站点商家数据
@@ -66,7 +67,7 @@ public interface ShowSiteTwoService {
      * @param request
      * @return
      */
-    public CpOutSiteStore getSiteStroreById(CpOutSiteStore request);
+    OutSiteStoreRsp getSiteStroreById(CpOutSiteStore request);
 
     /**
      * 增加优惠卷
@@ -74,7 +75,7 @@ public interface ShowSiteTwoService {
      * @param bean
      * @return
      */
-    public void addCoupon(CpCoupon bean);
+    void addCoupon(CpCoupon bean);
 
 
     List<CpOutSite> getSiteList();

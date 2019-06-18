@@ -6,6 +6,7 @@ import java.util.Date;
 /**
  * 
  * cp_type_store
+ * 官网分类和商家关系表
  * @author 
  */
 public class CpTypeStore implements Serializable {

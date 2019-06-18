@@ -1,18 +1,16 @@
 package com.gopher.system.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.CpOutSiteStore;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
+import com.gopher.system.model.vo.response.OutSiteStoreRsp;
 import com.gopher.system.service.ShowSiteService;
 import com.gopher.system.service.ShowSiteTwoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/showSiteTwo")
@@ -23,7 +21,7 @@ public class ShowSiteTwoController {
     private ShowSiteService showSiteService;
 
     @RequestMapping(path = "/getList")
-    public Result getList(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
+    public Result getList() {
         Result result = new Result();
         result.setData(showSiteTwoService.getSiteList());
         return result;
@@ -38,7 +36,7 @@ public class ShowSiteTwoController {
     }
 
     @RequestMapping(path = "/updateSiteStore")
-    public Result updateSiteStore(@RequestBody CpOutSiteStore outSiteStore) {
+    public Result updateSiteStore(@RequestBody OutSiteStoreRsp outSiteStore) {
         Result result = new Result();
         showSiteTwoService.updateOutSiteStore(outSiteStore);
         return result;

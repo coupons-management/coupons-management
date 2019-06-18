@@ -149,7 +149,7 @@ public class HttpRequest {
 //    	   String s=HttpRequest.sendPost("http://localhost:8080/system/showSiteTwo/getTwoList", "");
 //           System.out.println(s);
 
-        String msg=HttpRequest.sendPost("http://18.234.205.204:6800/schedule.json", "project=coupon_spider&spider=couponpatwo");
+        String msg=HttpRequest.sendPost("http://18.234.205.204:6800/schedule.json", "project=coupon_spider&spider=offer");
 //        String msg=HttpRequest.sendPost("http://18.234.205.204:6800/cancel.json", "project=coupon_spider&job=eac5792a905311e9bc15124b7a0b6b46");
         JSONObject jsonObject = JSONObject.parseObject(msg);
         Message json = (Message) JSONObject.toJavaObject(jsonObject, Message.class);

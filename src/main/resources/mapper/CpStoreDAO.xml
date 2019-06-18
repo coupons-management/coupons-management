@@ -672,7 +672,8 @@
     <select id="getTopStoreList"
             parameterType="com.gopher.system.model.vo.request.CpSitestoreRequest"
             resultType="com.gopher.system.model.vo.CpStoreVo">
-        SELECT STORE.NAME name ,
+        SELECT
+        STORE.NAME name ,
         STORE.LOGO_URL logoUrl,
         STORE.WEBSITE webSite ,
         SITESTORE.SHOW_NAME showName,

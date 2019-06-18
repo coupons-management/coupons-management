@@ -7,10 +7,13 @@ import com.gopher.system.model.vo.CpOutSiteStoreVo;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
+import com.gopher.system.model.vo.response.OutSiteStoreRsp;
 import com.gopher.system.service.ShowSiteTwoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -27,6 +30,8 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 	private CpCouponDAO cpCouponDAO;
     @Autowired
 	private CpStoreDAO cpStoreDAO;
+    @Autowired
+    private CpTypeStoreDAO cpTypeStoreDAO;
 
 	@Override
 	public List<CpOutSite> getSiteList() {
@@ -66,7 +71,7 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 	}
 
 	@Override
-	public void updateOutSiteStore(CpOutSiteStore cpOutSiteStore) {
+	public void updateOutSiteStore(OutSiteStoreRsp cpOutSiteStore) {
 		if(cpOutSiteStore == null){
           throw new BusinessRuntimeException("参数不能为空");
 		}
@@ -84,6 +89,22 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 		// 同步主表logo
 		cpStore.setLogoUrl(cpOutSiteStore.getLogo());
 		cpStoreDAO.updateByPrimaryKeySelective(cpStore);
+		final int typeId = cpOutSiteStore.getTypeId();
+		// 同步分类
+		if(typeId > 0){
+			CpTypeStore cpTypeStore = cpTypeStoreDAO.getByStore(storeId);
+			if(null == cpTypeStore){
+				cpTypeStore = new CpTypeStore();
+				cpTypeStore.setTypeId(typeId);
+				cpTypeStore.setStoreId(storeId);
+				cpTypeStore.setCreateTime(new Date());
+				cpTypeStoreDAO.insert(cpTypeStore);
+			}else{
+				cpTypeStore.setTypeId(typeId);
+				cpTypeStore.setUpdateTime(new Date());
+				cpTypeStoreDAO.updateByPrimaryKeySelective(cpTypeStore);
+			}
+		}
 
 	}
 
@@ -123,7 +144,7 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 	}
 
 	@Override
-	public CpOutSiteStore getSiteStroreById(CpOutSiteStore obj) {
+	public OutSiteStoreRsp getSiteStroreById(CpOutSiteStore obj) {
 		if(null == obj){
 			throw new BusinessRuntimeException("参数不能为空");
 		}
@@ -133,30 +154,19 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 		if(null == store){
 			throw new BusinessRuntimeException("根据ID找不到商家记录");
 		}
-		CpStore cpStore = cpStoreDAO.selectByPrimaryKey(store.getStoreId());
+		final int storeId = store.getStoreId();
+		CpStore cpStore = cpStoreDAO.selectByPrimaryKey(storeId);
 		if(null != cpStore){
 			store.setLogo(cpStore.getLogoUrl());
 		}
-//
-//		if (StringUtils.isEmpty(store.getShowName())||"null".equals(store.getShowName())) {
-//			store.setShowName(TitleUtils.getStoreMessage("SHOWNAME"));
-//		}
-//		if (StringUtils.isEmpty(store.getStoreDes())||"null".equals(store.getStoreDes())) {
-//			store.setHeaderDes(TitleUtils.getStoreMessage("STOREDES"));
-//		}
-//
-//		if (StringUtils.isEmpty(store.getTitle())||"null".equals(store.getTitle())) {
-//			store.setTitle(TitleUtils.getStoreMessage("TITLE"));
-//		}
-//		if (StringUtils.isEmpty(store.getKeywords())||"null".equals(store.getKeywords())) {
-//			store.setKeywords(TitleUtils.getStoreMessage("KEYWORD"));
-//		}
-//
-//		if (StringUtils.isEmpty(store.getStoreDes())) {
-//			store.setStoreDes(TitleUtils.getStoreMessage("DESCRIPTION"));
-//		}
-
-		return store;
+		OutSiteStoreRsp result = new OutSiteStoreRsp();
+		BeanUtils.copyProperties(store,result);
+		// TODO 找到当前商家在官网的分类
+		CpTypeStore cpTypeStore = cpTypeStoreDAO.getByStore(storeId);
+		if(null != cpTypeStore){
+			result.setTypeId(cpTypeStore.getTypeId());
+		}
+		return result;
 	}
 
 	@Override

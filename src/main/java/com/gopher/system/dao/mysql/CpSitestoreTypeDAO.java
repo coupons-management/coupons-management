@@ -14,8 +14,6 @@ import com.gopher.system.model.vo.request.CpSitestoreRequest;
 public interface CpSitestoreTypeDAO extends MyBatisBaseDao<CpSitestoreType, Integer> {
 	/**
 	 * 
-	 * @param siteId
-	 * @param level
 	 * @return
 	 */
 	List<CpSitestoreType> getList(CpSitestoreType cpSitestoreType);
@@ -31,7 +29,6 @@ public interface CpSitestoreTypeDAO extends MyBatisBaseDao<CpSitestoreType, Inte
 	Integer deleteByPid(int pid);
 	/**
 	 * 通过名称查询
-	 * @param name
 	 * @return
 	 */
 	CpSitestoreType getByName(CpSitestoreType cpSitestoreType);

@@ -6,18 +6,18 @@
 
     <select id="getCouPonMessages" resultType="com.gopher.system.model.entity.TMessage">
 		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
-		FROM T_MESSAGE_COUPON  WHERE STATUS=0 ORDER BY STATUS ASC LIMIT 200
+		FROM T_MESSAGE_COUPON  WHERE STATUS=0 ORDER BY CREATETIME ASC LIMIT 200
 	</select>
 
     <select id="getStoreMessages" resultType="com.gopher.system.model.entity.TMessage">
 		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
-		FROM T_MESSAGE_STORE WHERE STATUS=0  ORDER BY STATUS ASC LIMIT 200
+		FROM T_MESSAGE_STORE WHERE STATUS=0  ORDER BY CREATETIME ASC  LIMIT 200
 	</select>
 
     <select id="getScrapyeMessages"
             resultType="com.gopher.system.model.entity.TMessage">
 		 SELECT PK_ID  AS PKID,MESSAGE_BODY AS MESSAGEBODY,CREATE_TIME AS CREATETIME
-		FROM T_MESSAGE_CATEGORY  WHERE STATUS=0  ORDER BY STATUS ASC LIMIT 200
+		FROM T_MESSAGE_CATEGORY  WHERE STATUS=0  ORDER BY CREATETIME ASC LIMIT 200
 	</select>
 
     <insert id="insertCouponMessages" parameterType="com.gopher.system.model.entity.TMessage">
@@ -66,9 +66,7 @@
 		UPDATE T_MESSAGE_COUPON
 		SET status=1
 	   WHERE PK_ID=#{id}
-
 	</update>
-
 
     <update id="deleteCouPonMessages">
        DELETE FROM T_MESSAGE_COUPON WHERE DATEDIFF(CREATE_TIME,NOW())<![CDATA[<]]> -1  AND STATUS=1 
