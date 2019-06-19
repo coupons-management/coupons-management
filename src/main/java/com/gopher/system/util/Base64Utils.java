@@ -1,12 +1,10 @@
 package com.gopher.system.util;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
+
+import java.io.*;
 
 /**
  * BASE 64工具
@@ -35,11 +33,25 @@ public class Base64Utils {
      * @param targetPath
      * @throws Exception
      */
-    public static void decoderBase64File(String base64Code, String targetPath) throws Exception {
-        byte[] buffer = new BASE64Decoder().decodeBuffer(base64Code);
-        FileOutputStream out = new FileOutputStream(targetPath);
-        out.write(buffer);
-        out.close();
+    public static void decoderBase64File(String base64Code, String targetPath) {
+        byte[] buffer;
+        FileOutputStream out = null;
+        try {
+            buffer = new BASE64Decoder().decodeBuffer(base64Code);
+            out = new FileOutputStream(targetPath);
+            out.write(buffer);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                out.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     /**
@@ -49,11 +61,24 @@ public class Base64Utils {
      * @param targetPath
      * @throws Exception
      */
-    public static void toFile(String base64Code, String targetPath) throws Exception {
-        byte[] buffer = base64Code.getBytes();
-        FileOutputStream out = new FileOutputStream(targetPath);
-        out.write(buffer);
-        out.close();
+    public static void toFile(String base64Code, String targetPath) {
+        byte[] buffer;
+        FileOutputStream outputStream = null;
+        try {
+            buffer = base64Code.getBytes();
+            outputStream = new FileOutputStream(targetPath);
+            outputStream.write(buffer);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void main(String[] args) {

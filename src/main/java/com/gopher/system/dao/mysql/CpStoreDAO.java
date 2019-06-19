@@ -15,6 +15,7 @@ import com.gopher.system.model.vo.request.StorePageRequst;
  */
 @Repository
 public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
+
 	 CpStore getBeanByWebSite(String website);
 
 	/**

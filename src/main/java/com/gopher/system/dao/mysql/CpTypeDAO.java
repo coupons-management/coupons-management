@@ -15,7 +15,10 @@ public interface CpTypeDAO extends MyBatisBaseDao<CpType, Integer> {
 	CpType getBeanByName(String name);
 	
 	List<CpType> getList();
+
 	List<CpType> getTopList();
+
 	int getTotalCount(CpTypePageRequest quest);
+
 	List<CpType> getCategoriesPageList(CpTypePageRequest quest);
 }

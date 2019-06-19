@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -36,69 +37,77 @@ import com.alibaba.fastjson.JSON;
 import com.gopher.system.controller.model.Result;
 
 
-public class HttpConenection {  
-	private static final Logger LOG = LoggerFactory.getLogger(HttpConenection.class);
-    private RequestConfig requestConfig = RequestConfig.custom()  
-            .setSocketTimeout(5*1000)  
-            .setConnectTimeout(5*1000)  
-            .setConnectionRequestTimeout(5*1000) 
-            .build();  
-      
-    private static HttpConenection instance = null;  
-    private HttpConenection(){}  
-    public static HttpConenection getInstance(){  
-        if (instance == null) {  
-            instance = new HttpConenection();  
-        }  
-        return instance;  
-    }  
-      
-    /** 
-     * 发送 post请求 
-     * @param httpUrl 地址 
-     */  
-    public String sendHttpPost(String httpUrl) {  
+public class HttpConenection {
+
+    private static final Logger LOG = LoggerFactory.getLogger(HttpConenection.class);
+
+    private RequestConfig requestConfig = RequestConfig.custom()
+            .setSocketTimeout(5 * 1000)
+            .setConnectTimeout(5 * 1000)
+            .setConnectionRequestTimeout(5 * 1000)
+            .build();
+
+    private static HttpConenection instance = null;
+
+    private HttpConenection() {
+    }
+
+    public static HttpConenection getInstance() {
+        if (instance == null) {
+            instance = new HttpConenection();
+        }
+        return instance;
+    }
+
+    /**
+     * 发送 post请求
+     *
+     * @param httpUrl 地址
+     */
+    public String sendHttpPost(String httpUrl) {
         HttpPost httpPost = new HttpPost(httpUrl);// 创建httpPost    
-        return sendHttpPost(httpPost);  
-    }  
-      
-    /** 
-     * 发送 post请求 
-     * @param httpUrl 地址 
-     * @param params 参数(格式:key1=value1&key2=value2) 
-     */  
-    public String sendHttpPost(String httpUrl, String params) {  
+        return sendHttpPost(httpPost);
+    }
+
+    /**
+     * 发送 post请求
+     *
+     * @param httpUrl 地址
+     * @param params  参数(格式:key1=value1&key2=value2)
+     */
+    public String sendHttpPost(String httpUrl, String params) {
         HttpPost httpPost = new HttpPost(httpUrl);// 创建httpPost    
-        try {  
+        try {
             //设置参数  
-            StringEntity stringEntity = new StringEntity(params, "UTF-8");  
-            stringEntity.setContentType("application/x-www-form-urlencoded");  
-            httpPost.setEntity(stringEntity);  
-        } catch (Exception e) {  
-        	LOG.error(e.getMessage(), "HTTP请求发送失败");
-        }  
-        return sendHttpPost(httpPost);  
-    }  
-      
-    /** 
-     * 发送 post请求 
-     * @param httpUrl 地址 
-     * @param maps 参数 
-     */  
+            StringEntity stringEntity = new StringEntity(params, "UTF-8");
+            stringEntity.setContentType("application/x-www-form-urlencoded");
+            httpPost.setEntity(stringEntity);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), "HTTP请求发送失败");
+        }
+        return sendHttpPost(httpPost);
+    }
+
+    /**
+     * 发送 post请求
+     *
+     * @param httpUrl 地址
+     * @param maps    参数
+     */
     public String sendHttpPost(String httpUrl, Map<String, String> maps) {
         HttpPost httpPost = new HttpPost(httpUrl);// 创建httpPost    
         // 创建参数队列    
-        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();  
-        for (String key : maps.keySet()) {  
-            nameValuePairs.add(new BasicNameValuePair(key, maps.get(key)));  
-        }  
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        for (String key : maps.keySet()) {
+            nameValuePairs.add(new BasicNameValuePair(key, maps.get(key)));
+        }
         try {
-            httpPost.setHeader("contentType","application/json");
+            httpPost.setHeader("contentType", "application/json");
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
-        } catch (Exception e) {  
-        	LOG.error(e.getMessage(), "HTTP请求发送失败");
-        }  
-        return sendHttpPost(httpPost);  
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), "HTTP请求发送失败");
+        }
+        return sendHttpPost(httpPost);
     }
 
     public String sendJsonHttpPost(String url, String json) {
@@ -129,177 +138,207 @@ public class HttpConenection {
         }
         return responseInfo;
     }
-      
-    /** 
-     * 发送 post请求（带文件） 
-     * @param httpUrl 地址 
-     * @param maps 参数 
-     * @param fileLists 附件 
-     */  
-    public String sendHttpPost(String httpUrl, Map<String, String> maps, List<File> fileLists) {  
+
+    /**
+     * 发送 post请求（带文件）
+     *
+     * @param httpUrl   地址
+     * @param maps      参数
+     * @param fileLists 附件
+     */
+    public String sendHttpPost(String httpUrl, Map<String, String> maps, List<File> fileLists) {
         HttpPost httpPost = new HttpPost(httpUrl);// 创建httpPost    
-        MultipartEntityBuilder meBuilder = MultipartEntityBuilder.create();  
-        for (String key : maps.keySet()) {  
-            meBuilder.addPart(key, new StringBody(maps.get(key), ContentType.TEXT_PLAIN));  
-        }  
-        for(File file : fileLists) {  
-            FileBody fileBody = new FileBody(file);  
-            meBuilder.addPart("files", fileBody);  
-        }  
-        HttpEntity reqEntity = meBuilder.build();  
-        httpPost.setEntity(reqEntity);  
-        return sendHttpPost(httpPost);  
-    }  
-      
-    /** 
-     * 发送Post请求 
-     * @param httpPost 
-     * @return 
-     */  
-    private String sendHttpPost(HttpPost httpPost) {  
-        CloseableHttpClient httpClient = null;  
-        CloseableHttpResponse response = null;  
-        HttpEntity entity = null;  
-        String responseContent = null;  
-        try {  
-            // 创建默认的httpClient实例.  
-            httpClient = HttpClients.createDefault();  
-            httpPost.setConfig(requestConfig);  
-            // 执行请求  
-            response = httpClient.execute(httpPost);  
-            entity = response.getEntity();  
-            responseContent = EntityUtils.toString(entity, "UTF-8");  
-        } catch (Exception e) {  
-        	LOG.error(e.getMessage(), "HTTP请求发送失败");
-        } finally {  
-            try {  
-                // 关闭连接,释放资源  
-                if (response != null) {  
-                    response.close();  
-                }  
-                if (httpClient != null) {  
-                    httpClient.close();  
-                }  
-            } catch (IOException e) {  
-            	LOG.info(e.getMessage(),"HTTP链接释放失败");
-            }  
-        }  
-        return responseContent;  
-    }  
-  
-    /** 
-     * 发送 get请求 
-     * @param httpUrl 
-     */  
-    public  String sendHttpGet(String httpUrl) {  
-        HttpGet httpGet = new HttpGet(httpUrl);// 创建get请求  
-        return sendHttpGet(httpGet);  
-    }  
-    public static void main(String[] args) throws Exception {
-    /*	for (int i=0;i<50;i++) {
-    	    Thread.sleep(1*1000);
-    		String result_json = HttpConenection.getInstance().sendHttpGet("http://iot.ideyee.com/business/device/getList?token=f93c0943-e640-4496-ab4d-b5f4bfb7b733");
-    	 	Result result = JSON.parseObject(result_json, Result.class);
-    		if(StringUtils.hasText(result_json)){
-    			System.out.println("loop:"+i);
-    			System.out.println("code:"+result.getCode());
-    			System.out.println("success:"+result.isSuccess());
-    	 	}
-		}*/
-         // 服务地址
-    	String url="http://10.4.0.130:9000";
-    	String base64= Base64Utils.encodeBase64File("C:\\Users\\dongyangyang\\Desktop\\微信图片_20190618160337.jpg");
-//        System.out.println(base64);
-        Map<String,Object> map = new HashMap<>();
-        map.put("test_ID",8);
-        map.put("test_image",base64);
-        // 我们的controller 地址
-        map.put("test_url","http://10.4.1.147:8080/system/base/test");
-    	String result_json = HttpConenection.getInstance().sendJsonHttpPost(url,JSON.toJSONString(map));
-    	System.out.println("收到的数据:"+result_json);
-   	}
-    /** 
-     * 发送 get请求Https 
-     * @param httpUrl 
-     */  
-    public String sendHttpsGet(String httpUrl) {  
-        HttpGet httpGet = new HttpGet(httpUrl);// 创建get请求  
-        return sendHttpsGet(httpGet);  
-    }  
-      
-    /** 
-     * 发送Get请求 
-     * @param httpGet
-     * @return 
-     */  
-    private String sendHttpGet(HttpGet httpGet) {  
-        CloseableHttpClient httpClient = null;  
-        CloseableHttpResponse response = null;  
-        HttpEntity entity = null;  
-        String responseContent = null;  
-        try {  
-            // 创建默认的httpClient实例.  
-            httpClient = HttpClients.createDefault();  
-            httpGet.setConfig(requestConfig);  
-            // 执行请求  
-            response = httpClient.execute(httpGet);  
-            entity = response.getEntity();  
-            responseContent = EntityUtils.toString(entity, "UTF-8");  
-        } catch (Exception e) {  
-        	LOG.info(e.getMessage(),"");
-        } finally {  
-            try {  
-                // 关闭连接,释放资源  
-                if (response != null) {  
-                    response.close();  
-                }  
-                if (httpClient != null) {  
-                    httpClient.close();  
-                }  
-            } catch (IOException e) {  
-            	LOG.info(e.getMessage(),"");
-            }  
-        }  
-        return responseContent;  
-    }  
-      
-    /** 
-     * 发送Get请求Https 
-     * @param httpGet
-     * @return 
-     */  
-    private String sendHttpsGet(HttpGet httpGet) {  
-        CloseableHttpClient httpClient = null;  
-        CloseableHttpResponse response = null;  
-        HttpEntity entity = null;  
-        String responseContent = null;  
-        try {  
-            // 创建默认的httpClient实例.  
-            PublicSuffixMatcher publicSuffixMatcher = PublicSuffixMatcherLoader.load(new URL(httpGet.getURI().toString()));  
-            DefaultHostnameVerifier hostnameVerifier = new DefaultHostnameVerifier(publicSuffixMatcher);  
-            httpClient = HttpClients.custom().setSSLHostnameVerifier(hostnameVerifier).build();  
-            httpGet.setConfig(requestConfig);  
-            // 执行请求  
-            response = httpClient.execute(httpGet);  
-            entity = response.getEntity();  
-            responseContent = EntityUtils.toString(entity, "UTF-8");  
-        } catch (Exception e) {  
-        	LOG.info(e.getMessage(),"");
-        } finally {  
-            try {  
-                // 关闭连接,释放资源  
-                if (response != null) {  
-                    response.close();  
-                }  
-                if (httpClient != null) {  
-                    httpClient.close();  
-                }  
-            } catch (IOException e) {  
-            	LOG.info(e.getMessage(),e);
-            }  
-        }  
-        return responseContent;  
+        MultipartEntityBuilder meBuilder = MultipartEntityBuilder.create();
+        for (String key : maps.keySet()) {
+            meBuilder.addPart(key, new StringBody(maps.get(key), ContentType.TEXT_PLAIN));
+        }
+        for (File file : fileLists) {
+            FileBody fileBody = new FileBody(file);
+            meBuilder.addPart("files", fileBody);
+        }
+        HttpEntity reqEntity = meBuilder.build();
+        httpPost.setEntity(reqEntity);
+        return sendHttpPost(httpPost);
     }
 
+    /**
+     * 发送Post请求
+     *
+     * @param httpPost
+     * @return
+     */
+    private String sendHttpPost(HttpPost httpPost) {
+        CloseableHttpClient httpClient = null;
+        CloseableHttpResponse response = null;
+        HttpEntity entity = null;
+        String responseContent = null;
+        try {
+            // 创建默认的httpClient实例.  
+            httpClient = HttpClients.createDefault();
+            httpPost.setConfig(requestConfig);
+            // 执行请求  
+            response = httpClient.execute(httpPost);
+            entity = response.getEntity();
+            responseContent = EntityUtils.toString(entity, "UTF-8");
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), "HTTP请求发送失败");
+        } finally {
+            try {
+                // 关闭连接,释放资源  
+                if (response != null) {
+                    response.close();
+                }
+                if (httpClient != null) {
+                    httpClient.close();
+                }
+            } catch (IOException e) {
+                LOG.info(e.getMessage(), "HTTP链接释放失败");
+            }
+        }
+        return responseContent;
+    }
 
+    /**
+     * 发送 get请求
+     *
+     * @param httpUrl
+     */
+    public String sendHttpGet(String httpUrl) {
+        HttpGet httpGet = new HttpGet(httpUrl);// 创建get请求  
+        return sendHttpGet(httpGet);
+    }
+
+    /**
+     * 发送 get请求Https
+     *
+     * @param httpUrl
+     */
+    public String sendHttpsGet(String httpUrl) {
+        HttpGet httpGet = new HttpGet(httpUrl);// 创建get请求  
+        return sendHttpsGet(httpGet);
+    }
+
+    /**
+     * 发送Get请求
+     *
+     * @param httpGet
+     * @return
+     */
+    private String sendHttpGet(HttpGet httpGet) {
+        CloseableHttpClient httpClient = null;
+        CloseableHttpResponse response = null;
+        HttpEntity entity = null;
+        String responseContent = null;
+        try {
+            // 创建默认的httpClient实例.  
+            httpClient = HttpClients.createDefault();
+            httpGet.setConfig(requestConfig);
+            // 执行请求  
+            response = httpClient.execute(httpGet);
+            entity = response.getEntity();
+            responseContent = EntityUtils.toString(entity, "UTF-8");
+        } catch (Exception e) {
+            LOG.info(e.getMessage(), "");
+        } finally {
+            try {
+                // 关闭连接,释放资源  
+                if (response != null) {
+                    response.close();
+                }
+                if (httpClient != null) {
+                    httpClient.close();
+                }
+            } catch (IOException e) {
+                LOG.info(e.getMessage(), "");
+            }
+        }
+        return responseContent;
+    }
+
+    /**
+     * 发送Get请求Https
+     *
+     * @param httpGet
+     * @return
+     */
+    private String sendHttpsGet(HttpGet httpGet) {
+        CloseableHttpClient httpClient = null;
+        CloseableHttpResponse response = null;
+        HttpEntity entity = null;
+        String responseContent = null;
+        try {
+            // 创建默认的httpClient实例.  
+            PublicSuffixMatcher publicSuffixMatcher = PublicSuffixMatcherLoader.load(new URL(httpGet.getURI().toString()));
+            DefaultHostnameVerifier hostnameVerifier = new DefaultHostnameVerifier(publicSuffixMatcher);
+            httpClient = HttpClients.custom().setSSLHostnameVerifier(hostnameVerifier).build();
+            httpGet.setConfig(requestConfig);
+            // 执行请求  
+            response = httpClient.execute(httpGet);
+            entity = response.getEntity();
+            responseContent = EntityUtils.toString(entity, "UTF-8");
+        } catch (Exception e) {
+            LOG.info(e.getMessage(), "");
+        } finally {
+            try {
+                // 关闭连接,释放资源  
+                if (response != null) {
+                    response.close();
+                }
+                if (httpClient != null) {
+                    httpClient.close();
+                }
+            } catch (IOException e) {
+                LOG.info(e.getMessage(), e);
+            }
+        }
+        return responseContent;
+    }
+
+    public static void main(String[] args) throws Exception {
+        sendAi();
+    }
+
+    private static List<String> list = new ArrayList<>();
+
+    private static List<String> readFile(String filepath) {
+        File file = new File(filepath);
+        if (!file.isDirectory()) {
+            System.out.println("absolutepath=" + file.getAbsolutePath());
+            list.add(file.getAbsolutePath());
+        } else if (file.isDirectory()) {
+            String[] filelist = file.list();
+            for (int i = 0; i < filelist.length; i++) {
+                File readfile = new File(filepath + "\\" + filelist[i]);
+                if (!readfile.isDirectory()) {
+                    list.add(readfile.getAbsolutePath());
+                } else if (readfile.isDirectory()) {
+                    readFile(filepath + "\\" + filelist[i]);
+                }
+            }
+        }
+        return list;
+    }
+
+    private static void sendAi() throws Exception {
+        String url = "http://10.1.69.156:9000";
+        List<String> fileList = readFile("C:\\Users\\dongyangyang\\Desktop\\ai");
+        if (null != fileList) {
+            fileList.forEach(file -> {
+                try {
+                    Map<String, Object> map = new HashMap<>();
+                    String base64 = Base64Utils.encodeBase64File(file);
+                    map.put("test_ID", 8);
+                    map.put("test_image", base64);
+                    String result_json = HttpConenection.getInstance().sendJsonHttpPost(url, JSON.toJSONString(map));
+                    System.out.println("response:" + result_json);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        } else {
+            System.out.println("找不到文件");
+        }
+
+
+    }
 }

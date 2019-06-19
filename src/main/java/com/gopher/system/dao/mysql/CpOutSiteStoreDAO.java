@@ -27,7 +27,7 @@ public interface CpOutSiteStoreDAO extends MyBatisBaseDao<CpOutSiteStore, Intege
 	void updateHotSort(CpOutSiteStore cpOutSiteStore);
 	/**
 	 * 修改热门推荐
-	 * @param cpSiteStore
+	 * @param cpOutSiteStore
 	 */
 	void updateAdviseSort(CpOutSiteStore cpOutSiteStore);
 	/**
@@ -35,6 +35,12 @@ public interface CpOutSiteStoreDAO extends MyBatisBaseDao<CpOutSiteStore, Intege
 	 * @return
 	 */
 	List<CpOutSiteStore> getHotStoreList(ShowSiteStoreRequest cpOutSiteStore);
+
+	/**
+	 * 热门商家数量
+	 * @param cpOutSiteStore
+	 * @return
+	 */
 	int getHotStoreCount(ShowSiteStoreRequest cpOutSiteStore);
 
 	/**
