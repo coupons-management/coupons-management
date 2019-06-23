@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gopher.system.model.vo.request.CouponSortReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -223,6 +224,21 @@ public class CouponServiceImpl implements CouponService{
 			result = cpCouponDAO.getNewOneByStore(storeId);
 		}
 		return result;
+	}
+
+	/**
+	 * 优惠券手动排序
+	 */
+	public void updateSort(List<CouponSortReq> sortList){
+         if(null == sortList){
+            throw new BusinessRuntimeException("参数不能为空");
+		 }
+		sortList.forEach(e->{
+			CpCoupon cpCoupon = new CpCoupon();
+			cpCoupon.setId(e.getCouponId());
+			cpCoupon.setManualSort(e.getSort());
+			cpCouponDAO.updateByPrimaryKeySelective(cpCoupon);
+		});
 	}
 
 

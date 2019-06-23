@@ -88,7 +88,19 @@ public class CpCoupon implements Serializable {
 	private int index;
 	
 	private int siteId;
-    
+	/**
+	 * MANUAL_SORT
+	 */
+	private int manualSort;
+
+	public int getManualSort() {
+		return manualSort;
+	}
+
+	public void setManualSort(int manualSort) {
+		this.manualSort = manualSort;
+	}
+
 	public long getExpireAtTime() {
 		return expireAtTime;
 	}

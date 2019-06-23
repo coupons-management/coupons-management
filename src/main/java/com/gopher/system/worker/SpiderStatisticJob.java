@@ -57,7 +57,7 @@ public class SpiderStatisticJob {
 						 SpiderStatistic spiderStatistic = new SpiderStatistic();
 						 spiderStatistic.setSpiderId(spiderId);
 						 spiderStatistic.setStoreId(storeId);
-						 spiderStatistic.setCreateTime( DateUtils.getOneDayEndDate(-1));
+						 spiderStatistic.setCreateTime(yesterday);
 						 // 新增的优惠券数量
 						 spiderStatistic.setIncrementCoupon(incrementCount);
 						 // 未过期的优惠券
@@ -78,6 +78,7 @@ public class SpiderStatisticJob {
 			}
 		}
 	}
+
 	private boolean isTheSameDay(Date one,Date two){
            final long one_day_miles = 24*60*60*1000;
            return (two.getTime()-one.getTime()) < one_day_miles;

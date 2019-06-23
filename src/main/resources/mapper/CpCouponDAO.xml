@@ -313,6 +313,9 @@
             <if test="des != null">
                 DES = #{des,jdbcType=VARCHAR},
             </if>
+            <if test="manualSort > 0">
+                MANUAL_SORT = #{manualSort},
+            </if>
         </set>
         where ID = #{id,jdbcType=INTEGER}
     </update>

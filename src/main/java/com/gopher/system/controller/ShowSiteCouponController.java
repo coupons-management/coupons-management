@@ -26,6 +26,18 @@ public class ShowSiteCouponController {
 		result.setData(showSiteCouponService.getCouponPage(showSiteCouponPageRequest));
 		return result;
 	}
+
+	/**
+	 * 获取人工排序的优惠券列表
+	 * @param showSiteCouponPageRequest
+	 * @return
+	 */
+	@RequestMapping(path="/getCouponListWithSort")
+	public Result getCouponListWithSort(@RequestBody  ShowSiteCouponPageRequest showSiteCouponPageRequest) {
+		Result result = new Result();
+		result.setData(showSiteCouponService.getCouponListWithSort(showSiteCouponPageRequest));
+		return result;
+	}
 	
 	@RequestMapping(path="/edit")
 	public Result edit(@RequestBody  ShowSiteCouponRequest showSiteCouponRequest) {

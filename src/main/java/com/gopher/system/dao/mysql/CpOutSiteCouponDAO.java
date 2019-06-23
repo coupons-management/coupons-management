@@ -37,10 +37,11 @@ public interface CpOutSiteCouponDAO extends MyBatisBaseDao<CpOutSiteCoupon, Inte
 	int getHotCount(CouponPageRequest obj);
 	/**
 	 * 
-	 * @param cpOutSiteCoupon
+	 * @param couponPageRequest
 	 * @return推荐优惠卷查询
 	 */
-	List<CpOutSiteCouponVo> getAdviseList(CouponPageRequest obj);
+	List<CpOutSiteCouponVo> getAdviseList(CouponPageRequest couponPageRequest);
+
 	int getAdviseCount(CouponPageRequest obj);
 	
 	
@@ -49,13 +50,13 @@ public interface CpOutSiteCouponDAO extends MyBatisBaseDao<CpOutSiteCoupon, Inte
 	 * @param cpOutSiteCoupon
 	 * @return
 	 */
-	List<CpOutSiteCouponVo> getTopHotList(CpOutSiteCoupon obj);
+	List<CpOutSiteCouponVo> getTopHotList(CpOutSiteCoupon cpOutSiteCoupon);
 	/**
 	 * 
 	 * @param cpOutSiteCoupon
 	 * @return推荐优惠卷查询前10
 	 */
-	List<CpOutSiteCouponVo> getTopAdviseList(CpOutSiteCoupon obj);
+	List<CpOutSiteCouponVo> getTopAdviseList(CpOutSiteCoupon cpOutSiteCoupon);
 	
 	
 	void deleteByBean(CpOutSiteCoupon cpOutSiteCoupon);
@@ -78,12 +79,19 @@ public interface CpOutSiteCouponDAO extends MyBatisBaseDao<CpOutSiteCoupon, Inte
 	int clearAdviseSort(int outId);
 	/**
 	 * 根据商家ID 获取所有优惠券
-	 * @param storeIdList
+	 * @param showSiteCouponPageRequest
 	 * @return
 	 */
 	List<CpCouponVo> getListByCategory(ShowSiteCouponPageRequest showSiteCouponPageRequest);
 	
 	int getCountByCategory(ShowSiteCouponPageRequest showSiteCouponPageRequest);
+
+	/**
+	 * 获取人工排序的优惠券列表
+	 * @param showSiteCouponRequest
+	 * @return
+	 */
+	List<ShowSiteCouponResponse> getCouponListWithSort(ShowSiteCouponPageRequest showSiteCouponRequest);
 	
 	
 }

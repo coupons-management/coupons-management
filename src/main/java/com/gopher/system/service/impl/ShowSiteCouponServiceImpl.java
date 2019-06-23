@@ -112,5 +112,10 @@ public class ShowSiteCouponServiceImpl implements ShowSiteCouponService {
 
     }
 
+    @Override
+    public List<ShowSiteCouponResponse> getCouponListWithSort(ShowSiteCouponPageRequest showSiteCouponPageRequest) {
+        return  cpOutSiteCouponDAO.getCouponListWithSort(showSiteCouponPageRequest);
+    }
+
 
 }

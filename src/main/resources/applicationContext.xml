@@ -20,14 +20,12 @@
     <import resource="classpath:spring-mybatis.xml"/>
     <import resource="classpath:spring-task.xml"/>
     <import resource="classpath:spring-redis.xml"/>
-<!--
     <import resource="classpath:spring-rabbitMQ.xml"/>
--->
+
     <!--<bean id="SpringContextUtil"-->
     <!--class="com.gopher.system.util.SpringContextUtil">-->
     <!--</bean>-->
     <!--<bean id="messageDataService"-->
     <!--class="com.gopher.system.service.impl.MessageDataServiceImpl">-->
     <!--</bean>-->
-    <!-- rabbitMQ配置 -->
 </beans>

@@ -55,7 +55,7 @@ public class StatisticServiceImpl implements StatisticService {
                 if (Objects.equals(ranger, SystemConstants.DATE_RANGE_DAY.getValue())) {
                     key = DateUtils.getDateString(spiderStatistic.getCreateTime());
                 } else if (Objects.equals(ranger, SystemConstants.DATE_RANGE_WEEK.getValue())) {
-                    key = (DateUtils.getDateString(DateUtils.getWeekStart(spiderStatistic.getCreateTime()))+"~"+DateUtils.getDateString(DateUtils.getWeekEnd(spiderStatistic.getCreateTime())));
+                    key = (DateUtils.getDateString(DateUtils.getWeekStart(spiderStatistic.getCreateTime())) + "~" + DateUtils.getDateString(DateUtils.getWeekEnd(spiderStatistic.getCreateTime())));
                 } else if (Objects.equals(ranger, SystemConstants.DATE_RANGE_MONTH.getValue())) {
                     key = DateUtils.getDateString(spiderStatistic.getCreateTime(), "yyyy-MM");
                 }
@@ -65,7 +65,7 @@ public class StatisticServiceImpl implements StatisticService {
                     value.setDate(key);
                 }
                 value.setIncrementCoupon(value.getIncrementCoupon() + spiderStatistic.getIncrementCoupon());
-                value.setTotalCoupon(value.getTotalCoupon() + spiderStatistic.getTotalCoupon());
+                value.setTotalCoupon(value.getTotalCoupon() > spiderStatistic.getTotalCoupon() ? value.getTotalCoupon() : spiderStatistic.getTotalCoupon());
                 value.setValidCoupon(value.getValidCoupon() + spiderStatistic.getValidCoupon());
                 value.setIncrementStore(value.getIncrementStore() + spiderStatistic.getIsNewStore());
                 if (spiderStatistic.getIncrementCoupon() > 0 && store_update.add(spiderStatistic.getStoreId())) {
@@ -77,6 +77,14 @@ public class StatisticServiceImpl implements StatisticService {
         if (null != temp) {
             temp.forEach((k, v) -> result.add(v));
         }
+        result.sort((e1, e2) -> {
+            if (e1.getDate().compareTo(e2.getDate()) == 0) {
+                return 1;
+            } else {
+                return e2.getDate().compareTo(e1.getDate());
+            }
+
+        });
         return result;
     }
 

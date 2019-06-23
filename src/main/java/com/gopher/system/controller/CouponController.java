@@ -1,5 +1,6 @@
 package com.gopher.system.controller;
 
+import com.gopher.system.model.vo.request.CouponSortReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,9 @@ import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.CouponRequest;
 import com.gopher.system.service.CouponService;
+
+import java.util.List;
+
 /**
  * 优惠券
  * @author dongyangyang
@@ -68,6 +72,13 @@ public class CouponController {
 	public Result delete(@RequestBody CouponRequest couponRequest) {
 		Result result = new Result();
 		couponService.deleteCoupon(couponRequest.getCouponId());
+		return result;
+	}
+
+	@RequestMapping(path="/updateSort")
+	public Result updateSort(@RequestBody List<CouponSortReq> sortList) {
+		Result result = new Result();
+		couponService.updateSort(sortList);
 		return result;
 	}
 

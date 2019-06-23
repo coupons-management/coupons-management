@@ -39,6 +39,16 @@ public class ShowSiteCouponResponse {
 
 	private int clickCount;
 
+	private int manualSort;
+
+	public int getManualSort() {
+		return manualSort;
+	}
+
+	public void setManualSort(int manualSort) {
+		this.manualSort = manualSort;
+	}
+
 	public int getClickCount() {
 		return clickCount;
 	}
