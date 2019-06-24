@@ -9,7 +9,7 @@ public class ShowSiteCouponResponse {
 	/**
 	 * 原标题
 	 */
-	private String sourceTile;
+	private String sourceTitle;
 	/**
 	 * 当前标题
 	 */
@@ -97,13 +97,15 @@ public class ShowSiteCouponResponse {
 		this.id = id;
 	}
 
-	public String getSourceTile() {
-		return sourceTile;
+	public String getSourceTitle() {
+		return sourceTitle;
 	}
 
-	public void setSourceTile(String sourceTile) {
-		this.sourceTile = sourceTile;
+	public void setSourceTitle(String sourceTitle) {
+		this.sourceTitle = sourceTitle;
 	}
+
+
 
 	public String getCurrentTitle() {
 		return currentTitle;
@@ -137,10 +139,9 @@ public class ShowSiteCouponResponse {
 		this.description = description;
 	}
 
-	public boolean getExpired() {
+	public boolean isExpired() {
 		return expired;
 	}
-
 	public void setExpired(boolean expired) {
 		this.expired = expired;
 	}

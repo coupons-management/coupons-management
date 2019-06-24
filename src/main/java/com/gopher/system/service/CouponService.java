@@ -6,6 +6,7 @@ import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.CouponSortReq;
+import com.gopher.system.model.vo.request.MannulSortRequest;
 import com.gopher.system.model.vo.response.CouponResponse;
 
 public interface CouponService {
@@ -80,7 +81,7 @@ public interface CouponService {
 
     /**
      * 更新优惠券排序
-     * @param sortList
+     * @param mannulSortRequest
      */
-    void updateSort(List<CouponSortReq> sortList);
+    void updateSort(MannulSortRequest mannulSortRequest);
 }

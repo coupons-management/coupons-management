@@ -85,7 +85,7 @@ public class CpCoupon implements Serializable {
 	 */
 	private String des;
 	
-	private int index;
+	private Integer index;
 	
 	private int siteId;
 	/**
@@ -117,11 +117,11 @@ public class CpCoupon implements Serializable {
 		this.siteId = siteId;
 	}
 
-	public int getIndex() {
+	public Integer getIndex() {
 		return index;
 	}
 
-	public void setIndex(int index) {
+	public void setIndex(Integer index) {
 		this.index = index;
 	}
 

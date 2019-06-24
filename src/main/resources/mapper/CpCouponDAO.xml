@@ -768,4 +768,8 @@
         </where>
     </select>
 
+    <update id="cleanManualSort" parameterType="java.lang.Integer">
+        UPDATE CP_COUPON SET MANUAL_SORT = 0 WHERE STORE_ID = #{storeId}
+    </update>
+
 </mapper>

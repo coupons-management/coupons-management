@@ -1,6 +1,7 @@
 package com.gopher.system.controller;
 
 import com.gopher.system.model.vo.request.CouponSortReq;
+import com.gopher.system.model.vo.request.MannulSortRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,9 +77,9 @@ public class CouponController {
 	}
 
 	@RequestMapping(path="/updateSort")
-	public Result updateSort(@RequestBody List<CouponSortReq> sortList) {
+	public Result updateSort(@RequestBody MannulSortRequest mannulSortRequest) {
 		Result result = new Result();
-		couponService.updateSort(sortList);
+		couponService.updateSort(mannulSortRequest);
 		return result;
 	}
 

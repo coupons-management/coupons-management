@@ -387,13 +387,11 @@
         SELECT
         osp.ID AS mapId,
         cp.ID as id,
-        cp.NAME AS sourceTile,
-        osp.TITLE AS
-        currentTitle,
+        cp.NAME AS sourceTitle,
+        osp.TITLE AS currentTitle,
         cp.COUPON_TYPE AS couponType,
         cp.`CODE` AS code,
-        cp.DES AS
-        description,
+        cp.DES AS description,
         cp.EXPIRE_AT AS expiryTime,
         cp.IS_PASS AS isPass,
         cp.CREATE_TIME AS createTime,
@@ -405,6 +403,12 @@
         INNER JOIN
         CP_OUT_SITE_COUPON osp ON cp.ID =
         osp.COUPON_ID
+        <include refid="getPageWhere"></include>
+        ORDER BY cp.MANUAL_SORT DESC , cp.INDEX DESC
+        LIMIT #{beginIndex},#{pageSize}
+    </select>
+
+    <sql id="getPageWhere">
         <where>
             osp.OUT_SITE_ID = #{siteId}
             <if test="search != null and search != '' ">
@@ -424,9 +428,8 @@
                 AND cp.STORE_ID = #{storeId}
             </if>
         </where>
-        ORDER BY id DESC
-        LIMIT #{beginIndex},#{pageSize}
-    </select>
+
+    </sql>
 
     <select id="getTotalCount" resultType="java.lang.Integer"
             parameterType="com.gopher.system.model.vo.request.ShowSiteCouponRequest">
@@ -435,27 +438,8 @@
         FROM
         CP_COUPON cp
         INNER JOIN CP_OUT_SITE_COUPON osp ON
-        cp.ID =
-        osp.COUPON_ID
-        <where>
-            osp.OUT_SITE_ID = #{siteId}
-            <if test="search != null and search != '' ">
-                AND cp.TITLE LIKE "%"#{search}"%" OR osp.TITLE LIKE
-                "%"#{search}"%"
-            </if>
-            <if test="couponType != null and couponType !='' ">
-                AND cp.COUPON_TYPE = #{couponType}
-            </if>
-            <if test="state != null and state !='' ">
-                AND cp.IS_PASS = #{state}
-            </if>
-            <if test="cteateType != null and cteateType !='' ">
-                AND cp.IN_TYPE = #{cteateType}
-            </if>
-            <if test="storeId != null and storeId !='' ">
-                AND cp.STORE_ID = #{storeId}
-            </if>
-        </where>
+        cp.ID = osp.COUPON_ID
+        <include refid="getPageWhere"></include>
     </select>
 
     <update id="clearHotSort">
@@ -504,7 +488,7 @@
                 AND cp.COUPON_TYPE = #{couponType}
             </if>
         </where>
-        ORDER BY cp.MANUAL_SORT ASC , INDEX DESC
+        ORDER BY cp.MANUAL_SORT DESC , INDEX DESC
         LIMIT #{beginIndex},#{pageSize}
     </select>
 
@@ -540,9 +524,8 @@
         SELECT
         osp.ID AS mapId,
         cp.ID as id,
-        cp.NAME AS sourceTile,
-        osp.TITLE AS
-        currentTitle,
+        cp.NAME AS sourceTitle,
+        osp.TITLE AS currentTitle,
         cp.COUPON_TYPE AS couponType,
         cp.`CODE` AS code,
         cp.DES AS description,
@@ -562,7 +545,7 @@
             cp.STORE_ID = #{storeId}
             AND  cp.MANUAL_SORT > 0
         </where>
-        ORDER BY cp.MANUAL_SORT
+        ORDER BY cp.MANUAL_SORT DESC
     </select>
 
 </mapper>

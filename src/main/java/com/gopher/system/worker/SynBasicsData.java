@@ -27,7 +27,7 @@ public class SynBasicsData {
 
     @SuppressWarnings("unchecked")
     public void synDate() {
-        LOGGER.info("--------------同步数据--------------------");
+//        LOGGER.info("--------------同步数据--------------------");
         //同步类型
 //        synDataService.synTypeData();
         //同步商家
