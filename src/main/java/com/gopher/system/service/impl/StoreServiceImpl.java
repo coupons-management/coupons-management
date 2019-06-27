@@ -127,7 +127,7 @@ public class StoreServiceImpl implements StoreService {
 		result.setPageNumber(storePageRequest.getPageNumber());
 		result.setPageSize(storePageRequest.getPageSize());
 		// 爬虫站
-		final Integer spider_id = storePageRequest.getScrapyId();
+		final Integer spider_id = storePageRequest.getSpiderId();
 		if (null != spider_id && spider_id > 0) {
 			CpScrapyStore query = new CpScrapyStore();
 			query.setScrapyId(spider_id);

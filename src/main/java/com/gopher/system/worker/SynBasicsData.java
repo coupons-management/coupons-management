@@ -29,9 +29,9 @@ public class SynBasicsData {
     public void synDate() {
 //        LOGGER.info("--------------同步数据--------------------");
         //同步类型
-//        synDataService.synTypeData();
+        synDataService.synTypeData();
         //同步商家
-//        synDataService.synStoreData();
+        synDataService.synStoreData();
         //同步优惠卷
         synDataService.synCouponData();
     }

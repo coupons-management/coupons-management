@@ -11,7 +11,7 @@
     <!-- 定义调用对象-->
     <bean id="synBasicsData" class="com.gopher.system.worker.SynBasicsData"></bean>
     <!-- 统计任务-->
-    <bean id="statistic" class="com.gopher.system.worker.SpiderStatisticJob"></bean>
+    <!--<bean id="statistic" class="com.gopher.system.worker.SpiderStatisticJob"></bean>-->
     <!-- 配置相关类中方法的执行时间-->
     <task:scheduled-tasks scheduler="taskScheduler">
         <!-- 每隔 2秒执行一次 -->
@@ -27,7 +27,7 @@
         <!-- <task:scheduled ref="synBasicsData"   method="clearDatd" cron="0 0 1 * * ?"/> -->
         <!-- <task:scheduled ref="synBasicsData" method="test" cron="*/20 * * * * ?"/>  -->
         <!-- 每天凌晨两点 统计昨天的爬虫情况 -->
-        <task:scheduled ref="statistic" method="statisticBySpider" cron="0 0 2 * * ?"/>
+        <!--<task:scheduled ref="statistic" method="statisticBySpider" cron="0 0 2 * * ?"/>-->
     </task:scheduled-tasks>
 
 </beans>

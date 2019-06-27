@@ -18,6 +18,21 @@ public interface StatisticService {
 	 * @param statisticRequest
 	 * @return
 	 */
+	@Deprecated
 	List<StatisticResponse> getStatistic(StatisticRequest statisticRequest);
+
+	/**
+	 * 爬虫统计
+	 * @param statisticRequest
+	 * @return
+	 */
+	List<StatisticResponse>  getStatisticBySpider(StatisticRequest statisticRequest);
+
+	/**
+	 * 官网站点统计
+	 * @param statisticRequest
+	 * @return
+	 */
+	List<StatisticResponse>  getStatisticBySite(StatisticRequest statisticRequest);
 
 }

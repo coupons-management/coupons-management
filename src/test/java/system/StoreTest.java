@@ -37,6 +37,7 @@ public class StoreTest extends BaseTest {
 		StorePageRequst request = new StorePageRequst();
 		request.setPageNumber(1);
 		request.setPageSize(1);
+		request.setScrapyId(17);
 		Page<StoreResponse> page = storeService.getPage(request);
 		System.out.println(JSON.toJSONString(page));
 	}

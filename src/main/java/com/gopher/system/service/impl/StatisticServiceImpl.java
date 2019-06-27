@@ -13,6 +13,7 @@ import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.StatisticRequest;
 import com.gopher.system.model.vo.response.StatisticResponse;
 import com.gopher.system.service.StatisticService;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -26,6 +27,7 @@ public class StatisticServiceImpl implements StatisticService {
     private SpiderStatisticDAO spiderStatisticDAO;
 
     @Override
+    @Deprecated
     public List<StatisticResponse> getStatistic(StatisticRequest statisticRequest) {
         if (null == statisticRequest) {
             throw new BusinessRuntimeException("参数不能为空");
@@ -64,10 +66,11 @@ public class StatisticServiceImpl implements StatisticService {
                     value = new StatisticResponse();
                     value.setDate(key);
                 }
+                value.setTotalCoupon(value.getTotalCoupon() + spiderStatistic.getTotalCoupon());
                 value.setIncrementCoupon(value.getIncrementCoupon() + spiderStatistic.getIncrementCoupon());
-                value.setTotalCoupon(value.getTotalCoupon() > spiderStatistic.getTotalCoupon() ? value.getTotalCoupon() : spiderStatistic.getTotalCoupon());
                 value.setValidCoupon(value.getValidCoupon() + spiderStatistic.getValidCoupon());
                 value.setIncrementStore(value.getIncrementStore() + spiderStatistic.getIsNewStore());
+
                 if (spiderStatistic.getIncrementCoupon() > 0 && store_update.add(spiderStatistic.getStoreId())) {
                     value.setUpdateStore(value.getUpdateStore() + 1);
                 }
@@ -75,7 +78,9 @@ public class StatisticServiceImpl implements StatisticService {
             }
         }
         if (null != temp) {
-            temp.forEach((k, v) -> result.add(v));
+            temp.forEach((k, v) ->
+                    result.add(v)
+            );
         }
         result.sort((e1, e2) -> {
             if (e1.getDate().compareTo(e2.getDate()) == 0) {
@@ -86,6 +91,31 @@ public class StatisticServiceImpl implements StatisticService {
 
         });
         return result;
+    }
+
+
+    /**
+     * 爬虫端统计 直接根据时间段 查询优惠券 增量,有效数量,总量,
+     *           根据时间段取查询商家 增量
+     *
+     * @param statisticRequest
+     * @return
+     */
+    @Override
+    public List<StatisticResponse> getStatisticBySpider(StatisticRequest statisticRequest) {
+        // TODO
+        return null;
+    }
+
+    /**
+     *  加一层站点条件
+     * @param statisticRequest
+     * @return
+     */
+    @Override
+    public List<StatisticResponse> getStatisticBySite(StatisticRequest statisticRequest) {
+       //TODO
+        return null;
     }
 
 
