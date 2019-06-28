@@ -8,6 +8,14 @@ public class StatisticRequest {
 	 */
 	private int spiderId;
 	/**
+	 * 爬虫
+	 */
+	private String spider;
+	/**
+	 * 官网ID
+	 */
+	private int siteId;
+	/**
 	 * 开始时间
 	 */
 	private long beginTime;
@@ -24,6 +32,22 @@ public class StatisticRequest {
 	private Date beginDate;
 
 	private Date endDate;
+
+	public int getSiteId() {
+		return siteId;
+	}
+
+	public void setSiteId(int siteId) {
+		this.siteId = siteId;
+	}
+
+	public String getSpider() {
+		return spider;
+	}
+
+	public void setSpider(String spider) {
+		this.spider = spider;
+	}
 
 	public Date getBeginDate() {
 		return beginDate;

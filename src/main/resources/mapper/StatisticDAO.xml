@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gopher.system.dao.mysql.StatisticDAO">
+
+    <select id="getCouponValidCount" resultType="java.lang.Integer"
+            parameterType="com.gopher.system.model.vo.request.StatisticRequest">
+        SELECT COUNT(1) FROM CP_COUPON
+        <where>
+            EXPIRE_AT &gt;= NOW()
+            AND CREATE_TIME &lt;= #{endDate}
+            <if test="spider !=null ">
+                AND SCRAPY =#{spider}
+            </if>
+        </where>
+    </select>
+
+    <select id="getCouponTotalCount" resultType="java.lang.Integer"
+            parameterType="com.gopher.system.model.vo.request.StatisticRequest">
+        SELECT COUNT(1) FROM CP_COUPON
+        <where>
+            AND CREATE_TIME &gt;= #{beginDate}
+            AND CREATE_TIME &lt;= #{endDate}
+            <if test="spider !=null ">
+                AND SCRAPY =#{spider}
+            </if>
+        </where>
+    </select>
+
+    <select id="getCouponIncrementCount" resultType="java.lang.Integer"
+            parameterType="com.gopher.system.model.vo.request.StatisticRequest">
+        SELECT COUNT(1) FROM CP_COUPON
+        <where>
+            AND CREATE_TIME &gt;= #{beginDate}
+            AND CREATE_TIME &lt;= #{endDate}
+            <if test="spider !=null ">
+                AND SCRAPY =#{spider}
+            </if>
+        </where>
+    </select>
+
+    <select id="getStoreUpdateCount" resultType="java.lang.Integer"
+            parameterType="com.gopher.system.model.vo.request.StatisticRequest">
+        SELECT COUNT( DISTINCT STORE_ID)
+        FROM CP_COUPON
+        <where>
+            AND CREATE_TIME &gt;= #{beginDate}
+            AND CREATE_TIME &lt;= #{endDate}
+            <if test="spider !=null ">
+                AND SCRAPY =#{spider}
+            </if>
+        </where>
+    </select>
+
+    <select id="getStoreIncrementCount" resultType="java.lang.Integer"
+            parameterType="com.gopher.system.model.vo.request.StatisticRequest">
+        SELECT COUNT(1) FROM
+        CP_STORE store
+        INNER JOIN
+        CP_SCRAPY_STORE C_S_S
+        ON
+        store.ID = C_S_S.STORE_ID
+        <where>
+            <if test="spiderId > 0">
+                AND C_S_S.SCRAPY_ID = #{spiderId}
+            </if>
+            AND store.CREATE_TIME &gt;= #{beginDate}
+            AND store.CREATE_TIME &lt;= #{endDate}
+        </where>
+    </select>
+
+</mapper>

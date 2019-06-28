@@ -22,8 +22,8 @@ public class SpiderMessageListener implements MessageListener {
         try {
             final String queue = message.getMessageProperties().getConsumerQueue();
             final String message_content = new String(message.getBody(), "UTF-8");
-            logger.info("queue name:{}", queue);
-            logger.info("message:{}", message_content);
+//            logger.info("queue name:{}", queue);
+//            logger.info("message:{}", message_content);
             TMessage tmessage = new TMessage();
             tmessage.setMessageBody(message_content);
             switch (queue) {

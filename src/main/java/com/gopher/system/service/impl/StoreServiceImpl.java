@@ -117,36 +117,7 @@ public class StoreServiceImpl implements StoreService {
     	return result;
     }
 
-
-	@Override
-	public Page<StoreResponse> getPage(StorePageRequst storePageRequest) {
-		if(null == storePageRequest){
-			throw new BusinessRuntimeException("参数不能为空");
-		}
-		Page<StoreResponse> result = new Page<>();
-		result.setPageNumber(storePageRequest.getPageNumber());
-		result.setPageSize(storePageRequest.getPageSize());
-		// 爬虫站
-		final Integer spider_id = storePageRequest.getSpiderId();
-		if (null != spider_id && spider_id > 0) {
-			CpScrapyStore query = new CpScrapyStore();
-			query.setScrapyId(spider_id);
-			List<CpScrapyStore> list = cpScrapyStoreDAO.getList(query);
-			if (null != list && !list.isEmpty()) {
-				List<Integer> storeIdList = new ArrayList<>(list.size());
-				for (CpScrapyStore cpScrapyStore : list) {
-					storeIdList.add(cpScrapyStore.getStoreId());
-				}
-				storePageRequest.setStoreIdList(storeIdList);
-			}else {
-				return result;
-			}
-		}
-		// 排除商家的列表
-		storePageRequest.setExcludeStoreIdList(this.getExcludeSiteIdList(storePageRequest.getSiteId()));
-		List<CpStore> list = cpStoreDAO.getPageList(storePageRequest);
-		final int totalCount = cpStoreDAO.getCount(storePageRequest);
-		result.setTotalCount(totalCount);
+    public List<StoreResponse> getShowValue(List<CpStore> list){
 		List<StoreResponse> rspList = null;
 		// 基础数据
 		if (null != list) {
@@ -178,7 +149,23 @@ public class StoreServiceImpl implements StoreService {
 				rspList.add(rsp);
 			}
 		}
-		result.setList(rspList);
+		return rspList;
+	}
+
+	@Override
+	public Page<StoreResponse> getPage(StorePageRequst storePageRequest) {
+		if(null == storePageRequest){
+			throw new BusinessRuntimeException("参数不能为空");
+		}
+		Page<StoreResponse> result = new Page<>();
+		result.setPageNumber(storePageRequest.getPageNumber());
+		result.setPageSize(storePageRequest.getPageSize());
+		// 排除商家的列表
+		storePageRequest.setExcludeStoreIdList(this.getExcludeSiteIdList(storePageRequest.getSiteId()));
+		List<CpStore> list = cpStoreDAO.getPageList(storePageRequest);
+		final int totalCount = cpStoreDAO.getCount(storePageRequest);
+		result.setTotalCount(totalCount);
+		result.setList(this.getShowValue(list));
 		return result;
 	}
 

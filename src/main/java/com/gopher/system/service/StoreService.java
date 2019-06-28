@@ -9,11 +9,23 @@ import com.gopher.system.model.vo.request.StoreVerifyRequest;
 import com.gopher.system.model.vo.response.StoreResponse;
 
 public interface StoreService {
-
+	/**
+	 * 分页
+	 * @param storeRequest
+	 * @return
+	 */
 	Page<StoreResponse> getPage(StorePageRequst storeRequest);
 
+	/**
+	 * 编辑
+	 * @param cpStore
+	 */
 	void edit(CpStore cpStore);
 
+	/**
+	 * 批量审核
+	 * @param storeVerifyRequest
+	 */
 	void verifyBatch(StoreVerifyRequest storeVerifyRequest);
 
 	/**
@@ -31,5 +43,14 @@ public interface StoreService {
 	 * @return
 	 */
 	List<String> getSpiderSiteNameList(int storeId);
+
+	/**
+	 * 设置商家页面展示信息
+	 * @param list
+	 * @return
+	 */
+	List<StoreResponse> getShowValue(List<CpStore> list);
+
+
 
 }

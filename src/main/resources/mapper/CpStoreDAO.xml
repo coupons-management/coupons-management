@@ -379,89 +379,51 @@
         where WEBSITE = #{website,jdbcType=VARCHAR} limit 1
     </select>
 
-
-    <select id="getPageList"
-            parameterType="com.gopher.system.model.vo.request.StorePageRequst"
-            resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM CP_STORE
+    <sql id="page_where">
         <where>
             <if test="search != null and search!=''">
-                NAME LIKE "%"#{search}"%" OR WEBSITE LIKE "%"#{search}"%"
-            </if>
-            <if test="storeIdList != null ">
-                AND ID IN
-                <foreach collection="storeIdList" item="id" index="index" open="("
-                         close=")" separator=",">
-                    #{id}
-                </foreach>
+                cs.NAME LIKE "%"#{search}"%" OR cs.WEBSITE LIKE "%"#{search}"%"
             </if>
             <if test="excludeStoreIdList != null ">
-                AND ID NOT IN
+                AND cs.ID NOT IN
                 <foreach collection="excludeStoreIdList" item="id"
                          index="index" open="(" close=")" separator=",">
                     #{id}
                 </foreach>
             </if>
             <if test="country != null and country != ''">
-                AND COUNTRY = #{country}
-            </if>
-            <if test="scrapyType != null and scrapyType == 1">
-                AND TYPE_ID != 0
-            </if>
-            <if test="scrapyType != null and scrapyType == 2">
-                AND TYPE_ID IS NULL
+                AND cs.COUNTRY = #{country}
             </if>
             <if test="approval != null and approval != ''">
-                AND APPROVAL = #{approval}
+                AND cs.APPROVAL = #{approval}
             </if>
             <if test="isComplete != null and isComplete != ''">
-                AND IS_COMPLETE = #{isComplete}
+                AND cs.IS_COMPLETE = #{isComplete}
+            </if>
+            <if test="scrapyId > 0 ">
+                AND css.SCRAPY_ID = #{scrapyId}
             </if>
         </where>
-        ORDER BY ID ASC
+
+    </sql>
+
+    <select id="getPageList"
+            parameterType="com.gopher.system.model.vo.request.StorePageRequst"
+            resultMap="BaseResultMap">
+        SELECT
+        cs.*
+        FROM CP_STORE cs INNER JOIN
+        CP_SCRAPY_STORE css ON cs.ID = css.STORE_ID
+        <include refid="page_where"/>
+        ORDER BY cs.ID ASC
         limit #{beginIndex},#{pageSize}
     </select>
 
     <select id="getCount"
             parameterType="com.gopher.system.model.vo.request.StorePageRequst"
             resultType="java.lang.Integer">
-        SELECT COUNT(1) FROM CP_STORE
-        <where>
-            <if test="search != null and search!=''">
-                NAME LIKE "%"#{search}"%" OR WEBSITE LIKE "%"#{search}"%"
-            </if>
-            <if test="storeIdList != null ">
-                AND ID IN
-                <foreach collection="storeIdList" item="id" index="index" open="("
-                         close=")" separator=",">
-                    #{id}
-                </foreach>
-            </if>
-            <if test="excludeStoreIdList != null ">
-                AND ID NOT IN
-                <foreach collection="excludeStoreIdList" item="id"
-                         index="index" open="(" close=")" separator=",">
-                    #{id}
-                </foreach>
-            </if>
-            <if test="country != null and country != ''">
-                AND COUNTRY = #{country}
-            </if>
-            <if test="scrapyType != null and scrapyType == 1">
-                AND TYPE_ID != 0
-            </if>
-            <if test="scrapyType != null and scrapyType == 2">
-                AND TYPE_ID IS NULL
-            </if>
-            <if test="approval != null and approval != ''">
-                AND APPROVAL = #{approval}
-            </if>
-            <if test="isComplete != null and isComplete != ''">
-                AND IS_COMPLETE = #{isComplete}
-            </if>
-        </where>
+        SELECT COUNT(1) FROM CP_STORE cs  INNER JOIN CP_SCRAPY_STORE css ON cs.ID = css.STORE_ID
+        <include refid="page_where"/>
     </select>
 
 

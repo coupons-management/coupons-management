@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gopher.system.dao.mysql.StoreOperationDAO">
+    <resultMap id="BaseResultMap"
+               type="com.gopher.system.model.entity.CpStore">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="TYPE_ID" jdbcType="INTEGER" property="typeId"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="WEBSITE" jdbcType="VARCHAR" property="website"/>
+        <result column="TYPE_NAME" jdbcType="VARCHAR"
+                property="typeName"/>
+        <result column="LOGO_URL" jdbcType="VARCHAR" property="logoUrl"/>
+        <result column="ADVERTISING" jdbcType="VARCHAR"
+                property="advertising"/>
+        <result column="CREATED_AT" jdbcType="TIMESTAMP"
+                property="createdAt"/>
+        <result column="UUID" jdbcType="VARCHAR" property="uuid"/>
+        <result column="DES" jdbcType="VARCHAR" property="des"/>
+        <result column="COUNTRY" jdbcType="VARCHAR" property="country"/>
+        <result column="NAME_CRC" jdbcType="VARCHAR" property="nameCrc"/>
+        <result column="WEBSITE_CRC" jdbcType="VARCHAR"
+                property="websiteCrc"/>
+        <result column="COUPON_COUNT" jdbcType="INTEGER"
+                property="couponCount"/>
+        <result column="IS_COMPLETE" jdbcType="VARCHAR"
+                property="isComplete"/>
+        <result column="COUPON_COUNT_VALID" jdbcType="INTEGER"
+                property="couponCountValid"/>
+        <result column="IN_TYPE" jdbcType="CHAR" property="inType"/>
+        <result column="APPROVAL" jdbcType="CHAR" property="approval"/>
+        <result column="TITLE" jdbcType="VARCHAR" property="title"/>
+        <result column="CREATE_USER" jdbcType="INTEGER"
+                property="createUser"/>
+        <result column="UPDATE_USER" jdbcType="INTEGER"
+                property="updateUser"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP"
+                property="createTime"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP"
+                property="updateTime"/>
+    </resultMap>
+
+    <sql id="page_where">
+        <where>
+            <if test="search != null and search!=''">
+                cs.NAME LIKE "%"#{search}"%" OR cs.WEBSITE LIKE "%"#{search}"%"
+            </if>
+            <if test="country != null and country != ''">
+                AND cs.COUNTRY = #{country}
+            </if>
+            <if test="approval != null and approval != ''">
+                AND cs.APPROVAL = #{approval}
+            </if>
+            <if test="isComplete != null and isComplete != ''">
+                AND cs.IS_COMPLETE = #{isComplete}
+            </if>
+            <if test="scrapyId > 0 ">
+                AND css.SCRAPY_ID = #{scrapyId}
+            </if>
+            <if test="range == 1">
+                <!-- 有新增优惠券的商家-->
+                AND cc.CREATE_TIME &gt;= #{beginDate}
+                AND cc.CREATE_TIME &lt;= #{endDate}
+            </if>
+            <if test="range == 2">
+                <!-- 无新增优惠券的商家-->
+                AND cc.CREATE_TIME &lt;= #{beginDate}
+                AND cc.CREATE_TIME &gt;= #{endDate}
+            </if>
+
+            <if test="range == 2">
+                <!-- 新增的商家-->
+                AND cs.CREATE_TIME &gt;= #{beginDate}
+                AND cs.CREATE_TIME &lt;= #{endDate}
+            </if>
+        </where>
+
+    </sql>
+
+    <select id="getPageList"
+            parameterType="com.gopher.system.model.vo.request.StorePageRequst"
+            resultMap="BaseResultMap">
+        SELECT
+        DISTINCT(cs.ID ),
+        cs.TYPE_ID,
+        cs.NAME,
+        cs.WEBSITE,
+        cs.TYPE_NAME,
+        cs.LOGO_URL,
+        cs.ADVERTISING,
+        cs.CREATED_AT,
+        cs.DES,
+        cs.COUNTRY,
+        cs.APPROVAL,
+        cs.TITLE,
+        cs.APPROVAL,
+        cs.CREATE_TIME,
+        cs.UPDATE_TIME,
+        cs.IS_COMPLETE
+        FROM CP_STORE cs
+        INNER JOIN
+        CP_SCRAPY_STORE css ON cs.ID = css.STORE_ID
+        LEFT JOIN
+        CP_COUPON cc ON cs.ID = cc.STORE_ID
+        <include refid="page_where"/>
+        ORDER BY cs.ID ASC
+        limit #{beginIndex},#{pageSize}
+    </select>
+
+    <select id="getCount"
+            parameterType="com.gopher.system.model.vo.request.StorePageRequst"
+            resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT(cs.ID )) FROM CP_STORE cs
+        INNER JOIN
+        CP_SCRAPY_STORE css ON cs.ID = css.STORE_ID
+        LEFT JOIN
+        CP_COUPON cc ON cs.ID = cc.STORE_ID
+        <include refid="page_where"/>
+    </select>
+
+</mapper>

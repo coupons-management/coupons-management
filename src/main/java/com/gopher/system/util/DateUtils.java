@@ -337,6 +337,16 @@ public class DateUtils {
 		return calendar.getTime();
 	}
 
+	public static Date getOneDayEndDate(long dateTime) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date(dateTime));
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		calendar.set(Calendar.MILLISECOND,999);
+		return calendar.getTime();
+	}
+
 	/**
 	 * 获得某一天的开始（秒）
 	 * 

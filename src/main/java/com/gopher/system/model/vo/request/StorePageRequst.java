@@ -1,5 +1,6 @@
 package com.gopher.system.model.vo.request;
 
+import java.util.Date;
 import java.util.List;
 
 import com.gopher.system.model.vo.PageRequestBase;
@@ -30,10 +31,6 @@ public class StorePageRequst extends PageRequestBase{
 	 */
 	private Integer validCouponsCount;
 	/**
-	 * 根据爬虫ID 获取的商家id集合
-	 */
-	private List<Integer> storeIdList;
-	/**
 	 * 排除的商家列表
 	 */
 	private List<Integer> excludeStoreIdList;
@@ -59,12 +56,32 @@ public class StorePageRequst extends PageRequestBase{
 	private long beginTime;
 
 	private long endTime;
+
+	private Date beginDate;
+
+	private Date endDate;
 	/**
 	 * 1= 有新增优惠券
 	 * 2= 无新增优惠券
 	 * 3= 新增的商家
 	 */
 	private int range;
+
+	public Date getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 
 	public int getSpiderId() {
 		return spiderId;
@@ -133,12 +150,6 @@ public class StorePageRequst extends PageRequestBase{
 	}
 	public void setScrapyId(Integer scrapyId) {
 		this.scrapyId = scrapyId;
-	}
-	public List<Integer> getStoreIdList() {
-		return storeIdList;
-	}
-	public void setStoreIdList(List<Integer> storeIdList) {
-		this.storeIdList = storeIdList;
 	}
 	public String getSearch() {
 		return search;

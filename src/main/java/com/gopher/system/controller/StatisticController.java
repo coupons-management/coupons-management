@@ -21,7 +21,7 @@ public class StatisticController {
     @RequestMapping("/spider")
     public Result getStatistic(@RequestBody StatisticRequest statisticRequest) {
         Result result = new Result();
-        result.setData(statisticService.getStatistic(statisticRequest));
+        result.setData(statisticService.getStatisticBySpider(statisticRequest));
         return result;
     }
 
