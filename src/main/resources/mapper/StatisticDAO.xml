@@ -18,7 +18,6 @@
             parameterType="com.gopher.system.model.vo.request.StatisticRequest">
         SELECT COUNT(1) FROM CP_COUPON
         <where>
-            AND CREATE_TIME &gt;= #{beginDate}
             AND CREATE_TIME &lt;= #{endDate}
             <if test="spider !=null ">
                 AND SCRAPY =#{spider}
@@ -68,4 +67,60 @@
         </where>
     </select>
 
+
+    <!--  官网下面的统计 查询的表不一样 -->
+
+
+    <select id="getCouponValidCountInsite" resultType="java.lang.Integer"
+            parameterType="com.gopher.system.model.vo.request.StatisticRequest">
+        SELECT COUNT(1) FROM CP_OUT_SITE_COUPON COSC
+        INNER JOIN CP_COUPON CC
+        ON COSC.COUPON_ID = CC.ID
+        <where>
+            CC.EXPIRE_AT &gt;= NOW()
+            AND COSC.CREATE_TIME &lt;= #{endDate}
+            AND COSC.OUT_SITE_ID =#{siteId}
+        </where>
+    </select>
+
+    <select id="getCouponTotalCountInsite" resultType="java.lang.Integer"
+            parameterType="com.gopher.system.model.vo.request.StatisticRequest">
+        SELECT COUNT(1) FROM CP_OUT_SITE_COUPON
+        <where>
+            CREATE_TIME &lt;= #{endDate}
+            AND OUT_SITE_ID =#{siteId}
+        </where>
+    </select>
+
+    <select id="getCouponIncrementCountInsite" resultType="java.lang.Integer"
+            parameterType="com.gopher.system.model.vo.request.StatisticRequest">
+        SELECT COUNT(1) FROM CP_OUT_SITE_COUPON
+        <where>
+            CREATE_TIME &gt;= #{beginDate}
+            AND CREATE_TIME &lt;= #{endDate}
+            AND OUT_SITE_ID =#{siteId}
+        </where>
+    </select>
+
+    <select id="getStoreUpdateCountInsite" resultType="java.lang.Integer"
+            parameterType="com.gopher.system.model.vo.request.StatisticRequest">
+        SELECT COUNT( DISTINCT STORE_ID)
+        FROM CP_OUT_SITE_COUPON
+        <where>
+            CREATE_TIME &gt;= #{beginDate}
+            AND CREATE_TIME &lt;= #{endDate}
+            AND OUT_SITE_ID =#{siteId}
+        </where>
+    </select>
+
+    <select id="getStoreIncrementCountInsite" resultType="java.lang.Integer"
+            parameterType="com.gopher.system.model.vo.request.StatisticRequest">
+        SELECT COUNT(1) FROM
+        CP_OUT_SITE_STORE store
+        <where>
+            OUT_ID =#{siteId}
+            AND store.CREATE_TIME &gt;= #{beginDate}
+            AND store.CREATE_TIME &lt;= #{endDate}
+        </where>
+    </select>
 </mapper>

@@ -26,15 +26,36 @@ public class StoreOperationServiceImpl implements StoreOperationService {
     private static final Logger LOG = LoggerFactory.getLogger(StoreOperationServiceImpl.class);
 
     @Override
-    public Page<StoreResponse> getPage(StorePageRequst storePageRequest) {
+    public Page<StoreResponse> getPageInSpideer(StorePageRequst storePageRequest) {
+
+        Page<StoreResponse> result = new Page<>();
+        this.setParam(storePageRequest);
+        List<CpStore> list = storeOperationDAO.getPageList(storePageRequest);
+        result.setTotalCount(storeOperationDAO.getCount(storePageRequest));
+        result.setList(storeService.getShowValue(list));
+        result.setPageNumber(storePageRequest.getPageNumber());
+        result.setPageSize(storePageRequest.getPageSize());
+        return result;
+    }
+
+    private void setParam(StorePageRequst storePageRequest){
         if (null == storePageRequest) {
             throw new BusinessRuntimeException("参数不能为空");
         }
-        Page<StoreResponse> result = new Page<>();
         storePageRequest.setBeginDate(new Date(storePageRequest.getBeginTime()));
         storePageRequest.setEndDate(new Date(storePageRequest.getEndTime()));
-        List<CpStore> list = storeOperationDAO.getPageList(storePageRequest);
-        result.setTotalCount(storeOperationDAO.getCount(storePageRequest));
+        storePageRequest.setScrapyId(storePageRequest.getSpiderId());
+    }
+
+    @Override
+    public Page<StoreResponse> getPageInSite(StorePageRequst storePageRequest) {
+        if(storePageRequest.getSiteId() <= 0){
+            throw new BusinessRuntimeException("站点ID不能为空");
+        }
+        Page<StoreResponse> result = new Page<>();
+        this.setParam(storePageRequest);
+        List<CpStore> list = storeOperationDAO.getPageListInSite(storePageRequest);
+        result.setTotalCount(storeOperationDAO.getCountInSite(storePageRequest));
         result.setList(storeService.getShowValue(list));
         result.setPageNumber(storePageRequest.getPageNumber());
         result.setPageSize(storePageRequest.getPageSize());

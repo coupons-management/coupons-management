@@ -10,5 +10,8 @@ public interface StoreOperationService {
      * @param storePageRequest
      * @return
      */
-    Page<StoreResponse> getPage(StorePageRequst storePageRequest);
+    Page<StoreResponse> getPageInSpideer(StorePageRequst storePageRequest);
+
+
+    Page<StoreResponse> getPageInSite(StorePageRequst storePageRequest);
 }

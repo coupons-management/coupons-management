@@ -21,8 +21,9 @@ public class StoreOperationServiceTest extends BaseTest {
         storePageRequst.setBeginTime(System.currentTimeMillis()-2*24*60*60*1000);
         storePageRequst.setEndTime(System.currentTimeMillis());
         storePageRequst.setRange(1);
+        storePageRequst.setSiteId(1);
         System.out.println(JSON.toJSONString(storePageRequst));
-        System.out.println(JSON.toJSONString( storeOperationService.getPage(storePageRequst)));
+        System.out.println(JSON.toJSONString( storeOperationService.getPageInSite(storePageRequst)));
     }
     @Test
     public void test2(){

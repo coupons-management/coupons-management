@@ -21,4 +21,18 @@ public interface StoreOperationDAO {
      */
     int getCount(StorePageRequst storePageRequest);
 
+
+    /**
+     * 商家列表
+     * @param storePageRequest
+     * @return
+     */
+    List<CpStore> getPageListInSite(StorePageRequst storePageRequest);
+
+    /**
+     * 总数
+     * @param storePageRequest
+     * @return
+     */
+    Integer getCountInSite(StorePageRequst storePageRequest);
 }

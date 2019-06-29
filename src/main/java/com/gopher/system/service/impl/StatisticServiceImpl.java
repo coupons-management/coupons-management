@@ -119,7 +119,6 @@ public class StatisticServiceImpl implements StatisticService {
         List<_Date> timeList = this.getAllTime(statisticRequest);
         for (_Date date : timeList) {
             StatisticRequest query = new StatisticRequest();
-
             query.setBeginDate(new Date(date.beginTime));
             query.setEndDate(new Date(date.endTime));
             final int totalCoupon = statisticDAO.getCouponTotalCount(query);
@@ -127,18 +126,7 @@ public class StatisticServiceImpl implements StatisticService {
             final int incrementCoupon = statisticDAO.getCouponIncrementCount(query);
             final int incrementStore = statisticDAO.getStoreIncrementCount(query);
             final int updateStore = statisticDAO.getStoreUpdateCount(query);
-            StatisticResponse rsp = new StatisticResponse();
-            rsp.setTotalCoupon(totalCoupon);
-            rsp.setValidCoupon(validCoupon);
-            rsp.setIncrementCoupon(incrementCoupon);
-            rsp.setIncrementStore(incrementStore);
-            rsp.setUpdateStore(updateStore);
-            if (Objects.equals(range, SystemConstants.DATE_RANGE_DAY.getValue())) {
-                rsp.setDate(DateUtils.getDateString(date.endTime));
-            } else {
-                rsp.setDate(DateUtils.getDateString(date.beginTime)+"~"+DateUtils.getDateString(date.endTime));
-            }
-            result.add(rsp);
+            result.add(setValue(totalCoupon, validCoupon, incrementCoupon, incrementStore, updateStore, range, date.beginTime, date.endTime));
         }
         return result;
     }
@@ -155,10 +143,11 @@ public class StatisticServiceImpl implements StatisticService {
     }
 
     class _Date {
-        _Date(long beginTime ,long endTime){
+        _Date(long beginTime, long endTime) {
             this.beginTime = beginTime;
             this.endTime = endTime;
         }
+
         private long beginTime;
         private long endTime;
 
@@ -181,8 +170,8 @@ public class StatisticServiceImpl implements StatisticService {
 
     private List<_Date> getAllTime(StatisticRequest statisticRequest) {
         final int ranger = statisticRequest.getRange();
-        final long benginTime = statisticRequest.getBeginTime();
-        final long endTime = statisticRequest.getEndTime();
+        final long benginTime = DateUtils.getOneDayStart(statisticRequest.getBeginTime());
+        final long endTime = DateUtils.getOneDayEnd(statisticRequest.getEndTime());
         List<_Date> result = new ArrayList<>();
         long temp = benginTime;
         long diff = 24 * 60 * 60 * 1000L;
@@ -194,21 +183,59 @@ public class StatisticServiceImpl implements StatisticService {
             diff = 30 * diff;
         }
         while (temp < endTime) {
-            result.add(new _Date(temp,temp += diff));
+            result.add(new _Date(temp, temp += diff));
         }
         return result;
     }
 
+
+    private StatisticResponse setValue(int totalCoupon, int validCoupon,
+                                       int incrementCoupon, int incrementStore,
+                                       int updateStore, int range,
+                                       long beginTime, long endTime) {
+        StatisticResponse rsp = new StatisticResponse();
+        rsp.setTotalCoupon(totalCoupon);
+        rsp.setValidCoupon(validCoupon);
+        rsp.setIncrementCoupon(incrementCoupon);
+        rsp.setIncrementStore(incrementStore);
+        rsp.setUpdateStore(updateStore);
+        if (Objects.equals(range, SystemConstants.DATE_RANGE_DAY.getValue())) {
+            rsp.setDate(DateUtils.getDateString(beginTime));
+        } else {
+            rsp.setDate(DateUtils.getDateString(beginTime) + "~" + DateUtils.getDateString(endTime));
+        }
+        return rsp;
+    }
+
     /**
-     * 加一层站点条件
-     *
      * @param statisticRequest
      * @return
      */
     @Override
     public List<StatisticResponse> getStatisticBySite(StatisticRequest statisticRequest) {
-        //TODO
-        return null;
+        if (null == statisticRequest) {
+            throw new BusinessRuntimeException("参数不能为空");
+        }
+        final int siteId = statisticRequest.getSiteId();
+        if (siteId <= 0) {
+            throw new BusinessRuntimeException("站点ID不能为空");
+        }
+        List<StatisticResponse> result = new ArrayList<>();
+        final int range = statisticRequest.getRange();
+        List<_Date> timeList = this.getAllTime(statisticRequest);
+        for (_Date date : timeList) {
+            StatisticRequest query = new StatisticRequest();
+            query.setBeginDate(new Date(date.beginTime));
+            query.setEndDate(new Date(date.endTime));
+            query.setSiteId(siteId);
+            final int totalCoupon = statisticDAO.getCouponTotalCountInsite(query);
+            final int validCoupon = statisticDAO.getCouponValidCountInsite(query);
+            final int incrementCoupon = statisticDAO.getCouponIncrementCountInsite(query);
+            final int incrementStore = statisticDAO.getStoreIncrementCountInsite(query);
+            final int updateStore = statisticDAO.getStoreUpdateCountInsite(query);
+            result.add(setValue(totalCoupon, validCoupon, incrementCoupon, incrementStore, updateStore, range, date.beginTime, date.endTime));
+        }
+        return result;
     }
 
 

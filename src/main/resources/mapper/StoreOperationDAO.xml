@@ -117,4 +117,79 @@
         <include refid="page_where"/>
     </select>
 
+    <select id="getPageListInSite"
+            parameterType="com.gopher.system.model.vo.request.StorePageRequst"
+            resultMap="BaseResultMap">
+        SELECT DISTINCT
+        (cs.ID) AS ID,
+        cs.TYPE_ID,
+        cs.`NAME`,
+        cs.WEBSITE,
+        cs.TYPE_NAME,
+        cs.LOGO_URL,
+        cs.ADVERTISING,
+        cs.CREATED_AT,
+        cs.DES,
+        cs.COUNTRY,
+        cs.APPROVAL,
+        cs.TITLE,
+        cs.APPROVAL,
+        cs.CREATE_TIME,
+        cs.UPDATE_TIME,
+        cs.IS_COMPLETE
+        FROM
+        CP_OUT_SITE_STORE coss
+        INNER JOIN CP_STORE cs ON coss.STORE_ID = cs.ID
+        LEFT JOIN CP_COUPON cc ON cs.ID = cc.STORE_ID
+        <include refid="getPageListInSite_where"/>
+        ORDER BY cs.ID ASC
+        LIMIT #{beginIndex},#{pageSize}
+    </select>
+
+    <sql id="getPageListInSite_where">
+        <where>
+            coss.OUT_ID = #{siteId}
+            <if test="search != null and search!=''">
+                AND cs.NAME LIKE "%"#{search}"%" OR cs.WEBSITE LIKE "%"#{search}"%"
+            </if>
+            <if test="country != null and country != ''">
+                AND cs.COUNTRY = #{country}
+            </if>
+            <if test="approval != null and approval != ''">
+                AND cs.APPROVAL = #{approval}
+            </if>
+            <if test="isComplete != null and isComplete != ''">
+                AND cs.IS_COMPLETE = #{isComplete}
+            </if>
+            <if test="range == 1">
+                <!-- 有新增优惠券的商家-->
+                AND cc.CREATE_TIME &gt;= #{beginDate}
+                AND cc.CREATE_TIME &lt;= #{endDate}
+            </if>
+            <if test="range == 2">
+                <!-- 无新增优惠券的商家-->
+                AND cc.CREATE_TIME &lt;= #{beginDate}
+                AND cc.CREATE_TIME &gt;= #{endDate}
+            </if>
+
+            <if test="range == 2">
+                <!-- 新增的商家-->
+                AND cs.CREATE_TIME &gt;= #{beginDate}
+                AND cs.CREATE_TIME &lt;= #{endDate}
+            </if>
+        </where>
+    </sql>
+
+
+    <select id="getCountInSite"
+            parameterType="com.gopher.system.model.vo.request.StorePageRequst"
+            resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT(coss.STORE_ID ))
+        FROM
+        CP_OUT_SITE_STORE coss
+        INNER JOIN CP_STORE cs ON coss.STORE_ID = cs.ID
+        LEFT JOIN CP_COUPON cc ON cs.ID = cc.STORE_ID
+        <include refid="getPageListInSite_where"/>
+    </select>
+
 </mapper>

@@ -19,10 +19,16 @@ public class StatisticController {
     private StatisticService statisticService;
 
     @RequestMapping("/spider")
-    public Result getStatistic(@RequestBody StatisticRequest statisticRequest) {
+    public Result getStatisticBySpider(@RequestBody StatisticRequest statisticRequest) {
         Result result = new Result();
         result.setData(statisticService.getStatisticBySpider(statisticRequest));
         return result;
     }
 
+    @RequestMapping("/site")
+    public Result getStatisticBySite(@RequestBody StatisticRequest statisticRequest) {
+        Result result = new Result();
+        result.setData(statisticService.getStatisticBySite(statisticRequest));
+        return result;
+    }
 }

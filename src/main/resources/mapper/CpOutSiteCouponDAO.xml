@@ -477,6 +477,11 @@
         CP_OUT_SITE_COUPON osp ON cp.ID =
         osp.COUPON_ID
         INNER JOIN CP_STORE s ON s.ID = osp.STORE_ID
+        <include refid="getListByCategory_where"/>
+        ORDER BY cp.MANUAL_SORT DESC , cp.INDEX DESC
+        LIMIT #{beginIndex},#{pageSize}
+    </select>
+    <sql id="getListByCategory_where">
         <where>
             osp.OUT_SITE_ID = #{siteId}
             AND osp.STORE_ID IN
@@ -488,10 +493,7 @@
                 AND cp.COUPON_TYPE = #{couponType}
             </if>
         </where>
-        ORDER BY cp.MANUAL_SORT DESC , INDEX DESC
-        LIMIT #{beginIndex},#{pageSize}
-    </select>
-
+    </sql>
     <select id="getCountByCategory"
             parameterType="com.gopher.system.model.vo.request.ShowSiteCouponPageRequest"
             resultType="java.lang.Integer">
@@ -504,18 +506,7 @@
         cp.ID =
         osp.COUPON_ID
         INNER JOIN CP_STORE s ON s.ID = osp.STORE_ID
-        <where>
-            osp.OUT_SITE_ID = #{siteId}
-            AND osp.STORE_ID IN
-            <foreach collection="storeIdList" item="storeId"
-                     index="index" open="(" close=")" separator=",">
-                #{storeId}
-            </foreach>
-            <if test="couponType != null and couponType !=''">
-                AND cp.COUPON_TYPE = #{couponType}
-            </if>
-        </where>
-
+        <include refid="getListByCategory_where"/>
     </select>
 
 
@@ -543,7 +534,7 @@
         osp.COUPON_ID
         <where>
             cp.STORE_ID = #{storeId}
-            AND  cp.MANUAL_SORT > 0
+            AND cp.MANUAL_SORT > 0
         </where>
         ORDER BY cp.MANUAL_SORT DESC
     </select>

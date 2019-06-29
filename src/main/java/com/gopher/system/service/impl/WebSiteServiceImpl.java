@@ -110,7 +110,7 @@ public class WebSiteServiceImpl implements WebSiteService {
 			throw new BusinessRuntimeException("商家ID不能为空");
 		}
 		StoreDetailResponse result = new StoreDetailResponse();
-		List<Integer> storeIdList = new ArrayList<Integer>();
+		List<Integer> storeIdList = new ArrayList<>();
 		storeIdList.add(storeId);
 		ShowSiteCouponPageRequest showSiteCouponPageRequest = new ShowSiteCouponPageRequest();
 		showSiteCouponPageRequest.setSiteId(siteId);
