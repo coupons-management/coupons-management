@@ -514,7 +514,7 @@
             parameterType="com.gopher.system.model.vo.request.ShowSiteCouponPageRequest">
         SELECT
         osp.ID AS mapId,
-        DISTINCT (cp.ID) as id,
+        cp.ID as id,
         cp.NAME AS sourceTitle,
         osp.TITLE AS currentTitle,
         cp.COUPON_TYPE AS couponType,

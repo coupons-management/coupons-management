@@ -22,9 +22,10 @@ public class StoreOperationServiceTest extends BaseTest {
         StorePageRequst storePageRequst = new StorePageRequst();
         storePageRequst.setBeginTime(System.currentTimeMillis()+ 1*24*60*60*1000);
         storePageRequst.setEndTime(System.currentTimeMillis() + 2*24*60*60*1000);
-        storePageRequst.setRange(3);
+        storePageRequst.setRange(1);
+        storePageRequst.setSiteId(17);
         System.out.println(JSON.toJSONString(storePageRequst));
-        System.out.println(JSON.toJSONString( storeOperationService.getPageInSpideer(storePageRequst)));
+        System.out.println(JSON.toJSONString( storeOperationService.getPageInSite(storePageRequst)));
     }
 
     @Test

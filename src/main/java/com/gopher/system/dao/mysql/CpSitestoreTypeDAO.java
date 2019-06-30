@@ -2,6 +2,7 @@ package com.gopher.system.dao.mysql;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.gopher.system.model.entity.CpSitestoreType;
@@ -34,4 +35,6 @@ public interface CpSitestoreTypeDAO extends MyBatisBaseDao<CpSitestoreType, Inte
 	CpSitestoreType getByName(CpSitestoreType cpSitestoreType);
 	
 	List<CpSitestoreType> getStoreSort(CpSitestoreRequest request) ;
+
+	CpSitestoreType get(@Param("storeId") int storeId,@Param("siteId") int siteId);
 }

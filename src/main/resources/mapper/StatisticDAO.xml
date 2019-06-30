@@ -147,6 +147,8 @@
         </if>
         WHERE
         cc.EXPIRE_AT > #{endDate}
+        AND cc.CREATE_TIME &gt;= #{beginDate}
+        AND cc.CREATE_TIME &lt;= #{endDate}
         <if test="spiderId > 0">
             AND
             css.SCRAPY_ID = #{spiderId}
@@ -167,5 +169,16 @@
                 total &lt;= #{validCountEnd}
             </if>
         </where>
+    </select>
+
+    <select id="getSiteStatistic" parameterType="java.lang.Integer"
+            resultType="com.gopher.system.model.vo.response.SiteStatisticRsp">
+            SELECT * FROM(
+            (SELECT  COUNT(1) storeNum FROM CP_OUT_SITE_STORE coss WHERE  coss.OUT_ID = 1) AS storeNum,
+            (SELECT  COUNT(1) couponNum FROM CP_OUT_SITE_COUPON cosc WHERE cosc.OUT_SITE_ID = 1) AS couponNum,
+            (SELECT  COUNT(1) validCouponNum FROM CP_OUT_SITE_COUPON cosc LEFT JOIN CP_COUPON cp ON cosc.COUPON_ID = cp.ID WHERE cosc.OUT_SITE_ID = 1 AND cp.EXPIRE_AT > NOW()) AS validCouponNum,
+            (SELECT  COUNT(1) codeCouponNum FROM CP_OUT_SITE_COUPON cosc LEFT JOIN CP_COUPON cp ON cosc.COUPON_ID = cp.ID WHERE cosc.OUT_SITE_ID = 1 AND cp.COUPON_TYPE ='CODE') AS codeCouponNum,
+            (SELECT  COUNT(1) dealCouponNum FROM CP_OUT_SITE_COUPON cosc LEFT JOIN CP_COUPON cp ON cosc.COUPON_ID = cp.ID WHERE cosc.OUT_SITE_ID = 1 AND cp.COUPON_TYPE ='DEAL') AS dealCouponNum
+            )
     </select>
 </mapper>

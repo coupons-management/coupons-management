@@ -1,6 +1,7 @@
 package com.gopher.system.dao.mysql;
 
 import com.gopher.system.model.vo.request.StatisticRequest;
+import com.gopher.system.model.vo.response.SiteStatisticRsp;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -75,6 +76,13 @@ public interface StatisticDAO {
      * @return
      */
     int getStoreIncrementCountInsite(StatisticRequest statisticRequest);
+
+    /**
+     * 站点统计
+     * @param siteId
+     * @return
+     */
+    SiteStatisticRsp getSiteStatistic(int siteId);
 
 
 }

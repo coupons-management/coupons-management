@@ -27,7 +27,7 @@ public class ParamAspect {
 
 	/**
 	 *     环绕
-	 * 
+	 *
 	 * @param joinPoint
 	 * @return
 	 * @throws Throwable
@@ -42,7 +42,7 @@ public class ParamAspect {
 	}
 
 	void doParamLog(ProceedingJoinPoint joinPoint) {
-		
+
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 		// 获得切入的方法签名

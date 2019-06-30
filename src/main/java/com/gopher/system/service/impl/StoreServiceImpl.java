@@ -123,7 +123,7 @@ public class StoreServiceImpl implements StoreService {
 		if (null != list) {
 			rspList = new ArrayList<>(list.size());
 			for (CpStore cpStore : list) {
-				final int storeId = cpStore.getId();
+				final int storeId =  cpStore.getStoreId()>0 ? cpStore.getStoreId():cpStore.getId();
 				StoreResponse rsp = new StoreResponse();
 				rsp.setId(cpStore.getId());
 				rsp.setName(cpStore.getName());

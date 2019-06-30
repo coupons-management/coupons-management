@@ -4,10 +4,13 @@ public class StoreStatisticRsp {
 
     private String date;
 
-    private int Coupon0;
-    private int Coupon1_3;
-    private int Coupon3_5;
-    private int Coupon_5;
+    private int num1;
+
+    private int num2;
+
+    private int num3;
+
+    private int num4;
 
     public String getDate() {
         return date;
@@ -17,35 +20,35 @@ public class StoreStatisticRsp {
         this.date = date;
     }
 
-    public int getCoupon0() {
-        return Coupon0;
+    public int getNum1() {
+        return num1;
     }
 
-    public void setCoupon0(int coupon0) {
-        Coupon0 = coupon0;
+    public void setNum1(int num1) {
+        this.num1 = num1;
     }
 
-    public int getCoupon1_3() {
-        return Coupon1_3;
+    public int getNum2() {
+        return num2;
     }
 
-    public void setCoupon1_3(int coupon1_3) {
-        Coupon1_3 = coupon1_3;
+    public void setNum2(int num2) {
+        this.num2 = num2;
     }
 
-    public int getCoupon3_5() {
-        return Coupon3_5;
+    public int getNum3() {
+        return num3;
     }
 
-    public void setCoupon3_5(int coupon3_5) {
-        Coupon3_5 = coupon3_5;
+    public void setNum3(int num3) {
+        this.num3 = num3;
     }
 
-    public int getCoupon_5() {
-        return Coupon_5;
+    public int getNum4() {
+        return num4;
     }
 
-    public void setCoupon_5(int coupon_5) {
-        Coupon_5 = coupon_5;
+    public void setNum4(int num4) {
+        this.num4 = num4;
     }
 }

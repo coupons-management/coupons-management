@@ -25,10 +25,24 @@ public class StatisticController {
         return result;
     }
 
+    @RequestMapping("/storeStatistic")
+    public Result storeStatistic(@RequestBody StatisticRequest statisticRequest) {
+        Result result = new Result();
+        result.setData(statisticService.getStoreStatistic(statisticRequest));
+        return result;
+    }
+
     @RequestMapping("/site")
     public Result getStatisticBySite(@RequestBody StatisticRequest statisticRequest) {
         Result result = new Result();
         result.setData(statisticService.getStatisticBySite(statisticRequest));
+        return result;
+    }
+
+    @RequestMapping("/siteStatistic")
+    public Result siteStatistic(@RequestBody StatisticRequest statisticRequest) {
+        Result result = new Result();
+        result.setData(statisticService.getSiteStatistic(statisticRequest));
         return result;
     }
 }

@@ -101,9 +101,17 @@ public class CpStore implements Serializable {
 	 * 是否完整
 	 */
 	private String isComplete;
-	
-	
-	
+
+	private int storeId;
+
+	public int getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(int storeId) {
+		this.storeId = storeId;
+	}
+
 	public String getIsComplete() {
 		return isComplete;
 	}

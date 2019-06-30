@@ -37,6 +37,8 @@
                 property="createTime"/>
         <result column="UPDATE_TIME" jdbcType="TIMESTAMP"
                 property="updateTime"/>
+        <result column="STORE_ID" jdbcType="INTEGER"
+                property="storeId"/>
     </resultMap>
 
     <sql id="page_where">
@@ -121,6 +123,7 @@
             resultMap="BaseResultMap">
         SELECT DISTINCT
         (coss.ID) AS ID,
+        cs.ID AS STORE_ID,
         cs.TYPE_ID,
         cs.`NAME`,
         cs.WEBSITE,

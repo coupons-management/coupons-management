@@ -1,8 +1,12 @@
 package com.gopher.system.service.impl;
 
+import com.gopher.system.dao.mysql.CpSitestoreTypeDAO;
+import com.gopher.system.dao.mysql.CpTypeStoreDAO;
 import com.gopher.system.dao.mysql.StoreOperationDAO;
 import com.gopher.system.exception.BusinessRuntimeException;
+import com.gopher.system.model.entity.CpSitestoreType;
 import com.gopher.system.model.entity.CpStore;
+import com.gopher.system.model.entity.CpTypeStore;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.model.vo.response.StoreResponse;
@@ -48,9 +52,16 @@ public class StoreOperationServiceImpl implements StoreOperationService {
         storePageRequest.setScrapyId(storePageRequest.getSpiderId());
     }
 
+
+    @Autowired
+    private CpTypeStoreDAO cpTypeStoreDAO;
+    @Autowired
+    private CpSitestoreTypeDAO cpSitestoreTypeDAO;
+
     @Override
     public Page<StoreResponse> getPageInSite(StorePageRequst storePageRequest) {
-        if(null == storePageRequest.getSiteId() || storePageRequest.getSiteId()<= 0){
+        final Integer siteId = storePageRequest.getSiteId();
+        if(null == siteId  || siteId <= 0){
             throw new BusinessRuntimeException("站点ID不能为空");
         }
         Page<StoreResponse> result = new Page<>();
@@ -58,8 +69,23 @@ public class StoreOperationServiceImpl implements StoreOperationService {
         List<CpStore> list = storeOperationDAO.getPageListInSite(storePageRequest);
         result.setTotalCount(storeOperationDAO.getCountInSite(storePageRequest));
         result.setList(storeService.getShowValue(list));
+        List<StoreResponse> li = result.getList();
+        if(li != null && !li.isEmpty()) {
+            li.forEach(vo -> {
+                vo.setScrapyType("");
+                CpTypeStore type = cpTypeStoreDAO.getByStore(vo.getStoreId(),siteId);
+                if(null != type){
+                    CpSitestoreType cpSitestoreType = cpSitestoreTypeDAO.selectByPrimaryKey(type.getTypeId());
+                    if(null != cpSitestoreType){
+                        vo.setScrapyType(cpSitestoreType.getName());
+                    }
+                }
+            });
+        }
         result.setPageNumber(storePageRequest.getPageNumber());
         result.setPageSize(storePageRequest.getPageSize());
         return result;
     }
+
+
 }

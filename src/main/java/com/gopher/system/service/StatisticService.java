@@ -1,6 +1,7 @@
 package com.gopher.system.service;
 
 import com.gopher.system.model.vo.request.StatisticRequest;
+import com.gopher.system.model.vo.response.SiteStatisticRsp;
 import com.gopher.system.model.vo.response.StatisticResponse;
 import com.gopher.system.model.vo.response.StoreStatisticRsp;
 
@@ -36,7 +37,19 @@ public interface StatisticService {
 	 */
 	List<StatisticResponse>  getStatisticBySite(StatisticRequest statisticRequest);
 
-
+	/**
+	 *  商家统计
+	 * @param statisticRequest
+	 * @return
+	 */
 	List<StoreStatisticRsp> getStoreStatistic(StatisticRequest statisticRequest);
+
+	/**
+	 * 站点统计
+	 * @param statisticRequest
+	 * @return
+	 */
+	SiteStatisticRsp getSiteStatistic(StatisticRequest statisticRequest);
+
 
 }

@@ -6,6 +6,7 @@ import com.gopher.system.dao.mysql.SpiderStatisticDAO;
 import com.gopher.system.dao.mysql.StatisticDAO;
 import com.gopher.system.model.entity.CpScrapy;
 import com.gopher.system.model.entity.SpiderStatistic;
+import com.gopher.system.model.vo.response.SiteStatisticRsp;
 import com.gopher.system.model.vo.response.StoreStatisticRsp;
 import com.gopher.system.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,6 @@ import java.util.*;
 public class StatisticServiceImpl implements StatisticService {
     @Autowired
     private SpiderStatisticDAO spiderStatisticDAO;
-
     @Autowired
     private StatisticDAO statisticDAO;
     @Autowired
@@ -185,7 +185,8 @@ public class StatisticServiceImpl implements StatisticService {
             diff = 30 * diff;
         }
         while (temp < endTime) {
-            result.add(new _Date(temp, temp += diff));
+            result.add(new _Date(temp,DateUtils.getOneDayEnd(temp) ));
+            temp += diff;
         }
         return result;
     }
@@ -244,12 +245,13 @@ public class StatisticServiceImpl implements StatisticService {
     public List<StoreStatisticRsp> getStoreStatistic(StatisticRequest statisticRequest) {
         List<_Date> dateLIst = this.getAllTime(statisticRequest);
         List<StoreStatisticRsp> result = new ArrayList<>();
-        final int range    = statisticRequest.getRange();
+        final int range = statisticRequest.getRange();
         final int spiderId = statisticRequest.getSpiderId();
-        final int siteId   = statisticRequest.getSiteId();
+        final int siteId = statisticRequest.getSiteId();
         if (null != dateLIst) {
             dateLIst.forEach(date -> {
                 StatisticRequest query = new StatisticRequest();
+                query.setBeginDate(new Date(date.beginTime));
                 query.setEndDate(new Date(date.endTime));
                 query.setSpiderId(spiderId);
                 query.setSiteId(siteId);
@@ -265,10 +267,10 @@ public class StatisticServiceImpl implements StatisticService {
                 query.setValidCountEnd(null);
                 final int count_7 = statisticDAO.getValidCouponStoreCount(query);
                 StoreStatisticRsp rsp = new StoreStatisticRsp();
-                rsp.setCoupon0(count_0);
-                rsp.setCoupon1_3(count_1_3);
-                rsp.setCoupon3_5(count_4_6);
-                rsp.setCoupon_5(count_7);
+                rsp.setNum1(count_0);
+                rsp.setNum2(count_1_3);
+                rsp.setNum3(count_4_6);
+                rsp.setNum4(count_7);
                 if (Objects.equals(range, SystemConstants.DATE_RANGE_DAY.getValue())) {
                     rsp.setDate(DateUtils.getDateString(date.beginTime));
                 } else {
@@ -278,6 +280,15 @@ public class StatisticServiceImpl implements StatisticService {
             });
         }
         return result;
+    }
+
+    @Override
+    public SiteStatisticRsp getSiteStatistic(StatisticRequest statisticRequest) {
+        if (statisticRequest == null) {
+            throw new BusinessRuntimeException("参数不能为空");
+        }
+        final int siteId = statisticRequest.getSiteId();
+        return statisticDAO.getSiteStatistic(siteId);
     }
 
 

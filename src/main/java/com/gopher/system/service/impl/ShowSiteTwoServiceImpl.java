@@ -43,6 +43,7 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 	@Override
 	public Page<CpOutSiteStoreVo> getTwoList(ShowSiteStoreRequest request) {
 		Page<CpOutSiteStoreVo> result = new Page<>();
+		final int siteId = request.getOutId();
 		List<CpOutSiteStoreVo> list = cpOutSiteStoreDAO.getTwoList(request);
 		if (list != null && list.size() > 0) {
 			for (CpOutSiteStoreVo vo : list) {
@@ -59,11 +60,14 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 				vo.setValidCount(cpOutSiteStoreDAO.getValidCoupon(request));
 				vo.setToalCount(cpOutSiteStoreDAO.getToalCoupon(request));
 				vo.setShowCount(vo.getValidCount() + "/" + vo.getToalCount());
-				int typeId = vo.getTypeId();
-				CpSitestoreType cpSitestoreType = cpSitestoreTypeDAO.selectByPrimaryKey(typeId);
-				if(null != cpSitestoreType){
-					vo.setTypeName(cpSitestoreType.getName());
+				CpTypeStore type = cpTypeStoreDAO.getByStore(vo.getStoreId(),siteId);
+				if(null != type){
+					CpSitestoreType cpSitestoreType = cpSitestoreTypeDAO.selectByPrimaryKey(type.getTypeId());
+					if(null != cpSitestoreType){
+						vo.setTypeName(cpSitestoreType.getName());
+					}
 				}
+
 			}
 		}
 		int total = cpOutSiteStoreDAO.getTwoCount(request);

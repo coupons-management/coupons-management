@@ -36,8 +36,8 @@ public class StoreTest extends BaseTest {
 	public void getPage() {
 		StorePageRequst request = new StorePageRequst();
 		request.setPageNumber(1);
-		request.setPageSize(1);
-		request.setScrapyId(17);
+		request.setPageSize(100);
+		request.setValidCouponsCount(1);
 		Page<StoreResponse> page = storeService.getPage(request);
 		System.out.println(JSON.toJSONString(page));
 	}
