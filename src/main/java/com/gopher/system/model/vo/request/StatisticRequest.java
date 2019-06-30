@@ -32,6 +32,50 @@ public class StatisticRequest {
 	private Date beginDate;
 
 	private Date endDate;
+	/**
+	 * 有效优惠券 起始数量
+	 */
+	private Integer validCountBegin;
+	/**
+	 * 有效优惠券
+	 */
+	private Integer validCountEnd;
+
+	private Integer validCountEq;
+
+	private Integer validCountGt;
+
+	public Integer getValidCountBegin() {
+		return validCountBegin;
+	}
+
+	public void setValidCountBegin(Integer validCountBegin) {
+		this.validCountBegin = validCountBegin;
+	}
+
+	public Integer getValidCountEnd() {
+		return validCountEnd;
+	}
+
+	public void setValidCountEnd(Integer validCountEnd) {
+		this.validCountEnd = validCountEnd;
+	}
+
+	public Integer getValidCountEq() {
+		return validCountEq;
+	}
+
+	public void setValidCountEq(Integer validCountEq) {
+		this.validCountEq = validCountEq;
+	}
+
+	public Integer getValidCountGt() {
+		return validCountGt;
+	}
+
+	public void setValidCountGt(Integer validCountGt) {
+		this.validCountGt = validCountGt;
+	}
 
 	public int getSiteId() {
 		return siteId;

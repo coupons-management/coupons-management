@@ -33,6 +33,7 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
     @Autowired
     private CpTypeStoreDAO cpTypeStoreDAO;
 
+
 	@Override
 	public List<CpOutSite> getSiteList() {
 		return cpOutSiteDAO.getList();
@@ -41,7 +42,7 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 
 	@Override
 	public Page<CpOutSiteStoreVo> getTwoList(ShowSiteStoreRequest request) {
-		Page<CpOutSiteStoreVo> result = new Page<CpOutSiteStoreVo>();
+		Page<CpOutSiteStoreVo> result = new Page<>();
 		List<CpOutSiteStoreVo> list = cpOutSiteStoreDAO.getTwoList(request);
 		if (list != null && list.size() > 0) {
 			for (CpOutSiteStoreVo vo : list) {
@@ -58,10 +59,14 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 				vo.setValidCount(cpOutSiteStoreDAO.getValidCoupon(request));
 				vo.setToalCount(cpOutSiteStoreDAO.getToalCoupon(request));
 				vo.setShowCount(vo.getValidCount() + "/" + vo.getToalCount());
+				int typeId = vo.getTypeId();
+				CpSitestoreType cpSitestoreType = cpSitestoreTypeDAO.selectByPrimaryKey(typeId);
+				if(null != cpSitestoreType){
+					vo.setTypeName(cpSitestoreType.getName());
+				}
 			}
 		}
 		int total = cpOutSiteStoreDAO.getTwoCount(request);
-
 		result.setList(list);
 		result.setTotalCount(total);
 		result.setPageSize(request.getPageSize());
@@ -92,7 +97,7 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 		final int typeId = cpOutSiteStore.getTypeId();
 		// 同步分类
 		if(typeId > 0){
-			CpTypeStore cpTypeStore = cpTypeStoreDAO.getByStore(storeId);
+			CpTypeStore cpTypeStore = cpTypeStoreDAO.selectByPrimaryKey(typeId);
 			if(null == cpTypeStore){
 				cpTypeStore = new CpTypeStore();
 				cpTypeStore.setTypeId(typeId);
@@ -150,7 +155,6 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 		}
 
 		CpOutSiteStore store = cpOutSiteStoreDAO.selectByPrimaryKey(obj.getId());
-
 		if(null == store){
 			throw new BusinessRuntimeException("根据ID找不到商家记录");
 		}
@@ -162,7 +166,7 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 		OutSiteStoreRsp result = new OutSiteStoreRsp();
 		BeanUtils.copyProperties(store,result);
 		// TODO 找到当前商家在官网的分类
-		CpTypeStore cpTypeStore = cpTypeStoreDAO.getByStore(storeId);
+		CpTypeStore cpTypeStore = cpTypeStoreDAO.getByStore(storeId,store.getOutId());
 		if(null != cpTypeStore){
 			result.setTypeId(cpTypeStore.getTypeId());
 		}

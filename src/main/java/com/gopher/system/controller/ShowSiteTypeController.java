@@ -24,10 +24,18 @@ public class ShowSiteTypeController {
 	
 
 	@RequestMapping(path="/getTree")
-	public Result getList(@RequestBody SiteTypeTreeRequest siteTypeTreeRequest) {
+	public Result getTree(@RequestBody SiteTypeTreeRequest siteTypeTreeRequest) {
 		Result result = new Result();
 		final int siteId = siteTypeTreeRequest.getSiteId();
 		result.setData(showSiteTypeService.getTree(siteId));
+		return result;
+	}
+
+	@RequestMapping(path="/getList")
+	public Result getList(@RequestBody SiteTypeTreeRequest siteTypeTreeRequest) {
+		Result result = new Result();
+		final int siteId = siteTypeTreeRequest.getSiteId();
+		result.setData(showSiteTypeService.getList(siteId,0));
 		return result;
 	}
 	

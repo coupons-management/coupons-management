@@ -6,14 +6,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.util.StringUtils;
 
 public class TitleUtils {
-    static List<String> list = new ArrayList<String>();
-    public static Map<String, List<String>> messageMap = new HashMap<String, List<String>>();
-    public static Map<String, List<String>> storeMessageMap = new HashMap<String, List<String>>();
-    public static Map<String, String> keyWordsMap = new HashMap<String, String>();
+    static List<String> list = new ArrayList<>();
+    public static Map<String, List<String>> messageMap = new ConcurrentHashMap<>();
+    public static Map<String, List<String>> storeMessageMap = new ConcurrentHashMap<>();
+    public static Map<String, String> keyWordsMap = new ConcurrentHashMap<>();
     static String mark = "$";
     static final String PERCENT = "%";
     static String type = null;
@@ -34,8 +35,7 @@ public class TitleUtils {
     }
 
     public static void main(String[] args) {
-        //String title="$50 off Jewelry orders over $150";
-        String title = "Fair Trade Cocoa Liquor & Nibs starting at $30";
+        String title = "Extra 16% Off Sitewide Order Over $69 (Verified)";
         System.out.println(getMessage(title));
 
     }
@@ -55,6 +55,8 @@ public class TitleUtils {
         return messageList.get(getRandom(messageList.size()));
 
     }
+
+
 
     /**
      * 取得优惠卷标题信息

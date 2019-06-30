@@ -9,6 +9,8 @@ import java.util.Date;
  * @author
  */
 public class CpOutSiteStore implements Serializable {
+
+
 	private Integer id;
 
 	private Integer outId;
@@ -76,6 +78,9 @@ public class CpOutSiteStore implements Serializable {
 	 * 该商家在当前官网被访问的次数
 	 */
 	private Integer visitCount;
+
+
+
 
 	public Integer getVisitCount() {
 		return visitCount;

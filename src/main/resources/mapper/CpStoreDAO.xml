@@ -403,6 +403,9 @@
             <if test="scrapyId > 0 ">
                 AND css.SCRAPY_ID = #{scrapyId}
             </if>
+            <if test="spiderId > 0 ">
+                AND css.SCRAPY_ID = #{spiderId}
+            </if>
         </where>
 
     </sql>
@@ -410,9 +413,25 @@
     <select id="getPageList"
             parameterType="com.gopher.system.model.vo.request.StorePageRequst"
             resultMap="BaseResultMap">
-        SELECT
-        cs.*
-        FROM CP_STORE cs INNER JOIN
+        SELECT DISTINCT
+        (cs.ID) AS ID,
+        cs.TYPE_ID,
+        cs.`NAME`,
+        cs.WEBSITE,
+        cs.TYPE_NAME,
+        cs.LOGO_URL,
+        cs.ADVERTISING,
+        cs.CREATED_AT,
+        cs.DES,
+        cs.COUNTRY,
+        cs.APPROVAL,
+        cs.TITLE,
+        cs.APPROVAL,
+        cs.CREATE_TIME,
+        cs.UPDATE_TIME,
+        cs.IS_COMPLETE
+        FROM CP_STORE cs
+        INNER JOIN
         CP_SCRAPY_STORE css ON cs.ID = css.STORE_ID
         <include refid="page_where"/>
         ORDER BY cs.ID ASC
@@ -422,7 +441,9 @@
     <select id="getCount"
             parameterType="com.gopher.system.model.vo.request.StorePageRequst"
             resultType="java.lang.Integer">
-        SELECT COUNT(1) FROM CP_STORE cs  INNER JOIN CP_SCRAPY_STORE css ON cs.ID = css.STORE_ID
+        SELECT COUNT(DISTINCT (cs.ID) ) FROM CP_STORE cs
+         INNER JOIN
+        CP_SCRAPY_STORE css ON cs.ID = css.STORE_ID
         <include refid="page_where"/>
     </select>
 
@@ -658,13 +679,28 @@
     <select id="getListBySpider"
             parameterType="java.lang.Integer"
             resultMap="BaseResultMap">
-        SELECT
-        STORE.*
+        SELECT DISTINCT
+        (cs.ID) AS ID,
+        cs.TYPE_ID,
+        cs.`NAME`,
+        cs.WEBSITE,
+        cs.TYPE_NAME,
+        cs.LOGO_URL,
+        cs.ADVERTISING,
+        cs.CREATED_AT,
+        cs.DES,
+        cs.COUNTRY,
+        cs.APPROVAL,
+        cs.TITLE,
+        cs.APPROVAL,
+        cs.CREATE_TIME,
+        cs.UPDATE_TIME,
+        cs.IS_COMPLETE
         FROM
-        CP_STORE STORE
+        CP_STORE cs
         INNER JOIN
         CP_SCRAPY_STORE SCRAPY
-        ON STORE.ID = SCRAPY.STORE_ID
+        ON cs.ID = SCRAPY.STORE_ID
         <where>
             SCRAPY.SCRAPY_ID = #{siteId}
         </where>

@@ -63,11 +63,10 @@
             </if>
             <if test="range == 2">
                 <!-- 无新增优惠券的商家-->
-                AND cc.CREATE_TIME &lt;= #{beginDate}
-                AND cc.CREATE_TIME &gt;= #{endDate}
+                AND ( cc.CREATE_TIME &lt;= #{beginDate} OR cc.CREATE_TIME &gt;= #{endDate} )
             </if>
 
-            <if test="range == 2">
+            <if test="range == 3">
                 <!-- 新增的商家-->
                 AND cs.CREATE_TIME &gt;= #{beginDate}
                 AND cs.CREATE_TIME &lt;= #{endDate}
@@ -121,7 +120,7 @@
             parameterType="com.gopher.system.model.vo.request.StorePageRequst"
             resultMap="BaseResultMap">
         SELECT DISTINCT
-        (cs.ID) AS ID,
+        (coss.ID) AS ID,
         cs.TYPE_ID,
         cs.`NAME`,
         cs.WEBSITE,
@@ -168,11 +167,10 @@
             </if>
             <if test="range == 2">
                 <!-- 无新增优惠券的商家-->
-                AND cc.CREATE_TIME &lt;= #{beginDate}
-                AND cc.CREATE_TIME &gt;= #{endDate}
+                AND ( cc.CREATE_TIME &lt;= #{beginDate} OR cc.CREATE_TIME &gt;= #{endDate} )
             </if>
 
-            <if test="range == 2">
+            <if test="range == 3">
                 <!-- 新增的商家-->
                 AND cs.CREATE_TIME &gt;= #{beginDate}
                 AND cs.CREATE_TIME &lt;= #{endDate}
@@ -184,7 +182,7 @@
     <select id="getCountInSite"
             parameterType="com.gopher.system.model.vo.request.StorePageRequst"
             resultType="java.lang.Integer">
-        SELECT COUNT(DISTINCT(coss.STORE_ID ))
+        SELECT COUNT(DISTINCT(coss.ID ))
         FROM
         CP_OUT_SITE_STORE coss
         INNER JOIN CP_STORE cs ON coss.STORE_ID = cs.ID

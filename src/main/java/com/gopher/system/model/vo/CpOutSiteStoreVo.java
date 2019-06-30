@@ -46,7 +46,7 @@ public class CpOutSiteStoreVo {
     /**
      * 商家分类
      */
-    private String typeId;
+    private int typeId;
     /**
      * 商家分类
      */
@@ -113,11 +113,11 @@ public class CpOutSiteStoreVo {
         this.scrapyList = scrapyList;
     }
 
-    public String getTypeId() {
+    public int getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(String typeId) {
+    public void setTypeId(int typeId) {
         this.typeId = typeId;
     }
 

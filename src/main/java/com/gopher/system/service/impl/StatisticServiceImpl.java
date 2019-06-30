@@ -6,6 +6,7 @@ import com.gopher.system.dao.mysql.SpiderStatisticDAO;
 import com.gopher.system.dao.mysql.StatisticDAO;
 import com.gopher.system.model.entity.CpScrapy;
 import com.gopher.system.model.entity.SpiderStatistic;
+import com.gopher.system.model.vo.response.StoreStatisticRsp;
 import com.gopher.system.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -121,6 +122,7 @@ public class StatisticServiceImpl implements StatisticService {
             StatisticRequest query = new StatisticRequest();
             query.setBeginDate(new Date(date.beginTime));
             query.setEndDate(new Date(date.endTime));
+            query.setSpider(statisticRequest.getSpider());
             final int totalCoupon = statisticDAO.getCouponTotalCount(query);
             final int validCoupon = statisticDAO.getCouponValidCount(query);
             final int incrementCoupon = statisticDAO.getCouponIncrementCount(query);
@@ -234,6 +236,46 @@ public class StatisticServiceImpl implements StatisticService {
             final int incrementStore = statisticDAO.getStoreIncrementCountInsite(query);
             final int updateStore = statisticDAO.getStoreUpdateCountInsite(query);
             result.add(setValue(totalCoupon, validCoupon, incrementCoupon, incrementStore, updateStore, range, date.beginTime, date.endTime));
+        }
+        return result;
+    }
+
+    @Override
+    public List<StoreStatisticRsp> getStoreStatistic(StatisticRequest statisticRequest) {
+        List<_Date> dateLIst = this.getAllTime(statisticRequest);
+        List<StoreStatisticRsp> result = new ArrayList<>();
+        final int range    = statisticRequest.getRange();
+        final int spiderId = statisticRequest.getSpiderId();
+        final int siteId   = statisticRequest.getSiteId();
+        if (null != dateLIst) {
+            dateLIst.forEach(date -> {
+                StatisticRequest query = new StatisticRequest();
+                query.setEndDate(new Date(date.endTime));
+                query.setSpiderId(spiderId);
+                query.setSiteId(siteId);
+                query.setValidCountEnd(0);
+                final int count_0 = statisticDAO.getValidCouponStoreCount(query);
+                query.setValidCountBegin(1);
+                query.setValidCountEnd(3);
+                final int count_1_3 = statisticDAO.getValidCouponStoreCount(query);
+                query.setValidCountBegin(4);
+                query.setValidCountEnd(6);
+                final int count_4_6 = statisticDAO.getValidCouponStoreCount(query);
+                query.setValidCountBegin(6);
+                query.setValidCountEnd(null);
+                final int count_7 = statisticDAO.getValidCouponStoreCount(query);
+                StoreStatisticRsp rsp = new StoreStatisticRsp();
+                rsp.setCoupon0(count_0);
+                rsp.setCoupon1_3(count_1_3);
+                rsp.setCoupon3_5(count_4_6);
+                rsp.setCoupon_5(count_7);
+                if (Objects.equals(range, SystemConstants.DATE_RANGE_DAY.getValue())) {
+                    rsp.setDate(DateUtils.getDateString(date.beginTime));
+                } else {
+                    rsp.setDate(DateUtils.getDateString(date.beginTime) + "~" + DateUtils.getDateString(date.endTime));
+                }
+                result.add(rsp);
+            });
         }
         return result;
     }

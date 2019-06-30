@@ -8,6 +8,7 @@ import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.model.vo.response.StoreResponse;
 import com.gopher.system.service.StoreOperationService;
 import com.gopher.system.service.StoreService;
+import com.gopher.system.util.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,14 +43,14 @@ public class StoreOperationServiceImpl implements StoreOperationService {
         if (null == storePageRequest) {
             throw new BusinessRuntimeException("参数不能为空");
         }
-        storePageRequest.setBeginDate(new Date(storePageRequest.getBeginTime()));
-        storePageRequest.setEndDate(new Date(storePageRequest.getEndTime()));
+        storePageRequest.setBeginDate(DateUtils.getOneDayStartDate(storePageRequest.getBeginTime()));
+        storePageRequest.setEndDate(DateUtils.getOneDayEndDate(storePageRequest.getEndTime()));
         storePageRequest.setScrapyId(storePageRequest.getSpiderId());
     }
 
     @Override
     public Page<StoreResponse> getPageInSite(StorePageRequst storePageRequest) {
-        if(storePageRequest.getSiteId() <= 0){
+        if(null == storePageRequest.getSiteId() || storePageRequest.getSiteId()<= 0){
             throw new BusinessRuntimeException("站点ID不能为空");
         }
         Page<StoreResponse> result = new Page<>();

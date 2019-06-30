@@ -35,6 +35,12 @@ public interface StatisticDAO {
      */
     int getStoreIncrementCount(StatisticRequest statisticRequest);
 
+    /**
+     * 获取有效优惠券数量 的商家数量
+     * @return
+     */
+    int getValidCouponStoreCount(StatisticRequest statisticRequest);
+
 
 
     // =======================================官网下的统计====================================================

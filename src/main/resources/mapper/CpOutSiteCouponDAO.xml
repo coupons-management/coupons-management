@@ -514,7 +514,7 @@
             parameterType="com.gopher.system.model.vo.request.ShowSiteCouponPageRequest">
         SELECT
         osp.ID AS mapId,
-        cp.ID as id,
+        DISTINCT (cp.ID) as id,
         cp.NAME AS sourceTitle,
         osp.TITLE AS currentTitle,
         cp.COUPON_TYPE AS couponType,
@@ -535,6 +535,7 @@
         <where>
             cp.STORE_ID = #{storeId}
             AND cp.MANUAL_SORT > 0
+            AND osp.OUT_SITE_ID = #{siteId}
         </where>
         ORDER BY cp.MANUAL_SORT DESC
     </select>

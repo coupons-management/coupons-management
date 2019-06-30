@@ -119,8 +119,8 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 				CpOutSiteCoupon coupon = new CpOutSiteCoupon();
 				coupon.setCouponId(cpCoupon.getId());//优惠券ID
 				coupon.setOutSiteId(siteId);//在展示站ID
+				// 动态生成现标题
 				coupon.setTitle(TitleUtils.getMessage(cpCoupon.getName()));
-				coupon.setTitle(cpCoupon.getTitle());
 				coupon.setStoreId(storeId);
 				coupon.setCreateTime(now);
 				coupon.setUpdateTime(now);

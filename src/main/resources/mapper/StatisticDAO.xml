@@ -54,10 +54,12 @@
             parameterType="com.gopher.system.model.vo.request.StatisticRequest">
         SELECT COUNT(1) FROM
         CP_STORE store
-        INNER JOIN
-        CP_SCRAPY_STORE C_S_S
-        ON
-        store.ID = C_S_S.STORE_ID
+        <if test="spiderId > 0">
+            INNER JOIN
+            CP_SCRAPY_STORE C_S_S
+            ON
+            store.ID = C_S_S.STORE_ID
+        </if>
         <where>
             <if test="spiderId > 0">
                 AND C_S_S.SCRAPY_ID = #{spiderId}
@@ -67,9 +69,7 @@
         </where>
     </select>
 
-
     <!--  官网下面的统计 查询的表不一样 -->
-
 
     <select id="getCouponValidCountInsite" resultType="java.lang.Integer"
             parameterType="com.gopher.system.model.vo.request.StatisticRequest">
@@ -121,6 +121,51 @@
             OUT_ID =#{siteId}
             AND store.CREATE_TIME &gt;= #{beginDate}
             AND store.CREATE_TIME &lt;= #{endDate}
+        </where>
+    </select>
+
+    <select id="getValidCouponStoreCount" resultType="java.lang.Integer"
+            parameterType="com.gopher.system.model.vo.request.StatisticRequest">
+        SELECT COUNT(storeId) FROM
+        (
+        SELECT
+        cs.ID storeId,
+        COUNT(cc.ID) total
+        FROM
+        CP_STORE cs
+        LEFT JOIN
+        CP_COUPON cc ON cs.ID = cc.STORE_ID
+
+        <if test="spiderId > 0">
+            LEFT JOIN
+            CP_SCRAPY_STORE css ON cs.ID = css.STORE_ID
+        </if>
+
+        <if test="siteId > 0">
+            LEFT JOIN
+            CP_OUT_SITE_STORE coss ON cs.ID = coss.STORE_ID
+        </if>
+        WHERE
+        cc.EXPIRE_AT > #{endDate}
+        <if test="spiderId > 0">
+            AND
+            css.SCRAPY_ID = #{spiderId}
+        </if>
+        <if test="siteId > 0">
+            AND
+            coss.OUT_ID = #{siteId}
+        </if>
+        GROUP BY
+        cs.ID
+        ) TEMP
+        <where>
+            <if test="validCountBegin != null ">
+                total &gt;= #{validCountBegin}
+            </if>
+            <if test="validCountEnd != null">
+                AND
+                total &lt;= #{validCountEnd}
+            </if>
         </where>
     </select>
 </mapper>

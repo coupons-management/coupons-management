@@ -4,6 +4,7 @@ import com.gopher.system.model.entity.CpTypeStore;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -24,5 +25,5 @@ public interface CpTypeStoreDAO extends MyBatisBaseDao<CpTypeStore, Integer> {
 	 * @param storeId
 	 * @return
 	 */
-	CpTypeStore getByStore(int storeId);
+	CpTypeStore getByStore(@Param("storeId") int storeId, @Param("siteId") int siteId);
 }

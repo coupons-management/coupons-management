@@ -2,6 +2,7 @@ package com.gopher.system.service;
 
 import com.gopher.system.model.vo.request.StatisticRequest;
 import com.gopher.system.model.vo.response.StatisticResponse;
+import com.gopher.system.model.vo.response.StoreStatisticRsp;
 
 import java.util.List;
 
@@ -34,5 +35,8 @@ public interface StatisticService {
 	 * @return
 	 */
 	List<StatisticResponse>  getStatisticBySite(StatisticRequest statisticRequest);
+
+
+	List<StoreStatisticRsp> getStoreStatistic(StatisticRequest statisticRequest);
 
 }
