@@ -164,11 +164,48 @@
       update_user = #{updateUser,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <sql id="page_where">
+    <where>
+      <if test="name != null and name!=''">
+        name LIKE "%"#{name}"%"
+      </if>
+      <if test="account != null and account!=''">
+        AND account LIKE "%"#{account}"%"
+      </if>
+    </where>
+
+  </sql>
+
+
   <select id="selectPage" parameterType="com.gopher.system.model.vo.request.UserPageRequst" resultMap="BaseResultMap">
-    select 
+    SELECT
     <include refid="Base_Column_List" />
-    from USER
-    order by create_time
+    FROM USER
+    <include refid="page_where"/>
+    ORDER BY create_time
     limit #{beginIndex},#{pageSize}
   </select>
+
+  <select id="getCount" parameterType="com.gopher.system.model.vo.request.UserPageRequst" resultType="java.lang.Integer">
+    SELECT COUNT(1) FROM
+    USER
+    <include refid="page_where"/>
+  </select>
+
+  <insert id="addAccount" parameterType="com.gopher.system.model.vo.request.UserPageRequst" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO
+    USER (`name`,gender,account,`password`,age)
+    VALUES (#{name},#{gender},#{account},#{password},#{age})
+  </insert>
+  <delete id="deleteUserStore" parameterType="java.lang.Integer">
+    DELETE FROM USER_STORE
+    WHERE USER_ID = #{id}
+  </delete>
+
+  <delete id="deleteUserRole" parameterType="java.lang.Integer">
+    DELETE FROM USER_Role
+    WHERE USER_ID = #{id}
+  </delete>
+
 </mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gopher.system.dao.mysql.RoleDAO">
+  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.Role">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="TYPE" jdbcType="INTEGER" property="gender" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
+    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, `NAME`, TYPE, CREATE_TIME, UPDATE_TIME,
+    CREATE_USER, UPDATE_USER
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ROLE
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+</mapper>
