@@ -1,5 +1,6 @@
 package com.gopher.system.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.gopher.system.dao.mysql.*;
 import com.gopher.system.exception.BusinessRuntimeException;
 import com.gopher.system.model.entity.*;
@@ -57,8 +58,6 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 					vo.setScrapyCount(map == null ? 0 : map.size());
 				}
 				request.setStoreId(vo.getStoreId());
-				vo.setValidCount(cpOutSiteStoreDAO.getValidCoupon(request));
-				vo.setToalCount(cpOutSiteStoreDAO.getToalCoupon(request));
 				vo.setShowCount(vo.getValidCount() + "/" + vo.getToalCount());
 				CpTypeStore type = cpTypeStoreDAO.getByStore(vo.getStoreId(),siteId);
 				if(null != type){
@@ -105,6 +104,7 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 			if(null == cpTypeStore){
 				cpTypeStore = new CpTypeStore();
 				cpTypeStore.setTypeId(typeId);
+				cpTypeStore.setOutSiteId(cpOutSiteStore.getOutId());
 				cpTypeStore.setStoreId(storeId);
 				cpTypeStore.setCreateTime(new Date());
 				cpTypeStoreDAO.insert(cpTypeStore);
@@ -157,18 +157,18 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 		if(null == obj){
 			throw new BusinessRuntimeException("参数不能为空");
 		}
-
 		CpOutSiteStore store = cpOutSiteStoreDAO.selectByPrimaryKey(obj.getId());
 		if(null == store){
 			throw new BusinessRuntimeException("根据ID找不到商家记录");
 		}
 		final int storeId = store.getStoreId();
 		CpStore cpStore = cpStoreDAO.selectByPrimaryKey(storeId);
-		if(null != cpStore){
-			store.setLogo(cpStore.getLogoUrl());
-		}
 		OutSiteStoreRsp result = new OutSiteStoreRsp();
 		BeanUtils.copyProperties(store,result);
+		if(null != cpStore){
+			result.setLogo(cpStore.getLogoUrl());
+			result.setName(cpStore.getName());
+		}
 		// TODO 找到当前商家在官网的分类
 		CpTypeStore cpTypeStore = cpTypeStoreDAO.getByStore(storeId,store.getOutId());
 		if(null != cpTypeStore){

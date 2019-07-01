@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.gopher.system.constant.TemplateKeys;
+import com.gopher.system.model.vo.response.OutSiteStoreRsp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -171,7 +172,8 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 		List<CpOutSiteStore> list = cpOutSiteStoreDAO.getList(cpOutSiteStore);
 		return list;
 	}
-	
+
+
 	@Override
 	public void addStoreToSiteBatch(List<ShowSiteStoreRequest> showSiteStoreList) {
 		if(null == showSiteStoreList || showSiteStoreList.isEmpty()) {
@@ -181,6 +183,22 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 			this.addStoreToSite(showSiteStoreRequest);
 		}
 		
+	}
+
+
+	@Override
+	public OutSiteStoreRsp getStoreTemplate() {
+		OutSiteStoreRsp result = new OutSiteStoreRsp();
+		result.setShowName(TitleUtils.getStoreMessage(TemplateKeys.STORE_SHOW_NAME));
+		result.setKeywords(TitleUtils.getStoreMessage(TemplateKeys.STORE_KEYWORD));
+		result.setStoreDes(TitleUtils.getStoreMessage(TemplateKeys.STORE_DES));
+		result.setDes(TitleUtils.getStoreMessage(TemplateKeys.STORE_DESCRIPTION));
+		result.setTitle(TitleUtils.getStoreMessage(TemplateKeys.STORE_TITLE));
+		return result;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(TitleUtils.getStoreMessage(TemplateKeys.STORE_SHOW_NAME));
 	}
 
 }

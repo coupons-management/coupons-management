@@ -3,8 +3,11 @@ package system;
 import com.alibaba.fastjson.JSON;
 import com.gopher.system.model.vo.request.StatisticRequest;
 import com.gopher.system.service.StatisticService;
+import com.gopher.system.util.DateUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Date;
 
 public class StatisticServiceTest extends BaseTest {
     @Autowired
@@ -45,4 +48,5 @@ public class StatisticServiceTest extends BaseTest {
         statisticRequest.setSiteId(1);
         System.out.println(JSON.toJSONString(statisticService.getSiteStatistic(statisticRequest)));
     }
+
 }

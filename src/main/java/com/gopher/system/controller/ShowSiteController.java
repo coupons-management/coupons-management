@@ -34,6 +34,19 @@ public class ShowSiteController {
 		showSiteService.addStoreToSiteBatch(showSiteStoreList);
 		return result;
 	}
+
+	/**
+	 * 获取商家基本模板信息
+	 * @param
+	 * @return
+	 */
+	@RequestMapping(path="/getStoreTempalte")
+	public Result getStoreTempalte() {
+		Result result = new Result();
+		result.setData(showSiteService.getStoreTemplate());
+		return result;
+	}
+
 	@RequestMapping(path="/addStoreToSite")
 	public Result addSiteStoreBatch(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
 		Result result = new Result();

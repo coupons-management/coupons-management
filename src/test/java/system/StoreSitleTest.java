@@ -187,8 +187,7 @@ public class StoreSitleTest extends BaseTest {
     @Test
     public void getTwoStoreList() {
         ShowSiteStoreRequest obj = new ShowSiteStoreRequest();
-        obj.setSiteId(1);
-
+        obj.setOutId(1);
         System.out.println(JSON.toJSONString(showSiteTwoService.getTwoList(obj)));
     }
 

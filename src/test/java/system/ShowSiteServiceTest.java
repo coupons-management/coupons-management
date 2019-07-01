@@ -33,4 +33,9 @@ public class ShowSiteServiceTest extends BaseTest {
         List<ShowSiteCouponResponse> list = showSiteCouponService.getCouponListWithSort(showSiteCouponPageRequest);
         System.out.println(JSON.toJSONString(list));
     }
+
+    @Test
+    public void test2() {
+        System.out.println(JSON.toJSONString(showSiteService.getStoreTemplate()));
+    }
 }

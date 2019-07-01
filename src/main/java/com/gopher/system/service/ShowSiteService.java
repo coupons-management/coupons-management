@@ -5,6 +5,8 @@ import java.util.List;
 import com.gopher.system.model.entity.CpOutSite;
 import com.gopher.system.model.entity.CpOutSiteStore;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
+import com.gopher.system.model.vo.response.OutSiteStoreRsp;
+
 /**
  *  在展示站点
  * @author dongyangyang
@@ -21,5 +23,7 @@ public interface ShowSiteService {
     void deleteStoreInSite(ShowSiteStoreRequest showSiteStoreRequest);
 
 	List<CpOutSiteStore> getStoreListInShowSite(CpOutSiteStore cpOutSiteStore);
+
+    OutSiteStoreRsp getStoreTemplate();
     
 }

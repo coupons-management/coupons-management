@@ -345,6 +345,9 @@ public class SynDataServiceImpl implements SynDataService {
 
     }
 
+    /**
+     * 初始化模板信息 等
+     */
     @Override
     public void initData() {
         List<CpTitleMessage> list = cpTitleMessageDAO.getAllList();

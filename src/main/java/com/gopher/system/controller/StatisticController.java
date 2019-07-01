@@ -18,6 +18,11 @@ public class StatisticController {
     @Autowired
     private StatisticService statisticService;
 
+    /**
+     * 基础数据下的报表统计
+     * @param statisticRequest
+     * @return
+     */
     @RequestMapping("/spider")
     public Result getStatisticBySpider(@RequestBody StatisticRequest statisticRequest) {
         Result result = new Result();
@@ -25,13 +30,11 @@ public class StatisticController {
         return result;
     }
 
-    @RequestMapping("/storeStatistic")
-    public Result storeStatistic(@RequestBody StatisticRequest statisticRequest) {
-        Result result = new Result();
-        result.setData(statisticService.getStoreStatistic(statisticRequest));
-        return result;
-    }
-
+    /**
+     * 站点下面的报表统计
+     * @param statisticRequest
+     * @return
+     */
     @RequestMapping("/site")
     public Result getStatisticBySite(@RequestBody StatisticRequest statisticRequest) {
         Result result = new Result();
@@ -39,10 +42,29 @@ public class StatisticController {
         return result;
     }
 
+    /**
+     * 商家统计 站点的传siteId(必填) 基础数据下面的传spiderId(爬虫筛选 选填)
+     * @param statisticRequest
+     * @return
+     */
+    @RequestMapping("/storeStatistic")
+    public Result storeStatistic(@RequestBody StatisticRequest statisticRequest) {
+        Result result = new Result();
+        result.setData(statisticService.getStoreStatistic(statisticRequest));
+        return result;
+    }
+
+    /**
+     * 展示站点下面的 站点统计
+     * @param statisticRequest
+     * @return
+     */
     @RequestMapping("/siteStatistic")
     public Result siteStatistic(@RequestBody StatisticRequest statisticRequest) {
         Result result = new Result();
         result.setData(statisticService.getSiteStatistic(statisticRequest));
         return result;
     }
+
+
 }

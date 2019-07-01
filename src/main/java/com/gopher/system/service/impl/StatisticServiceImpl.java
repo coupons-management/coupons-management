@@ -171,10 +171,10 @@ public class StatisticServiceImpl implements StatisticService {
     }
 
     private List<_Date> getAllTime(StatisticRequest statisticRequest) {
-        final int ranger = statisticRequest.getRange();
+        final int ranger      = statisticRequest.getRange();
         final long benginTime = DateUtils.getOneDayStart(statisticRequest.getBeginTime());
-        final long endTime = DateUtils.getOneDayEnd(statisticRequest.getEndTime());
-        List<_Date> result = new ArrayList<>();
+        final long endTime    = DateUtils.getOneDayEnd(statisticRequest.getEndTime());
+        List<_Date> result    = new ArrayList<>();
         long temp = benginTime;
         long diff = 24 * 60 * 60 * 1000L;
         if (Objects.equals(ranger, SystemConstants.DATE_RANGE_DAY.getValue())) {
@@ -185,7 +185,13 @@ public class StatisticServiceImpl implements StatisticService {
             diff = 30 * diff;
         }
         while (temp < endTime) {
-            result.add(new _Date(temp,DateUtils.getOneDayEnd(temp) ));
+            if (Objects.equals(ranger, SystemConstants.DATE_RANGE_DAY.getValue())) {
+                result.add(new _Date(temp, DateUtils.getOneDayEnd(temp)));
+            }else if (Objects.equals(ranger, SystemConstants.DATE_RANGE_WEEK.getValue())) {
+                result.add(new _Date(temp, DateUtils.getOneDayEnd(temp+diff - 24 * 60 * 60 * 1000L)));
+            } else if (Objects.equals(ranger, SystemConstants.DATE_RANGE_MONTH.getValue())) {
+                result.add(new _Date(temp, DateUtils.getOneDayEnd(temp+diff - 24 * 60 * 60 * 1000L)));
+            }
             temp += diff;
         }
         return result;
@@ -263,7 +269,7 @@ public class StatisticServiceImpl implements StatisticService {
                 query.setValidCountBegin(4);
                 query.setValidCountEnd(6);
                 final int count_4_6 = statisticDAO.getValidCouponStoreCount(query);
-                query.setValidCountBegin(6);
+                query.setValidCountBegin(7);
                 query.setValidCountEnd(null);
                 final int count_7 = statisticDAO.getValidCouponStoreCount(query);
                 StoreStatisticRsp rsp = new StoreStatisticRsp();
@@ -290,6 +296,5 @@ public class StatisticServiceImpl implements StatisticService {
         final int siteId = statisticRequest.getSiteId();
         return statisticDAO.getSiteStatistic(siteId);
     }
-
 
 }

@@ -147,7 +147,7 @@
         </if>
         WHERE
         cc.EXPIRE_AT > #{endDate}
-        AND cc.CREATE_TIME &gt;= #{beginDate}
+        AND cc.CREATE_TIME &gt; #{beginDate}
         AND cc.CREATE_TIME &lt;= #{endDate}
         <if test="spiderId > 0">
             AND

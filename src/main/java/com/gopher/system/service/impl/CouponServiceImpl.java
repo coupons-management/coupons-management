@@ -67,7 +67,7 @@ public class CouponServiceImpl implements CouponService {
                 if (null != storeDB) {
                     rsp.setStoreName(storeDB.getName());
                 }
-                rsp.setTitle(cpCoupon.getTitle());
+                rsp.setTitle(cpCoupon.getName());
                 rsp.setType(cpCoupon.getCouponType());
                 rsp.setDescription(cpCoupon.getDes());
                 final Date experityAt = cpCoupon.getExpireAt();
