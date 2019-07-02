@@ -62,7 +62,7 @@ public class LoginServiceImpl implements LoginService {
 		if (!Objects.equals(password_DB, password)) {
 			throw new BusinessRuntimeException("密码错误,请检查后重新输入");
 		}
-		final String sessionKey = MD5Utils.MD5(password_DB);
+		final String sessionKey = MD5Utils.MD5(account + password_DB);
 		this.loginSuccessHandle(sessionKey, user);
 		LoginResponse result = new LoginResponse();
 		result.setSessionKey(sessionKey);
