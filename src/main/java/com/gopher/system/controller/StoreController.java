@@ -1,5 +1,6 @@
 package com.gopher.system.controller;
 
+import com.gopher.system.model.vo.request.StoreAvailableRequet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +47,13 @@ public class StoreController {
 	public Result verifyBatch(@RequestBody StoreVerifyRequest storeVerifyRequest) {
 		Result result = new Result();
 		storeService.verifyBatch(storeVerifyRequest);
+		return result;
+	}
+
+	@RequestMapping(path="/availableAssign")
+	public Result availableAssignStore (@RequestBody StoreAvailableRequet storeAvailableRequet){
+		Result result = new Result();
+		result.setData(storeService.availableAssignStore(storeAvailableRequet));
 		return result;
 	}
 	

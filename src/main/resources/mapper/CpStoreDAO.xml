@@ -732,4 +732,47 @@
             SCRAPY.SCRAPY_ID = #{siteId}
         </where>
     </select>
+
+
+
+    <select id="availableAssignStore"  parameterType="com.gopher.system.model.vo.request.StoreAvailableRequet" resultMap="BaseResultMap">
+        SELECT
+        (cs.ID) AS ID,
+        cs.TYPE_ID,
+        cs.`NAME`,
+        cs.WEBSITE,
+        cs.TYPE_NAME,
+        cs.LOGO_URL,
+        cs.ADVERTISING,
+        cs.CREATED_AT,
+        cs.DES,
+        cs.COUNTRY,
+        cs.APPROVAL,
+        cs.TITLE,
+        cs.APPROVAL,
+        cs.CREATE_TIME,
+        cs.UPDATE_TIME,
+        cs.IS_COMPLETE
+        FROM
+        CP_STORE cs
+        WHERE NOT EXISTS (SELECT * FROM USER_STORE us WHERE cs.id=us.STORE_ID)
+        <if test="name != null and  name !='' ">
+            AND cs.NAME LIKE "%"#{name}"%"
+        </if>
+        ORDER BY cs.CREATE_TIME DESC
+        limit #{beginIndex},#{pageSize}
+    </select>
+
+    <select id="availableAssignStoreCount" parameterType="com.gopher.system.model.vo.request.StoreAvailableRequet" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        CP_STORE cs
+        WHERE NOT EXISTS (SELECT * FROM USER_STORE us WHERE cs.id=us.STORE_ID)
+        <if test="name != null and  name !='' ">
+            AND cs.NAME LIKE "%"#{name}"%"
+        </if>
+        ORDER BY cs.CREATE_TIME DESC
+    </select>
+
 </mapper>

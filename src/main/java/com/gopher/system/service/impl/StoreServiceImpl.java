@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import javax.annotation.Resource;
 
+import com.gopher.system.model.vo.request.StoreAvailableRequet;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -212,4 +213,19 @@ public class StoreServiceImpl implements StoreService {
         }
 	}
 
+
+	@Override
+	public Page<CpStore> availableAssignStore(StoreAvailableRequet storeAvailableRequet) {
+		if (null == storeAvailableRequet) {
+			throw new BusinessRuntimeException("参数不能为空");
+		}
+		Page<CpStore> result = new Page<>();
+		result.setPageNumber(storeAvailableRequet.getPageNumber());
+		result.setPageSize(storeAvailableRequet.getPageSize());
+		List<CpStore> list = cpStoreDAO.availableAssignStore(storeAvailableRequet);
+		final int totalCount = cpStoreDAO.availableAssignStoreCount(storeAvailableRequet);
+		result.setTotalCount(totalCount);
+		result.setList(list);
+		return result;
+	}
 }

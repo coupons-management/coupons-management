@@ -1,10 +1,7 @@
 package com.gopher.system.controller;
 
 import com.gopher.system.controller.model.Result;
-import com.gopher.system.model.vo.request.CommonIdRequest;
-import com.gopher.system.model.vo.request.UserAddRequest;
-import com.gopher.system.model.vo.request.UserPageRequst;
-import com.gopher.system.model.vo.request.UserVerifyRequest;
+import com.gopher.system.model.vo.request.*;
 import com.gopher.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,8 +18,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-
 
     @RequestMapping(path="/add")
     public Result add(@RequestBody UserAddRequest userAddRequest) {
@@ -52,5 +47,48 @@ public class UserController {
         userService.updateUser(userVerifyRequest);
         return result;
     }
+
+    @RequestMapping(path="/assignStore")
+    public Result assignStore(@RequestBody UserAssignStoreRequest userAssignStoreRequest) {
+        Result result = new Result();
+        userService.assignStore(userAssignStoreRequest);
+        return result;
+    }
+
+
+    @RequestMapping(path="/assignRole")
+    public Result assignRole(@RequestBody UserAssigRoleRequest userAssigRoleRequest) {
+        Result result = new Result();
+        userService.assignRole(userAssigRoleRequest);
+        return result;
+    }
+
+    @RequestMapping(path="/roles")
+    public Result userRole(@RequestBody CommonIdRequest request) {
+        Result result = new Result();
+        result.setData(userService.userRole(request.getId()));
+        return result;
+    }
+
+    @RequestMapping(path="/stores")
+    public Result userStore(@RequestBody UserStoreRequest request) {
+        Result result = new Result();
+        result.setData(userService.userStore(request));
+        return result;
+    }
+
+    @RequestMapping(path="/currentStores")
+    public Result currentUserStore(@RequestBody UserStoreRequest request) {
+        Result result = new Result();
+        result.setData(userService.currentUserStore(request));
+        return result;
+    }
+
+
+
+
+
+
+
 
 }

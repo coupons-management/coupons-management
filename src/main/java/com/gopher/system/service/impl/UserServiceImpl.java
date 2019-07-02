@@ -2,12 +2,16 @@ package com.gopher.system.service.impl;
 
 import javax.annotation.Resource;
 
+import com.gopher.system.constant.RoleTypeEnmu;
+import com.gopher.system.dao.mysql.CpStoreDAO;
+import com.gopher.system.model.entity.CpStore;
+import com.gopher.system.model.entity.Role;
 import com.gopher.system.model.vo.Page;
-import com.gopher.system.model.vo.request.UserAddRequest;
-import com.gopher.system.model.vo.request.UserPageRequst;
-import com.gopher.system.model.vo.request.UserVerifyRequest;
+import com.gopher.system.model.vo.request.*;
+import com.gopher.system.model.vo.response.BasicInfoResponse;
 import com.gopher.system.util.MD5Utils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gopher.system.dao.mysql.UserDAO;
@@ -16,6 +20,7 @@ import com.gopher.system.model.entity.User;
 import com.gopher.system.service.UserService;
 import com.gopher.system.util.ThreadLocalUtils;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.Date;
@@ -28,6 +33,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserDAO userDAO;
+
+    @Autowired
+    private CpStoreDAO cpStoreDAO;
 
     @Override
     public User findByAccount(String account) {
@@ -116,5 +124,98 @@ public class UserServiceImpl implements UserService {
         user.setUpdateTime(new Date());
         user.setUpdateUser(this.getCurrentUser().getId());
         userDAO.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public synchronized void assignStore(UserAssignStoreRequest userAssignStoreRequest) {
+        if (userAssignStoreRequest == null || userAssignStoreRequest.getUserId() == null) {
+            throw new BusinessRuntimeException("参数不能为空");
+        }
+        userDAO.deleteUserStore(userAssignStoreRequest.getUserId());
+        if (!CollectionUtils.isEmpty(userAssignStoreRequest.getStores())) {
+            int count = userDAO.assignedCount(userAssignStoreRequest.getStores());
+            if (count > 0) {
+                throw new BusinessRuntimeException("商家已被分配");
+            }
+            for (Integer store : userAssignStoreRequest.getStores()) {
+                CpStore cpStore = cpStoreDAO.selectByPrimaryKey(store);
+                if (cpStore == null) {
+                    throw new BusinessRuntimeException(store + "商家不存在");
+                }
+            }
+            userDAO.assignStore(userAssignStoreRequest);
+        }
+    }
+
+
+    @Override
+    public void assignRole(UserAssigRoleRequest userAssigRoleRequest) {
+        if (userAssigRoleRequest == null || userAssigRoleRequest.getUserId() == null) {
+            throw new BusinessRuntimeException("参数不能为空");
+        }
+        userDAO.deleteUserRole(userAssigRoleRequest.getUserId());
+        if (!CollectionUtils.isEmpty(userAssigRoleRequest.getRoles())) {
+            //todo 验证角色是否存在
+            userDAO.assignRole(userAssigRoleRequest);
+        }
+    }
+
+
+    @Override
+    public List<Role> userRole(Integer userId) {
+        if (userId == null) {
+            throw new BusinessRuntimeException("参数不能为空");
+        }
+        return userDAO.userRole(userId);
+    }
+
+
+    @Override
+    public Page<CpStore> userStore(UserStoreRequest userStoreRequest) {
+        if (userStoreRequest == null || userStoreRequest.getUserId() == null) {
+            throw new BusinessRuntimeException("参数不能为空");
+        }
+        Page<CpStore> result = new Page<>();
+        result.setPageNumber(userStoreRequest.getPageNumber());
+        result.setPageSize(userStoreRequest.getPageSize());
+        List<CpStore> list = userDAO.userStore(userStoreRequest);
+        final int totalCount = userDAO.userStoreCount(userStoreRequest);
+        result.setTotalCount(totalCount);
+        result.setList(list);
+        return result;
+    }
+
+    @Override
+    public Page<CpStore> currentUserStore(UserStoreRequest userStoreRequest) {
+        User user = this.getCurrentUser();
+        if (user == null) {
+            throw new BusinessRuntimeException("用户未登陆");
+        }
+        List<Role> roleList = this.userRole(user.getId());
+        boolean adminFlag = false;
+        if (!CollectionUtils.isEmpty(roleList)) {
+            for (Role role : roleList) {
+                if (RoleTypeEnmu.ADMIN.name().equals(role.getType())) {
+                    adminFlag = true;
+                    break;
+                }
+            }
+        }
+        Page<CpStore> result = new Page<>();
+        result.setPageNumber(userStoreRequest.getPageNumber());
+        result.setPageSize(userStoreRequest.getPageSize());
+
+        if (adminFlag) {
+            userStoreRequest.setUserId(null);
+        } else {
+            userStoreRequest.setUserId(user.getId());
+        }
+
+        List<CpStore> list = userDAO.userStore(userStoreRequest);
+        final int totalCount = userDAO.userStoreCount(userStoreRequest);
+        result.setTotalCount(totalCount);
+        result.setList(list);
+        return result;
     }
 }

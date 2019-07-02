@@ -1,10 +1,13 @@
 package com.gopher.system.service;
 
+import com.gopher.system.model.entity.CpStore;
+import com.gopher.system.model.entity.Role;
 import com.gopher.system.model.entity.User;
 import com.gopher.system.model.vo.Page;
-import com.gopher.system.model.vo.request.UserAddRequest;
-import com.gopher.system.model.vo.request.UserPageRequst;
-import com.gopher.system.model.vo.request.UserVerifyRequest;
+import com.gopher.system.model.vo.request.*;
+import com.gopher.system.model.vo.response.BasicInfoResponse;
+
+import java.util.List;
 
 public interface UserService {
 	
@@ -40,5 +43,38 @@ public interface UserService {
 	 */
 	void updateUser(UserVerifyRequest verifyRequest);
 
+
+	/**
+	 * 给员工分配商家
+	 * @param userAssignStoreRequest
+	 */
+	void assignStore(UserAssignStoreRequest userAssignStoreRequest);
+
+
+	/**
+	 * 给员工分配角色
+	 * @param userAssigRoleRequest
+	 */
+	void assignRole(UserAssigRoleRequest userAssigRoleRequest);
+
+	/**
+	 * 员工角色列表
+	 * @param userId
+	 * @return
+	 */
+	List<Role> userRole(Integer userId);
+
+	/**
+	 * 员工管理商家列表
+	 * @param userStoreRequest
+	 * @return
+	 */
+	Page<CpStore> userStore(UserStoreRequest userStoreRequest);
+
+	/**
+	 * 当前登陆用户管理商家列表
+	 * @return
+	 */
+	Page<CpStore> currentUserStore(UserStoreRequest userStoreRequest);
 
 }

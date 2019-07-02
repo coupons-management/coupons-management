@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.vo.Page;
+import com.gopher.system.model.vo.request.StoreAvailableRequet;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.model.vo.request.StoreVerifyRequest;
 import com.gopher.system.model.vo.response.StoreResponse;
@@ -50,6 +51,15 @@ public interface StoreService {
 	 * @return
 	 */
 	List<StoreResponse> getShowValue(List<CpStore> list);
+
+
+	/**
+	 * 可分配给员工的商家列表
+	 * @param storeAvailableRequet
+	 * @return
+	 */
+	Page<CpStore> availableAssignStore(StoreAvailableRequet storeAvailableRequet);
+
 
 
 

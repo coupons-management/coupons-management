@@ -2,6 +2,7 @@ package com.gopher.system.dao.mysql;
 
 import java.util.List;
 
+import com.gopher.system.model.vo.request.StoreAvailableRequet;
 import org.springframework.stereotype.Repository;
 
 import com.gopher.system.model.entity.CpStore;
@@ -92,6 +93,17 @@ public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
 	 List<CpStoreVo> getTopStoreList(CpSitestoreRequest quest);
 
 
+	/**
+	 * 可分配商家列表
+	 * @return
+	 */
+	List<CpStore> availableAssignStore(StoreAvailableRequet storeAvailableRequet);
+
+	/**
+	 * 可分配商家总数
+	 * @return
+	 */
+	int availableAssignStoreCount(StoreAvailableRequet storeAvailableRequet);
 	
 }
 

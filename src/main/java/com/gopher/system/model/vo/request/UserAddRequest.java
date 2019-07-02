@@ -1,34 +1,43 @@
 package com.gopher.system.model.vo.request;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * @author 1500
  * @Date 2019/7/1.
  */
+@ApiModel(description = "账号信息")
 public class UserAddRequest {
 
     /**
      * 名称
      */
+    @ApiModelProperty(value = "名称")
     private String name;
 
     /**
      * 账号
      */
+    @ApiModelProperty(value = "账号")
     private String account;
 
     /**
      * 密码
      */
+    @ApiModelProperty(value = "密码")
     private String password;
 
     /**
      * 性别
      */
+    @ApiModelProperty(value = "性别")
     private Integer gender;
 
     /**
      * 年龄
      */
+    @ApiModelProperty(value = "年龄")
     private Integer age;
 
     public String getName() {
