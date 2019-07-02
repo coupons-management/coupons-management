@@ -13,19 +13,19 @@ public class UserAddRequest {
     /**
      * 名称
      */
-    @ApiModelProperty(value = "名称")
+    @ApiModelProperty(value = "名称",required = true)
     private String name;
 
     /**
      * 账号
      */
-    @ApiModelProperty(value = "账号")
+    @ApiModelProperty(value = "账号",required = true)
     private String account;
 
     /**
      * 密码
      */
-    @ApiModelProperty(value = "密码")
+    @ApiModelProperty(value = "密码",required = true)
     private String password;
 
     /**

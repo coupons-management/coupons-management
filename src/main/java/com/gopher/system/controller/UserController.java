@@ -3,6 +3,9 @@ package com.gopher.system.controller;
 import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.vo.request.*;
 import com.gopher.system.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,13 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(path="/user")
+@Api(value="users", description = "员工管理")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
+    @ApiOperation(value = "创建员工",httpMethod = "POST" ,response = Result.class)
     @RequestMapping(path="/add")
-    public Result add(@RequestBody UserAddRequest userAddRequest) {
+    public Result add(@ApiParam(value = "员工信息", required = true) @RequestBody UserAddRequest userAddRequest) {
         Result result = new Result();
         userService.addAccount(userAddRequest);
         return result;
