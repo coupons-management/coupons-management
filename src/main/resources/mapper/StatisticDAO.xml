@@ -146,8 +146,8 @@
             CP_OUT_SITE_STORE coss ON cs.ID = coss.STORE_ID
         </if>
         WHERE
-        cc.EXPIRE_AT > #{endDate}
-        AND cc.CREATE_TIME &gt; #{beginDate}
+        cc.EXPIRE_AT > #{beginDate}
+        <!-- AND cc.CREATE_TIME &gt; #{beginDate} -->
         AND cc.CREATE_TIME &lt;= #{endDate}
         <if test="spiderId > 0">
             AND
@@ -170,6 +170,45 @@
             </if>
         </where>
     </select>
+
+    <!--<select id="getValidCouponStoreCount" resultType="java.lang.Integer"-->
+    <!--parameterType="com.gopher.system.model.vo.request.StatisticRequest">-->
+
+    <!--SELECT-->
+    <!--COUNT(1)-->
+    <!--FROM-->
+    <!--(-->
+    <!--SELECT-->
+    <!--(-->
+    <!--SELECT-->
+    <!--COUNT(1)-->
+    <!--FROM-->
+    <!--CP_OUT_SITE_COUPON  COSC-->
+    <!--LEFT JOIN CP_COUPON COU ON COSC.COUPON_ID = COU.ID-->
+    <!--WHERE-->
+    <!--COSC.OUT_SITE_ID =  #{siteId}-->
+    <!--AND OUTSTORE.OUT_ID =  #{siteId}-->
+    <!--AND COU.STORE_ID = OUTSTORE.STORE_ID-->
+    <!--AND COU.EXPIRE_AT &gt; #{endDate}-->
+    <!--AND COSC.CREATE_TIME &gt; #{beginDate}-->
+    <!--AND COSC.CREATE_TIME &lt;= #{endDate}-->
+    <!--) validCount,-->
+    <!--OUTSTORE.STORE_ID STORE_ID-->
+    <!--FROM-->
+    <!--CP_OUT_SITE_STORE OUTSTORE-->
+    <!--WHERE OUTSTORE.OUT_ID =  #{siteId}-->
+    <!--) TEMP-->
+    <!--<where>-->
+    <!--<if test="validCountBegin != null ">-->
+    <!--validCount &gt;= #{validCountBegin}-->
+    <!--</if>-->
+    <!--<if test="validCountEnd != null">-->
+    <!--AND-->
+    <!--validCount &lt;= #{validCountEnd}-->
+    <!--</if>-->
+    <!--</where>-->
+    <!--</select>-->
+
 
     <select id="getSiteStatistic" parameterType="java.lang.Integer"
             resultType="com.gopher.system.model.vo.response.SiteStatisticRsp">

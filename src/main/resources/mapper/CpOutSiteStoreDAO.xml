@@ -537,12 +537,14 @@
         STORE.WEBSITE webSite,
         STORE.LOGO_URL logo,
         COUPON_COUNT_VALID couponCountValid,
-        (SELECT COUNT(*) FROM CP_OUT_SITE_COUPON COSC WHERE COSC.STORE_ID = STORE.ID  AND COSC.OUT_SITE_ID = #{outId}) toalCount,
         (SELECT COUNT(*) FROM CP_OUT_SITE_COUPON COSC
-                          LEFT  JOIN CP_COUPON COU ON COSC.COUPON_ID = COU.ID
-                          WHERE COSC.STORE_ID = STORE.ID
-                          AND COSC.OUT_SITE_ID = #{outId}
-                          AND COU.EXPIRE_AT >=now()) validCount,
+                         WHERE COSC.STORE_ID = STORE.ID
+                         AND COSC.OUT_SITE_ID = #{outId}) toalCount,
+        (SELECT COUNT(*) FROM CP_OUT_SITE_COUPON COSC
+                         LEFT  JOIN CP_COUPON COU ON COSC.COUPON_ID = COU.ID
+                         WHERE COSC.STORE_ID = STORE.ID
+                         AND COSC.OUT_SITE_ID = #{outId}
+                         AND COU.EXPIRE_AT >=now()) validCount,
 
         OUTSTORE.VISIT_COUNT AS visitCount,
         date_format( OUTSTORE.CREATE_TIME, '%Y-%c-%d %H:%i:%s' ) addTime,

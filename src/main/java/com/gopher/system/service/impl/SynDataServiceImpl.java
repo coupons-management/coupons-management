@@ -266,7 +266,7 @@ public class SynDataServiceImpl implements SynDataService {
                     }
                     cpCoupon.setUpdateTime(new Date());
                     cpCoupon.setIndex(stu.getIndex());
-//                    cpCoupon.setTitle(TitleUtils.getMessage(stu.getName()));
+                    cpCoupon.setTitle(TitleUtils.getMessage(stu.getName()));
                     cpCouponDAO.updateByPrimaryKeySelective(cpCoupon);
                 }
                 // 4、增加爬虫

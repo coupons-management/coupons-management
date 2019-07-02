@@ -527,16 +527,16 @@ public class DateUtils {
 	}
 	
 	public static void main(String[] args) {
-//		Calendar calendar = Calendar.getInstance();
-//		calendar.setTime(getDateTime("2018-10-10"));
-//		List<Long> list = getDayBetween(calendar.getTimeInMillis(),System.currentTimeMillis());
-//		int theDays = list.size();
-//		System.out.println(theDays / 7);
-//		System.out.println(theDays % 7);
-
-		System.out.println(getDateString(getWeekStart(new Date())));
-		System.out.println(getDateString(getWeekEnd(new Date())));
-		System.out.println(getDateString(new Date(),"yyyy-MM"));
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(getDateTime("2018-10-10"));
+		List<Long> list = getDayBetween(calendar.getTimeInMillis(),System.currentTimeMillis());
+		int theDays = list.size();
+		System.out.println(theDays / 7);
+		System.out.println(theDays % 7);
+//
+//		System.out.println(getDateString(getWeekStart(new Date())));
+//		System.out.println(getDateString(getWeekEnd(new Date())));
+//		System.out.println(getDateString(new Date(),"yyyy-MM"));
 	}
 
 }
