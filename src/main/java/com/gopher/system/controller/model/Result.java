@@ -1,9 +1,21 @@
 package com.gopher.system.controller.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(description = "返回结果")
 public class Result {
+
+    @ApiModelProperty(value = "返回码")
     private int code;
+
+    @ApiModelProperty(value = "返回信息")
     private String message;
+
+    @ApiModelProperty(value = "请求是否成功")
     private boolean success= true;
+
+    @ApiModelProperty(value = "返回数据")
     private Object data;
     
     public Result(){
