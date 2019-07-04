@@ -1,28 +1,26 @@
 package com.gopher.system.service.impl;
 
-import javax.annotation.Resource;
-
 import com.gopher.system.constant.RoleTypeEnmu;
 import com.gopher.system.dao.mysql.CpStoreDAO;
+import com.gopher.system.dao.mysql.RoleDAO;
+import com.gopher.system.dao.mysql.UserDAO;
+import com.gopher.system.exception.BusinessRuntimeException;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.Role;
+import com.gopher.system.model.entity.User;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.*;
-import com.gopher.system.model.vo.response.BasicInfoResponse;
+import com.gopher.system.service.UserService;
 import com.gopher.system.util.MD5Utils;
+import com.gopher.system.util.ThreadLocalUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.gopher.system.dao.mysql.UserDAO;
-import com.gopher.system.exception.BusinessRuntimeException;
-import com.gopher.system.model.entity.User;
-import com.gopher.system.service.UserService;
-import com.gopher.system.util.ThreadLocalUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private CpStoreDAO cpStoreDAO;
+
+    @Autowired
+    private RoleDAO roleDAO;
 
     @Override
     public User findByAccount(String account) {
@@ -156,7 +157,12 @@ public class UserServiceImpl implements UserService {
         }
         userDAO.deleteUserRole(userAssigRoleRequest.getUserId());
         if (!CollectionUtils.isEmpty(userAssigRoleRequest.getRoles())) {
-            //todo 验证角色是否存在
+            for (Integer roleId : userAssigRoleRequest.getRoles()) {
+                Role role = roleDAO.selectByPrimaryKey(roleId);
+                if (role == null) {
+                    throw new BusinessRuntimeException(roleId+"角色不存在");
+                }
+            }
             userDAO.assignRole(userAssigRoleRequest);
         }
     }

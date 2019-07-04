@@ -12,7 +12,7 @@ public class BasicInfoResponse {
     private Integer id;
 
     /**
-     * 角色
+     * 名称
      */
     private String name;
 

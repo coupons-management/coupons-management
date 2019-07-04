@@ -1,25 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gopher.system.dao.mysql.RoleDAO">
-  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.Role">
-    <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="TYPE" jdbcType="INTEGER" property="gender" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
-    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.Role">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="DESCRIPTION" jdbcType="INTEGER" property="description"/>
+        <result column="TYPE" jdbcType="INTEGER" property="type"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="CREATE_USER" jdbcType="INTEGER" property="createUser"/>
+        <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     ID, `NAME`, TYPE, CREATE_TIME, UPDATE_TIME,
     CREATE_USER, UPDATE_USER
-  </sql>
-  
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from ROLE
-    where ID = #{id,jdbcType=INTEGER}
-  </select>
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ROLE
+        WHERE ID = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.gopher.system.model.entity.Role">
+        INSERT INTO
+        ROLE(`NAME`,DESCRIPTION,TYPE,CREATE_TIME,CREATE_USER)
+        VALUES
+        (#{name},#{description},#{type},#{createTime},#{createUser})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.Role">
+        UPDATE
+        ROLE
+        <set>
+            <if test="name != null and name != ''">
+                `NAME` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null and description != ''">
+                DESCRIPTION = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                UPDATE_USER = #{updateUser,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE
+        ID=#{id}
+    </update>
+
+    <select id="findByName" parameterType="java.lang.String" resultType="com.gopher.system.model.entity.Role">
+        SELECT
+          *
+        FROM
+        ROLE
+        WHERE
+        `NAME` = #{name}
+    </select>
+
+
+    <delete id="deleteUserRoleByRoleId" parameterType="java.lang.Integer">
+        DELETE
+        FROM
+        USER_ROLE
+        WHERE
+        ROLE_ID=#{roleId}
+    </delete>
+
+    <delete id="deleteRoleResourceByRoleId" parameterType="java.lang.Integer">
+        DELETE
+        FROM
+        ROLE_RESOURCE
+        WHERE
+        ROLE_ID=#{roleId}
+    </delete>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE
+        FROM
+        ROLE
+        WHERE
+        ID=#{id}
+    </delete>
+
+    <select id="roleResource" parameterType="java.lang.Integer" resultType="com.gopher.system.model.entity.Resource">
+        SELECT
+        r.*
+        FROM
+        RESOURCE r
+        <if test="roleId != null and roleId != ''">
+            INNER JOIN
+            ROLE_RESOURCE rr
+            ON
+            r.ID = rr.RESOURCE_ID
+            WHERE
+            rr.ROLE_ID= #{roleId}
+        </if>
+        ORDER BY
+        r.ORDER_NUM
+    </select>
+
+
+    <select id="findResourceByRoles" parameterType="java.util.List"
+            resultType="com.gopher.system.model.entity.Resource">
+        SELECT
+        DISTINCT
+        r.*
+        FROM
+        RESOURCE r
+        INNER JOIN
+        ROLE_RESOURCE rr
+        ON
+        r.ID = rr.RESOURCE_ID
+        WHERE
+        rr.ROLE_ID IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ORDER BY
+        r.ORDER_NUM
+    </select>
+
+
+    <resultMap id="resourceNode" type="com.gopher.system.model.vo.response.ResourceResponse">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="URL" jdbcType="VARCHAR" property="url"/>
+        <result column="ORDER_NUM" jdbcType="INTEGER" property="orderNum"/>
+        <collection column="ID" property="children" select="findResourceByPid"></collection>
+    </resultMap>
+
+    <select id="findAllResource" resultMap="resourceNode">
+        SELECT
+        *
+        FROM
+        RESOURCE
+        WHERE
+        PID IS NULL OR PID = ''
+        ORDER BY
+        ORDER_NUM
+    </select>
+
+    <select id="findResourceByPid" parameterType="java.lang.Integer" resultMap="resourceNode">
+        SELECT
+        *
+        FROM
+        RESOURCE
+        WHERE
+        PID = #{pid}
+        ORDER BY
+        ORDER_NUM
+    </select>
+
+    <insert id="addRoleResource" parameterType="com.gopher.system.model.vo.request.RoleUpdateResourceRequest">
+        INSERT INTO
+        ROLE_RESOURCE(ROLE_ID,RESOURCE_ID)
+        VALUES
+        <foreach collection="param.resources" item="resource" separator=",">
+            (#{param.roleId},#{resource})
+        </foreach>
+    </insert>
+
+    <select id="findResourceById" parameterType="java.lang.Integer" resultType="com.gopher.system.model.entity.Resource">
+        SELECT
+        *
+        FROM
+        RESOURCE
+        WHERE
+        ID = #{id}
+    </select>
+
 
 </mapper>

@@ -19,6 +19,11 @@ public class Role implements Serializable{
     private String name;
 
     /**
+     * 角色描述
+     */
+    private String description;
+
+    /**
      * 角色类型
      */
     private String type;
@@ -100,6 +105,14 @@ public class Role implements Serializable{
         this.updateTime = updateTime;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,6 +120,7 @@ public class Role implements Serializable{
         Role role = (Role) o;
         return Objects.equals(id, role.id) &&
                 Objects.equals(name, role.name) &&
+                Objects.equals(description, role.description) &&
                 Objects.equals(type, role.type) &&
                 Objects.equals(createUser, role.createUser) &&
                 Objects.equals(updateUser, role.updateUser) &&
@@ -117,7 +131,7 @@ public class Role implements Serializable{
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, type, createUser, updateUser, createTime, updateTime);
+        return Objects.hash(id, name, description, type, createUser, updateUser, createTime, updateTime);
     }
 
     @Override
@@ -125,6 +139,7 @@ public class Role implements Serializable{
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", type='" + type + '\'' +
                 ", createUser=" + createUser +
                 ", updateUser=" + updateUser +

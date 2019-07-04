@@ -1,5 +1,8 @@
 package com.gopher.system.model.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -8,24 +11,29 @@ import java.util.Objects;
  * @author 1500
  * @Date 2019/7/1.
  */
+@ApiModel(description = "角色信息")
 public class Resource implements Serializable{
 
+    @ApiModelProperty(value = "角色ID")
     private Integer id;
 
 
     /**
      * 角色名称
      */
+    @ApiModelProperty(value = "角色名称")
     private String name;
 
     /**
      * 父节点id
      */
+    @ApiModelProperty(value = "父节点id")
     private Integer pid;
 
     /**
      * url
      */
+    @ApiModelProperty(value = "url")
     private String url;
 
 
