@@ -281,7 +281,7 @@ public class WebSiteServiceImpl implements WebSiteService {
 			int mark_index = title.indexOf("%");
 			temp = title.substring(mark_index).split(" ");
 			String temp2 = null;
-			if (mark_index - 1 > 0) {
+			if (mark_index - 1 >= 0) {
 				temp2 = title.substring(mark_index - 1, mark_index);
 			}
 			String temp3 = null;
@@ -295,7 +295,7 @@ public class WebSiteServiceImpl implements WebSiteService {
 					sale = "SALE";
 				}
 			} else {
-				sale = temp[0] + " " + "OFF";
+				sale = temp[0] + "  OFF";
 				if (isInteger(temp2)) {
 					sale = temp2 + sale;
 				}
@@ -315,10 +315,7 @@ public class WebSiteServiceImpl implements WebSiteService {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(getSale("xx 22% Subscription Plans", "CODE"));
-		final String month = DateUtils.getDateString(new Date(),"MMM yyyy",Locale.US);
-		System.out.println(month);
-		String temp = "{{store_name}} promos, coupon code & free shipping W/ {{month}}, Have {{coupon_count}} activediscount codes, Hot Discount code?{{best_coupon_name}}";
-		System.out.println(temp.replace("{{store_name}}","TEST"));
+		System.out.println(getSale("2% Subscription Plans", "CODE"));
+
 	}
 }
