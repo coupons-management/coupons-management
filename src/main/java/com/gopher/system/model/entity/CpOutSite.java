@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * cp_out_site
+ * CP_OUT_SITE
  * @author 
  */
 public class CpOutSite implements Serializable {
@@ -19,6 +19,7 @@ public class CpOutSite implements Serializable {
      * 描述
      */
     private String des;
+
 
     /**
      * 创建人
@@ -39,6 +40,14 @@ public class CpOutSite implements Serializable {
      * 修改时间
      */
     private Date updateTime;
+
+    private String aboutUs;
+
+    private String contactUs;
+
+    private String title;
+
+    private String keywords;
 
     private static final long serialVersionUID = 1L;
 
@@ -64,6 +73,14 @@ public class CpOutSite implements Serializable {
 
     public void setDes(String des) {
         this.des = des;
+    }
+
+    public String getAboutUs() {
+        return aboutUs;
+    }
+
+    public void setAboutUs(String aboutUs) {
+        this.aboutUs = aboutUs;
     }
 
     public Integer getCreateUser() {
@@ -98,56 +115,27 @@ public class CpOutSite implements Serializable {
         this.updateTime = updateTime;
     }
 
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        CpOutSite other = (CpOutSite) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getDes() == null ? other.getDes() == null : this.getDes().equals(other.getDes()))
-            && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
-            && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
+    public String getContactUs() {
+        return contactUs;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getDes() == null) ? 0 : getDes().hashCode());
-        result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
-        result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        return result;
+    public void setContactUs(String contactUs) {
+        this.contactUs = contactUs;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", des=").append(des);
-        sb.append(", createUser=").append(createUser);
-        sb.append(", updateUser=").append(updateUser);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", updateTime=").append(updateTime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 }

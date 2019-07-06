@@ -38,4 +38,14 @@ public class ShowSiteServiceTest extends BaseTest {
     public void test2() {
         System.out.println(JSON.toJSONString(showSiteService.getStoreTemplate()));
     }
+
+    @Test
+    public void test3(){
+        System.out.println( JSON.toJSONString(showSiteService.findPageInfoList(1)));
+    }
+
+    @Test
+    public void test4(){
+        System.out.println( JSON.toJSONString(showSiteService.findOne(1)));
+    }
 }

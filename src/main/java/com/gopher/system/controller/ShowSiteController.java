@@ -2,6 +2,8 @@ package com.gopher.system.controller;
 
 import java.util.List;
 
+import com.gopher.system.model.entity.CpOutSite;
+import com.gopher.system.model.entity.OutSitePageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,7 +59,35 @@ public class ShowSiteController {
 	@RequestMapping(path="/deleteStoreToSite")
 	public Result deleteStoreToSite(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
 		Result result = new Result();
-		showSiteService.deleteStoreInSite(showSiteStoreRequest);;
+		showSiteService.deleteStoreInSite(showSiteStoreRequest);
+		return result;
+	}
+
+	@RequestMapping(path="/saveSiteInfo")
+	public Result saveSiteInfo(@RequestBody CpOutSite cpOutSite) {
+		Result result = new Result();
+		showSiteService.saveSiteInfo(cpOutSite);
+		return result;
+	}
+
+	@RequestMapping(path="/getSiteInfo")
+	public Result getSiteInfo(@RequestBody CpOutSite cpOutSite) {
+		Result result = new Result();
+		result.setData(showSiteService.findOne(cpOutSite.getId()));
+		return result;
+	}
+
+	@RequestMapping(path="/savePageInfo")
+	public Result saveSitePageInfo(@RequestBody OutSitePageInfo outSitePageInfo) {
+		Result result = new Result();
+		showSiteService.savePageInfo(outSitePageInfo);
+		return result;
+	}
+
+	@RequestMapping(path="/getPageInfoList")
+	public Result getPageInfoList(@RequestBody CpOutSite cpOutSite) {
+		Result result = new Result();
+		result.setData(showSiteService.findPageInfoList(cpOutSite.getId()));
 		return result;
 	}
 	

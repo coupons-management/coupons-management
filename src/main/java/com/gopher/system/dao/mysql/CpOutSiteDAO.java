@@ -1,15 +1,18 @@
 package com.gopher.system.dao.mysql;
 
-import java.util.List;
-
+import com.gopher.system.model.entity.CpOutSite;
 import org.springframework.stereotype.Repository;
 
-import com.gopher.system.model.entity.CpOutSite;
+import java.util.List;
 
 /**
  * CpOutSiteDAO继承基类
  */
 @Repository
 public interface CpOutSiteDAO extends MyBatisBaseDao<CpOutSite, Integer> {
-	List<CpOutSite> getList();
+    /**
+     *
+     * @return
+     */
+    List<CpOutSite> getList();
 }

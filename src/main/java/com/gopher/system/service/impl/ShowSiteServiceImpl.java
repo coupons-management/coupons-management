@@ -5,28 +5,15 @@ import java.util.List;
 import java.util.Objects;
 
 import com.gopher.system.constant.TemplateKeys;
+import com.gopher.system.dao.mysql.*;
+import com.gopher.system.model.entity.*;
 import com.gopher.system.model.vo.response.OutSiteStoreRsp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gopher.system.constant.CodeAndMsg;
 import com.gopher.system.constant.SystemConstants;
-import com.gopher.system.dao.mysql.CpCouponDAO;
-import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
-import com.gopher.system.dao.mysql.CpOutSiteDAO;
-import com.gopher.system.dao.mysql.CpOutSiteStoreDAO;
-import com.gopher.system.dao.mysql.CpSitestoreTypeMapDAO;
-import com.gopher.system.dao.mysql.CpStoreDAO;
-import com.gopher.system.dao.mysql.CpTypeStoreDAO;
 import com.gopher.system.exception.BusinessRuntimeException;
-import com.gopher.system.model.entity.CpCoupon;
-import com.gopher.system.model.entity.CpOutSite;
-import com.gopher.system.model.entity.CpOutSiteCoupon;
-import com.gopher.system.model.entity.CpOutSiteStore;
-import com.gopher.system.model.entity.CpSitestoreType;
-import com.gopher.system.model.entity.CpSitestoreTypeMap;
-import com.gopher.system.model.entity.CpStore;
-import com.gopher.system.model.entity.CpTypeStore;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.service.ShowSiteService;
 import com.gopher.system.util.TitleUtils;
@@ -51,6 +38,8 @@ public class ShowSiteServiceImpl implements ShowSiteService{
     private CpCouponDAO cpCouponDAO;
     @Autowired
     private CpStoreDAO cpStoreDAO;
+	@Autowired
+    private OutSitePageInfoDAO outSitePageInfoDAO;
 	@Override
 	public List<CpOutSite> getSiteList() {
 		return cpOutSiteDAO.getList();
@@ -195,6 +184,29 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 		result.setDes(TitleUtils.getStoreMessage(TemplateKeys.STORE_DESCRIPTION));
 		result.setTitle(TitleUtils.getStoreMessage(TemplateKeys.STORE_TITLE));
 		return result;
+	}
+
+	@Override
+	public void saveSiteInfo(CpOutSite cpOutSite) {
+		if(null == cpOutSite){
+			throw new BusinessRuntimeException("参数不能为空");
+		}
+		cpOutSiteDAO.updateByPrimaryKeySelective(cpOutSite);
+	}
+
+	@Override
+	public CpOutSite findOne(int id) {
+		return cpOutSiteDAO.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public List<OutSitePageInfo> findPageInfoList(int outSiteId) {
+		return outSitePageInfoDAO.findBySite(outSiteId);
+	}
+
+	@Override
+	public void savePageInfo(OutSitePageInfo outSitePageInfo) {
+		outSitePageInfoDAO.updateByPrimaryKeySelective(outSitePageInfo);
 	}
 
 	public static void main(String[] args) {

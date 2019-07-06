@@ -15,6 +15,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
 
+/**
+ *
+ * @author dongyangyang
+ * HTTP 接口参数打印
+ */
 @Aspect
 @Component
 public class ParamAspect {
@@ -34,10 +39,8 @@ public class ParamAspect {
 	 */
 	@Around("paramFilter()")
 	private Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
-		log.info("====================PRE===================================");
 		this.doParamLog(joinPoint);
 		Object result = joinPoint.proceed();
-		log.info("====================AFTER===================================");
 		return result;
 	}
 

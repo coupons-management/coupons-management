@@ -320,14 +320,16 @@ public class HttpConenection {
     }
 
     private static void sendAi() throws Exception {
-        String url = "http://10.1.69.156:9000";
-        List<String> fileList = readFile("C:\\Users\\dongyangyang\\Desktop\\ai");
+//        String url = "http://10.1.69.156:9000";
+          String url = "http://39.104.23.105:9726";
+
+        List<String> fileList = readFile("C:\\Users\\dongyangyang\\Desktop\\ai\\1");
         if (null != fileList) {
             fileList.forEach(file -> {
                 try {
                     Map<String, Object> map = new HashMap<>();
                     String base64 = Base64Utils.encodeBase64File(file);
-                    map.put("test_ID", 8);
+                    map.put("test_ID",1);
                     map.put("test_image", base64);
                     String result_json = HttpConenection.getInstance().sendJsonHttpPost(url, JSON.toJSONString(map));
                     System.out.println("response:" + result_json);

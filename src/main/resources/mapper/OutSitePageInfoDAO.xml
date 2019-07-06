@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gopher.system.dao.mysql.OutSitePageInfoDAO">
+  <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.OutSitePageInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="OUT_SITE_ID" jdbcType="INTEGER" property="outSiteId" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="KEY_WORDS" jdbcType="VARCHAR" property="keyWords" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, OUT_SITE_ID, `TYPE`, `NAME`, TITLE, KEY_WORDS, DESCRIPTION
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from OUT_SITE_PAGE_INFO
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from OUT_SITE_PAGE_INFO
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.OutSitePageInfo" useGeneratedKeys="true">
+    insert into OUT_SITE_PAGE_INFO (OUT_SITE_ID, `TYPE`, `NAME`, 
+      TITLE, KEY_WORDS, DESCRIPTION
+      )
+    values (#{outSiteId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{keyWords,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.OutSitePageInfo" useGeneratedKeys="true">
+    insert into OUT_SITE_PAGE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="outSiteId != null">
+        OUT_SITE_ID,
+      </if>
+      <if test="type != null">
+        `TYPE`,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="keyWords != null">
+        KEY_WORDS,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="outSiteId != null">
+        #{outSiteId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="keyWords != null">
+        #{keyWords,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.OutSitePageInfo">
+    update OUT_SITE_PAGE_INFO
+    <set>
+      <if test="outSiteId != null">
+        OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        `TYPE` = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        `NAME` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="keyWords != null">
+        KEY_WORDS = #{keyWords,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gopher.system.model.entity.OutSitePageInfo">
+    update OUT_SITE_PAGE_INFO
+    set OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
+      `TYPE` = #{type,jdbcType=INTEGER},
+      `NAME` = #{name,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      KEY_WORDS = #{keyWords,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findBySite" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from OUT_SITE_PAGE_INFO
+    where OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER}
+  </select>
+</mapper>
