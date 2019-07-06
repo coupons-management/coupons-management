@@ -701,6 +701,18 @@
         LIMIT 1
     </select>
 
+    <select id="getListByStore" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from CP_OUT_SITE_STORE
+        <where>
+            <if test="storeId !=null and storeId != '' ">
+                 STORE_ID = #{storeId}
+            </if>
+        </where>
+
+    </select>
+
     <update id="clearHotSort">
 		UPDATE CP_OUT_SITE_STORE
 		SET HOT_SORT = 0

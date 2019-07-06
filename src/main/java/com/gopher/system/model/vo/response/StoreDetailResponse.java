@@ -10,6 +10,14 @@ public class StoreDetailResponse {
     private String logo;
     private String website;
 
+    private String keyWords;
+
+    private String title;
+
+
+
+	private Page<CpCouponVo> couponList;
+
 	public int getId() {
 		return id;
 	}
@@ -17,8 +25,6 @@ public class StoreDetailResponse {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	private Page<CpCouponVo> couponList;
 
 	public String getName() {
 		return name;

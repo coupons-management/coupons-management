@@ -427,6 +427,9 @@
             <if test="storeId != null and storeId !='' ">
                 AND cp.STORE_ID = #{storeId}
             </if>
+            <if test="expiryDate != null  ">
+                AND cp.EXPIRE_AT > #{expiryDate}
+            </if>
         </where>
 
     </sql>

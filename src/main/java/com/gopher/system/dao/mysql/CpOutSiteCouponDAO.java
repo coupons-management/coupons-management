@@ -34,6 +34,7 @@ public interface CpOutSiteCouponDAO extends MyBatisBaseDao<CpOutSiteCoupon, Inte
 	 * @return
 	 */
 	List<CpOutSiteCouponVo> getHotList(CouponPageRequest obj);
+
 	int getHotCount(CouponPageRequest obj);
 	/**
 	 * 
@@ -72,7 +73,7 @@ public interface CpOutSiteCouponDAO extends MyBatisBaseDao<CpOutSiteCoupon, Inte
 	 * @return
 	 */
 	int getTotalCount(ShowSiteCouponPageRequest showSiteCouponRequest);
-	
+
 	
 	int clearHotSort(int outId);
 	

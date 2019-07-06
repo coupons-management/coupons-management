@@ -8,6 +8,6 @@ public interface FileService {
      * @param file 
      * @return 返回文件路径
      */
-	public String upload(MultipartFile file);
+	 String upload(MultipartFile file);
 
 }

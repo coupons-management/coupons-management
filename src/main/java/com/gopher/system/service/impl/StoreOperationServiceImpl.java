@@ -1,13 +1,16 @@
 package com.gopher.system.service.impl;
 
+import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
 import com.gopher.system.dao.mysql.CpSitestoreTypeDAO;
 import com.gopher.system.dao.mysql.CpTypeStoreDAO;
 import com.gopher.system.dao.mysql.StoreOperationDAO;
 import com.gopher.system.exception.BusinessRuntimeException;
+import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpSitestoreType;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.CpTypeStore;
 import com.gopher.system.model.vo.Page;
+import com.gopher.system.model.vo.request.ShowSiteCouponPageRequest;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.model.vo.response.StoreResponse;
 import com.gopher.system.service.StoreOperationService;
@@ -18,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -57,6 +61,8 @@ public class StoreOperationServiceImpl implements StoreOperationService {
     private CpTypeStoreDAO cpTypeStoreDAO;
     @Autowired
     private CpSitestoreTypeDAO cpSitestoreTypeDAO;
+    @Autowired
+    private CpOutSiteCouponDAO cpOutSiteCouponDAO;
 
     @Override
     public Page<StoreResponse> getPageInSite(StorePageRequst storePageRequest) {
@@ -80,12 +86,21 @@ public class StoreOperationServiceImpl implements StoreOperationService {
                         vo.setScrapyType(cpSitestoreType.getName());
                     }
                 }
+                ShowSiteCouponPageRequest showSiteCouponPageRequest = new ShowSiteCouponPageRequest();
+                showSiteCouponPageRequest.setStoreId(vo.getStoreId());
+                showSiteCouponPageRequest.setSiteId(siteId);
+                final int totalCount = cpOutSiteCouponDAO.getTotalCount(showSiteCouponPageRequest);
+                showSiteCouponPageRequest.setExpiryDate(new Date(storePageRequest.getEndTime()));
+                final int validCount = cpOutSiteCouponDAO.getTotalCount(showSiteCouponPageRequest);
+                vo.setValidCouponsCount(validCount+"/"+totalCount);
             });
         }
         result.setPageNumber(storePageRequest.getPageNumber());
         result.setPageSize(storePageRequest.getPageSize());
         return result;
     }
+
+
 
 
 }

@@ -17,6 +17,8 @@ import com.gopher.system.exception.BusinessRuntimeException;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.service.ShowSiteService;
 import com.gopher.system.util.TitleUtils;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * 展示站点接口(内站)
  * @author dongyangyang
@@ -48,6 +50,7 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 	 * 将审核通过的商家添加到展示站点中
 	 */
 	@Override
+	@Transactional
 	public void addStoreToSite(ShowSiteStoreRequest showSiteStoreRequest) {
 		
 		//TODO 1.添加关系表cp_out_site_store
@@ -118,7 +121,8 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 			}
 		}
 	}
-	
+
+	@Transactional
 	@Override
 	public void deleteStoreInSite(ShowSiteStoreRequest showSiteStoreRequest) {
 		//      1.删除关系cp_out_site_store

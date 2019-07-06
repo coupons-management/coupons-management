@@ -41,6 +41,37 @@
                 property="storeId"/>
     </resultMap>
 
+
+    <select id="getPageList"
+            parameterType="com.gopher.system.model.vo.request.StorePageRequst"
+            resultMap="BaseResultMap">
+        SELECT
+        DISTINCT(cs.ID ),
+        cs.TYPE_ID,
+        cs.NAME,
+        cs.WEBSITE,
+        cs.TYPE_NAME,
+        cs.LOGO_URL,
+        cs.ADVERTISING,
+        cs.CREATED_AT,
+        cs.DES,
+        cs.COUNTRY,
+        cs.APPROVAL,
+        cs.TITLE,
+        cs.APPROVAL,
+        cs.CREATE_TIME,
+        cs.UPDATE_TIME,
+        cs.IS_COMPLETE
+        FROM CP_STORE cs
+        INNER JOIN
+        CP_SCRAPY_STORE css ON cs.ID = css.STORE_ID
+        LEFT JOIN
+        CP_COUPON cc ON cs.ID = cc.STORE_ID
+        <include refid="page_where"/>
+        ORDER BY cs.ID ASC
+        limit #{beginIndex},#{pageSize}
+    </select>
+
     <sql id="page_where">
         <where>
             <if test="search != null and search!=''">
@@ -74,39 +105,7 @@
                 AND cs.CREATE_TIME &lt;= #{endDate}
             </if>
         </where>
-
     </sql>
-
-    <select id="getPageList"
-            parameterType="com.gopher.system.model.vo.request.StorePageRequst"
-            resultMap="BaseResultMap">
-        SELECT
-        DISTINCT(cs.ID ),
-        cs.TYPE_ID,
-        cs.NAME,
-        cs.WEBSITE,
-        cs.TYPE_NAME,
-        cs.LOGO_URL,
-        cs.ADVERTISING,
-        cs.CREATED_AT,
-        cs.DES,
-        cs.COUNTRY,
-        cs.APPROVAL,
-        cs.TITLE,
-        cs.APPROVAL,
-        cs.CREATE_TIME,
-        cs.UPDATE_TIME,
-        cs.IS_COMPLETE
-        FROM CP_STORE cs
-        INNER JOIN
-        CP_SCRAPY_STORE css ON cs.ID = css.STORE_ID
-        LEFT JOIN
-        CP_COUPON cc ON cs.ID = cc.STORE_ID
-        <include refid="page_where"/>
-        ORDER BY cs.ID ASC
-        limit #{beginIndex},#{pageSize}
-    </select>
-
     <select id="getCount"
             parameterType="com.gopher.system.model.vo.request.StorePageRequst"
             resultType="java.lang.Integer">

@@ -18,7 +18,7 @@
         <task:scheduled ref="synBasicsData" method="synDate" cron="*/2 * * * * ?"/>
         <!-- 同步数据 -->
         <!-- 初始化标题规则数据 -->
-        <task:scheduled ref="synBasicsData" method="initData" initial-delay="20000" fixed-delay="90000000"/>
+        <task:scheduled ref="synBasicsData" method="initData" initial-delay="1000" fixed-delay="90000000"/>
         <!-- 启动爬虫 -->
         <!--
         <task:scheduled ref="synBasicsData"  method="initScrapy" initial-delay="90000" fixed-delay="900000000"/>

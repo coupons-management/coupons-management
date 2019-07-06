@@ -1,5 +1,6 @@
 package com.gopher.system.model.vo.request;
 
+import java.util.Date;
 import java.util.List;
 
 import com.gopher.system.model.vo.PageRequestBase;
@@ -20,9 +21,19 @@ public class ShowSiteCouponPageRequest extends PageRequestBase{
 	private int storeId;
 	
 	private int outId;
+
+	private Date expiryDate;
 	
 	private List<Integer> storeIdList;
-    
+
+	public Date getExpiryDate() {
+		return expiryDate;
+	}
+
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+
 	public int getOutId() {
 		return outId;
 	}

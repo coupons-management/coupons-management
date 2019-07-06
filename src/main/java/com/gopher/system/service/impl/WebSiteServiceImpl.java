@@ -196,6 +196,12 @@ public class WebSiteServiceImpl implements WebSiteService {
 		return flag;
 	}
 
+	/**
+	 * 获取官网展示折扣关键字
+	 * @param title
+	 * @param couponType
+	 * @return
+	 */
 	private static String getSale(String title, String couponType) {
 		String sale = "";
 		String[] temp;
@@ -238,6 +244,5 @@ public class WebSiteServiceImpl implements WebSiteService {
 
 	public static void main(String[] args) {
 		System.out.println(getSale("% Subscription Plans", "CODE"));
-
 	}
 }

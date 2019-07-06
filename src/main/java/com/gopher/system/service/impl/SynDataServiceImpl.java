@@ -10,8 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -185,6 +188,7 @@ public class SynDataServiceImpl implements SynDataService {
     @Override
     public void synCouponData() {
         List<TMessage> list = synMessageDataDao.getCouPonMessages();
+        final Date now = new Date();
         for (final TMessage message : list) {
             try {
                 String objectStr = message.getMessageBody();
@@ -196,7 +200,6 @@ public class SynDataServiceImpl implements SynDataService {
                     cpType.setName(stu.getStoreCategory());
                     cpType.setInType("0");
                     cpTypeDAO.insert(cpType);
-
                 }
                 final String storeUrl = stu.getStoreWebsite();
                 CpStore cpStore = cpStoreDAO.getBeanByWebSite(storeUrl);
@@ -208,7 +211,8 @@ public class SynDataServiceImpl implements SynDataService {
                     cpStore.setWebsite(storeUrl);
                     cpStore.setCountry(stu.getStoreCountry());
                     cpStore.setLogoUrl(stu.getStorePicture());
-                    cpStore.setCreateTime(new Date());
+                    cpStore.setCreateTime(now);
+                    cpStore.setUpdateTime(now);
                     cpStore.setInType("0");
                     cpStore.setTypeName(cpType.getName());
                     cpStore.setTypeId(cpType.getId());
@@ -244,9 +248,13 @@ public class SynDataServiceImpl implements SynDataService {
                     if (stu.getDescription() != null && stu.getDescription().length() < 1000) {
                         cpCoupon.setDes(stu.getDescription());
                     }
-                    cpCoupon.setCreateTime(new Date());
+                    cpCoupon.setCreateTime(now);
+                    cpCoupon.setUpdateTime(now);
+                    cpCoupon.setIsPass("0");
                     cpCoupon.setTitle(TitleUtils.getMessage(stu.getName()));
+
                     cpCouponDAO.insert(cpCoupon);
+                    this.synOutSiteCoupon(cpStore.getId(),cpCoupon,now);
                 } else {
                     cpCoupon.setStoreId(cpStore.getId());
                     cpCoupon.setName(stu.getName());
@@ -264,7 +272,7 @@ public class SynDataServiceImpl implements SynDataService {
                     if (stu.getDescription() != null && stu.getDescription().length() < 1000) {
                         cpCoupon.setDes(stu.getDescription());
                     }
-                    cpCoupon.setUpdateTime(new Date());
+                    cpCoupon.setUpdateTime(now);
                     cpCoupon.setIndex(stu.getIndex());
                     cpCoupon.setTitle(TitleUtils.getMessage(stu.getName()));
                     cpCouponDAO.updateByPrimaryKeySelective(cpCoupon);
@@ -286,7 +294,7 @@ public class SynDataServiceImpl implements SynDataService {
                     cpScrapyStore = new CpScrapyStore();
                     cpScrapyStore.setScrapyId(cpScrapy.getId());
                     cpScrapyStore.setStoreId(cpStore.getId());
-                    cpScrapyStore.setCreateTime(new Date());
+                    cpScrapyStore.setCreateTime(now);
                     cpScrapyStoreDAO.insert(cpScrapyStore);
 
                 }
@@ -297,11 +305,9 @@ public class SynDataServiceImpl implements SynDataService {
                     site = new CpInSite();
                     site.setUrl(siteUrl);
                     site.setName(this.getName(siteUrl));
-                    site.setCreateTime(new Date());
-                    //site.setLanguage("e2n");
+                    site.setCreateTime(now);
                     cpInSiteDAO.insert(site);
                 }
-
                 // 7、增加站点商家关系
                 CpSiteStore cpSiteStore = new CpSiteStore();
                 cpSiteStore.setInSiteId(site.getId());
@@ -327,13 +333,13 @@ public class SynDataServiceImpl implements SynDataService {
                     census.setScrapyName(cpScrapy.getName());
                     census.setStoreId(cpStore.getId());
                     census.setSort(weight * (DataCacheUtils.VALUES - stu.getIndex()));
-                    census.setScrapyTime(new Date());
-                    census.setCreateTime(new Date());
+                    census.setScrapyTime(now);
+                    census.setCreateTime(now);
                     cpCouponCensusDAO.insert(census);
                 } else {
                     census.setSort(weight * (DataCacheUtils.VALUES - stu.getIndex()));
-                    census.setScrapyTime(new Date());
-                    census.setUpdateTime(new Date());
+                    census.setScrapyTime(now);
+                    census.setUpdateTime(now);
                     cpCouponCensusDAO.updateByPrimaryKeySelective(census);
                 }
             } catch (Exception e) {
@@ -348,13 +354,14 @@ public class SynDataServiceImpl implements SynDataService {
     /**
      * 初始化模板信息 等
      */
+    @PostConstruct
     @Override
     public void initData() {
         List<CpTitleMessage> list = cpTitleMessageDAO.getAllList();
         if (list != null && list.size() > 0) {
             for (CpTitleMessage message : list) {
                 if (TitleUtils.messageMap.get(message.getTitle()) == null) {
-                    List<String> dataList = new ArrayList<String>();
+                    List<String> dataList = new ArrayList<>();
                     dataList.add(message.getMessage());
                     TitleUtils.messageMap.put(message.getTitle(), dataList);
                 } else {
@@ -383,6 +390,29 @@ public class SynDataServiceImpl implements SynDataService {
                 }
             }
 
+        }
+
+    }
+
+    @Autowired
+    private CpOutSiteCouponDAO cpOutSiteCouponDAO;
+    @Autowired
+    private CpOutSiteStoreDAO cpOutSiteStoreDAO;
+    /**
+     * 同步已经加入展示站点内的优惠券
+     */
+    private void synOutSiteCoupon(int storeId,CpCoupon cpCoupon,Date now){
+        // 1 通过商家ID 找OUT_SITE_STORE 记录如果有就
+        List<CpOutSiteStore> list = cpOutSiteStoreDAO.getListByStore(storeId);
+        if(!CollectionUtils.isEmpty(list)){
+           //如果有 同步新增的优惠券到当前这个站点下
+            CpOutSiteCoupon cpOutSiteCoupon = new CpOutSiteCoupon();
+            cpOutSiteCoupon.setCouponId(cpCoupon.getId());
+            cpOutSiteCoupon.setStoreId(storeId);
+            cpOutSiteCoupon.setTitle(TitleUtils.getMessage(cpCoupon.getTitle()));
+            cpOutSiteCoupon.setCreateTime(now);
+            cpOutSiteCoupon.setUpdateTime(now);
+            cpOutSiteCouponDAO.insert(cpOutSiteCoupon);
         }
 
     }

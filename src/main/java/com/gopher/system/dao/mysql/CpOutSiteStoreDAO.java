@@ -22,7 +22,7 @@ public interface CpOutSiteStoreDAO extends MyBatisBaseDao<CpOutSiteStore, Intege
 	void deleteByBean(CpOutSiteStore cpOutSiteStore);
 	/**
 	 * 修改热门排序
-	 * @param cpSiteStore
+	 * @param cpOutSiteStore
 	 */
 	void updateHotSort(CpOutSiteStore cpOutSiteStore);
 	/**
@@ -95,14 +95,14 @@ public interface CpOutSiteStoreDAO extends MyBatisBaseDao<CpOutSiteStore, Intege
    
    /**
     * 取得有效优惠卷
-    * @param id
+    * @param Request
     * @return
     */
    int getValidCoupon(ShowSiteStoreRequest  Request);
    
    /**
     * 取得总优惠卷
-    * @param id
+    * @param Request
     * @return
     */
    int getToalCoupon(ShowSiteStoreRequest  Request);
@@ -116,5 +116,12 @@ public interface CpOutSiteStoreDAO extends MyBatisBaseDao<CpOutSiteStore, Intege
    int clearHotSort(int outId);
    
    int clearAdviseSort(int outId);
+
+	/**
+	 * 根据商家ID 获取列表
+	 * @param storeId
+	 * @return
+	 */
+	List<CpOutSiteStore> getListByStore(int storeId);
 
 }

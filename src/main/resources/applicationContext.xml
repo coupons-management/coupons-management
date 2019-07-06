@@ -11,21 +11,17 @@
 
     <context:component-scan
             base-package="com.gopher.system.dao,
-	                                      com.gopher.system.service,
-	                                      com.gopher.system.exception,
-	                                      com.gopher.system.aspect,
-	                                      com.gopher.system.config,
-                                          com.gopher.system.worker"/>
+	                      com.gopher.system.service,
+	                      com.gopher.system.exception,
+	                      com.gopher.system.aspect,
+	                      com.gopher.system.config,
+                          com.gopher.system.worker"/>
+
     <context:property-placeholder
             location="classpath:config.properties"/>
+
     <import resource="classpath:spring-mybatis.xml"/>
     <import resource="classpath:spring-task.xml"/>
     <import resource="classpath:spring-redis.xml"/>
-    <import resource="classpath:spring-rabbitMQ.xml"/>
-    <!--<bean id="SpringContextUtil"-->
-    <!--class="com.gopher.system.util.SpringContextUtil">-->
-    <!--</bean>-->
-    <!--<bean id="messageDataService"-->
-    <!--class="com.gopher.system.service.impl.MessageDataServiceImpl">-->
-    <!--</bean>-->
+<!--    <import resource="classpath:spring-rabbitMQ.xml"/>-->
 </beans>
