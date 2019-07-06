@@ -1,14 +1,16 @@
 package com.gopher.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.nio.file.WatchEvent;
+import java.util.*;
 import java.util.regex.Pattern;
 
+import com.alibaba.fastjson.JSON;
 import com.gopher.system.dao.mysql.*;
 import com.gopher.system.model.entity.*;
+import com.gopher.system.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.gopher.system.exception.BusinessRuntimeException;
@@ -120,11 +122,6 @@ public class WebSiteServiceImpl implements WebSiteService {
 		showSiteCouponPageRequest.setCouponType(storeRequest.getCouponType());
 		List<CpCouponVo> list = cpOutSiteCouponDAO.getListByCategory(showSiteCouponPageRequest);
 		final int totalCount = cpOutSiteCouponDAO.getCountByCategory(showSiteCouponPageRequest);
-		if (null != list) {
-			list.forEach((e) -> {
-				e.setSale(getSale(e.getTitle(), e.getCouponType()));
-			});
-		}
 		CpStore cpStore = cpStoreDAO.selectByPrimaryKey(storeId);
 		if (null == cpStore) {
 			throw new BusinessRuntimeException("根据商家ID找不到商家信息");
@@ -133,14 +130,89 @@ public class WebSiteServiceImpl implements WebSiteService {
 		cpOutSiteStore.setOutId(siteId);
 		cpOutSiteStore.setStoreId(storeId);
 		cpOutSiteStore = cpOutSiteStoreDAO.getOne(cpOutSiteStore);
+		System.out.println(JSON.toJSONString(cpOutSiteStore));
 		if(null == cpOutSiteStore){
            throw new BusinessRuntimeException("当前站点:"+siteId+"找不到该商家:"+storeId);
 		}
 		result.setId(cpOutSiteStore.getId());
-		result.setDescription(cpStore.getDes());
 		result.setLogo(cpStore.getLogoUrl());
-		result.setName(cpOutSiteStore.getShowName().replace("{{store_name}}",cpStore.getName()));
+        final String ad_address = cpOutSiteStore.getAdAddress();
+		final String name = cpStore.getName();
+		final String webSite = cpStore.getWebsite();
+		String store_site = "";
+		if(StringUtils.hasText(webSite)){
+			store_site = webSite.replace("https://","")
+					            .replace("http://","");
+		}
+        final String month = DateUtils.getDateString(new Date(),"MMM yyyy");
+		final String showName = cpOutSiteStore.getShowName();
+
+		String first_name = "";
+		String last_update_time = "";
+		int coupon_count  = 0;
+		if(!CollectionUtils.isEmpty(list)){
+			first_name   = list.get(0).getName()!=null?list.get(0).getName():list.get(0).getTitle();
+			last_update_time = DateUtils.getDateString(list.get(0).getUpdateTime());
+			coupon_count = list.size();
+			list.forEach(e->{
+				e.setSale(getSale(e.getTitle(), e.getCouponType()));
+				if(StringUtils.hasText(ad_address)){
+					e.setLink(ad_address);
+				}else{
+					e.setLink(webSite);
+				}
+			});
+		}
+
+		if(StringUtils.hasText(showName)){
+			result.setName(showName.replace("{{store_name}}",name));
+		}
+			/**
+		 * {{store_name}} Coupons {{month}} : {{best_off}}OFF Promo Code, Discounts
+		 */
+		final String title = cpOutSiteStore.getTitle();
+		if(StringUtils.hasText(title)){
+			result.setTitle(title.replace("{{store_name}}", name)
+					.replace("{{month}}", month)
+			        .replace("{{best_off}}", first_name));
+		}
+		/**    {{store_name}}
+		 * GET {{store_name}} {{coupon_count}} active Coupons, deals & free shipping W/ {{month}}.
+		 * Hot Promo codes?{{best_coupon_name}}
+		 */
+		final String description = cpOutSiteStore.getDes();
+		if(StringUtils.hasText(description)){
+			result.setDescription(description.replace( "{{store_name}}",name)
+					                          .replace("{{coupon_count}}",coupon_count+"")
+			                                  .replace("{{month}}",month)
+			                                  .replace("{{best_coupon_name}}",first_name));
+		}
+		/**
+		 * {{store_name}}, {{store_site}}, {{store_name}} promos, promo code, coupons, deals
+		 */
+		final String keyWords =cpOutSiteStore.getKeywords();
+		if(StringUtils.hasText(keyWords)){
+			result.setKeyWords(keyWords.replace("{{store_name}}",name)
+			                           .replace("{{store_site}}",store_site));
+		}
+		/**
+		 * The last update time of {{store_name}} promos is {{last_update_date}},
+		 * and there are {{coupon_count}}
+		 * discounts in all. The best offers are {{best_coupon_name}}.
+		 * All the discount codes of {{store_name}} are verified officially.
+		 * COUPONPA.com is one of the important partners of {{store_name}}.
+		 * Find the promo code of the best discount at COUPONPA.com and use it,
+		 * so you can save more money, and let your wallet grow thicker.
+		 */
+		final String storeDes = cpOutSiteStore.getStoreDes();
+		if(StringUtils.hasText(storeDes)){
+			result.setStoreDescription(storeDes.replace("{{store_name}}",name)
+			                                    .replace("{{last_update_date}}",last_update_time)
+			                                     .replace("{{coupon_count}}",coupon_count+"")
+			                                     .replace("{{best_coupon_name}}",first_name));
+		}
 		result.setWebsite(cpStore.getWebsite());
+
 		Page<CpCouponVo> page = new Page<>();
 		page.setPageNumber(storeRequest.getPageNumber());
 		page.setPageSize(storeRequest.getPageSize());
@@ -223,7 +295,7 @@ public class WebSiteServiceImpl implements WebSiteService {
 					sale = "SALE";
 				}
 			} else {
-				sale = temp[0] + " " + temp[1];
+				sale = temp[0] + " " + "OFF";
 				if (isInteger(temp2)) {
 					sale = temp2 + sale;
 				}
@@ -243,6 +315,10 @@ public class WebSiteServiceImpl implements WebSiteService {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(getSale("% Subscription Plans", "CODE"));
+		System.out.println(getSale("xx 22% Subscription Plans", "CODE"));
+		final String month = DateUtils.getDateString(new Date(),"MMM yyyy",Locale.US);
+		System.out.println(month);
+		String temp = "{{store_name}} promos, coupon code & free shipping W/ {{month}}, Have {{coupon_count}} activediscount codes, Hot Discount code?{{best_coupon_name}}";
+		System.out.println(temp.replace("{{store_name}}","TEST"));
 	}
 }

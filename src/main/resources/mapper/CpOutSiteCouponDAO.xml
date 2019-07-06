@@ -469,6 +469,7 @@
         cp.`CODE` AS code,
         cp.DES AS description,
         cp.LINK AS link,
+        cp.UPDATE_TIME AS updateTime,
         s.LOGO_URL AS
         storeLogo,
         s.NAME AS storeName,

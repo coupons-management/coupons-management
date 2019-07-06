@@ -1,5 +1,7 @@
 package com.gopher.system.model.vo;
 
+import java.util.Date;
+
 public class CpCouponVo {
 	private int id;
 	private String name;
@@ -15,6 +17,7 @@ public class CpCouponVo {
 	private String storeName;
 	
 	private String sale;
+	private Date updateTime;
 	
 	public String getSale() {
 		return sale;
@@ -88,7 +91,12 @@ public class CpCouponVo {
 	public void setStoreLogo(String storeLogo) {
 		this.storeLogo = storeLogo;
 	}
-	
-	
 
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
 }

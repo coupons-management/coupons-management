@@ -2,10 +2,7 @@ package com.gopher.system.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 日期通用工具
@@ -66,6 +63,13 @@ public class DateUtils {
 			return "";
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat(fmt);
+		return sdf.format(date);
+	}
+	public static String getDateString(Date date, String fmt, Locale locale) {
+		if(null == date) {
+			return "";
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat(fmt,locale);
 		return sdf.format(date);
 	}
 	public static String getDatetimeString(long timestamp) {

@@ -2,21 +2,27 @@ package system;
 
 import com.alibaba.fastjson.JSON;
 import com.gopher.system.model.vo.request.ShowSiteCouponPageRequest;
+import com.gopher.system.model.vo.request.StoreRequest;
 import com.gopher.system.model.vo.response.ShowSiteCouponResponse;
 import com.gopher.system.service.ShowSiteCouponService;
+import com.gopher.system.service.WebSiteService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
 import com.gopher.system.service.ShowSiteService;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
+@WebAppConfiguration
 public class ShowSiteServiceTest extends BaseTest {
     @Autowired
     private ShowSiteService showSiteService;
     @Autowired
     private ShowSiteCouponService showSiteCouponService;
+    @Autowired
+    private WebSiteService webSiteService;
 
     @Test
     public void delete() {
@@ -47,5 +53,13 @@ public class ShowSiteServiceTest extends BaseTest {
     @Test
     public void test4(){
         System.out.println( JSON.toJSONString(showSiteService.findOne(1)));
+    }
+
+    @Test
+    public void getSiteDetail(){
+        StoreRequest storeRequest = new StoreRequest();
+        storeRequest.setSiteId(1);
+        storeRequest.setStoreId(82887);
+        System.out.println(JSON.toJSONString(  webSiteService.getStoreDetail(storeRequest)));
     }
 }

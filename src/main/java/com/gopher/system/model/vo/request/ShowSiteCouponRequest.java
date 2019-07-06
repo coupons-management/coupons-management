@@ -5,18 +5,30 @@ public class ShowSiteCouponRequest {
 	private int id;
 	
 	private int mapId;
-	
+	/**
+	 * 当前标题
+	 */
 	private String currentTitle;
-	
-	
+	/**
+	 * 描述
+	 */
 	private String description;
-	
+	/**
+	 * 优惠码
+	 */
 	private String code;
-	
+	/**
+	 * 过期时间
+	 */
 	private long expiryTime;
-	
+	/**
+	 * 审核状态
+	 */
 	private String isPass;
-	
+	/**
+	 * 商家ID
+	 *
+	 */
 	private int storeId;
 	
 
