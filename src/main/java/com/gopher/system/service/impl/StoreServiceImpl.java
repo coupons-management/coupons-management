@@ -6,15 +6,11 @@ import java.util.Objects;
 
 import javax.annotation.Resource;
 
+import com.gopher.system.dao.mysql.*;
 import com.gopher.system.model.vo.request.StoreAvailableRequet;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.gopher.system.dao.mysql.CpOutSiteDAO;
-import com.gopher.system.dao.mysql.CpOutSiteStoreDAO;
-import com.gopher.system.dao.mysql.CpScrapyDAO;
-import com.gopher.system.dao.mysql.CpScrapyStoreDAO;
-import com.gopher.system.dao.mysql.CpStoreDAO;
 import com.gopher.system.exception.BusinessRuntimeException;
 import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpOutSite;
@@ -48,6 +44,7 @@ public class StoreServiceImpl implements StoreService {
 	private CpOutSiteDAO cpOutSiteDAO;
 	@Resource
 	private CpScrapyDAO cpScrapyDAO;
+
 
 	/**
 	 * 获取商家在展示站点名称

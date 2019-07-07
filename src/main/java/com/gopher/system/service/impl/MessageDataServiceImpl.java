@@ -1,7 +1,10 @@
 package com.gopher.system.service.impl;
 
+import java.sql.Date;
 import java.util.*;
 
+import com.alibaba.fastjson.JSON;
+import com.gopher.system.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,9 +75,7 @@ public class MessageDataServiceImpl implements MessageDataService {
     public void updateCouponIndex(String msg) {
         final String status_start = "start";
         final String status_stop = "stop";
-        JSONObject jsonObject = JSONObject.parseObject(msg);
-        SpiderStatusJson json = (SpiderStatusJson) JSONObject.toJavaObject(jsonObject, SpiderStatusJson.class);
-
+        SpiderStatusJson json = JSON.parseObject(msg, SpiderStatusJson.class);
         CpScrapyRecode recode = cpScrapyRecodeDAO.getBeanByScrapyName(json.getSpider());
         if (recode == null) {
             recode = new CpScrapyRecode();
@@ -84,9 +85,8 @@ public class MessageDataServiceImpl implements MessageDataService {
             } else {
                 recode.setStatus("0");
             }
-            recode.setEndTime(json.getEndTime());
+            recode.setStartTime(DateUtils.getDateTime(json.getTime()));
             cpScrapyRecodeDAO.insert(recode);
-            // 开始爬不计算 爬完了才计算
             return;
         } else {
             recode.setScrapyName(json.getSpider());
@@ -96,7 +96,7 @@ public class MessageDataServiceImpl implements MessageDataService {
                 recode.setStatus("0");
             }
             recode.setEndTime(json.getEndTime());
-            cpScrapyRecodeDAO.updateByPrimaryKey(recode);
+            cpScrapyRecodeDAO.updateByPrimaryKeySelective(recode);
         }
 
         // 查找站点下的所有权重

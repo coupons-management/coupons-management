@@ -65,8 +65,10 @@
         FROM CP_STORE cs
         INNER JOIN
         CP_SCRAPY_STORE css ON cs.ID = css.STORE_ID
+        <!--
         LEFT JOIN
         CP_COUPON cc ON cs.ID = cc.STORE_ID
+        -->
         <include refid="page_where"/>
         ORDER BY cs.ID ASC
         limit #{beginIndex},#{pageSize}
@@ -90,13 +92,19 @@
                 AND css.SCRAPY_ID = #{scrapyId}
             </if>
             <if test="range == 1">
-                <!-- 有新增优惠券的商家-->
+                <!-- 有新增优惠券的商家
                 AND cc.CREATE_TIME &gt;= #{beginDate}
                 AND cc.CREATE_TIME &lt;= #{endDate}
+                 -->
+                AND  EXISTS (SELECT ID FROM CP_COUPON WHERE STORE_ID = cs.ID)
             </if>
             <if test="range == 2">
-                <!-- 无新增优惠券的商家-->
-                AND ( cc.CREATE_TIME &lt;= #{beginDate} OR cc.CREATE_TIME &gt;= #{endDate} )
+                <!-- 无新增优惠券的商家
+                AND ( cc.CREATE_TIME &lt;= #{beginDate}
+                      OR cc.CREATE_TIME &gt;= #{endDate}
+                      OR cc.CREATE_TIME IS NOT NULL)
+                -->
+                AND  NOT EXISTS (SELECT ID FROM CP_COUPON WHERE STORE_ID = cs.ID)
             </if>
 
             <if test="range == 3">
@@ -112,8 +120,10 @@
         SELECT COUNT(DISTINCT(cs.ID )) FROM CP_STORE cs
         INNER JOIN
         CP_SCRAPY_STORE css ON cs.ID = css.STORE_ID
+        <!--
         LEFT JOIN
         CP_COUPON cc ON cs.ID = cc.STORE_ID
+        -->
         <include refid="page_where"/>
     </select>
 
@@ -141,7 +151,10 @@
         FROM
         CP_OUT_SITE_STORE coss
         INNER JOIN CP_STORE cs ON coss.STORE_ID = cs.ID
-        LEFT JOIN CP_COUPON cc ON cs.ID = cc.STORE_ID
+        <!--
+       LEFT JOIN
+       CP_COUPON cc ON cs.ID = cc.STORE_ID
+       -->
         <include refid="getPageListInSite_where"/>
         ORDER BY cs.ID ASC
         LIMIT #{beginIndex},#{pageSize}
@@ -163,13 +176,17 @@
                 AND cs.IS_COMPLETE = #{isComplete}
             </if>
             <if test="range == 1">
-                <!-- 有新增优惠券的商家-->
+                <!-- 有新增优惠券的商家
                 AND cc.CREATE_TIME &gt;= #{beginDate}
                 AND cc.CREATE_TIME &lt;= #{endDate}
+                -->
+                AND  EXISTS (SELECT ID FROM CP_COUPON WHERE STORE_ID = cs.ID)
             </if>
             <if test="range == 2">
-                <!-- 无新增优惠券的商家-->
+                <!-- 无新增优惠券的商家
                 AND ( cc.CREATE_TIME &lt;= #{beginDate} OR cc.CREATE_TIME &gt;= #{endDate} )
+                -->
+                AND NOT EXISTS (SELECT ID FROM CP_COUPON WHERE STORE_ID = cs.ID)
             </if>
 
             <if test="range == 3">
@@ -188,7 +205,10 @@
         FROM
         CP_OUT_SITE_STORE coss
         INNER JOIN CP_STORE cs ON coss.STORE_ID = cs.ID
-        LEFT JOIN CP_COUPON cc ON cs.ID = cc.STORE_ID
+        <!--
+              LEFT JOIN
+              CP_COUPON cc ON cs.ID = cc.STORE_ID
+              -->
         <include refid="getPageListInSite_where"/>
     </select>
 

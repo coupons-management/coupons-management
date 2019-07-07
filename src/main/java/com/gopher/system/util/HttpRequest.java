@@ -12,13 +12,11 @@ import java.util.Map;
 import com.alibaba.fastjson.JSONObject;
 
 public class HttpRequest {
-	/**
+    /**
      * 向指定URL发送GET方法的请求
-     * 
-     * @param url
-     *            发送请求的URL
-     * @param param
-     *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
+     *
+     * @param url   发送请求的URL
+     * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
      * @return URL 所代表远程资源的响应结果
      */
     public static String sendGet(String url, String param) {
@@ -32,7 +30,7 @@ public class HttpRequest {
             // 设置通用的请求属性
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
-            connection.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             // 建立实际的连接
             connection.connect();
             // 获取所有响应头字段
@@ -64,10 +62,11 @@ public class HttpRequest {
         }
         return result;
     }
- 
+
     /**
      * 向指定 URL 发送POST方法的请求
-     * @param url 发送请求的 URL
+     *
+     * @param url   发送请求的 URL
      * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
      * @return 所代表远程资源的响应结果
      */
@@ -82,7 +81,7 @@ public class HttpRequest {
             // 设置通用的请求属性
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
-            conn.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -101,27 +100,26 @@ public class HttpRequest {
                 result += line;
             }
         } catch (Exception e) {
-            System.out.println("发送 POST 请求出现异常！"+e);
+            System.out.println("发送 POST 请求出现异常！" + e);
             e.printStackTrace();
         }
         //使用finally块来关闭输出流、输入流
-        finally{
-            try{
-                if(out!=null){
+        finally {
+            try {
+                if (out != null) {
                     out.close();
                 }
-                if(in!=null){
+                if (in != null) {
                     in.close();
                 }
-            }
-            catch(IOException ex){
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
-        System.out.println("post推送结果："+result);
+        System.out.println("post推送结果：" + result);
         return result;
     }
-    
+
     public static void main(String[] args) {
     /*	ui地址
     	http://18.234.205.204:6800/
@@ -132,34 +130,17 @@ public class HttpRequest {
     	停止爬虫
     	 curl http://18.234.205.204:6800/cancel.json -d project=coupon_spider -d job=6487ec79947edab326d6db28a2d86511e8247444
     	job参数为页面上展示的job ID*/
-        
-        //发送 POST 请求
-     /*   String sr=HttpRequest.sendPost("http://18.234.205.204:6800/schedule.json", "project=coupon_spider&spider=offer");
-        System.out.println(sr);
-        
-        JSONObject jsonObject = JSONObject.parseObject(sr);
-        Message json = (Message) JSONObject.toJavaObject(jsonObject, Message.class);
-        System.out.println(json.getStatus());
-        String s=HttpRequest.sendPost("http://18.234.205.204:6800/schedule.json", "project=coupon_spider&spider=ccouponchief");
-        System.out.println(s);
-        
-        String m=HttpRequest.sendPost("http://18.234.205.204:6800/cancel.json", "project=coupon_spider&job=6487ec79947edab326d6db28a2d86511e8247444");
-        System.out.println(m);*/
-//
-//    	   String s=HttpRequest.sendPost("http://localhost:8080/system/showSiteTwo/getTwoList", "");
-//           System.out.println(s);
-        String spider_name = "couponpaone";
-        String msg=HttpRequest.sendPost("http://18.234.205.204:6800/schedule.json", "project=coupon_spider&spider=couponpaone");
+        String spider_name = "couponpatwo";
+        String msg = HttpRequest.sendPost("http://18.234.205.204:7033/schedule.json", "project=coupon&spider=" + spider_name);
 //        String msg=HttpRequest.sendPost("http://18.234.205.204:6800/cancel.json", "project=coupon_spider&job=eac5792a905311e9bc15124b7a0b6b46");
         JSONObject jsonObject = JSONObject.parseObject(msg);
         Message json = JSONObject.toJavaObject(jsonObject, Message.class);
-        if("ok".equals(json.getStatus()))
-        {
-            System.out.println("=========================================爬虫 offer 启动成功=================================================================");
-        }else {
-            System.out.println("=========================================爬虫 offer 启动失败=================================================================");
+        if ("ok".equals(json.getStatus())) {
+            System.out.println("=========================================爬虫"+spider_name+" 启动成功=================================================================");
+        } else {
+            System.out.println("=========================================爬虫 "+spider_name+" 启动失败=================================================================");
         }
-       
+
     }
 
 }
