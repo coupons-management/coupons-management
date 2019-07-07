@@ -11,6 +11,7 @@
             <if test="spider !=null ">
                 AND SCRAPY =#{spider}
             </if>
+            AND IN_TYPE = '0'
         </where>
     </select>
 
@@ -22,6 +23,7 @@
             <if test="spider !=null ">
                 AND SCRAPY =#{spider}
             </if>
+            AND IN_TYPE = '0'
         </where>
     </select>
 
@@ -34,6 +36,7 @@
             <if test="spider !=null ">
                 AND SCRAPY =#{spider}
             </if>
+            AND IN_TYPE = '0'
         </where>
     </select>
 
@@ -47,6 +50,7 @@
             <if test="spider !=null ">
                 AND SCRAPY =#{spider}
             </if>
+            AND IN_TYPE = '0'
         </where>
     </select>
 
@@ -66,6 +70,7 @@
             </if>
             AND store.CREATE_TIME &gt;= #{beginDate}
             AND store.CREATE_TIME &lt;= #{endDate}
+            AND IN_TYPE = '0'
         </where>
     </select>
 

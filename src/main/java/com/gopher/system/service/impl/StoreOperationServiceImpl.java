@@ -31,7 +31,7 @@ public class StoreOperationServiceImpl implements StoreOperationService {
     private StoreOperationDAO storeOperationDAO;
     @Autowired
     private StoreService storeService;
-    @Autowired
+
     private static final Logger LOG = LoggerFactory.getLogger(StoreOperationServiceImpl.class);
 
     @Override
@@ -99,8 +99,5 @@ public class StoreOperationServiceImpl implements StoreOperationService {
         result.setPageSize(storePageRequest.getPageSize());
         return result;
     }
-
-
-
 
 }
