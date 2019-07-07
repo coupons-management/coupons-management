@@ -538,13 +538,13 @@
         STORE.LOGO_URL logo,
         COUPON_COUNT_VALID couponCountValid,
         (SELECT COUNT(*) FROM CP_OUT_SITE_COUPON COSC
-                         WHERE COSC.STORE_ID = STORE.ID
-                         AND COSC.OUT_SITE_ID = #{outId}) toalCount,
+        WHERE COSC.STORE_ID = STORE.ID
+        AND COSC.OUT_SITE_ID = #{outId}) toalCount,
         (SELECT COUNT(*) FROM CP_OUT_SITE_COUPON COSC
-                         LEFT  JOIN CP_COUPON COU ON COSC.COUPON_ID = COU.ID
-                         WHERE COSC.STORE_ID = STORE.ID
-                         AND COSC.OUT_SITE_ID = #{outId}
-                         AND COU.EXPIRE_AT >=now()) validCount,
+        LEFT JOIN CP_COUPON COU ON COSC.COUPON_ID = COU.ID
+        WHERE COSC.STORE_ID = STORE.ID
+        AND COSC.OUT_SITE_ID = #{outId}
+        AND COU.EXPIRE_AT >=now()) validCount,
 
         OUTSTORE.VISIT_COUNT AS visitCount,
         date_format( OUTSTORE.CREATE_TIME, '%Y-%c-%d %H:%i:%s' ) addTime,
@@ -556,7 +556,7 @@
         <!-- 商家原始数据-->
         CP_STORE STORE ON OUTSTORE.STORE_ID=STORE.ID
         <if test="typeId != null and typeId >0 ">
-            LEFT JOIN  CP_TYPE_STORE CTS ON CTS.STORE_ID = STORE.ID
+            LEFT JOIN CP_TYPE_STORE CTS ON CTS.STORE_ID = STORE.ID
         </if>
         <include refid="getTwoPageWhere"/>
         ORDER BY STORE.ID ASC
@@ -600,7 +600,7 @@
         LEFT JOIN
         CP_STORE STORE ON OUTSTORE.STORE_ID= STORE.ID
         <if test="typeId != null and typeId >0 ">
-            LEFT JOIN  CP_TYPE_STORE CTS ON CTS.STORE_ID = STORE.ID
+            LEFT JOIN CP_TYPE_STORE CTS ON CTS.STORE_ID = STORE.ID
         </if>
         <include refid="getTwoPageWhere"/>
         )TEMP
@@ -706,11 +706,8 @@
         <include refid="Base_Column_List"/>
         from CP_OUT_SITE_STORE
         <where>
-            <if test="storeId !=null and storeId != '' ">
-                 STORE_ID = #{storeId}
-            </if>
+            STORE_ID = #{storeId}
         </where>
-
     </select>
 
     <update id="clearHotSort">

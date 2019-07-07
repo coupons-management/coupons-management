@@ -11,10 +11,11 @@
     <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="PROCESS" jdbcType="VARCHAR" property="process" />
   </resultMap>
   <sql id="Base_Column_List">
     ID, SCRAPY_NAME, START_TIME, `STATUS`, END_TIME, CREATE_USER, UPDATE_USER, CREATE_TIME, 
-    UPDATE_TIME
+    UPDATE_TIME,PROCESS
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

@@ -50,6 +50,26 @@ public class CpScrapyRecode implements Serializable {
      */
     private Date updateTime;
 
+    private String process;
+
+    private String spiderName;
+
+    public String getSpiderName() {
+        return spiderName;
+    }
+
+    public void setSpiderName(String spiderName) {
+        this.spiderName = spiderName;
+    }
+
+    public String getProcess() {
+        return process;
+    }
+
+    public void setProcess(String process) {
+        this.process = process;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {

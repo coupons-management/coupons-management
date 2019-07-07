@@ -3,6 +3,7 @@ package system;
 import java.util.Date;
 import java.util.List;
 
+import com.gopher.system.dao.mysql.CpOutSiteStoreDAO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class BaseTest {
 	@Autowired
 	private UserDAO userDAO;
+
+	@Autowired
+	private CpOutSiteStoreDAO cpOutSiteStoreDAO;
 	@Test
 	public void getUserPage() {
 		UserPageRequst userPageRequst = new UserPageRequst();
@@ -38,5 +42,9 @@ public class BaseTest {
 		user.setAge(1);
 		user.setCreateTime(new Date());
 		userDAO.insert(user);
+	}
+	@Test
+	public void test(){
+		System.out.println(JSON.toJSONString(	cpOutSiteStoreDAO.getListByStore(82890)));
 	}
 }

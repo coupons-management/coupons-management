@@ -406,13 +406,17 @@ public class SynDataServiceImpl implements SynDataService {
         List<CpOutSiteStore> list = cpOutSiteStoreDAO.getListByStore(storeId);
         if(!CollectionUtils.isEmpty(list)){
            //如果有 同步新增的优惠券到当前这个站点下
-            CpOutSiteCoupon cpOutSiteCoupon = new CpOutSiteCoupon();
-            cpOutSiteCoupon.setCouponId(cpCoupon.getId());
-            cpOutSiteCoupon.setStoreId(storeId);
-            cpOutSiteCoupon.setTitle(TitleUtils.getMessage(cpCoupon.getTitle()));
-            cpOutSiteCoupon.setCreateTime(now);
-            cpOutSiteCoupon.setUpdateTime(now);
-            cpOutSiteCouponDAO.insert(cpOutSiteCoupon);
+            list.forEach(e->{
+                CpOutSiteCoupon cpOutSiteCoupon = new CpOutSiteCoupon();
+                cpOutSiteCoupon.setCouponId(cpCoupon.getId());
+                cpOutSiteCoupon.setStoreId(storeId);
+                cpOutSiteCoupon.setTitle(TitleUtils.getMessage(cpCoupon.getTitle()));
+                cpOutSiteCoupon.setCreateTime(now);
+                cpOutSiteCoupon.setUpdateTime(now);
+                cpOutSiteCoupon.setOutSiteId(e.getOutId());
+                cpOutSiteCouponDAO.insert(cpOutSiteCoupon);
+            });
+
         }
 
     }
