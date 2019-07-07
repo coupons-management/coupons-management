@@ -33,7 +33,12 @@ public interface CpCouponCensusDAO extends MyBatisBaseDao<CpCouponCensus, Intege
 	 */
 	void updateCouponIndex();
 
-	List<CouponResultsOfScore>  getCouponResultsOfScore();
+	/**
+	 * 通过爬虫筛选
+	 * @param storeId
+	 * @return
+	 */
+	List<CouponResultsOfScore>  getCouponResultsOfScore(int storeId);
 
 	
 	  

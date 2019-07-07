@@ -200,10 +200,13 @@
     where cen.STORE_ID=cou.STORE_ID and cou.name= cen.COUPON_NAME)
   </update>
 
-    <select id='getCouponResultsOfScore' resultType="com.gopher.system.model.vo.response.CouponResultsOfScore">
-  	select a.COUPON_ID couponId,  a.SCRAPY_ID scrapyId, a.SORT sort, b.WEIGHT weight from CP_COUPON_CENSUS a
-	INNER JOIN CP_SCRAPY b 
-	ON b.ID = a.SCRAPY_ID 
+    <select id='getCouponResultsOfScore' parameterType="java.lang.Integer"
+            resultType="com.gopher.system.model.vo.response.CouponResultsOfScore">
+  	SELECT a.COUPON_ID couponId,
+  	       a.SCRAPY_ID scrapyId,
+  	       a.SORT sort
+  	FROM CP_COUPON_CENSUS a
+	WHERE a.STORE_ID = #{storeId}
   </select>
 
 

@@ -49,10 +49,7 @@ public class SynDataServiceImpl implements SynDataService {
     CpStoreTemplateDAO cpStoreTemplateDAO;
     @Autowired
     CpScrapyRecodeDAO cpScrapyRecodeDAO;
-//
-//    public static void main(String[] args) {
-//        System.out.println(StringUtils.isEmpty(""));
-//    }
+
     @Override
     public void synStoreData() {
         // 1、取得消息数据，只取当天状态为0的数据
@@ -392,6 +389,15 @@ public class SynDataServiceImpl implements SynDataService {
 
         }
 
+        //初始化爬虫权重比 0-100
+        List<CpScrapy> spiderList = cpScrapyDAO.getList();
+        if(null != spiderList){
+            spiderList.forEach(e->{
+                DataCacheUtils.scrapyMap.put(e.getName(),e.getWeight());
+            });
+        }
+
+
     }
 
     @Autowired
@@ -456,39 +462,7 @@ public class SynDataServiceImpl implements SynDataService {
 
     }
 
-    private String getUrl(String name) {
 
-        int beginIndex;
-        int endIndex;
-        if (StringUtils.isEmpty(name)) {
-            return "None";
-        }
-        try {
-            if (name.startsWith("https://")) {
-                beginIndex = "https://".length();
-                endIndex = name.substring(beginIndex).indexOf("/");
-                if (endIndex == -1) {
-                    return name.substring(beginIndex);
-                }
-                return name.substring(beginIndex, beginIndex + endIndex);
-            }
-
-            if (name.startsWith("http://")) {
-                beginIndex = "http://".length();
-                endIndex = name.substring(beginIndex).indexOf("/");
-                if (endIndex == -1) {
-                    return name.substring(beginIndex);
-                }
-                if (name.substring(beginIndex).contains("?")) {
-                    endIndex = name.substring(beginIndex).indexOf("?");
-                }
-                return name.substring(beginIndex, endIndex);
-            }
-        } catch (Exception e) {
-            logger.info(e.getMessage(), e);
-        }
-        return name;
-    }
 
     private String getName(String url) {
         if (StringUtils.isEmpty(url)) {
@@ -523,4 +497,38 @@ public class SynDataServiceImpl implements SynDataService {
 
 
     }
+
+    //    private String getUrl(String name) {
+//
+//        int beginIndex;
+//        int endIndex;
+//        if (StringUtils.isEmpty(name)) {
+//            return "None";
+//        }
+//        try {
+//            if (name.startsWith("https://")) {
+//                beginIndex = "https://".length();
+//                endIndex = name.substring(beginIndex).indexOf("/");
+//                if (endIndex == -1) {
+//                    return name.substring(beginIndex);
+//                }
+//                return name.substring(beginIndex, beginIndex + endIndex);
+//            }
+//
+//            if (name.startsWith("http://")) {
+//                beginIndex = "http://".length();
+//                endIndex = name.substring(beginIndex).indexOf("/");
+//                if (endIndex == -1) {
+//                    return name.substring(beginIndex);
+//                }
+//                if (name.substring(beginIndex).contains("?")) {
+//                    endIndex = name.substring(beginIndex).indexOf("?");
+//                }
+//                return name.substring(beginIndex, endIndex);
+//            }
+//        } catch (Exception e) {
+//            logger.info(e.getMessage(), e);
+//        }
+//        return name;
+//    }
 }
