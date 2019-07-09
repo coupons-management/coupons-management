@@ -3,8 +3,12 @@ package com.gopher.system.controller;
 import com.gopher.system.constant.SiteEnum;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
+import com.gopher.system.model.vo.request.StorePageRequst;
+import com.gopher.system.model.vo.request.StoreRequest;
+import com.gopher.system.model.vo.response.StoreDetailResponse;
 import com.gopher.system.service.OfficialWebsiteService;
 import com.gopher.system.service.ShowSiteTypeService;
+import com.gopher.system.service.WebSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +29,10 @@ public class GreenIndexController {
     private ShowSiteTypeService showSiteTypeService;
 
 
+    @Autowired
+    private WebSiteService webSiteService;
+
+
     @RequestMapping("/")
     public ModelAndView index(){
         ModelAndView modelAndView = new ModelAndView();
@@ -39,5 +47,39 @@ public class GreenIndexController {
         modelAndView.setViewName("/green/index");
         return modelAndView;
     }
+
+    @RequestMapping("/aboutUs")
+    public ModelAndView aboutUs(){
+        return new ModelAndView("/green/about");
+    }
+
+    @RequestMapping("/contactUs")
+    public ModelAndView contactUs(){
+        return new ModelAndView("/green/contact");
+    }
+
+    @RequestMapping("/stores")
+    public ModelAndView storeList(StorePageRequst storePageRequst){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("stores",officialWebsiteService.getStorePageList(storePageRequst));
+        modelAndView.setViewName("/green/store");
+        return modelAndView;
+    }
+    @RequestMapping("/storeDetail")
+    public ModelAndView storeDetail(StoreRequest storeRequest){
+        ModelAndView modelAndView = new ModelAndView();
+        CpSitestoreRequest cpSitestoreRequest = new CpSitestoreRequest();
+        cpSitestoreRequest.setSiteId(storeRequest.getSiteId());
+        modelAndView.addObject("topStoreList",officialWebsiteService.getTopStoreList(cpSitestoreRequest));
+        StoreDetailResponse storeDetail = webSiteService.getStoreDetail(storeRequest);
+        modelAndView.addObject("storeDetail",storeDetail);
+        StoreRequest visitStoreRequest = new StoreRequest();
+        visitStoreRequest.setId(storeDetail.getId());
+        webSiteService.updateStoreVisitCount(visitStoreRequest);
+        modelAndView.setViewName("/green/storeDetail");
+        return modelAndView;
+    }
+
+
 
 }

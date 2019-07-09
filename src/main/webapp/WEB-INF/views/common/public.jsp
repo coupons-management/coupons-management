@@ -24,3 +24,18 @@
 <script type="text/javascript">
     var basePath="${basePath}";
 </script>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: 'ca-pub-2669162039689132',
+        enable_page_level_ads: true
+    });
+</script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-106211927-10');
+</script>
