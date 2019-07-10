@@ -13,7 +13,7 @@
                 <ul class="navbar-nav justify-content-end ">
                     <li class="nav-item-top-stores  nav-item ml-0 d-none d-lg-inline-block">
                         <div class="nav-link">
-                            <a href="./store.jsp" style="text-decoration: none;color: #151515;font-size: 15px;font-weight: 500;line-height: 35px">
+                            <a href="${basePath}/green/stores" style="text-decoration: none;color: #151515;font-size: 15px;font-weight: 500;line-height: 35px">
                                 Top Stores
                             </a>
                         </div>
@@ -21,7 +21,7 @@
 
                     <li class="nav-item nav-item-category  d-none d-lg-inline-block">
                         <div class="nav-link">
-                            <a href="./category.html" style="text-decoration: none;color: #151515;font-size: 15px;font-weight: 500;line-height: 35px">
+                            <a href="${basePath}/green/categories" style="text-decoration: none;color: #151515;font-size: 15px;font-weight: 500;line-height: 35px">
                                 Categories
                             </a>
                         </div>
@@ -66,7 +66,7 @@
                 <a href="${basePath}/green/" class="nav-item-home nav-link active">Home</a>
                 <a href="${basePath}/green/stores" class="nav-item-top-stores nav-link">Top Stores</a>
                 <a href="./topCoupon.html" class="nav-item-top-coupons nav-link">Top Coupons</a>
-                <a href="./category.html" class="nav-item-category nav-link">Category</a>
+                <a href="./category.jsp" class="nav-item-category nav-link">Category</a>
             </nav>
         </div>
     </nav>

@@ -122,7 +122,7 @@
                         <div class="col-12">
                             <!-- User Block -->
                             <c:forEach items="${storeDetail.couponList.list}" var="coupon">
-                                <div class="box d-flex my-2 my-sm-3">
+                                <div class="box d-flex my-2 my-sm-3" data-coupon-type="${coupon.couponType}">
                                     <div class="offer d-none d-sm-block">
                                         <div class="offer-anchor d-flex flex-column justify-content-center align-items-center" style="max-height: 100px">
                                             <!-- TODO 将 30% off 替换为真实的值 这里先不换, 具体规则未定-->
@@ -147,7 +147,7 @@
                              USED</span>
                                         </div>
 
-                                        <a href="./storeDetail.jsp?c=120705" rel="nofollow" class="get_code"
+                                        <a href="" rel="nofollow" class="get_code"
                                            data-id="120705" data-clipboard-text="save10" target="_self"
                                            url="${storeDetail.website}">
                                             <div class="coupon-hop">
@@ -162,218 +162,6 @@
                                     </div>
                                 </div>
                             </c:forEach>
-
-
-
-
-
-                            <%--<div class="box d-flex my-2 my-sm-3">--%>
-                                <%--<div class="offer d-none d-sm-block">--%>
-                                    <%--<div class="offer-anchor d-flex flex-column justify-content-center align-items-center">--%>
-                                        <%--<!-- TODO 将 30% off 替换为真实的值 这里先不换, 具体规则未定-->--%>
-
-                                        <%--<span class="offer-anchor-text">10%<br>OFF</span>--%>
-
-                                        <%--<span class="label code">CODE</span>--%>
-
-                                    <%--</div>--%>
-                                <%--</div>--%>
-
-                                <%--<div class="detail-info">--%>
-                                    <%--<a class="get_code" url="xxx" href="./storeDetail.jsp?c=120705" target="_self"--%>
-                                       <%--rel="nofollow">--%>
-                                        <%--<h3 class="paddl"><span class="label code d-inline d-sm-none">CODE</span>Extra--%>
-                                            <%--10% Off With Our Exclusive Code</h3>--%>
-                                    <%--</a>--%>
-
-                                    <%--<p class="coupon-description">&nbsp;&nbsp;&nbsp;</p>--%>
-                                    <%--<div class="foot">--%>
-                        <%--<span class="use-info d-inline d-sm-none"><i class="fa fa-user mr-1" aria-hidden="true"></i>--%>
-                            <%----%>
-                                <%--19--%>
-                            <%----%>
-                             <%--USED</span>--%>
-                                    <%--</div>--%>
-
-                                    <%--<a href="./storeDetail.jsp?c=120705" rel="nofollow" class="get_code"--%>
-                                       <%--data-id="120705" data-clipboard-text="save10" target="_self"--%>
-                                       <%--url="./storeDetail.html?c=120705#get_code_120705">--%>
-                                        <%--<div class="coupon-hop">--%>
-                                            <%--<div class="partial-code">0</div>--%>
-                                            <%--<div class="hide-btn d-flex align-items-center justify-content-center">--%>
-                                                <%--<span>Show Code<br><small--%>
-                                                        <%--class="d-none d-sm-inline">&amp; visit site</small></span>--%>
-                                            <%--</div>--%>
-                                        <%--</div>--%>
-                                    <%--</a>--%>
-
-                                <%--</div>--%>
-                            <%--</div>--%>
-
-                            <%--<div class="box d-flex my-2 my-sm-3">--%>
-                                <%--<div class="offer d-none d-sm-block">--%>
-                                    <%--<div class="offer-anchor d-flex flex-column justify-content-center align-items-center">--%>
-                                        <%--<!-- TODO 将 30% off 替换为真实的值 这里先不换, 具体规则未定-->--%>
-
-                                        <%--<span class="offer-anchor-text">10%<br>OFF</span>--%>
-
-                                        <%--<span class="label code">CODE</span>--%>
-
-                                    <%--</div>--%>
-                                <%--</div>--%>
-
-                                <%--<div class="detail-info">--%>
-                                    <%--<a class="get_code" url="xxx" href="./storeDetail.jsp?c=120705" target="_self"--%>
-                                       <%--rel="nofollow">--%>
-                                        <%--<h3 class="paddl"><span class="label code d-inline d-sm-none">CODE</span>Extra--%>
-                                            <%--10% Off With Our Exclusive Code</h3>--%>
-                                    <%--</a>--%>
-
-                                    <%--<p class="coupon-description">&nbsp;&nbsp;&nbsp;</p>--%>
-                                    <%--<div class="foot">--%>
-                        <%--<span class="use-info d-inline d-sm-none"><i class="fa fa-user mr-1" aria-hidden="true"></i>--%>
-                            <%----%>
-                                <%--19--%>
-                            <%----%>
-                             <%--USED</span>--%>
-                                    <%--</div>--%>
-
-                                    <%--<a href="./storeDetail.jsp?c=120705" rel="nofollow" class="get_code"--%>
-                                       <%--data-id="120705" data-clipboard-text="save10" target="_self"--%>
-                                       <%--url="./storeDetail.html?c=120705#get_code_120705">--%>
-                                        <%--<div class="coupon-hop">--%>
-                                            <%--<div class="partial-code">0</div>--%>
-                                            <%--<div class="hide-btn d-flex align-items-center justify-content-center">--%>
-                                                <%--<span>Show Code<br><small--%>
-                                                        <%--class="d-none d-sm-inline">&amp; visit site</small></span>--%>
-                                            <%--</div>--%>
-                                        <%--</div>--%>
-                                    <%--</a>--%>
-
-                                <%--</div>--%>
-                            <%--</div>--%>
-                            <%--<div class="box d-flex my-2 my-sm-3">--%>
-                                <%--<div class="offer d-none d-sm-block">--%>
-                                    <%--<div class="offer-anchor d-flex flex-column justify-content-center align-items-center">--%>
-                                        <%--<!-- TODO 将 30% off 替换为真实的值 这里先不换, 具体规则未定-->--%>
-
-                                        <%--<span class="offer-anchor-text">10%<br>OFF</span>--%>
-
-                                        <%--<span class="label code">CODE</span>--%>
-
-                                    <%--</div>--%>
-                                <%--</div>--%>
-
-                                <%--<div class="detail-info">--%>
-                                    <%--<a class="get_code" url="xxx" href="./storeDetail.jsp?c=120705" target="_self"--%>
-                                       <%--rel="nofollow">--%>
-                                        <%--<h3 class="paddl"><span class="label code d-inline d-sm-none">CODE</span>Extra--%>
-                                            <%--10% Off With Our Exclusive Code</h3>--%>
-                                    <%--</a>--%>
-
-                                    <%--<p class="coupon-description">&nbsp;&nbsp;&nbsp;</p>--%>
-                                    <%--<div class="foot">--%>
-                        <%--<span class="use-info d-inline d-sm-none"><i class="fa fa-user mr-1" aria-hidden="true"></i>--%>
-                            <%----%>
-                                <%--19--%>
-                            <%----%>
-                             <%--USED</span>--%>
-                                    <%--</div>--%>
-
-                                    <%--<a href="./storeDetail.jsp?c=120705" rel="nofollow" class="get_code"--%>
-                                       <%--data-id="120705" data-clipboard-text="save10" target="_self"--%>
-                                       <%--url="./storeDetail.html?c=120705#get_code_120705">--%>
-                                        <%--<div class="coupon-hop">--%>
-                                            <%--<div class="partial-code">0</div>--%>
-                                            <%--<div class="hide-btn d-flex align-items-center justify-content-center">--%>
-                                                <%--<span>Show Code<br><small--%>
-                                                        <%--class="d-none d-sm-inline">&amp; visit site</small></span>--%>
-                                            <%--</div>--%>
-                                        <%--</div>--%>
-                                    <%--</a>--%>
-
-                                <%--</div>--%>
-                            <%--</div>--%>
-                            <%--<div class="box d-flex my-2 my-sm-3">--%>
-                                <%--<div class="offer d-none d-sm-block">--%>
-                                    <%--<div class="offer-anchor d-flex flex-column justify-content-center align-items-center">--%>
-                                        <%--<!-- TODO 将 30% off 替换为真实的值 这里先不换, 具体规则未定-->--%>
-
-                                        <%--<span class="offer-anchor-text">10%<br>OFF</span>--%>
-
-                                        <%--<span class="label code">CODE</span>--%>
-
-                                    <%--</div>--%>
-                                <%--</div>--%>
-
-                                <%--<div class="detail-info">--%>
-                                    <%--<a class="get_code" url="xxx" href="./storeDetail.jsp?c=120705" target="_self"--%>
-                                       <%--rel="nofollow">--%>
-                                        <%--<h3 class="paddl"><span class="label code d-inline d-sm-none">CODE</span>Extra--%>
-                                            <%--10% Off With Our Exclusive Code</h3>--%>
-                                    <%--</a>--%>
-
-                                    <%--<p class="coupon-description">&nbsp;&nbsp;&nbsp;</p>--%>
-                                    <%--<div class="foot">--%>
-                        <%--<span class="use-info d-inline d-sm-none"><i class="fa fa-user mr-1" aria-hidden="true"></i>--%>
-                            <%----%>
-                                <%--19--%>
-                            <%----%>
-                             <%--USED</span>--%>
-                                    <%--</div>--%>
-
-                                    <%--<a href="./storeDetail.jsp?c=120705" rel="nofollow" class="get_code"--%>
-                                       <%--data-id="120705" data-clipboard-text="save10" target="_self"--%>
-                                       <%--url="./storeDetail.html?c=120705#get_code_120705">--%>
-                                        <%--<div class="coupon-hop">--%>
-                                            <%--<div class="partial-code">0</div>--%>
-                                            <%--<div class="hide-btn d-flex align-items-center justify-content-center">--%>
-                                                <%--<span>Show Code<br><small--%>
-                                                        <%--class="d-none d-sm-inline">&amp; visit site</small></span>--%>
-                                            <%--</div>--%>
-                                        <%--</div>--%>
-                                    <%--</a>--%>
-
-                                <%--</div>--%>
-                            <%--</div>--%>
-
-                            <%--<div class="box d-flex my-2 my-sm-3">--%>
-                                <%--<div class="offer d-none d-sm-block">--%>
-                                    <%--<div class="offer-anchor d-flex flex-column justify-content-center align-items-center">--%>
-                                        <%--<!-- TODO 将 30% off 替换为真实的值 这里先不换, 具体规则未定-->--%>
-
-                                        <%--<span class="offer-anchor-text">SALE</span>--%>
-
-                                        <%--<span class="label deal">DEAL</span>--%>
-
-                                    <%--</div>--%>
-                                <%--</div>--%>
-
-                                <%--<div class="detail-info">--%>
-                                    <%--<a class="get_deal" href="./categoryDetail.html?=123594"--%>
-                                       <%--url="./categoryDetail.html?c=123594#get_code_123594" target="_self"--%>
-                                       <%--rel="nofollow">--%>
-                                        <%--<h3 class="paddl"><span class="label code d-inline d-sm-none">CODE</span>Free--%>
-                                            <%--Shipping On $149+ Order</h3>--%>
-                                    <%--</a>--%>
-
-                                    <%--<p class="coupon-description">&nbsp;&nbsp;&nbsp;</p>--%>
-                                    <%--<div class="foot">--%>
-                        <%--<span class="use-info d-inline d-sm-none"><i class="fa fa-user mr-1" aria-hidden="true"></i>--%>
-                            <%----%>
-                                <%--10--%>
-                            <%----%>
-                             <%--USED</span>--%>
-                                    <%--</div>--%>
-
-                                    <%--<a class="btn-get-deal get_deal" data-id="123594"--%>
-                                       <%--href="./categoryDetail.html?c=123594" rel="nofollow" target="_self"--%>
-                                       <%--url="./categoryDetail.html?c=123594#get_code_123594">--%>
-                                        <%--GET DEAL--%>
-                                    <%--</a>--%>
-
-                                <%--</div>--%>
-                            <%--</div>--%>
                         </div>
                     </div>
                     <!-- End Profile Sidebar -->
@@ -386,5 +174,6 @@
 <!-- Footer -->
 <%@ include file="footer.jsp" %>
 <script src="${basePath}/static/js/green/custom.js"></script>
+<script src="${basePath}/static/js/green/storeDetail.js"></script>
 </body>
 </html>

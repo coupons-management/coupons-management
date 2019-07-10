@@ -80,6 +80,13 @@ public class GreenIndexController {
         return modelAndView;
     }
 
+    @RequestMapping("/categories")
+    public ModelAndView categories(CpSitestoreRequest cpSitestoreRequest){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("categories",showSiteTypeService.getList(cpSitestoreRequest.getSiteId(), 1));
+        modelAndView.setViewName("/green/category");
+        return modelAndView;
+    }
 
 
 }
