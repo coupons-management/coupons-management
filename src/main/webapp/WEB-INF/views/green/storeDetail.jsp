@@ -78,7 +78,7 @@
                         <div class="row">
                             <c:forEach items="${topStoreList}" var="store">
                                 <div class="col-6 p-2">
-                                    <a class="cover-wrap store-item"
+                                    <a class="cover-wrap store-item" style="max-height: 100px"
                                        href="${basePath}/green/storeDetail?storeId=${store.storeId}&siteId=1">
                                         <div class="cover">
                                             <img class="img-fluid"
@@ -124,7 +124,7 @@
                             <c:forEach items="${storeDetail.couponList.list}" var="coupon">
                                 <div class="box d-flex my-2 my-sm-3">
                                     <div class="offer d-none d-sm-block">
-                                        <div class="offer-anchor d-flex flex-column justify-content-center align-items-center">
+                                        <div class="offer-anchor d-flex flex-column justify-content-center align-items-center" style="max-height: 100px">
                                             <!-- TODO 将 30% off 替换为真实的值 这里先不换, 具体规则未定-->
                                             <span class="offer-anchor-text">${coupon.sale}</span>
                                             <span class="label code">${coupon.couponType}</span>
