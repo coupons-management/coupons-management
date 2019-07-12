@@ -152,7 +152,7 @@
                     <c:forEach items="${categoryList}" var="category">
                         <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
                             <div class="category-item">
-                                <a class="category-title" href="./categoryDetail.html">
+                                <a class="category-title" href="./categoryDetail.jsp">
                                     <p>${category.name}</p>
                                 </a>
                             </div>
@@ -165,7 +165,7 @@
                 <div class="row">
                     <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
                         <div class="category-item">
-                            <a class="category-title" href="./categoryDetail.html">
+                            <a class="category-title" href="./categoryDetail.jsp">
                                 <p>CBD</p>
                             </a>
                         </div>
@@ -173,7 +173,7 @@
 
                     <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
                         <div class="category-item">
-                            <a class="category-title" href="./categoryDetail.html">
+                            <a class="category-title" href="./categoryDetail.jsp">
                                 <p>Cannabis Seeds</p>
                             </a>
                         </div>
@@ -181,7 +181,7 @@
 
                     <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
                         <div class="category-item">
-                            <a class="category-title" href="./categoryDetail.html">
+                            <a class="category-title" href="./categoryDetail.jsp">
                                 <p>Dabbing tools</p>
                             </a>
                         </div>
@@ -189,7 +189,7 @@
 
                     <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
                         <div class="category-item">
-                            <a class="category-title" href="./categoryDetail.html">
+                            <a class="category-title" href="./categoryDetail.jsp">
                                 <p>Growing equipment</p>
                             </a>
                         </div>
@@ -197,7 +197,7 @@
 
                     <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
                         <div class="category-item">
-                            <a class="category-title" href="./categoryDetail.html">
+                            <a class="category-title" href="./categoryDetail.jsp">
                                 <p>Smoking tools</p>
                             </a>
                         </div>
@@ -205,7 +205,7 @@
 
                     <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
                         <div class="category-item">
-                            <a class="category-title" href="./categoryDetail.html">
+                            <a class="category-title" href="./categoryDetail.jsp">
                                 <p>Vaporizers</p>
                             </a>
                         </div>

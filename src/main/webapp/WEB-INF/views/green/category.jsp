@@ -37,60 +37,12 @@
                     <c:forEach items="${categories}" var="category">
                         <div class="col-6 col-sm-4 col-md-3 col-lg-2 p-3 p-sm-2">
                             <div class="category-item">
-                                <a href="./categoryDetail.html">
+                                <a href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=10&siteId=1&id=${category.id}&name=${category.name}">
                                     ${category.name}
                                 </a>
                             </div>
                         </div>
                     </c:forEach>
-                    <%--<div class="col-6 col-sm-4 col-md-3 col-lg-2 p-3 p-sm-2">--%>
-                        <%--<div class="category-item">--%>
-                            <%--<a href="./categoryDetail.html">--%>
-                                        <%--Cannabis Seeds--%>
-                                    <%--</a>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="col-6 col-sm-4 col-md-3 col-lg-2 p-3 p-sm-2">--%>
-                        <%--<div class="category-item">--%>
-                            <%--<a href="./categoryDetail.html">--%>
-                                        <%--Smoking tools--%>
-                                    <%--</a>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="col-6 col-sm-4 col-md-3 col-lg-2 p-3 p-sm-2">--%>
-                        <%--<div class="category-item">--%>
-                            <%--<a href="./categoryDetail.html">--%>
-                                        <%--Dabbing tools--%>
-                                    <%--</a>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="col-6 col-sm-4 col-md-3 col-lg-2 p-3 p-sm-2">--%>
-                        <%--<div class="category-item">--%>
-                            <%--<a href="./categoryDetail.html">--%>
-                                        <%--Vaporizers--%>
-                                    <%--</a>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="col-6 col-sm-4 col-md-3 col-lg-2 p-3 p-sm-2">--%>
-                        <%--<div class="category-item">--%>
-                            <%--<a href="./categoryDetail.html">--%>
-                                        <%--Growing equipment--%>
-                                    <%--</a>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="col-6 col-sm-4 col-md-3 col-lg-2 p-3 p-sm-2">--%>
-                        <%--<div class="category-item">--%>
-                            <%--<a href="./categoryDetail.html">--%>
-                                        <%--CBD--%>
-                                    <%--</a>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-
                 </div>
             </div>
         </section>

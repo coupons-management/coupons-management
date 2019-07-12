@@ -1,10 +1,7 @@
 package com.gopher.system.controller;
 
 import com.gopher.system.constant.SiteEnum;
-import com.gopher.system.model.vo.request.CouponPageRequest;
-import com.gopher.system.model.vo.request.CpSitestoreRequest;
-import com.gopher.system.model.vo.request.StorePageRequst;
-import com.gopher.system.model.vo.request.StoreRequest;
+import com.gopher.system.model.vo.request.*;
 import com.gopher.system.model.vo.response.StoreDetailResponse;
 import com.gopher.system.service.OfficialWebsiteService;
 import com.gopher.system.service.ShowSiteTypeService;
@@ -87,6 +84,20 @@ public class GreenIndexController {
         modelAndView.setViewName("/green/category");
         return modelAndView;
     }
+
+
+    @RequestMapping("/categoryDetail")
+    public ModelAndView categoryDetail(CategoryRequest categoryRequest){
+        ModelAndView modelAndView = new ModelAndView();
+        CpSitestoreRequest cpSitestoreRequest = new CpSitestoreRequest();
+        cpSitestoreRequest.setSiteId(categoryRequest.getSiteId());
+        modelAndView.addObject("topStoreList",officialWebsiteService.getTopStoreList(cpSitestoreRequest));
+        modelAndView.addObject("coupons",webSiteService.getCouponListByCategory(categoryRequest));
+        modelAndView.addObject("children",showSiteTypeService.getSonList(categoryRequest.getId()));
+        modelAndView.setViewName("/green/categoryDetail");
+        return modelAndView;
+    }
+
 
 
 }

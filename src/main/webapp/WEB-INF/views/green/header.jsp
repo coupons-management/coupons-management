@@ -26,12 +26,12 @@
                             </a>
                         </div>
                         <ul class="list-group category-list">
-                            <a href="./categoryDetail.html" class="list-group-item list-group-item-action">CBD</a
-                            ><a href="./categoryDetail.html" class="list-group-item list-group-item-action">Cannabis Seeds</a
-                        ><a href="./categoryDetail.html" class="list-group-item list-group-item-action">Dabbing tools</a
-                        ><a href="./categoryDetail.html" class="list-group-item list-group-item-action">Growing equipment</a
-                        ><a href="./categoryDetail.html" class="list-group-item list-group-item-action">Smoking tools</a
-                        ><a href="./categoryDetail.html" class="list-group-item list-group-item-action">Vaporizers</a>
+                            <a href="./categoryDetail.jsp" class="list-group-item list-group-item-action">CBD</a
+                            ><a href="./categoryDetail.jsp" class="list-group-item list-group-item-action">Cannabis Seeds</a
+                        ><a href="./categoryDetail.jsp" class="list-group-item list-group-item-action">Dabbing tools</a
+                        ><a href="./categoryDetail.jsp" class="list-group-item list-group-item-action">Growing equipment</a
+                        ><a href="./categoryDetail.jsp" class="list-group-item list-group-item-action">Smoking tools</a
+                        ><a href="./categoryDetail.jsp" class="list-group-item list-group-item-action">Vaporizers</a>
                         </ul>
                     </li>
 
