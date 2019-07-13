@@ -40,6 +40,18 @@ public class ShowSiteCouponResponse {
 	private int clickCount;
 
 	private int manualSort;
+	/**
+	 * 官网
+	 */
+	private String website;
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
 
 	public int getManualSort() {
 		return manualSort;

@@ -562,8 +562,11 @@
         ORDER BY STORE.ID ASC
         ) TEMP
         <where>
-            <if test="range != null and range >0 ">
-                validCount &gt;= #{range}
+            <if test="rangeBegin != null and rangeBegin >0 ">
+                validCount &gt;= #{rangeBegin}
+            </if>
+            <if test="rangeEnd= null and rangeEnd >0 ">
+                validCount &lt;= #{rangeEnd}
             </if>
         </where>
         LIMIT #{beginIndex},#{pageSize}
@@ -605,8 +608,11 @@
         <include refid="getTwoPageWhere"/>
         )TEMP
         <where>
-            <if test="range != null and range >0 ">
-                validCount &gt;= #{range}
+            <if test="rangeBegin != null and rangeBegin >0 ">
+                validCount &gt;= #{rangeBegin}
+            </if>
+            <if test="rangeEnd= null and rangeEnd >0 ">
+                validCount &lt;= #{rangeEnd}
             </if>
         </where>
     </select>
