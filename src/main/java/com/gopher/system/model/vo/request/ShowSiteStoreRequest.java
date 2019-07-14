@@ -31,9 +31,13 @@ public class ShowSiteStoreRequest extends PageRequestBase {
 	 */
 	private String mark;
 	/**
-	 * 有效优惠券范围
+	 * 有效优惠券范围 开始
 	 */
-	private int range;
+	private int rangeBegin;
+	/**
+	 * 有效优惠券 结束
+	 */
+	private int rangeEnd;
 
 	/**
 	 * 开始时间
@@ -117,12 +121,20 @@ public class ShowSiteStoreRequest extends PageRequestBase {
 		this.mark = mark;
 	}
 
-	public int getRange() {
-		return range;
+	public int getRangeBegin() {
+		return rangeBegin;
 	}
 
-	public void setRange(int range) {
-		this.range = range;
+	public void setRangeBegin(int rangeBegin) {
+		this.rangeBegin = rangeBegin;
+	}
+
+	public int getRangeEnd() {
+		return rangeEnd;
+	}
+
+	public void setRangeEnd(int rangeEnd) {
+		this.rangeEnd = rangeEnd;
 	}
 
 	public String getStartTime() {

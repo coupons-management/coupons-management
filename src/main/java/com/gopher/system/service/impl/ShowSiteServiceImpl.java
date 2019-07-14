@@ -150,9 +150,6 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 
 	}
 	
-	public List<CpSitestoreType> getSiteTypeBySite(int siteId){
-		return null;
-	}
 	/**
 	 * 获取在展示站所有商家
 	 * @return

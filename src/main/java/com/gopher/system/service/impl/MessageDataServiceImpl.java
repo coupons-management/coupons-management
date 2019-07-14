@@ -93,35 +93,35 @@ public class MessageDataServiceImpl implements MessageDataService {
         if(null == spider){
             return;
         }
-        CpScrapyStore query  = new CpScrapyStore();
-        query.setScrapyId(spider.getId());
-        List<CpScrapyStore> cpScrapyStoreList = cpScrapyStoreDAO.getList(query);
-        if(!CollectionUtils.isEmpty(cpScrapyStoreList)){
-            cpScrapyStoreList.forEach(e->{
-                List<CouponResultsOfScore> scoreList = cpCouponCensusDAO.getCouponResultsOfScore(e.getStoreId());
-                Map<Integer, Integer> final_sort = new HashMap<>();
-                // 计算和
-                for (CouponResultsOfScore couponResultsOfScore : scoreList) {
-                    final int cooupon_id = couponResultsOfScore.getCouponId();
-                    Integer score = final_sort.get(cooupon_id);
-                    if (null == score) {
-                        score = couponResultsOfScore.getSort();
-                    } else {
-                        score += couponResultsOfScore.getSort();
-                    }
-                    final_sort.put(cooupon_id, score);
-                }
-                Set<Integer> keys = final_sort.keySet();
-
-                for (Integer cooupon_id : keys) {
-                    // 更新每一条
-                    CpCoupon pon = new CpCoupon();
-                    pon.setId(cooupon_id);
-                    pon.setIndex(final_sort.get(cooupon_id));
-                    cpCouponDAO.updateByPrimaryKeySelective(pon);
-                }
-            });
-        }
+//        CpScrapyStore query  = new CpScrapyStore();
+//        query.setScrapyId(spider.getId());
+//        List<CpScrapyStore> cpScrapyStoreList = cpScrapyStoreDAO.getList(query);
+//        if(!CollectionUtils.isEmpty(cpScrapyStoreList)){
+//            cpScrapyStoreList.forEach(e->{
+//                List<CouponResultsOfScore> scoreList = cpCouponCensusDAO.getCouponResultsOfScore(e.getStoreId());
+//                Map<Integer, Integer> final_sort = new HashMap<>();
+//                // 计算和
+//                for (CouponResultsOfScore couponResultsOfScore : scoreList) {
+//                    final int cooupon_id = couponResultsOfScore.getCouponId();
+//                    Integer score = final_sort.get(cooupon_id);
+//                    if (null == score) {
+//                        score = couponResultsOfScore.getSort();
+//                    } else {
+//                        score += couponResultsOfScore.getSort();
+//                    }
+//                    final_sort.put(cooupon_id, score);
+//                }
+//                Set<Integer> keys = final_sort.keySet();
+//
+//                for (Integer cooupon_id : keys) {
+//                    // 更新每一条
+//                    CpCoupon pon = new CpCoupon();
+//                    pon.setId(cooupon_id);
+//                    pon.setIndex(final_sort.get(cooupon_id));
+//                    cpCouponDAO.updateByPrimaryKeySelective(pon);
+//                }
+//            });
+//        }
 
 
     }

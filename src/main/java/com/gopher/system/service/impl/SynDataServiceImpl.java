@@ -60,7 +60,7 @@ public class SynDataServiceImpl implements SynDataService {
         for (final TMessage message : list) {
             try {
                 String objectStr = message.getMessageBody();
-                StoreJson stu = JSONObject.parseObject(objectStr,StoreJson.class);
+                StoreJson stu = JSONObject.parseObject(objectStr, StoreJson.class);
                 // 来源站点
                 final String sourceUrl = stu.getSourceSite();
                 // 商家官网
@@ -94,9 +94,9 @@ public class SynDataServiceImpl implements SynDataService {
                     cpStore.setWebsite(storeUrl);
                     cpStore.setTitle(stu.getTitle());
                     cpStore.setCountry(stu.getCountry());
-                    if(StringUtils.isEmpty(stu.getCouponCount())){
+                    if (StringUtils.isEmpty(stu.getCouponCount())) {
                         cpStore.setCouponCount(0);
-                    }else{
+                    } else {
                         cpStore.setCouponCount(Integer.parseInt(stu.getCouponCount()));
                     }
                     cpStore.setLogoUrl(stu.getLogoUrl());
@@ -123,9 +123,9 @@ public class SynDataServiceImpl implements SynDataService {
                     cpStore.setWebsite(storeUrl);
                     cpStore.setCountry(stu.getCountry());
                     cpStore.setTitle(stu.getTitle());
-                    if(StringUtils.isEmpty(stu.getCouponCount())){
+                    if (StringUtils.isEmpty(stu.getCouponCount())) {
                         cpStore.setCouponCount(0);
-                    }else{
+                    } else {
                         cpStore.setCouponCount(Integer.parseInt(stu.getCouponCount()));
                     }
                     cpStore.setLogoUrl(stu.getLogoUrl());
@@ -226,13 +226,15 @@ public class SynDataServiceImpl implements SynDataService {
                 qcpCoupon.setStoreId(cpStore.getId());
                 qcpCoupon.setName(stu.getName());
                 CpCoupon cpCoupon = cpCouponDAO.getBeanByName(qcpCoupon);
+                Integer weight = DataCacheUtils.scrapyMap.get(stu.getSpiderName());
+                final int index = weight * (DataCacheUtils.VALUES - stu.getIndex());
                 if (cpCoupon == null) {
                     cpCoupon = new CpCoupon();
                     cpCoupon.setStoreId(cpStore.getId());
                     cpCoupon.setName(stu.getName());
                     cpCoupon.setCode(stu.getCode());
                     final Date expire = stu.getExpire();
-                    if(null == expire){
+                    if (null == expire) {
                         cpCoupon.setExpireAt(DateUtils.getDateTime("2099-01-01"));
                     }
                     cpCoupon.setFinalWebsite(stu.getFinalWebsite());
@@ -249,15 +251,15 @@ public class SynDataServiceImpl implements SynDataService {
                     cpCoupon.setUpdateTime(now);
                     cpCoupon.setIsPass("0");
                     cpCoupon.setTitle(TitleUtils.getMessage(stu.getName()));
-
+                    cpCoupon.setIndex(index);
                     cpCouponDAO.insert(cpCoupon);
-                    this.synOutSiteCoupon(cpStore.getId(),cpCoupon,now);
+                    this.synOutSiteCoupon(cpStore.getId(), cpCoupon, now);
                 } else {
                     cpCoupon.setStoreId(cpStore.getId());
                     cpCoupon.setName(stu.getName());
                     cpCoupon.setCode(stu.getCode());
                     final Date expire = stu.getExpire();
-                    if(null == expire){
+                    if (null == expire) {
                         cpCoupon.setExpireAt(DateUtils.getDateTime("2099-01-01"));
                     }
                     cpCoupon.setLink(stu.getLink());
@@ -270,7 +272,7 @@ public class SynDataServiceImpl implements SynDataService {
                         cpCoupon.setDes(stu.getDescription());
                     }
                     cpCoupon.setUpdateTime(now);
-                    cpCoupon.setIndex(stu.getIndex());
+                    cpCoupon.setIndex(index > cpCoupon.getIndex() ? index : cpCoupon.getIndex());
                     cpCoupon.setTitle(TitleUtils.getMessage(stu.getName()));
                     cpCouponDAO.updateByPrimaryKeySelective(cpCoupon);
                 }
@@ -318,27 +320,27 @@ public class SynDataServiceImpl implements SynDataService {
                 param.setScrapyName(cpScrapy.getName());
                 param.setStoreId(cpStore.getId());
                 CpCouponCensus census = cpCouponCensusDAO.getBean(param);
-                Integer weight = DataCacheUtils.scrapyMap.get(cpScrapy.getName());
-                if (weight == null || weight <= 0) {
-                    weight = 1;
-                }
-                if (census == null) {
-                    census = new CpCouponCensus();
-                    census.setCouponId(cpCoupon.getId());
-                    census.setScrapyId(cpScrapy.getId());
-                    census.setCouponName(cpCoupon.getName());
-                    census.setScrapyName(cpScrapy.getName());
-                    census.setStoreId(cpStore.getId());
-                    census.setSort(weight * (DataCacheUtils.VALUES - stu.getIndex()));
-                    census.setScrapyTime(now);
-                    census.setCreateTime(now);
-                    cpCouponCensusDAO.insert(census);
-                } else {
-                    census.setSort(weight * (DataCacheUtils.VALUES - stu.getIndex()));
-                    census.setScrapyTime(now);
-                    census.setUpdateTime(now);
-                    cpCouponCensusDAO.updateByPrimaryKeySelective(census);
-                }
+//                Integer weight = DataCacheUtils.scrapyMap.get(cpScrapy.getName());
+//                if (weight == null || weight <= 0) {
+//                    weight = 1;
+//                }
+//                if (census == null) {
+//                    census = new CpCouponCensus();
+//                    census.setCouponId(cpCoupon.getId());
+//                    census.setScrapyId(cpScrapy.getId());
+//                    census.setCouponName(cpCoupon.getName());
+//                    census.setScrapyName(cpScrapy.getName());
+//                    census.setStoreId(cpStore.getId());
+//                    census.setSort(weight * (DataCacheUtils.VALUES - stu.getIndex()));
+//                    census.setScrapyTime(now);
+//                    census.setCreateTime(now);
+//                    cpCouponCensusDAO.insert(census);
+//                } else {
+//                    census.setSort(weight * (DataCacheUtils.VALUES - stu.getIndex()));
+//                    census.setScrapyTime(now);
+//                    census.setUpdateTime(now);
+//                    cpCouponCensusDAO.updateByPrimaryKeySelective(census);
+//                }
             } catch (Exception e) {
                 logger.info(e.getMessage(), e);
             } finally {
@@ -391,9 +393,9 @@ public class SynDataServiceImpl implements SynDataService {
 
         //初始化爬虫权重比 0-100
         List<CpScrapy> spiderList = cpScrapyDAO.getList();
-        if(null != spiderList){
-            spiderList.forEach(e->{
-                DataCacheUtils.scrapyMap.put(e.getName(),e.getWeight());
+        if (null != spiderList) {
+            spiderList.forEach(e -> {
+                DataCacheUtils.scrapyMap.put(e.getName(), e.getWeight());
             });
         }
 
@@ -404,15 +406,16 @@ public class SynDataServiceImpl implements SynDataService {
     private CpOutSiteCouponDAO cpOutSiteCouponDAO;
     @Autowired
     private CpOutSiteStoreDAO cpOutSiteStoreDAO;
+
     /**
      * 同步已经加入展示站点内的优惠券
      */
-    private void synOutSiteCoupon(int storeId,CpCoupon cpCoupon,Date now){
+    private void synOutSiteCoupon(int storeId, CpCoupon cpCoupon, Date now) {
         // 1 通过商家ID 找OUT_SITE_STORE 记录如果有就
         List<CpOutSiteStore> list = cpOutSiteStoreDAO.getListByStore(storeId);
-        if(!CollectionUtils.isEmpty(list)){
-           //如果有 同步新增的优惠券到当前这个站点下
-            list.forEach(e->{
+        if (!CollectionUtils.isEmpty(list)) {
+            //如果有 同步新增的优惠券到当前这个站点下
+            list.forEach(e -> {
                 CpOutSiteCoupon cpOutSiteCoupon = new CpOutSiteCoupon();
                 cpOutSiteCoupon.setCouponId(cpCoupon.getId());
                 cpOutSiteCoupon.setStoreId(storeId);
@@ -461,7 +464,6 @@ public class SynDataServiceImpl implements SynDataService {
         }
 
     }
-
 
 
     private String getName(String url) {

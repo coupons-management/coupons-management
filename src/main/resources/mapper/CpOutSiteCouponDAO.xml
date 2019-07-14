@@ -397,12 +397,14 @@
         cp.CREATE_TIME AS createTime,
         osp.CREATE_TIME AS joinTime,
         cp.IN_TYPE AS inType,
-        osp.CLICK_COUNT AS clickCount
+        osp.CLICK_COUNT AS clickCount,
+        cs.WEBSITE AS website
         FROM
         CP_COUPON cp
-        INNER JOIN
+        LEFT JOIN
         CP_OUT_SITE_COUPON osp ON cp.ID =
         osp.COUPON_ID
+        LEFT JOIN CP_STORE cs ON cp.STORE_ID = cs.ID
         <include refid="getPageWhere"></include>
         ORDER BY cp.MANUAL_SORT DESC , cp.INDEX DESC
         LIMIT #{beginIndex},#{pageSize}
@@ -440,7 +442,7 @@
         count(1)
         FROM
         CP_COUPON cp
-        INNER JOIN CP_OUT_SITE_COUPON osp ON
+        LEFT JOIN CP_OUT_SITE_COUPON osp ON
         cp.ID = osp.COUPON_ID
         <include refid="getPageWhere"></include>
     </select>
