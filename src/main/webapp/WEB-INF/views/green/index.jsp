@@ -73,7 +73,7 @@
             <div class="row">
                 <c:forEach items="${topStoreList}" var="store">
                     <div class="col-6 col-md-4 col-lg-5-1 p-2" style="height: 187px">
-                        <a class="store-grid-item cover-wrap" href="">
+                        <a class="store-grid-item cover-wrap" href="${basePath}/green/storeDetail?storeId=${store.storeId}&siteId=1">
                             <div class="cover">
                                 <img src="${store.logoUrl}" class="align-self-center" alt="${store.name}"
                                      title="${store.title}"/>
@@ -97,7 +97,7 @@
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 px-2 py-0 py-sm-2">
                         <div class="coupon-item row no-gutters">
                             <div class="pic-box col-3 col-sm-12 d-flex flex-grow-0 justify-content-center">
-                                <a class="cover-wrap position-relative" href="./storeDetail.jsp">
+                                <a class="cover-wrap position-relative" href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1">
                                     <div class="cover">
                                         <img src="${coupon.storeLogo}" alt="${coupon.name}"/>
                                     </div>
@@ -152,7 +152,7 @@
                     <c:forEach items="${categoryList}" var="category">
                         <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
                             <div class="category-item">
-                                <a class="category-title" href="./categoryDetail.jsp">
+                                <a class="category-title" href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=10&siteId=1&id=${category.id}&name=${category.name}">
                                     <p>${category.name}</p>
                                 </a>
                             </div>

@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <!-- Logo -->
-            <a href="./index.jsp" class="navbar-brand mr-4">
+            <a href="${basePath}/green/" class="navbar-brand mr-4">
                 <!-- TODO 更换真实的 logo url -->
                 <img alt="cannabis coupons - cannabispromocodes.com" src="${basePath}/static/common/img/cannabis.jpg" />
             </a>
@@ -25,14 +25,6 @@
                                 Categories
                             </a>
                         </div>
-                        <ul class="list-group category-list">
-                            <a href="./categoryDetail.jsp" class="list-group-item list-group-item-action">CBD</a
-                            ><a href="./categoryDetail.jsp" class="list-group-item list-group-item-action">Cannabis Seeds</a
-                        ><a href="./categoryDetail.jsp" class="list-group-item list-group-item-action">Dabbing tools</a
-                        ><a href="./categoryDetail.jsp" class="list-group-item list-group-item-action">Growing equipment</a
-                        ><a href="./categoryDetail.jsp" class="list-group-item list-group-item-action">Smoking tools</a
-                        ><a href="./categoryDetail.jsp" class="list-group-item list-group-item-action">Vaporizers</a>
-                        </ul>
                     </li>
 
                     <li class="nav-item nav-item__search">
