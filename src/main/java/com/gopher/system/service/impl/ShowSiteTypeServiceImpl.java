@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.gopher.system.model.vo.Page;
+import com.gopher.system.model.vo.request.CpSitestorePageRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -274,4 +276,15 @@ public class ShowSiteTypeServiceImpl implements ShowSiteTypeService {
 		return cpSitestoreTypeDAO.getSonList(pid);
 	}
 
+	@Override
+	public Page<CpSitestoreType> getPage(CpSitestorePageRequest request) {
+		Page<CpSitestoreType> result = new Page<>();
+		result.setPageNumber(request.getPageNumber());
+		result.setPageSize(request.getPageSize());
+		List<CpSitestoreType> list = cpSitestoreTypeDAO.getPage(request);
+		final int totalCount = cpSitestoreTypeDAO.getCount(request);
+		result.setTotalCount(totalCount);
+		result.setList(list);
+		return result;
+	}
 }

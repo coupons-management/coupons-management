@@ -2,6 +2,7 @@ package com.gopher.system.controller;
 
 import javax.annotation.Resource;
 
+import com.gopher.system.model.vo.request.CpSitestorePageRequest;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -90,6 +91,13 @@ public class OfficialWebsiteController {
 	public Result getStoreCategoryCouponList(@RequestBody CouponPageRequest quest) {
 		Result result = new Result();
 		result.setData(officialWebsiteService.getStoreCategoryCouponList(quest));
+		return result;
+	}
+
+	@RequestMapping(path = "/getStoreCategoryPage")
+	public Result getStoreCategoryPage(@RequestBody CpSitestorePageRequest quest) {
+		Result result = new Result();
+		result.setData(showSiteTypeServiceImpl.getPage(quest));
 		return result;
 	}
 

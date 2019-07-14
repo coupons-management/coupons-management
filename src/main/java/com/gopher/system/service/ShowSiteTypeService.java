@@ -3,6 +3,8 @@ package com.gopher.system.service;
 import java.util.List;
 
 import com.gopher.system.model.entity.CpSitestoreType;
+import com.gopher.system.model.vo.Page;
+import com.gopher.system.model.vo.request.CpSitestorePageRequest;
 import com.gopher.system.model.vo.request.SourceTypeRequest;
 import com.gopher.system.model.vo.request.TypeMapRequest;
 import com.gopher.system.model.vo.response.CpTypeResponse;
@@ -67,4 +69,11 @@ public interface ShowSiteTypeService {
 	 * @return
 	 */
 	List<CpTypeResponse> getSourceTypeList(SourceTypeRequest sourceTypeRequest);
+
+	/**
+	 * 分页
+	 * @param request
+	 * @return
+	 */
+	Page<CpSitestoreType> getPage(CpSitestorePageRequest request);
 }

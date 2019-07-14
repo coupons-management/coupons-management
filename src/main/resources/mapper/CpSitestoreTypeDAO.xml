@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="com.gopher.system.dao.mysql.CpSitestoreTypeDAO">
-	<resultMap id="BaseResultMap"
-		type="com.gopher.system.model.entity.CpSitestoreType">
-		<id column="ID" jdbcType="INTEGER" property="id" />
-		<result column="OUT_SITE_ID" jdbcType="INTEGER"
-			property="outSiteId" />
-		<result column="NAME" jdbcType="VARCHAR" property="name" />
-		<result column="PID" jdbcType="INTEGER" property="pid" />
-		<result column="LEVEL" jdbcType="INTEGER" property="level" />
-		<result column="CREATE_USER" jdbcType="INTEGER"
-			property="createUser" />
-		<result column="UPDATE_USER" jdbcType="INTEGER"
-			property="updateUser" />
-		<result column="CREATE_TIME" jdbcType="TIMESTAMP"
-			property="createTime" />
-		<result column="UPDATE_TIME" jdbcType="TIMESTAMP"
-			property="updateTime" />
-	</resultMap>
-	<sql id="Base_Column_List">
+        namespace="com.gopher.system.dao.mysql.CpSitestoreTypeDAO">
+    <resultMap id="BaseResultMap"
+               type="com.gopher.system.model.entity.CpSitestoreType">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="OUT_SITE_ID" jdbcType="INTEGER"
+                property="outSiteId"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="PID" jdbcType="INTEGER" property="pid"/>
+        <result column="LEVEL" jdbcType="INTEGER" property="level"/>
+        <result column="CREATE_USER" jdbcType="INTEGER"
+                property="createUser"/>
+        <result column="UPDATE_USER" jdbcType="INTEGER"
+                property="updateUser"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP"
+                property="createTime"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP"
+                property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
 		ID, OUT_SITE_ID, `NAME`, PID, `LEVEL`, CREATE_USER,
 		UPDATE_USER,
 		CREATE_TIME, UPDATE_TIME
 	</sql>
-	<select id="selectByPrimaryKey"
-		parameterType="java.lang.Integer" resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from CP_SITESTORE_TYPE
-		where ID = #{id,jdbcType=INTEGER}
-	</select>
-	<delete id="deleteByPrimaryKey"
-		parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey"
+            parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from CP_SITESTORE_TYPE
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey"
+            parameterType="java.lang.Integer">
 		delete from CP_SITESTORE_TYPE
 		where ID =
 		#{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" keyColumn="ID" keyProperty="id"
-		parameterType="com.gopher.system.model.entity.CpSitestoreType"
-		useGeneratedKeys="true">
+    <insert id="insert" keyColumn="ID" keyProperty="id"
+            parameterType="com.gopher.system.model.entity.CpSitestoreType"
+            useGeneratedKeys="true">
 		insert into CP_SITESTORE_TYPE (OUT_SITE_ID, `NAME`,
 		PID,
 		`LEVEL`, CREATE_USER, UPDATE_USER,
@@ -51,98 +51,98 @@
 		#{createUser,jdbcType=INTEGER}, #{updateUser,jdbcType=INTEGER},
 		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
 	</insert>
-	<insert id="insertSelective" keyColumn="ID" keyProperty="id"
-		parameterType="com.gopher.system.model.entity.CpSitestoreType"
-		useGeneratedKeys="true">
-		insert into CP_SITESTORE_TYPE
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="outSiteId != null">
-				OUT_SITE_ID,
-			</if>
-			<if test="name != null">
-				`NAME`,
-			</if>
-			<if test="pid != null">
-				PID,
-			</if>
-			<if test="level != null">
-				`LEVEL`,
-			</if>
-			<if test="createUser != null">
-				CREATE_USER,
-			</if>
-			<if test="updateUser != null">
-				UPDATE_USER,
-			</if>
-			<if test="createTime != null">
-				CREATE_TIME,
-			</if>
-			<if test="updateTime != null">
-				UPDATE_TIME,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="outSiteId != null">
-				#{outSiteId,jdbcType=INTEGER},
-			</if>
-			<if test="name != null">
-				#{name,jdbcType=VARCHAR},
-			</if>
-			<if test="pid != null">
-				#{pid,jdbcType=INTEGER},
-			</if>
-			<if test="level != null">
-				#{level,jdbcType=INTEGER},
-			</if>
-			<if test="createUser != null">
-				#{createUser,jdbcType=INTEGER},
-			</if>
-			<if test="updateUser != null">
-				#{updateUser,jdbcType=INTEGER},
-			</if>
-			<if test="createTime != null">
-				#{createTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="updateTime != null">
-				#{updateTime,jdbcType=TIMESTAMP},
-			</if>
-		</trim>
-	</insert>
+    <insert id="insertSelective" keyColumn="ID" keyProperty="id"
+            parameterType="com.gopher.system.model.entity.CpSitestoreType"
+            useGeneratedKeys="true">
+        insert into CP_SITESTORE_TYPE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="outSiteId != null">
+                OUT_SITE_ID,
+            </if>
+            <if test="name != null">
+                `NAME`,
+            </if>
+            <if test="pid != null">
+                PID,
+            </if>
+            <if test="level != null">
+                `LEVEL`,
+            </if>
+            <if test="createUser != null">
+                CREATE_USER,
+            </if>
+            <if test="updateUser != null">
+                UPDATE_USER,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="outSiteId != null">
+                #{outSiteId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=INTEGER},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
 
-	<update id="updateByPrimaryKeySelective"
-		parameterType="com.gopher.system.model.entity.CpSitestoreType">
-		update CP_SITESTORE_TYPE
-		<set>
-			<if test="outSiteId != null">
-				OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
-			</if>
-			<if test="name != null">
-				`NAME` = #{name,jdbcType=VARCHAR},
-			</if>
-			<if test="pid != null">
-				PID = #{pid,jdbcType=INTEGER},
-			</if>
-			<if test="level != null">
-				`LEVEL` = #{level,jdbcType=INTEGER},
-			</if>
-			<if test="createUser != null">
-				CREATE_USER = #{createUser,jdbcType=INTEGER},
-			</if>
-			<if test="updateUser != null">
-				UPDATE_USER = #{updateUser,jdbcType=INTEGER},
-			</if>
-			<if test="createTime != null">
-				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="updateTime != null">
-				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-			</if>
-		</set>
-		where ID = #{id,jdbcType=INTEGER}
-	</update>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.gopher.system.model.entity.CpSitestoreType">
+        update CP_SITESTORE_TYPE
+        <set>
+            <if test="outSiteId != null">
+                OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                `NAME` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                PID = #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                `LEVEL` = #{level,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                CREATE_USER = #{createUser,jdbcType=INTEGER},
+            </if>
+            <if test="updateUser != null">
+                UPDATE_USER = #{updateUser,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
 
-	<update id="updateByPrimaryKey"
-		parameterType="com.gopher.system.model.entity.CpSitestoreType">
+    <update id="updateByPrimaryKey"
+            parameterType="com.gopher.system.model.entity.CpSitestoreType">
 		update CP_SITESTORE_TYPE
 		set OUT_SITE_ID =
 		#{outSiteId,jdbcType=INTEGER},
@@ -160,61 +160,95 @@
 		where ID = #{id,jdbcType=INTEGER}
 	</update>
 
-	<select id="getList"
-		parameterType="com.gopher.system.model.entity.CpSitestoreType"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from CP_SITESTORE_TYPE
-		<where>
-			<if test="outSiteId > 0">
-				OUT_SITE_ID = #{outSiteId}
-			</if>
-			<if test="level > 0">
-				AND LEVEL = #{level}
-			</if>
-			<if test="id != null and id > 0">
-				AND PID = #{id}
-			</if>
-		</where>
-	</select>
+    <select id="getList"
+            parameterType="com.gopher.system.model.entity.CpSitestoreType"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from CP_SITESTORE_TYPE
+        <where>
+            <if test="outSiteId > 0">
+                OUT_SITE_ID = #{outSiteId}
+            </if>
+            <if test="level > 0">
+                AND LEVEL = #{level}
+            </if>
+            <if test="id != null and id > 0">
+                AND PID = #{id}
+            </if>
+        </where>
+    </select>
 
-	<select id="getStoreSort"
-		parameterType="com.gopher.system.model.vo.request.CpSitestoreRequest"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from CP_SITESTORE_TYPE
-		<where>
-			<if test="siteId > 0">
-				OUT_SITE_ID = #{siteId}
-			</if>
-		</where>
-	</select>
+    <select id="getStoreSort"
+            parameterType="com.gopher.system.model.vo.request.CpSitestoreRequest"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from CP_SITESTORE_TYPE
+        <where>
+            <if test="siteId > 0">
+                OUT_SITE_ID = #{siteId}
+            </if>
+        </where>
+    </select>
 
-	<select id="getSonList" parameterType="java.lang.Integer"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from CP_SITESTORE_TYPE
-		<where>
-			PID = #{pid}
-		</where>
-	</select>
+    <select id="getSonList" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from CP_SITESTORE_TYPE
+        <where>
+            PID = #{pid}
+        </where>
+    </select>
 
-	<select id="getByName" parameterType="com.gopher.system.model.entity.CpSitestoreType"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from CP_SITESTORE_TYPE
-		<where>
-			NAME = #{name}
-			AND OUT_SITE_ID = #{outSiteId}
-		</where>
-		LIMIT 1
-	</select>
+    <select id="getByName" parameterType="com.gopher.system.model.entity.CpSitestoreType"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from CP_SITESTORE_TYPE
+        <where>
+            NAME = #{name}
+            AND OUT_SITE_ID = #{outSiteId}
+        </where>
+        LIMIT 1
+    </select>
 
-	<delete id="deleteByPid">
+    <delete id="deleteByPid">
 		DELETE FORM CP_SITESTORE_TYPE WHERE PID = #{pid}
 	</delete>
+
+    <select id="getPage" parameterType="com.gopher.system.model.vo.request.CpSitestorePageRequest"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM CP_SITESTORE_TYPE
+        WHERE
+        OUT_SITE_ID = #{siteId,jdbcType=INTEGER}
+        <if test="name != null">
+           AND `NAME` LIKE "%"#{name}"%"
+        </if>
+        <if test="level != null">
+           AND `LEVEL` = #{level,jdbcType=INTEGER}
+        </if>
+        ORDER BY CREATE_TIME
+        limit #{beginIndex},#{pageSize}
+    </select>
+
+    <select id="getCount" parameterType="com.gopher.system.model.vo.request.UserStoreRequest"
+            resultType="java.lang.Integer">
+        SELECT
+        COUNT(DISTINCT ID)
+        FROM
+        CP_SITESTORE_TYPE
+        WHERE
+        OUT_SITE_ID = #{siteId,jdbcType=INTEGER}
+        <if test="name != null">
+            AND `NAME` LIKE "%"#{name}"%"
+        </if>
+        <if test="level != null">
+            AND `LEVEL` = #{level,jdbcType=INTEGER}
+        </if>
+    </select>
+
 </mapper>
