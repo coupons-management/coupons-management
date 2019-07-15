@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gopher.system.model.entity.CpType;
 import com.gopher.system.model.vo.CpCouponVo;
+import com.gopher.system.model.vo.CpSearchStoreVo;
 import com.gopher.system.model.vo.CpStoreVo;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CouponPageRequest;
@@ -49,6 +50,7 @@ public interface OfficialWebsiteService {
 
 	List<CpCouponVo> getStoreCategoryCouponList(CouponPageRequest quest);
 
+	Page<CpSearchStoreVo> searchStorePageList(StorePageRequst quest);
 	
 
 }

@@ -45,6 +45,13 @@ public class OfficialWebsiteController {
 		return result;
 	}
 
+	@RequestMapping(path = "/searchStorePageList")
+	public Result searchStorePageList(@RequestBody StorePageRequst quest) {
+		Result result = new Result();
+		result.setData(officialWebsiteService.searchStorePageList(quest));
+		return result;
+	}
+
 	@RequestMapping(path = "/getCategoriesPageList")
 	public Result getCategoriesPageList(@RequestBody CpSitestoreRequest quest) {
 		Result result = new Result();

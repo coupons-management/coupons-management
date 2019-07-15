@@ -31,10 +31,10 @@ $(document).ready(function () {
         $('#header_search_ul').empty();
         if (param.length > 0) {
             $.ajax({
-                url: basePath + "/officialWebsite/getStorePageList",
+                url: basePath + "/officialWebsite/searchStorePageList",
                 method: 'post',
                 contentType: "application/json;charset=UTF-8",
-                data: JSON.stringify({pageNumber: 1, pageSize: 5, name: param}),
+                data: JSON.stringify({pageNumber: 1, pageSize: 5, name: param,siteId:1}),
                 dataType: 'json',
                 success: headerStoreSearchSuccess
             })
@@ -57,7 +57,7 @@ $(document).ready(function () {
                     '                                                    <div><strong>' + store.name + '</strong> -- Store</div>\n' +
                     '                                                </div>\n' +
                     //todo offers数量接口未返回
-                    '                                                <p class="count">5 offers</p>\n' +
+                    '                                                <p class="count">'+store.couponCount+' offers</p>\n' +
                     '                                            </div>\n' +
                     '                                        </a>\n' +
                     '                                    </li>');
