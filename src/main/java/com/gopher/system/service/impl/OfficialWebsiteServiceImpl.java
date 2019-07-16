@@ -1,9 +1,15 @@
 package com.gopher.system.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.gopher.system.constant.TemplateKeys;
+import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
+import com.gopher.system.model.vo.CpSearchStoreVo;
+import com.gopher.system.model.vo.request.*;
 import com.gopher.system.util.TitleUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +20,8 @@ import com.gopher.system.model.entity.CpType;
 import com.gopher.system.model.vo.CpCouponVo;
 import com.gopher.system.model.vo.CpStoreVo;
 import com.gopher.system.model.vo.Page;
-import com.gopher.system.model.vo.request.CouponPageRequest;
-import com.gopher.system.model.vo.request.CpSitestoreRequest;
-import com.gopher.system.model.vo.request.CpTypePageRequest;
-import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.service.OfficialWebsiteService;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 @Service
@@ -29,6 +32,8 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
     private CpStoreDAO cpStoreDAO;
     @Autowired
     private CpCouponDAO cpCouponDAO;
+    @Autowired
+    private CpOutSiteCouponDAO cpOutSiteCouponDAO;
 
 
     @Override
@@ -125,4 +130,27 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
 
     }
 
+    @Override
+    public Page<CpSearchStoreVo> searchStorePageList(StorePageRequst quest) {
+        Page<CpSearchStoreVo> cpSearchStoreVoPage = new Page<>();
+        Page<CpStoreVo> storePageList = this.getStorePageList(quest);
+        cpSearchStoreVoPage.setPageSize(storePageList.getPageSize());
+        cpSearchStoreVoPage.setPageNumber(storePageList.getPageNumber());
+        cpSearchStoreVoPage.setTotalCount(storePageList.getTotalCount());
+        if(!CollectionUtils.isEmpty(storePageList.getList())){
+            List<CpSearchStoreVo> collect = storePageList.getList().stream().map(p -> {
+                CpSearchStoreVo cpSearchStoreVo = new CpSearchStoreVo();
+                BeanUtils.copyProperties(p, cpSearchStoreVo);
+                List<Integer> list = new ArrayList<>(1);
+                list.add(p.getStoreId());
+                ShowSiteCouponPageRequest showSiteCouponPageRequest = new ShowSiteCouponPageRequest();
+                showSiteCouponPageRequest.setSiteId(quest.getSiteId());
+                showSiteCouponPageRequest.setStoreIdList(list);
+                cpSearchStoreVo.setCouponCount(cpOutSiteCouponDAO.getCountByCategory(showSiteCouponPageRequest));
+                return cpSearchStoreVo;
+            }).collect(Collectors.toList());
+            cpSearchStoreVoPage.setList(collect);
+        }
+        return cpSearchStoreVoPage;
+    }
 }

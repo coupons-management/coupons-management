@@ -29,8 +29,9 @@
                 <div class="col-lg-2 col-md-3 col-5 d-flex align-items-center">
                     <!-- User Image -->
                     <div class="store-brand cover-wrap">
-                        <a class="cover" href="href="${basePath}/green/storeDetail?storeId=${store.id}&siteId=1"" target="_blank" rel="nofollow">
-                            <img class="img-fluid" src="${storeDetail.logo}" alt="">
+                        <a class="cover" href="href="${basePath}/green/storeDetail?storeId=${store.id}&siteId=1""
+                        target="_blank" rel="nofollow">
+                        <img class="img-fluid" src="${storeDetail.logo}" alt="">
                         </a>
                     </div>
                 </div>
@@ -39,21 +40,21 @@
                     <p class="store-description d-none d-lg-block">${storeDetail.storeDescription}</p>
 
                     <%--<div class="d-none d-lg-block">--%>
-                                <%--<span class="store-info-item">--%>
-                                    <%--<em>5</em> Offers Available--%>
-                                <%--</span>--%>
-                        <%--<span class="store-info-item">--%>
-                                    <%--<em>2</em> Verified Coupons--%>
-                                <%--</span>--%>
-                        <%--<span class="store-info-item">--%>
-                                    <%--<em>1</em> Coupon Codes--%>
-                                <%--</span>--%>
-                        <%--<span class="store-info-item">--%>
-                                    <%--<em>3</em> Sales--%>
-                                <%--</span>--%>
-                        <%--<span class="store-info-item">--%>
-                                    <%--May 20, 2019--%>
-                                <%--</span>--%>
+                    <%--<span class="store-info-item">--%>
+                    <%--<em>5</em> Offers Available--%>
+                    <%--</span>--%>
+                    <%--<span class="store-info-item">--%>
+                    <%--<em>2</em> Verified Coupons--%>
+                    <%--</span>--%>
+                    <%--<span class="store-info-item">--%>
+                    <%--<em>1</em> Coupon Codes--%>
+                    <%--</span>--%>
+                    <%--<span class="store-info-item">--%>
+                    <%--<em>3</em> Sales--%>
+                    <%--</span>--%>
+                    <%--<span class="store-info-item">--%>
+                    <%--May 20, 2019--%>
+                    <%--</span>--%>
                     <%--</div>--%>
                     <!-- Project Progress -->
                 </div>
@@ -124,7 +125,8 @@
                             <c:forEach items="${storeDetail.couponList.list}" var="coupon">
                                 <div class="box d-flex my-2 my-sm-3" data-coupon-type="${coupon.couponType}">
                                     <div class="offer d-none d-sm-block">
-                                        <div class="offer-anchor d-flex flex-column justify-content-center align-items-center" style="max-height: 100px">
+                                        <div class="offer-anchor d-flex flex-column justify-content-center align-items-center"
+                                             style="max-height: 100px">
                                             <!-- TODO 将 30% off 替换为真实的值 这里先不换, 具体规则未定-->
                                             <span class="offer-anchor-text">${coupon.sale}</span>
                                             <span class="label code">${coupon.couponType}</span>
@@ -135,7 +137,9 @@
                                     <div class="detail-info">
                                         <a class="get_code" url="xxx" href="./storeDetail.jsp?c=120705" target="_self"
                                            rel="nofollow">
-                                            <h3 class="paddl"><span class="label code d-inline d-sm-none">${coupon.couponType}</span>${coupon.description}</h3>
+                                            <h3 class="paddl"><span
+                                                    class="label code d-inline d-sm-none">${coupon.couponType}</span>${coupon.description}
+                                            </h3>
                                         </a>
 
                                         <p class="coupon-description">&nbsp;&nbsp;&nbsp;</p>
@@ -147,17 +151,31 @@
                              USED</span>
                                         </div>
 
-                                        <a href="" rel="nofollow" class="get_code"
-                                           data-id="120705" data-clipboard-text="save10" target="_self"
-                                           url="${storeDetail.website}">
-                                            <div class="coupon-hop">
-                                                <div class="partial-code">0</div>
-                                                <div class="hide-btn d-flex align-items-center justify-content-center">
+                                        <c:choose>
+                                            <c:when test="${coupon.couponType == 'CODE'}">
+                                                <a href="" rel="nofollow" class="get_code"
+                                                   data-id="120705" data-clipboard-text="save10" target="_self"
+                                                   url="${storeDetail.website}">
+                                                    <div class="coupon-hop">
+                                                        <div class="partial-code">0</div>
+                                                        <div class="hide-btn d-flex align-items-center justify-content-center">
                                                 <span>Show Code<br><small
                                                         class="d-none d-sm-inline">&amp; visit site</small></span>
-                                                </div>
-                                            </div>
-                                        </a>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a class="btn-get-deal get_deal" data-id="439552" href=""
+                                                   rel="nofollow" target="_self"
+                                                   url="${storeDetail.website}">
+                                                    GET DEAL
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+
+
+
 
                                     </div>
                                 </div>

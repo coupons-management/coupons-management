@@ -1,12 +1,12 @@
 package com.gopher.system.dao.mysql;
 
-import java.util.List;
-
+import com.gopher.system.model.entity.CpSitestoreType;
+import com.gopher.system.model.vo.request.CpSitestorePageRequest;
+import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.gopher.system.model.entity.CpSitestoreType;
-import com.gopher.system.model.vo.request.CpSitestoreRequest;
+import java.util.List;
 
 /**
  * CpSitestoreTypeDAO继承基类
@@ -37,4 +37,8 @@ public interface CpSitestoreTypeDAO extends MyBatisBaseDao<CpSitestoreType, Inte
 	List<CpSitestoreType> getStoreSort(CpSitestoreRequest request) ;
 
 	CpSitestoreType get(@Param("storeId") int storeId,@Param("siteId") int siteId);
+
+	List<CpSitestoreType> getPage(CpSitestorePageRequest request);
+
+	int getCount(CpSitestorePageRequest request);
 }

@@ -5,25 +5,25 @@ $(function() {
     $('.js-site-main').css('min-height', viewportHeight - footerHeight - headerHeight);
     var typeaheadOptions = {
         source: function(query, process) {
-            if (query !== '') {
-                return $.get('/search_ajax?q=' + query, function(resp) {
-                    console.log(resp);
-                    data = resp.data;
-                    store = false;
-                    category = false;
-                    return process(resp.data);
-                });
-            } else {
-                return process([]);
-            }
+            // if (query !== '') {
+            //     return $.get('/search_ajax?q=' + query, function(resp) {
+            //         console.log(resp);
+            //         data = resp.data;
+            //         store = false;
+            //         category = false;
+            //         return process(resp.data);
+            //     });
+            // } else {
+            //     return process([]);
+            // }
         },
         delay: 350,
         afterSelect: function(item) {
-            if (item.type === 'store') {
-                location.href = '/store/' + item.url_name + '/';
-            } else {
-                location.href = '/category/' + item.url_name + '/';
-            }
+            // if (item.type === 'store') {
+            //     location.href = '/store/' + item.url_name + '/';
+            // } else {
+            //     location.href = '/category/' + item.url_name + '/';
+            // }
         },
         showHintOnFocus: true,
         items: 10,
