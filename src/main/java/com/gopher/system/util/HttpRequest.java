@@ -131,8 +131,8 @@ public class HttpRequest {
     	 curl http://18.234.205.204:6800/cancel.json -d project=coupon_spider -d job=6487ec79947edab326d6db28a2d86511e8247444
     	job参数为页面上展示的job ID*/
         String spider_name = "offer";
-        String msg = HttpRequest.sendPost("http://18.234.205.204:7033/schedule.json", "project=coupon&spider=" + spider_name);
-//        String msg=HttpRequest.sendPost("http://18.234.205.204:6800/cancel.json", "project=coupon_spider&job=eac5792a905311e9bc15124b7a0b6b46");
+//        String msg = HttpRequest.sendPost("http://18.234.205.204:7033/schedule.json", "project=coupon&spider=" + spider_name);
+        String msg=HttpRequest.sendPost("http://18.234.205.204:7033/cancel.json", "project=coupon&job=b75f0baca53511e9b0cd0242ac120005");
         JSONObject jsonObject = JSONObject.parseObject(msg);
         Message json = JSONObject.toJavaObject(jsonObject, Message.class);
         if ("ok".equals(json.getStatus())) {

@@ -199,6 +199,11 @@ public class SynDataServiceImpl implements SynDataService {
                     cpTypeDAO.insert(cpType);
                 }
                 final String storeUrl = stu.getStoreWebsite();
+                final String code     = stu.getCode();
+                if(StringUtils.isNotEmpty(code)){
+                   //code 类型的优惠券 通过code验证是否重复
+
+                }
                 CpStore cpStore = cpStoreDAO.getBeanByWebSite(storeUrl);
                 // 2、增加商家
                 if (cpStore == null) {
@@ -236,6 +241,12 @@ public class SynDataServiceImpl implements SynDataService {
                     final Date expire = stu.getExpire();
                     if (null == expire) {
                         cpCoupon.setExpireAt(DateUtils.getDateTime("2099-01-01"));
+                    }else{
+                        if (index == 0){
+
+                        }else{
+                            cpCoupon.setExpireAt(stu.getExpire());
+                        }
                     }
                     cpCoupon.setFinalWebsite(stu.getFinalWebsite());
                     cpCoupon.setLink(stu.getLink());
@@ -261,6 +272,12 @@ public class SynDataServiceImpl implements SynDataService {
                     final Date expire = stu.getExpire();
                     if (null == expire) {
                         cpCoupon.setExpireAt(DateUtils.getDateTime("2099-01-01"));
+                    }else{
+                        if (index == 0){
+
+                        }else{
+                            cpCoupon.setExpireAt(stu.getExpire());
+                        }
                     }
                     cpCoupon.setLink(stu.getLink());
                     cpCoupon.setStoreUrl(storeUrl);
