@@ -13,11 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author 1500
- * @Date 2019/7/8.
+ * @Date 2019/7/15.
  */
 @Controller
-@RequestMapping("/green")
-public class GreenIndexController {
+@RequestMapping("/yellow")
+public class YellowIndexController {
 
     @Autowired
     private OfficialWebsiteService officialWebsiteService;
@@ -34,25 +34,24 @@ public class GreenIndexController {
     public ModelAndView index(){
         ModelAndView modelAndView = new ModelAndView();
         CpSitestoreRequest cpSitestoreRequest = new CpSitestoreRequest();
-        cpSitestoreRequest.setSiteId(SiteEnum.GREEN.getId());
+        cpSitestoreRequest.setSiteId(SiteEnum.YELLOW.getId());
         modelAndView.addObject("topStoreList",officialWebsiteService.getTopStoreList(cpSitestoreRequest));
         modelAndView.addObject("categoryList",showSiteTypeService.getList(SiteEnum.GREEN.getId(), 1));
-        modelAndView.addObject("popularStoreList",showSiteTypeService.getList(SiteEnum.GREEN.getId(), 2));
         CouponPageRequest couponPageRequest = new CouponPageRequest();
-        couponPageRequest.setOutSiteId(SiteEnum.GREEN.getId());
+        couponPageRequest.setOutSiteId(SiteEnum.YELLOW.getId());
         modelAndView.addObject("topCouponList",officialWebsiteService.getTopCouponList(couponPageRequest));
-        modelAndView.setViewName("/green/index");
+        modelAndView.setViewName("/yellow/index");
         return modelAndView;
     }
 
     @RequestMapping("/aboutUs")
     public ModelAndView aboutUs(){
-        return new ModelAndView("/green/about");
+        return new ModelAndView("/yellow/about");
     }
 
     @RequestMapping("/contactUs")
     public ModelAndView contactUs(){
-        return new ModelAndView("/green/contact");
+        return new ModelAndView("/yellow/contact");
     }
 
     @RequestMapping("/stores")

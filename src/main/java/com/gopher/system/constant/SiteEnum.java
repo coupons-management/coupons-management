@@ -9,7 +9,7 @@ public enum SiteEnum {
     //绿站
     GREEN(1),
     //橙站
-    ORANGE(2);
+    YELLOW(2);
     private int id;
 
     private SiteEnum(int id) {
