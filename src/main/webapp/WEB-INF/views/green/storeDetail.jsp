@@ -21,6 +21,61 @@
 
 
 <div class="js-site-main site-main">
+    <c:if test="${coupon != null}">
+        <div class="modal fade store-detail-modal js-modal get_code_121525 show" id="exampleModalCenter" tabindex="-1"
+             role="dialog" aria-labelledby="exampleModalCenterTitle" style="padding-right: 16px; display: none;">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body" style="padding: 30px;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <div class="row">
+                            <div class="col-12 col-md-3 d-flex justify-content-center align-items-center">
+                                <a class="cover"
+                                   href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1">
+                                    <img alt="${coupon.name}"
+                                         src="${coupon.storeLogo}">
+                                </a>
+                            </div>
+                            <div class="text-content col-12 col-md-9">
+                                <p class="coupon-title" style="font-size: 1.75rem">${coupon.description}</p>
+                                <p class="coupon-source">
+                                    <span style="color: #7D7D7D;" class="mr-1">${coupon.storeName}</span>
+                                    <a style="color: #269AC8;font-size: 12px;" rel="nofollow"
+                                       href="${coupon.link}">
+                                            ${coupon.link}
+                                    </a>
+                                </p>
+                                <c:choose>
+                                    <c:when test="${coupon.couponType=='CODE'}">
+                                        <div class="code-box">
+                                            <p>${coupon.code}</p>
+                                            <button class="btn copy_code" id="copy_code"
+                                                    data-clipboard-text="${coupon.code}">
+                                                COPY<span class="d-none d-md-inline"> CODE</span>
+                                            </button>
+                                        </div>
+                                        <p class="n-people-used">11 people used</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="link-box">
+                                            <a href="${coupon.link}" class="btn">
+                                                GO TO WEBSITE
+                                            </a>
+                                            <p class="n-people-used d-block d-md-none">3 people used</p>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:if>
 
     <section class="page-title-banner ">
         <div class="container store-info-container">
@@ -29,7 +84,7 @@
                 <div class="col-lg-2 col-md-3 col-5 d-flex align-items-center">
                     <!-- User Image -->
                     <div class="store-brand cover-wrap">
-                        <a class="cover" href="href="${basePath}/green/storeDetail?storeId=${store.id}&siteId=1""
+                        <a class="cover" href="${storeDetail.website}"
                         target="_blank" rel="nofollow">
                         <img class="img-fluid" src="${storeDetail.logo}" alt="">
                         </a>
@@ -135,7 +190,9 @@
                                     </div>
 
                                     <div class="detail-info">
-                                        <a class="get_code" url="xxx" href="./storeDetail.jsp?c=120705" target="_self"
+                                        <a class="get_code" url="${coupon.link}"
+                                           href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1&c=${coupon.id}"
+                                           target="_blank"
                                            rel="nofollow">
                                             <h3 class="paddl"><span
                                                     class="label code d-inline d-sm-none">${coupon.couponType}</span>${coupon.description}
@@ -153,9 +210,10 @@
 
                                         <c:choose>
                                             <c:when test="${coupon.couponType == 'CODE'}">
-                                                <a href="" rel="nofollow" class="get_code"
+                                                <a href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1&c=${coupon.id}"
+                                                   rel="nofollow" class="get_code"
                                                    data-id="120705" data-clipboard-text="save10" target="_self"
-                                                   url="${storeDetail.website}">
+                                                   url="${coupon.link}">
                                                     <div class="coupon-hop">
                                                         <div class="partial-code">0</div>
                                                         <div class="hide-btn d-flex align-items-center justify-content-center">
@@ -166,15 +224,14 @@
                                                 </a>
                                             </c:when>
                                             <c:otherwise>
-                                                <a class="btn-get-deal get_deal" data-id="439552" href=""
+                                                <a class="btn-get-deal get_deal" data-id="439552"
+                                                   href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1&c=${coupon.id}"
                                                    rel="nofollow" target="_self"
-                                                   url="${storeDetail.website}">
+                                                   url="${coupon.link}">
                                                     GET DEAL
                                                 </a>
                                             </c:otherwise>
                                         </c:choose>
-
-
 
 
                                     </div>
@@ -193,5 +250,106 @@
 <%@ include file="footer.jsp" %>
 <script src="${basePath}/static/js/green/custom.js"></script>
 <script src="${basePath}/static/js/green/storeDetail.js"></script>
+<script type="text/javascript" src="${basePath}/static/common/js/clipboard.min.js"></script>
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+        $('#exampleModalCenter').modal('show');
+        var btn = new ClipboardJS('.copy_code', {
+            container: document.getElementById('exampleModalCenter')
+        });
+        btn.on('success', function (e) {
+            $('.copy_code').text('Copied!');
+            $('.copy_code').removeClass('u-btn-primary').addClass('u-btn-blue');
+        });
+        $('.get_code,.get_deal').on('click', function () {
+            var $this = $(this);
+
+            var url = $this.attr('url');
+            window.location.replace(url);
+
+        });
+    })
+
+
+    // (function(){
+    //
+    //
+    //
+    //     //根据路由判断是否显示弹出层
+    //     var coupon_id = null;
+    //
+    //
+    //     coupon_id = 429007;
+    //     $('.js-modal').modal && $('.js-modal').modal();
+    //
+    //
+    //
+    //     var coupon_type = 'all',
+    //         verify = 'False',
+    //         name__icontains = '';
+    //     $('#type_all').on('click', function () {
+    //         coupon_type = 'all';
+    //         location.href = '?coupon_type=all';
+    //     });
+    //     $('#type_code').on('click', function () {
+    //         coupon_type = 'CODE';
+    //         show_div(coupon_type, verify, name__icontains);
+    //     });
+    //     $('#type_deal').on('click', function () {
+    //         coupon_type = 'DEAL';
+    //         show_div(coupon_type, verify, name__icontains);
+    //     });
+    //     $('#type_verify').on('click', function () {
+    //         var verify = !$('#type_verify').hasClass('btn-active');
+    //
+    //         show_div(coupon_type, verify, name__icontains);
+    //     });
+    //     $('.search_input').keypress(function (e) {
+    //         if (e.which === 13 || e.keyCode == 13) {
+    //             name__icontains = $('.search_input').val();
+    //             show_div(coupon_type, verify, name__icontains);
+    //         }
+    //     });
+    //
+    //     function show_div(coupon_type, verify, name__icontains) {
+    //         location.href = '?coupon_type=' + coupon_type + '&verify=' + verify + '&name__icontains=' + name__icontains
+    //     }
+    //
+    //
+    //     $('.get_code,.get_deal').on('click', function () {
+    //         var $this = $(this);
+    //
+    //         var url = $this.attr('url');
+    //         var newWindow = window.open(url);
+    //         var itemId = $this.data('id');
+    //         if(coupon_id && itemId == coupon_id){
+    //             $('.js-modal').modal && $('.js-modal').modal();
+    //         }else{
+    //             newWindow.location = url;
+    //         }
+    //     });
+    //
+    //     var btn = new ClipboardJS('.copy_code',{
+    //         container: document.getElementById('exampleModalCenter')
+    //     });
+    //     btn.on('success', function(e) {
+    //         $('.copy_code').text('Copied!');
+    //         $('.copy_code').removeClass('u-btn-primary').addClass('u-btn-blue');
+    //     });
+    //     // $('.copy_code').on('click', function () {
+    //     //     $(this).text('Copied!');
+    //     //     $(this).removeClass('u-btn-primary').addClass('u-btn-blue');
+    //     // });
+    //
+    //     // 弹框中的 copy code 按钮
+    //
+    //     // 列表中的 get code 按钮
+    //     // new ClipboardJS(".get_code");
+    //
+    //
+    // })();
+
+
+</script>

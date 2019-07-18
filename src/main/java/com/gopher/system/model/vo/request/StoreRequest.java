@@ -7,6 +7,7 @@ public class StoreRequest extends PageRequestBase{
 	private int storeId;
 	private int siteId;
 	private String couponType;
+	private Integer c;
 
 	public int getId() {
 		return id;
@@ -34,6 +35,12 @@ public class StoreRequest extends PageRequestBase{
 	public void setSiteId(int siteId) {
 		this.siteId = siteId;
 	}
-    
-	
+
+	public Integer getC() {
+		return c;
+	}
+
+	public void setC(Integer c) {
+		this.c = c;
+	}
 }

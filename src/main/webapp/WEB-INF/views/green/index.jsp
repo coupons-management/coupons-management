@@ -60,64 +60,64 @@
                     <ul class="typeahead dropdown-menu" role="listbox" style="top: 44px; left: 0px; display: none;"
                         id="index_search_ul">
                         <%--<li class="">--%>
-                            <%--<a class="dropdown-item" href="#" role="option">--%>
-                                <%--<div class="typeahead search-result">--%>
-                                    <%--<div class="img-text-wrap">--%>
-                                        <%--<img src="/static/media/spider/good_search/Foria Wellness.png" class="pic">--%>
-                                        <%--<div>--%>
-                                            <%--<strong>Foria Wellness</strong> -- Store--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<p class="count">6 offers</p>--%>
-                                <%--</div>--%>
-                            <%--</a>--%>
+                        <%--<a class="dropdown-item" href="#" role="option">--%>
+                        <%--<div class="typeahead search-result">--%>
+                        <%--<div class="img-text-wrap">--%>
+                        <%--<img src="/static/media/spider/good_search/Foria Wellness.png" class="pic">--%>
+                        <%--<div>--%>
+                        <%--<strong>Foria Wellness</strong> -- Store--%>
+                        <%--</div>--%>
+                        <%--</div>--%>
+                        <%--<p class="count">6 offers</p>--%>
+                        <%--</div>--%>
+                        <%--</a>--%>
                         <%--</li>--%>
                         <%--<li><a class="dropdown-item" href="#" role="option">--%>
-                            <%--<div class="typeahead search-result">--%>
-                                <%--<div class="img-text-wrap">--%>
-                                    <%--<img src="/static/media/spider/good_search/Flawless Vape Shop.jpg" class="pic">--%>
-                                    <%--<div><strong>Flawless Vape Shop</strong> -- Store</div>--%>
-                                <%--</div>--%>
-                                <%--<p class="count">15 offers</p>--%>
-                            <%--</div>--%>
+                        <%--<div class="typeahead search-result">--%>
+                        <%--<div class="img-text-wrap">--%>
+                        <%--<img src="/static/media/spider/good_search/Flawless Vape Shop.jpg" class="pic">--%>
+                        <%--<div><strong>Flawless Vape Shop</strong> -- Store</div>--%>
+                        <%--</div>--%>
+                        <%--<p class="count">15 offers</p>--%>
+                        <%--</div>--%>
                         <%--</a></li>--%>
                         <%--<li><a class="dropdown-item" href="#" role="option">--%>
-                            <%--<div class="typeahead search-result">--%>
-                                <%--<div class="img-text-wrap">--%>
-                                    <%--<img src="/static/media/spider/good_search/Frontier Jackson.png" class="pic">--%>
-                                    <%--<div><strong>Frontier Jackson</strong> -- Store</div>--%>
-                                <%--</div>--%>
-                                <%--<p class="count">12 offers</p>--%>
-                            <%--</div>--%>
+                        <%--<div class="typeahead search-result">--%>
+                        <%--<div class="img-text-wrap">--%>
+                        <%--<img src="/static/media/spider/good_search/Frontier Jackson.png" class="pic">--%>
+                        <%--<div><strong>Frontier Jackson</strong> -- Store</div>--%>
+                        <%--</div>--%>
+                        <%--<p class="count">12 offers</p>--%>
+                        <%--</div>--%>
                         <%--</a></li>--%>
                         <%--<li class=""><a class="dropdown-item" href="#" role="option">--%>
-                            <%--<div class="typeahead search-result">--%>
-                                <%--<div class="img-text-wrap">--%>
-                                    <%--<img src="/static/media/spider/good_search/Fuggin Vapor Co..png" class="pic">--%>
-                                    <%--<div><strong>Fuggin Vapor Co.</strong> -- Store</div>--%>
-                                <%--</div>--%>
-                                <%--<p class="count">47 offers</p>--%>
-                            <%--</div>--%>
+                        <%--<div class="typeahead search-result">--%>
+                        <%--<div class="img-text-wrap">--%>
+                        <%--<img src="/static/media/spider/good_search/Fuggin Vapor Co..png" class="pic">--%>
+                        <%--<div><strong>Fuggin Vapor Co.</strong> -- Store</div>--%>
+                        <%--</div>--%>
+                        <%--<p class="count">47 offers</p>--%>
+                        <%--</div>--%>
                         <%--</a></li>--%>
                         <%--<li class=""><a class="dropdown-item" href="#" role="option">--%>
-                            <%--<div class="typeahead search-result">--%>
-                                <%--<div class="img-text-wrap">--%>
-                                    <%--<img src="/static/media/spider/good_search/Freedom Seeds.png" class="pic">--%>
-                                    <%--<div><strong>Freedom Seeds</strong> -- Store</div>--%>
-                                <%--</div>--%>
-                                <%--<p class="count">6 offers</p>--%>
-                            <%--</div>--%>
+                        <%--<div class="typeahead search-result">--%>
+                        <%--<div class="img-text-wrap">--%>
+                        <%--<img src="/static/media/spider/good_search/Freedom Seeds.png" class="pic">--%>
+                        <%--<div><strong>Freedom Seeds</strong> -- Store</div>--%>
+                        <%--</div>--%>
+                        <%--<p class="count">6 offers</p>--%>
+                        <%--</div>--%>
                         <%--</a></li>--%>
                         <%--<li class="active">--%>
-                            <%--<a class="dropdown-item" href="#" role="option">--%>
-                                <%--<div class="typeahead search-result">--%>
-                                    <%--<div>--%>
-                                        <%--<strong>CBD Oil for pets</strong>--%>
-                                        <%--<span> -- Category</span>--%>
-                                    <%--</div>--%>
-                                    <%--<p class="count">more stores</p>--%>
-                                <%--</div>--%>
-                            <%--</a>--%>
+                        <%--<a class="dropdown-item" href="#" role="option">--%>
+                        <%--<div class="typeahead search-result">--%>
+                        <%--<div>--%>
+                        <%--<strong>CBD Oil for pets</strong>--%>
+                        <%--<span> -- Category</span>--%>
+                        <%--</div>--%>
+                        <%--<p class="count">more stores</p>--%>
+                        <%--</div>--%>
+                        <%--</a>--%>
                         <%--</li>--%>
                     </ul>
                     <div class="input-group-append">
@@ -167,14 +167,21 @@
                                     <div class="cover">
                                         <img src="${coupon.storeLogo}" alt="${coupon.name}"/>
                                     </div>
-
-                                    <span class="coupon-label coupon-label--deal">DEAL</span>
+                                    <c:choose>
+                                        <c:when test="${coupon.couponType == 'DEAL'}">
+                                            <span class="coupon-label coupon-label--deal">DEAL</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="coupon-label coupon-label--deal">CODE</span>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </a>
                             </div>
 
                             <div class="info-box col-9 col-sm-12 d-flex flex-wrap align-content-between">
                                 <a target="_self" rel="nofollow" url=""
-                                   class="get_deal coupon-title text-left text-sm-center" href="./storeDetail.jsp">
+                                   class="get_deal coupon-title text-left text-sm-center"
+                                   href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1">
                                     <h3>${coupon.name}</h3>
                                 </a>
 
@@ -230,53 +237,55 @@
 
             <div id="top-categories-content" class="collapse">
                 <div class="row">
-                    <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
-                        <div class="category-item">
-                            <a class="category-title" href="./categoryDetail.jsp">
-                                <p>CBD</p>
-                            </a>
+                    <c:forEach items="${categoryList}" var="category">
+                        <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
+                            <div class="category-item">
+                                <a class="category-title"
+                                   href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=10&siteId=1&id=${category.id}&name=${category.name}">
+                                    <p>${category.name}</p>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    </c:forEach>
+                    <%--<div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">--%>
+                    <%--<div class="category-item">--%>
+                    <%--<a class="category-title" href="./categoryDetail.jsp">--%>
+                    <%--<p>Cannabis Seeds</p>--%>
+                    <%--</a>--%>
+                    <%--</div>--%>
+                    <%--</div>--%>
 
-                    <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
-                        <div class="category-item">
-                            <a class="category-title" href="./categoryDetail.jsp">
-                                <p>Cannabis Seeds</p>
-                            </a>
-                        </div>
-                    </div>
+                    <%--<div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">--%>
+                    <%--<div class="category-item">--%>
+                    <%--<a class="category-title" href="./categoryDetail.jsp">--%>
+                    <%--<p>Dabbing tools</p>--%>
+                    <%--</a>--%>
+                    <%--</div>--%>
+                    <%--</div>--%>
 
-                    <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
-                        <div class="category-item">
-                            <a class="category-title" href="./categoryDetail.jsp">
-                                <p>Dabbing tools</p>
-                            </a>
-                        </div>
-                    </div>
+                    <%--<div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">--%>
+                    <%--<div class="category-item">--%>
+                    <%--<a class="category-title" href="./categoryDetail.jsp">--%>
+                    <%--<p>Growing equipment</p>--%>
+                    <%--</a>--%>
+                    <%--</div>--%>
+                    <%--</div>--%>
 
-                    <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
-                        <div class="category-item">
-                            <a class="category-title" href="./categoryDetail.jsp">
-                                <p>Growing equipment</p>
-                            </a>
-                        </div>
-                    </div>
+                    <%--<div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">--%>
+                    <%--<div class="category-item">--%>
+                    <%--<a class="category-title" href="./categoryDetail.jsp">--%>
+                    <%--<p>Smoking tools</p>--%>
+                    <%--</a>--%>
+                    <%--</div>--%>
+                    <%--</div>--%>
 
-                    <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
-                        <div class="category-item">
-                            <a class="category-title" href="./categoryDetail.jsp">
-                                <p>Smoking tools</p>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
-                        <div class="category-item">
-                            <a class="category-title" href="./categoryDetail.jsp">
-                                <p>Vaporizers</p>
-                            </a>
-                        </div>
-                    </div>
+                    <%--<div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">--%>
+                    <%--<div class="category-item">--%>
+                    <%--<a class="category-title" href="./categoryDetail.jsp">--%>
+                    <%--<p>Vaporizers</p>--%>
+                    <%--</a>--%>
+                    <%--</div>--%>
+                    <%--</div>--%>
                 </div>
             </div>
         </section>
@@ -299,7 +308,7 @@
 
                     <c:forEach items="${popularStoreList}" var="popularStore">
                         <div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">
-                            <a href="./storeDetail.jsp">${popularStore.name}</a>
+                            <a href="">${popularStore.name}</a>
                         </div>
                     </c:forEach>
                 </div>
@@ -307,45 +316,46 @@
 
             <div id="popular-store-content" class="popular-store-content collapse">
                 <div class="row">
-                    <div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">
-                        <a href="./storeDetail.jsp">Dr. Hemps CBD</a>
-                    </div>
+                    <c:forEach items="${popularStoreList}" var="popularStore">
+                        <div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">
+                            <a href="">${popularStore.name}</a>
+                        </div>
+                    </c:forEach>
+                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
+                    <%--<a href="./storeDetail.jsp">LED Grow Lights Depot</a>--%>
+                    <%--</div>--%>
 
-                    <div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">
-                        <a href="./storeDetail.jsp">LED Grow Lights Depot</a>
-                    </div>
+                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
+                    <%--<a href="./storeDetail.jsp">Quebec Cannabis Seeds</a>--%>
+                    <%--</div>--%>
 
-                    <div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">
-                        <a href="./storeDetail.jsp">Quebec Cannabis Seeds</a>
-                    </div>
+                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
+                    <%--<a href="./storeDetail.jsp">DopeBoo</a>--%>
+                    <%--</div>--%>
 
-                    <div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">
-                        <a href="./storeDetail.jsp">DopeBoo</a>
-                    </div>
+                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
+                    <%--<a href="./storeDetail.jsp">NewVape</a>--%>
+                    <%--</div>--%>
 
-                    <div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">
-                        <a href="./storeDetail.jsp">NewVape</a>
-                    </div>
+                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
+                    <%--<a href="./storeDetail.jsp">Growers Choice Seeds</a>--%>
+                    <%--</div>--%>
 
-                    <div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">
-                        <a href="./storeDetail.jsp">Growers Choice Seeds</a>
-                    </div>
+                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
+                    <%--<a href="./storeDetail.jsp">Ali Bongo</a>--%>
+                    <%--</div>--%>
 
-                    <div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">
-                        <a href="./storeDetail.jsp">Ali Bongo</a>
-                    </div>
+                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
+                    <%--<a href="./storeDetail.jsp">Hippie Butler</a>--%>
+                    <%--</div>--%>
 
-                    <div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">
-                        <a href="./storeDetail.jsp">Hippie Butler</a>
-                    </div>
+                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
+                    <%--<a href="./storeDetail.jsp">BadassGlass</a>--%>
+                    <%--</div>--%>
 
-                    <div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">
-                        <a href="./storeDetail.jsp">BadassGlass</a>
-                    </div>
-
-                    <div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">
-                        <a href="./storeDetail.jsp">Cannastick</a>
-                    </div>
+                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
+                    <%--<a href="./storeDetail.jsp">Cannastick</a>--%>
+                    <%--</div>--%>
                 </div>
             </div>
         </section>
