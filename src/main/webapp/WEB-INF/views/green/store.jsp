@@ -265,7 +265,7 @@
                             <div class="col-lg-2 col-md-3 col-sm-4 col-6 p-md-2 p-0">
                                 <a class="cover-wrap" style="height: 176px;" href="${basePath}/green/storeDetail?storeId=${store.storeId}&siteId=1">
                                     <div class="cover">
-                                        <img src="${store.logoUrl}" alt="${store.name}" title="${store.title}" />
+                                        <img src="${store.logoUrl}" alt="${store.name}" title="${store.name}" />
                                     </div>
                                 </a>
                             </div>

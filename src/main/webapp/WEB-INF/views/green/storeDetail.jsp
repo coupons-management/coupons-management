@@ -6,11 +6,11 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="keywords" content="keywords"/>
-    <meta name="description" content="description"/>
+    <meta name="keywords" content="${storeDetail.keyWords}"/>
+    <meta name="description" content="${storeDetail.description}"/>
     <meta name="google-site-verification" content="AV6k9uxlDcEFufTdl0rM5Aetr5U9uvxCRcw0u3gYf8I"/>
     <meta name='webgains-site-verification' content='ambcr9xy'/>
-    <title>绿站</title>
+    <title>${storeDetail.title}</title>
     <!-- bootstrap -->
     <link rel="stylesheet" href="${basePath}/static/css/green/custom.css"/>
 </head>
@@ -85,8 +85,8 @@
                     <!-- User Image -->
                     <div class="store-brand cover-wrap">
                         <a class="cover" href="${storeDetail.website}"
-                        target="_blank" rel="nofollow">
-                        <img class="img-fluid" src="${storeDetail.logo}" alt="">
+                           target="_blank" rel="nofollow">
+                            <img class="img-fluid" src="${storeDetail.logo}" alt="">
                         </a>
                     </div>
                 </div>
@@ -184,7 +184,14 @@
                                              style="max-height: 100px">
                                             <!-- TODO 将 30% off 替换为真实的值 这里先不换, 具体规则未定-->
                                             <span class="offer-anchor-text">${coupon.sale}</span>
-                                            <span class="label code">${coupon.couponType}</span>
+                                            <c:choose>
+                                                <c:when test="${coupon.couponType == 'CODE'}">
+                                                    <span class="label code">${coupon.couponType}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="label deal">${coupon.couponType}</span>
+                                                </c:otherwise>
+                                            </c:choose>
 
                                         </div>
                                     </div>
@@ -195,7 +202,7 @@
                                            target="_blank"
                                            rel="nofollow">
                                             <h3 class="paddl"><span
-                                                    class="label code d-inline d-sm-none">${coupon.couponType}</span>${coupon.description}
+                                                    class="label code d-inline d-sm-none">${coupon.couponType}</span>${coupon.title}
                                             </h3>
                                         </a>
 
@@ -215,7 +222,7 @@
                                                    data-id="120705" data-clipboard-text="save10" target="_self"
                                                    url="${coupon.link}">
                                                     <div class="coupon-hop">
-                                                        <div class="partial-code">0</div>
+                                                        <div class="partial-code">${(coupon.code != null && coupon.code != "") ? coupon.code.substring(coupon.code.length()-1):""}</div>
                                                         <div class="hide-btn d-flex align-items-center justify-content-center">
                                                 <span>Show Code<br><small
                                                         class="d-none d-sm-inline">&amp; visit site</small></span>
@@ -226,7 +233,7 @@
                                             <c:otherwise>
                                                 <a class="btn-get-deal get_deal" data-id="439552"
                                                    href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1&c=${coupon.id}"
-                                                   rel="nofollow" target="_self"
+                                                   rel="nofollow" target="_blank"
                                                    url="${coupon.link}">
                                                     GET DEAL
                                                 </a>
@@ -271,85 +278,4 @@
 
         });
     })
-
-
-    // (function(){
-    //
-    //
-    //
-    //     //根据路由判断是否显示弹出层
-    //     var coupon_id = null;
-    //
-    //
-    //     coupon_id = 429007;
-    //     $('.js-modal').modal && $('.js-modal').modal();
-    //
-    //
-    //
-    //     var coupon_type = 'all',
-    //         verify = 'False',
-    //         name__icontains = '';
-    //     $('#type_all').on('click', function () {
-    //         coupon_type = 'all';
-    //         location.href = '?coupon_type=all';
-    //     });
-    //     $('#type_code').on('click', function () {
-    //         coupon_type = 'CODE';
-    //         show_div(coupon_type, verify, name__icontains);
-    //     });
-    //     $('#type_deal').on('click', function () {
-    //         coupon_type = 'DEAL';
-    //         show_div(coupon_type, verify, name__icontains);
-    //     });
-    //     $('#type_verify').on('click', function () {
-    //         var verify = !$('#type_verify').hasClass('btn-active');
-    //
-    //         show_div(coupon_type, verify, name__icontains);
-    //     });
-    //     $('.search_input').keypress(function (e) {
-    //         if (e.which === 13 || e.keyCode == 13) {
-    //             name__icontains = $('.search_input').val();
-    //             show_div(coupon_type, verify, name__icontains);
-    //         }
-    //     });
-    //
-    //     function show_div(coupon_type, verify, name__icontains) {
-    //         location.href = '?coupon_type=' + coupon_type + '&verify=' + verify + '&name__icontains=' + name__icontains
-    //     }
-    //
-    //
-    //     $('.get_code,.get_deal').on('click', function () {
-    //         var $this = $(this);
-    //
-    //         var url = $this.attr('url');
-    //         var newWindow = window.open(url);
-    //         var itemId = $this.data('id');
-    //         if(coupon_id && itemId == coupon_id){
-    //             $('.js-modal').modal && $('.js-modal').modal();
-    //         }else{
-    //             newWindow.location = url;
-    //         }
-    //     });
-    //
-    //     var btn = new ClipboardJS('.copy_code',{
-    //         container: document.getElementById('exampleModalCenter')
-    //     });
-    //     btn.on('success', function(e) {
-    //         $('.copy_code').text('Copied!');
-    //         $('.copy_code').removeClass('u-btn-primary').addClass('u-btn-blue');
-    //     });
-    //     // $('.copy_code').on('click', function () {
-    //     //     $(this).text('Copied!');
-    //     //     $(this).removeClass('u-btn-primary').addClass('u-btn-blue');
-    //     // });
-    //
-    //     // 弹框中的 copy code 按钮
-    //
-    //     // 列表中的 get code 按钮
-    //     // new ClipboardJS(".get_code");
-    //
-    //
-    // })();
-
-
 </script>

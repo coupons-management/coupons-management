@@ -18,7 +18,17 @@ public class CpCouponVo {
 	
 	private String sale;
 	private Date updateTime;
-	
+
+	private Integer outSiteCouponId;
+
+	public Integer getOutSiteCouponId() {
+		return outSiteCouponId;
+	}
+
+	public void setOutSiteCouponId(Integer outSiteCouponId) {
+		this.outSiteCouponId = outSiteCouponId;
+	}
+
 	public String getSale() {
 		return sale;
 	}

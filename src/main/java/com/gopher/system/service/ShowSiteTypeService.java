@@ -37,6 +37,8 @@ public interface ShowSiteTypeService {
 	 */
 	List<CpSitestoreType> getSonList(final int pid);
 
+	CpSitestoreType getById(Integer id);
+
 	void create(CpSitestoreType cpSitestoreType);
 
 	void edit(CpSitestoreType cpSitestoreType);

@@ -25,7 +25,7 @@
 
         <section class="page-title-banner category-banner d-none d-md-block">
             <div class="container text-center">
-                <h1 class="">Categories in <a href="/">Cannabispromocodes.com</a>
+                <h1 class="">Categories in <a href="${basePath}/green/">Cannabispromocodes.com</a>
                 </h1>
             </div>
         </section>
@@ -37,7 +37,7 @@
                     <c:forEach items="${categories}" var="category">
                         <div class="col-6 col-sm-4 col-md-3 col-lg-2 p-3 p-sm-2">
                             <div class="category-item">
-                                <a href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=10&siteId=1&id=${category.id}&name=${category.name}">
+                                <a href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=30&siteId=1&id=${category.id}">
                                     ${category.name}
                                 </a>
                             </div>

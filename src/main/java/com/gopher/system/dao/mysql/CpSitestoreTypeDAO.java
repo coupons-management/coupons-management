@@ -33,7 +33,9 @@ public interface CpSitestoreTypeDAO extends MyBatisBaseDao<CpSitestoreType, Inte
 	 * @return
 	 */
 	CpSitestoreType getByName(CpSitestoreType cpSitestoreType);
-	
+
+	CpSitestoreType getById(Integer id);
+
 	List<CpSitestoreType> getStoreSort(CpSitestoreRequest request) ;
 
 	CpSitestoreType get(@Param("storeId") int storeId,@Param("siteId") int siteId);

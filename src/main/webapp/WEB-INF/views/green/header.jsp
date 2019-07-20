@@ -143,7 +143,7 @@
             <nav class="nav mobile-nav">
                 <a href="${basePath}/green/" class="nav-item-home nav-link active">Home</a>
                 <a href="${basePath}/green/stores" class="nav-item-top-stores nav-link">Top Stores</a>
-                <a href="${basePath}/green/topCoupons" class="nav-item-top-coupons nav-link">Top Coupons</a>
+                <a href="${basePath}/green/topcoupons" class="nav-item-top-coupons nav-link">Top Coupons</a>
                 <a href="${basePath}/green/categories" class="nav-item-category nav-link">Category</a>
             </nav>
         </div>

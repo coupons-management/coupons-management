@@ -90,7 +90,7 @@ $(document).ready(function () {
             for (var i = 0; i < list.length; i++) {
                 var cagegory = list[i];
 
-                $('#header_search_ul').append('<li class=""><a class="dropdown-item" href=' + basePath + '/green/categoryDetail?pageNumber=1&pageSize=5&siteId=1&id=' + cagegory.id + '&name=' + cagegory.name + ' role="option"><div class="typeahead search-result">\n' +
+                $('#header_search_ul').append('<li class=""><a class="dropdown-item" href=' + basePath + '/green/categoryDetail?pageNumber=1&pageSize=5&siteId=1&id=' + cagegory.id +  ' role="option"><div class="typeahead search-result">\n' +
                     '<div><strong>cagegory.name</strong><span> -- Category</span></div>\n' +
                     '<p class="count">more stores</p>\n' +
                     '</div></a></li>')

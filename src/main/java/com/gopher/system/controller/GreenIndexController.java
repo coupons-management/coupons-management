@@ -1,6 +1,7 @@
 package com.gopher.system.controller;
 
 import com.gopher.system.constant.SiteEnum;
+import com.gopher.system.model.entity.CpSitestoreType;
 import com.gopher.system.model.vo.CpCouponVo;
 import com.gopher.system.model.vo.request.*;
 import com.gopher.system.model.vo.response.StoreDetailResponse;
@@ -91,7 +92,7 @@ public class GreenIndexController {
     @RequestMapping("/categories")
     public ModelAndView categories(CpSitestoreRequest cpSitestoreRequest) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("categories", showSiteTypeService.getList(cpSitestoreRequest.getSiteId(), 1));
+        modelAndView.addObject("categories", showSiteTypeService.getList(SiteEnum.GREEN.getId(), 1));
         modelAndView.setViewName("/green/category");
         return modelAndView;
     }
@@ -108,13 +109,23 @@ public class GreenIndexController {
 
 
     @RequestMapping("/categoryDetail")
-    public ModelAndView categoryDetail(CategoryRequest categoryRequest) {
+    public ModelAndView categoryDetail(CategoryDetailJspRequest categoryRequest) {
         ModelAndView modelAndView = new ModelAndView();
         CpSitestoreRequest cpSitestoreRequest = new CpSitestoreRequest();
         cpSitestoreRequest.setSiteId(categoryRequest.getSiteId());
         modelAndView.addObject("topStoreList", officialWebsiteService.getTopStoreList(cpSitestoreRequest));
         modelAndView.addObject("coupons", webSiteService.getCouponListByCategory(categoryRequest));
-        modelAndView.addObject("children", showSiteTypeService.getSonList(categoryRequest.getId()));
+        CpSitestoreType category = showSiteTypeService.getById(categoryRequest.getId());
+        modelAndView.addObject("currentCategory", category);
+        if (categoryRequest.getpId() != null) {
+            modelAndView.addObject("children", showSiteTypeService.getSonList(categoryRequest.getpId()));
+            modelAndView.addObject("pCategory", showSiteTypeService.getById(categoryRequest.getpId()));
+        } else {
+            modelAndView.addObject("children", showSiteTypeService.getSonList(categoryRequest.getId()));
+            modelAndView.addObject("pCategory", category);
+        }
+
+
         modelAndView.setViewName("/green/categoryDetail");
         return modelAndView;
     }

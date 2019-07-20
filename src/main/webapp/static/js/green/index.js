@@ -85,7 +85,7 @@ $(document).ready(function () {
             for (var i = 0; i < list.length; i++) {
                 var cagegory = list[i];
                 $('#index_search_ul').append('<li class="active">\n' +
-                    '                            <a class="dropdown-item" href=' + basePath + '/green/categoryDetail?pageNumber=1&pageSize=5&siteId=1&id=' + cagegory.id + '&name=' + cagegory.name + ' role="option">\n' +
+                    '                            <a class="dropdown-item" href=' + basePath + '/green/categoryDetail?pageNumber=1&pageSize=5&siteId=1&id=' + cagegory.id + ' role="option">\n' +
                     '                                <div class="typeahead search-result">\n' +
                     '                                    <div>\n' +
                     '                                        <strong>cagegory.name</strong>\n' +

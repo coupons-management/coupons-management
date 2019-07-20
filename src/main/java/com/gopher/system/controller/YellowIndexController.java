@@ -76,7 +76,7 @@ public class YellowIndexController {
         return modelAndView;
     }
 
-    @RequestMapping("/categories")
+    @RequestMapping("/category")
     public ModelAndView categories(CpSitestoreRequest cpSitestoreRequest){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("categories",showSiteTypeService.getList(cpSitestoreRequest.getSiteId(), 1));

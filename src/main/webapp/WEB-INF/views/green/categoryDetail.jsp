@@ -19,8 +19,10 @@
 <%
     String commonUrl = basePath + "/green/categoryDetail?id="
             + request.getParameter("id") + "&pageSize=" + Integer.parseInt(request.getParameter("pageSize"))
-            + "&siteId=" + Integer.parseInt(request.getParameter("siteId"))
-            + "&name=" + request.getParameter("name");
+            + "&siteId=" + Integer.parseInt(request.getParameter("siteId"));
+    if(request.getParameter("pId") != null && request.getParameter("pId") != ""){
+        commonUrl += "&pId=" + request.getParameter("pId");
+    }
     String noCouponTypeUrl = commonUrl;
     if (request.getParameter("couponType") != null && request.getParameter("couponType") != "") {
         commonUrl += "&couponType=" + request.getParameter("couponType");
@@ -48,7 +50,8 @@
             <div class="row">
                 <!-- Profle Content -->
                 <div class="col-12">
-                    <h1><%= request.getParameter("name")%></h1>
+                    <h1>${category.name}
+                    </h1>
                     <p>Update the most popular stores daily, Have the best coupons &amp; Deals!</p>
                 </div>
             </div>
@@ -71,13 +74,40 @@
                         <p class="card-title" style="font-size: 1.75rem">Categories</p>
                         <div class="card-body">
                             <div class="ml-4">
-                                <c:forEach items="${children}" var="category">
+                                <c:choose>
+                                    <c:when test="${pCategory.id == currentCategory.id}">
+                                        <p class="font-weight-bold" style="font-size:16px;">${pCategory.name}</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=30&siteId=1&id=${pCategory.id}"
+                                           class="font-weight-bold text-dark mb-3 d-block"
+                                           style="font-size:16px;">${pCategory.name}</a>
+                                    </c:otherwise>
+                                </c:choose>
+                                <ul class="list-group list-group-flush">
 
-                                    <p class="font-weight-bold mt-3">
-                                        <a style="color:inherit;font-size:16px;"
-                                           href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=10&siteId=1&id=${category.id}&name=${category.name}">${category.name}</a>
-                                    </p>
-                                </c:forEach>
+
+                                    <c:forEach items="${children}" var="category">
+                                        <!-- 列表中的 category 等于当前页面的所属 category 的时候增加 active 类 -->
+                                        <c:choose>
+                                            <c:when test="${category.id == currentCategory.id}">
+                                                <li class="list-group-item active">
+                                                    <a href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=30&siteId=1&id=${category.id}&pId=${pCategory.id}">${category.name}</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="list-group-item">
+                                                    <a href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=30&siteId=1&id=${category.id}&pId=${pCategory.id}">${category.name}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </ul>
+
+                                <%--<p class="font-weight-bold mt-3">--%>
+                                <%--<a style="color:inherit;font-size:16px;"--%>
+                                <%--href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=30&siteId=1&id=${category.id}&name=${category.name}">${category.name}</a>--%>
+                                <%--</p>--%>
 
                             </div>
                         </div>
@@ -142,7 +172,6 @@
                             </c:choose>
 
 
-
                             <c:choose>
                                 <c:when test="${couponType == 'DEAL'}">
                                     <a href="${noCouponTypeUrl}&pageNumber=1&couponType=DEAL">
@@ -197,7 +226,7 @@
                                     <div class="info-box col-9 col-sm-12 d-flex flex-wrap align-content-between">
                                         <a target="_blank" rel="nofollow" href=""
                                            class="coupon-title text-left text-sm-center" url="">
-                                            <h3>${coupon.storeName}</h3>
+                                            <h3>${coupon.title}</h3>
                                         </a>
 
 
@@ -224,44 +253,55 @@
                         <!-- pages.paginated -->
 
                         <div class="col-12">
-                            <p class="ui-pagination">
-                                <!-- disable为禁用 active为激活 -->
-                                <c:choose>
-                                    <c:when test="${preNumber <= 0}">
-                                        <a id="pre-page" class="disable">
-                                            <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                        </a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a id="pre-page"
-                                           href="${commonUrl}&pageNumber=${preNumber}"
-                                           class="active">
-                                            <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                        </a>
-                                    </c:otherwise>
-                                </c:choose>
-                                <%--<a id="pre-page" href="./categoryDetail.jsp?page=1" class="disable">--%>
-                                <%--<i class="fa fa-angle-left" aria-hidden="true"></i>--%>
-                                <%--</a>--%>
-                                <span>${coupons.pageNumber} / ${coupons.totalPage}</span>
-                                <c:choose>
-                                    <c:when test="${nextNumber > coupons.totalPage && coupons.totalPage != 0}">
-                                        <a id="next-page" href="" class="disable">
-                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                        </a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a id="next-page"
-                                           href="${commonUrl}&pageNumber=${nextNumber}"
-                                           class="active">
-                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                        </a>
-                                    </c:otherwise>
-                                </c:choose>
-                                <%--<a id="next-page" href="./categoryDetail.jsp?page=2" class="active">--%>
-                                <%--<i class="fa fa-angle-right" aria-hidden="true"></i>--%>
-                                <%--</a>--%>
-                            </p>
+                            <c:choose>
+                                <c:when test="${coupons.list.size() > 0}">
+
+                                    <p class="ui-pagination">
+                                        <!-- disable为禁用 active为激活 -->
+                                        <c:choose>
+                                            <c:when test="${preNumber <= 0}">
+                                                <a id="pre-page" class="disable">
+                                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                                </a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a id="pre-page"
+                                                   href="${commonUrl}&pageNumber=${preNumber}"
+                                                   class="active">
+                                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                            <%--<a id="pre-page" href="./categoryDetail.jsp?page=1" class="disable">--%>
+                                            <%--<i class="fa fa-angle-left" aria-hidden="true"></i>--%>
+                                            <%--</a>--%>
+                                        <span>${coupons.pageNumber} / ${coupons.totalPage}</span>
+                                        <c:choose>
+                                            <c:when test="${nextNumber > coupons.totalPage && coupons.totalPage != 0}">
+                                                <a id="next-page" href="" class="disable">
+                                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                                </a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a id="next-page"
+                                                   href="${commonUrl}&pageNumber=${nextNumber}"
+                                                   class="active">
+                                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                            <%--<a id="next-page" href="./categoryDetail.jsp?page=2" class="active">--%>
+                                            <%--<i class="fa fa-angle-right" aria-hidden="true"></i>--%>
+                                            <%--</a>--%>
+                                    </p>
+                                </c:when>
+                                <c:otherwise>
+                                    <h1 class="no-result">No Result!</h1>
+                                </c:otherwise>
+
+                            </c:choose>
+                            <%--<div class="col-12">--%>
+                            <%--</div>--%>
                         </div>
 
                     </div>

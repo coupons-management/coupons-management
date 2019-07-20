@@ -287,4 +287,9 @@ public class ShowSiteTypeServiceImpl implements ShowSiteTypeService {
 		result.setList(list);
 		return result;
 	}
+
+	@Override
+	public CpSitestoreType getById(Integer id) {
+		return cpSitestoreTypeDAO.getById(id);
+	}
 }

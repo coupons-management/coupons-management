@@ -141,7 +141,7 @@
                            href="${basePath}/green/storeDetail?storeId=${store.storeId}&siteId=1">
                             <div class="cover">
                                 <img src="${store.logoUrl}" class="align-self-center" alt="${store.name}"
-                                     title="${store.title}"/>
+                                     title="${store.name}"/>
                             </div>
                         </a>
                     </div>
@@ -172,16 +172,16 @@
                                             <span class="coupon-label coupon-label--deal">DEAL</span>
                                         </c:when>
                                         <c:otherwise>
-                                            <span class="coupon-label coupon-label--deal">CODE</span>
+                                            <span class="coupon-label coupon-label--code">CODE</span>
                                         </c:otherwise>
                                     </c:choose>
                                 </a>
                             </div>
 
                             <div class="info-box col-9 col-sm-12 d-flex flex-wrap align-content-between">
-                                <a target="_self" rel="nofollow" url=""
+                                <a target="_blank" rel="nofollow" url="${coupon.storeWebSite}"
                                    class="get_deal coupon-title text-left text-sm-center"
-                                   href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1">
+                                   href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1&c=${coupon.outSiteCouponId}">
                                     <h3>${coupon.name}</h3>
                                 </a>
 
@@ -226,7 +226,7 @@
                         <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
                             <div class="category-item">
                                 <a class="category-title"
-                                   href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=10&siteId=1&id=${category.id}&name=${category.name}">
+                                   href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=30&siteId=1&id=${category.id}&name=${category.name}">
                                     <p>${category.name}</p>
                                 </a>
                             </div>
@@ -241,51 +241,12 @@
                         <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
                             <div class="category-item">
                                 <a class="category-title"
-                                   href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=10&siteId=1&id=${category.id}&name=${category.name}">
+                                   href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=30&siteId=1&id=${category.id}&name=${category.name}">
                                     <p>${category.name}</p>
                                 </a>
                             </div>
                         </div>
                     </c:forEach>
-                    <%--<div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">--%>
-                    <%--<div class="category-item">--%>
-                    <%--<a class="category-title" href="./categoryDetail.jsp">--%>
-                    <%--<p>Cannabis Seeds</p>--%>
-                    <%--</a>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">--%>
-                    <%--<div class="category-item">--%>
-                    <%--<a class="category-title" href="./categoryDetail.jsp">--%>
-                    <%--<p>Dabbing tools</p>--%>
-                    <%--</a>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">--%>
-                    <%--<div class="category-item">--%>
-                    <%--<a class="category-title" href="./categoryDetail.jsp">--%>
-                    <%--<p>Growing equipment</p>--%>
-                    <%--</a>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">--%>
-                    <%--<div class="category-item">--%>
-                    <%--<a class="category-title" href="./categoryDetail.jsp">--%>
-                    <%--<p>Smoking tools</p>--%>
-                    <%--</a>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">--%>
-                    <%--<div class="category-item">--%>
-                    <%--<a class="category-title" href="./categoryDetail.jsp">--%>
-                    <%--<p>Vaporizers</p>--%>
-                    <%--</a>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
                 </div>
             </div>
         </section>
@@ -321,41 +282,6 @@
                             <a href="">${popularStore.name}</a>
                         </div>
                     </c:forEach>
-                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
-                    <%--<a href="./storeDetail.jsp">LED Grow Lights Depot</a>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
-                    <%--<a href="./storeDetail.jsp">Quebec Cannabis Seeds</a>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
-                    <%--<a href="./storeDetail.jsp">DopeBoo</a>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
-                    <%--<a href="./storeDetail.jsp">NewVape</a>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
-                    <%--<a href="./storeDetail.jsp">Growers Choice Seeds</a>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
-                    <%--<a href="./storeDetail.jsp">Ali Bongo</a>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
-                    <%--<a href="./storeDetail.jsp">Hippie Butler</a>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
-                    <%--<a href="./storeDetail.jsp">BadassGlass</a>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">--%>
-                    <%--<a href="./storeDetail.jsp">Cannastick</a>--%>
-                    <%--</div>--%>
                 </div>
             </div>
         </section>
@@ -369,3 +295,14 @@
 <script src="${basePath}/static/js/green/index.js"></script>
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+        $('.get_code,.get_deal').on('click', function () {
+            var $this = $(this);
+
+            var url = $this.attr('url');
+            window.location.replace(url);
+
+        });
+    })
+</script>
