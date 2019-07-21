@@ -13,7 +13,7 @@
                 <ul class="navbar-nav justify-content-end ">
                     <li class="nav-item-top-stores  nav-item ml-0 d-none d-lg-inline-block">
                         <div class="nav-link">
-                            <a href="${basePath}/green/stores"
+                            <a href="${basePath}/green/store/"
                                style="text-decoration: none;color: #151515;font-size: 15px;font-weight: 500;line-height: 35px">
                                 Top Stores
                             </a>
@@ -22,7 +22,7 @@
 
                     <li class="nav-item nav-item-category  d-none d-lg-inline-block">
                         <div class="nav-link">
-                            <a href="${basePath}/green/categories"
+                            <a href="${basePath}/green/category/"
                                style="text-decoration: none;color: #151515;font-size: 15px;font-weight: 500;line-height: 35px">
                                 Categories
                             </a>
@@ -142,9 +142,9 @@
         <div class="container d-flex d-lg-none">
             <nav class="nav mobile-nav">
                 <a href="${basePath}/green/" class="nav-item-home nav-link active">Home</a>
-                <a href="${basePath}/green/stores" class="nav-item-top-stores nav-link">Top Stores</a>
+                <a href="${basePath}/green/store/" class="nav-item-top-stores nav-link">Top Stores</a>
                 <a href="${basePath}/green/topcoupons" class="nav-item-top-coupons nav-link">Top Coupons</a>
-                <a href="${basePath}/green/categories" class="nav-item-category nav-link">Category</a>
+                <a href="${basePath}/green/category/" class="nav-item-category nav-link">Category</a>
             </nav>
         </div>
     </nav>

@@ -21,6 +21,16 @@ public class StoreDetailResponse {
 
     private String storeDescription;
 
+    private Integer storeId;
+
+	public Integer getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(Integer storeId) {
+		this.storeId = storeId;
+	}
+
 	public String getKeyWords() {
 		return keyWords;
 	}

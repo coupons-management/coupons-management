@@ -9,10 +9,18 @@ import com.gopher.system.service.OfficialWebsiteService;
 import com.gopher.system.service.ShowSiteTypeService;
 import com.gopher.system.service.WebSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 1500
@@ -48,19 +56,26 @@ public class GreenIndexController {
         return modelAndView;
     }
 
-    @RequestMapping("/aboutUs")
+    @RequestMapping("/about")
     public ModelAndView aboutUs() {
         return new ModelAndView("/green/about");
     }
 
-    @RequestMapping("/contactUs")
+    @RequestMapping("/contact")
     public ModelAndView contactUs() {
         return new ModelAndView("/green/contact");
     }
 
-    @RequestMapping("/stores")
-    public ModelAndView storeList(StorePageRequst storePageRequst) {
+    @RequestMapping("/store")
+    public ModelAndView storeList(String word) {
         ModelAndView modelAndView = new ModelAndView();
+        StorePageRequst storePageRequst = new StorePageRequst();
+        //todo 全部数据？
+        storePageRequst.setPageSize(100);
+        storePageRequst.setSiteId(SiteEnum.GREEN.getId());
+        if(StringUtils.hasText(word) && !"*".equals(word)){
+            storePageRequst.setName(word);
+        }
         modelAndView.addObject("stores", officialWebsiteService.getStorePageList(storePageRequst));
         modelAndView.setViewName("/green/store");
         return modelAndView;
@@ -68,17 +83,26 @@ public class GreenIndexController {
 
     @RequestMapping("/storeDetail")
     public ModelAndView storeDetail(StoreRequest storeRequest) {
+        String couponType = storeRequest.getCoupon_type();
         ModelAndView modelAndView = new ModelAndView();
         CpSitestoreRequest cpSitestoreRequest = new CpSitestoreRequest();
         cpSitestoreRequest.setSiteId(storeRequest.getSiteId());
         modelAndView.addObject("topStoreList", officialWebsiteService.getTopStoreList(cpSitestoreRequest));
         StoreDetailResponse storeDetail = webSiteService.getStoreDetail(storeRequest);
-        if (storeRequest.getC() != null && !CollectionUtils.isEmpty(storeDetail.getCouponList().getList())) {
+        if (!CollectionUtils.isEmpty(storeDetail.getCouponList().getList())) {
+            List<CpCouponVo> couponVoList = new ArrayList<>();
             for (CpCouponVo cpCouponVo : storeDetail.getCouponList().getList()) {
-                if (storeRequest.getC().equals(cpCouponVo.getId())) {
+                if (storeRequest.getC() != null && storeRequest.getC().equals(cpCouponVo.getId())) {
                     modelAndView.addObject("coupon", cpCouponVo);
-                    break;
                 }
+                if (StringUtils.hasText(couponType)) {
+                    if (couponType.equals(cpCouponVo.getCouponType())) {
+                        couponVoList.add(cpCouponVo);
+                    }
+                }
+            }
+            if(StringUtils.hasText(couponType)){
+                storeDetail.getCouponList().setList(couponVoList);
             }
         }
         modelAndView.addObject("storeDetail", storeDetail);
@@ -89,8 +113,8 @@ public class GreenIndexController {
         return modelAndView;
     }
 
-    @RequestMapping("/categories")
-    public ModelAndView categories(CpSitestoreRequest cpSitestoreRequest) {
+    @RequestMapping("/category")
+    public ModelAndView categories() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("categories", showSiteTypeService.getList(SiteEnum.GREEN.getId(), 1));
         modelAndView.setViewName("/green/category");
@@ -108,20 +132,31 @@ public class GreenIndexController {
     }
 
 
-    @RequestMapping("/categoryDetail")
-    public ModelAndView categoryDetail(CategoryDetailJspRequest categoryRequest) {
+    @RequestMapping("/category/{name}")
+    public ModelAndView categoryDetail(@PathVariable String name, @RequestParam(value = "coupon_type",required = false) String couponType, Integer page) {
         ModelAndView modelAndView = new ModelAndView();
+        CategoryDetailJspRequest categoryRequest = new CategoryDetailJspRequest();
+        categoryRequest.setSiteId(SiteEnum.GREEN.getId());
+        categoryRequest.setName(name);
+        CpSitestoreType category = showSiteTypeService.selectByName(categoryRequest);
+        categoryRequest.setId(category.getId());
+        categoryRequest.setPageSize(30);
+        if(StringUtils.hasText(couponType) && !"all".equals(couponType)){
+            categoryRequest.setCouponType(couponType);
+        }
+        if(page != null){
+            categoryRequest.setPageNumber(page);
+        }
         CpSitestoreRequest cpSitestoreRequest = new CpSitestoreRequest();
-        cpSitestoreRequest.setSiteId(categoryRequest.getSiteId());
+        cpSitestoreRequest.setSiteId(SiteEnum.GREEN.getId());
         modelAndView.addObject("topStoreList", officialWebsiteService.getTopStoreList(cpSitestoreRequest));
         modelAndView.addObject("coupons", webSiteService.getCouponListByCategory(categoryRequest));
-        CpSitestoreType category = showSiteTypeService.getById(categoryRequest.getId());
         modelAndView.addObject("currentCategory", category);
-        if (categoryRequest.getpId() != null) {
-            modelAndView.addObject("children", showSiteTypeService.getSonList(categoryRequest.getpId()));
-            modelAndView.addObject("pCategory", showSiteTypeService.getById(categoryRequest.getpId()));
+        if (category.getPid() != null) {
+            modelAndView.addObject("children", showSiteTypeService.getSonList(category.getPid()));
+            modelAndView.addObject("pCategory", showSiteTypeService.getById(category.getPid()));
         } else {
-            modelAndView.addObject("children", showSiteTypeService.getSonList(categoryRequest.getId()));
+            modelAndView.addObject("children", showSiteTypeService.getSonList(category.getId()));
             modelAndView.addObject("pCategory", category);
         }
 
@@ -129,6 +164,29 @@ public class GreenIndexController {
         modelAndView.setViewName("/green/categoryDetail");
         return modelAndView;
     }
+
+
+//    @RequestMapping("/categoryDetail")
+//    public ModelAndView categoryDetail(CategoryDetailJspRequest categoryRequest) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        CpSitestoreRequest cpSitestoreRequest = new CpSitestoreRequest();
+//        cpSitestoreRequest.setSiteId(categoryRequest.getSiteId());
+//        modelAndView.addObject("topStoreList", officialWebsiteService.getTopStoreList(cpSitestoreRequest));
+//        modelAndView.addObject("coupons", webSiteService.getCouponListByCategory(categoryRequest));
+//        CpSitestoreType category = showSiteTypeService.getById(categoryRequest.getId());
+//        modelAndView.addObject("currentCategory", category);
+//        if (categoryRequest.getpId() != null) {
+//            modelAndView.addObject("children", showSiteTypeService.getSonList(categoryRequest.getpId()));
+//            modelAndView.addObject("pCategory", showSiteTypeService.getById(categoryRequest.getpId()));
+//        } else {
+//            modelAndView.addObject("children", showSiteTypeService.getSonList(categoryRequest.getId()));
+//            modelAndView.addObject("pCategory", category);
+//        }
+//
+//
+//        modelAndView.setViewName("/green/categoryDetail");
+//        return modelAndView;
+//    }
 
 
 }

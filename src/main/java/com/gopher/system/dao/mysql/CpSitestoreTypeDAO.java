@@ -1,6 +1,7 @@
 package com.gopher.system.dao.mysql;
 
 import com.gopher.system.model.entity.CpSitestoreType;
+import com.gopher.system.model.vo.request.CategoryDetailJspRequest;
 import com.gopher.system.model.vo.request.CpSitestorePageRequest;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import org.apache.ibatis.annotations.Param;
@@ -43,4 +44,7 @@ public interface CpSitestoreTypeDAO extends MyBatisBaseDao<CpSitestoreType, Inte
 	List<CpSitestoreType> getPage(CpSitestorePageRequest request);
 
 	int getCount(CpSitestorePageRequest request);
+
+	CpSitestoreType selectByName(CategoryDetailJspRequest categoryRequest);
+
 }

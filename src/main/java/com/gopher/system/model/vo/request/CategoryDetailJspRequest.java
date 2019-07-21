@@ -7,15 +7,15 @@ package com.gopher.system.model.vo.request;
 public class CategoryDetailJspRequest extends CategoryRequest {
 
     /**
-     * 父节点ID
+     * 分类名称
      */
-    private Integer pId;
+    private String name;
 
-    public Integer getpId() {
-        return pId;
+    public String getName() {
+        return name;
     }
 
-    public void setpId(Integer pId) {
-        this.pId = pId;
+    public void setName(String name) {
+        this.name = name;
     }
 }

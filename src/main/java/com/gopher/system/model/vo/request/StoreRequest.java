@@ -9,6 +9,16 @@ public class StoreRequest extends PageRequestBase{
 	private String couponType;
 	private Integer c;
 
+	private String coupon_type;
+
+	public String getCoupon_type() {
+		return coupon_type;
+	}
+
+	public void setCoupon_type(String coupon_type) {
+		this.coupon_type = coupon_type;
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -140,7 +140,7 @@
                         <a class="store-grid-item cover-wrap"
                            href="${basePath}/green/storeDetail?storeId=${store.storeId}&siteId=1">
                             <div class="cover">
-                                <img src="${store.logoUrl}" class="align-self-center" alt="${store.name}"
+                                <img src="${store.logoUrl}" class="align-self-center" alt="${store.name} coupons"
                                      title="${store.name}"/>
                             </div>
                         </a>
@@ -226,7 +226,7 @@
                         <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
                             <div class="category-item">
                                 <a class="category-title"
-                                   href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=30&siteId=1&id=${category.id}&name=${category.name}">
+                                   href="${basePath}/green/category/${category.name}/">
                                     <p>${category.name}</p>
                                 </a>
                             </div>
@@ -241,7 +241,7 @@
                         <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
                             <div class="category-item">
                                 <a class="category-title"
-                                   href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=30&siteId=1&id=${category.id}&name=${category.name}">
+                                   href="${basePath}/green/category/${category.name}/">
                                     <p>${category.name}</p>
                                 </a>
                             </div>

@@ -14,6 +14,9 @@
     <!-- bootstrap -->
     <link rel="stylesheet" href="${basePath}/static/css/green/custom.css"/>
 </head>
+<%
+    request.setAttribute("coupon_type", (request.getParameter("coupon_type") == null || request.getParameter("coupon_type") == "") ? null : request.getParameter("coupon_type"));
+%>
 <body>
 <!-- Header -->
 <%@ include file="header.jsp" %>
@@ -86,7 +89,7 @@
                     <div class="store-brand cover-wrap">
                         <a class="cover" href="${storeDetail.website}"
                            target="_blank" rel="nofollow">
-                            <img class="img-fluid" src="${storeDetail.logo}" alt="">
+                            <img class="img-fluid" src="${storeDetail.logo}" alt="${storeDetail.name} coupons">
                         </a>
                     </div>
                 </div>
@@ -139,7 +142,7 @@
                                         <div class="cover">
                                             <img class="img-fluid"
                                                  style="height: 96px;max-width: 100%;max-height: 100%;"
-                                                 alt="${store.name}" src="${store.logoUrl}">
+                                                 alt="${store.name} coupons" src="${store.logoUrl}">
                                         </div>
                                     </a>
                                 </div>
@@ -154,13 +157,13 @@
                 <div class="col-lg-9 col-12 coupon-container">
                     <div class="row">
                         <div class="col-12 choice">
-                            <button id="type_all" class="btn btn-sm btn-active btn-all">
+                            <button id="type_all" class="btn btn-sm btn-all <c:if test="${coupon_type == null}">btn-active</c:if> " url="${basePath}/green/storeDetail?storeId=${storeDetail.storeId}&siteId=1">
                                 All<span class="d-none d-md-inline">  Offers</span>
                             </button>
-                            <button id="type_code" class="btn btn-sm  btn-code">
+                            <button id="type_code" class="btn btn-sm  btn-code <c:if test="${coupon_type == 'CODE'}">btn-active</c:if>" url="${basePath}/green/storeDetail?storeId=${storeDetail.storeId}&siteId=1&coupon_type=CODE">
                                 <span class="d-none d-md-inline">Coupon </span>Codes
                             </button>
-                            <button id="type_deal" class="btn btn-sm  btn-deal">Deals</button>
+                            <button id="type_deal" class="btn btn-sm  btn-deal <c:if test="${coupon_type == 'DEAL'}">btn-active</c:if>" url="${basePath}/green/storeDetail?storeId=${storeDetail.storeId}&siteId=1&coupon_type=DEAL">Deals</button>
                             <button id="type_verify" class="btn btn-sm  btn-verify">
                                 <i class="fa fa-shield d-inline d-md-none" aria-hidden="true"></i>
                                 <div class="custom-check-box d-none d-md-block">
@@ -219,7 +222,7 @@
                                             <c:when test="${coupon.couponType == 'CODE'}">
                                                 <a href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1&c=${coupon.id}"
                                                    rel="nofollow" class="get_code"
-                                                   data-id="120705" data-clipboard-text="save10" target="_self"
+                                                   data-id="120705" data-clipboard-text="save10" target="_blank"
                                                    url="${coupon.link}">
                                                     <div class="coupon-hop">
                                                         <div class="partial-code">${(coupon.code != null && coupon.code != "") ? coupon.code.substring(coupon.code.length()-1):""}</div>
@@ -277,5 +280,12 @@
             window.location.replace(url);
 
         });
+
+
+        $('#type_all,#type_code,#type_deal').on('click', function () {
+            location.href = $(this).attr('url');
+        });
+
+
     })
 </script>

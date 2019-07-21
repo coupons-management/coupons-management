@@ -15,8 +15,8 @@
                 <p>Cannabispromocodes.com</p>
 
                 <ul>
-                    <li><a rel="nofollow" class="link" href="${basePath}/green/aboutUs">About us</a></li>
-                    <li><a rel="nofollow" class="" href="${basePath}/green/contactUs">Contact us</a></li>
+                    <li><a rel="nofollow" class="link" href="${basePath}/green/about">About us</a></li>
+                    <li><a rel="nofollow" class="" href="${basePath}/green/contact">Contact us</a></li>
                 </ul>
             </div>
             <!-- End Footer Content -->
@@ -27,7 +27,7 @@
 
                 <ul>
                     <li><a rel="nofollow" class="" href="${basePath}/green/">Home</a></li>
-                    <li><a rel="nofollow" class="" href="${basePath}/green/stores?pageNumber=1&pageSize=30&siteId=1">Stores</a></li>
+                    <li><a rel="nofollow" class="" href="${basePath}/green/store/">Stores</a></li>
                 </ul>
             </div>
             <!-- End Footer Content -->

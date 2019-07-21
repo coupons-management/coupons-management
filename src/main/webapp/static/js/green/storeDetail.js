@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('#type_all,#type_code,#type_deal').click(function () {
+    /*$('#type_all,#type_code,#type_deal').click(function () {
         $(this).siblings().removeClass('btn-active');
         $(this).addClass('btn-active');
         var id = $(this).attr('id');
@@ -28,7 +28,7 @@ $(document).ready(function () {
 
             }
         })
-    });
+    });*/
 
 
 })

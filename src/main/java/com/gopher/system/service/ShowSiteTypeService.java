@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.gopher.system.model.entity.CpSitestoreType;
 import com.gopher.system.model.vo.Page;
-import com.gopher.system.model.vo.request.CpSitestorePageRequest;
-import com.gopher.system.model.vo.request.SourceTypeRequest;
-import com.gopher.system.model.vo.request.TypeMapRequest;
+import com.gopher.system.model.vo.request.*;
 import com.gopher.system.model.vo.response.CpTypeResponse;
 import com.gopher.system.model.vo.response.SitestoreTypeTree;
 
@@ -78,4 +76,6 @@ public interface ShowSiteTypeService {
 	 * @return
 	 */
 	Page<CpSitestoreType> getPage(CpSitestorePageRequest request);
+
+	CpSitestoreType selectByName(CategoryDetailJspRequest categoryRequest);
 }

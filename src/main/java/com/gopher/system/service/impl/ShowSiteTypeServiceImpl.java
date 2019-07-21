@@ -1,17 +1,5 @@
 package com.gopher.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-
-import com.gopher.system.model.vo.Page;
-import com.gopher.system.model.vo.request.CpSitestorePageRequest;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
 import com.gopher.system.dao.mysql.CpSitestoreTypeDAO;
 import com.gopher.system.dao.mysql.CpSitestoreTypeMapDAO;
 import com.gopher.system.dao.mysql.CpTypeDAO;
@@ -19,11 +7,23 @@ import com.gopher.system.exception.BusinessRuntimeException;
 import com.gopher.system.model.entity.CpSitestoreType;
 import com.gopher.system.model.entity.CpSitestoreTypeMap;
 import com.gopher.system.model.entity.CpType;
+import com.gopher.system.model.vo.Page;
+import com.gopher.system.model.vo.request.CategoryDetailJspRequest;
+import com.gopher.system.model.vo.request.CpSitestorePageRequest;
 import com.gopher.system.model.vo.request.SourceTypeRequest;
 import com.gopher.system.model.vo.request.TypeMapRequest;
 import com.gopher.system.model.vo.response.CpTypeResponse;
 import com.gopher.system.model.vo.response.SitestoreTypeTree;
 import com.gopher.system.service.ShowSiteTypeService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 /**
  * 
  * @author dongyangyang
@@ -291,5 +291,11 @@ public class ShowSiteTypeServiceImpl implements ShowSiteTypeService {
 	@Override
 	public CpSitestoreType getById(Integer id) {
 		return cpSitestoreTypeDAO.getById(id);
+	}
+
+
+	@Override
+	public CpSitestoreType selectByName(CategoryDetailJspRequest categoryRequest) {
+		return cpSitestoreTypeDAO.selectByName(categoryRequest);
 	}
 }

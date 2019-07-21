@@ -37,7 +37,7 @@
                     <c:forEach items="${categories}" var="category">
                         <div class="col-6 col-sm-4 col-md-3 col-lg-2 p-3 p-sm-2">
                             <div class="category-item">
-                                <a href="${basePath}/green/categoryDetail?pageNumber=1&pageSize=30&siteId=1&id=${category.id}">
+                                <a href="${basePath}/green/category/${category.name}/">
                                     ${category.name}
                                 </a>
                             </div>

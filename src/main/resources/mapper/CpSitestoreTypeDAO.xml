@@ -31,6 +31,17 @@
         from CP_SITESTORE_TYPE
         where ID = #{id,jdbcType=INTEGER}
     </select>
+
+
+
+    <select id="selectByName" parameterType="com.gopher.system.model.vo.request.CategoryDetailJspRequest" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from CP_SITESTORE_TYPE
+        where `NAME` = #{name}
+        AND OUT_SITE_ID = #{siteId}
+    </select>
+
     <delete id="deleteByPrimaryKey"
             parameterType="java.lang.Integer">
 		delete from CP_SITESTORE_TYPE

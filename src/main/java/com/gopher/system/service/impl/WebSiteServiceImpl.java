@@ -135,6 +135,7 @@ public class WebSiteServiceImpl implements WebSiteService {
            throw new BusinessRuntimeException("当前站点:"+siteId+"找不到该商家:"+storeId);
 		}
 		result.setId(cpOutSiteStore.getId());
+		result.setStoreId(cpOutSiteStore.getStoreId());
 		result.setLogo(cpStore.getLogoUrl());
         final String ad_address = cpOutSiteStore.getAdAddress();
 		final String name = cpStore.getName();
