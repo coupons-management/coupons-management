@@ -32,4 +32,5 @@ public interface RoleDAO extends MyBatisBaseDao<Role, Integer> {
 
     Resource findResourceById(Integer id);
 
+    List<Role> getList();
 }

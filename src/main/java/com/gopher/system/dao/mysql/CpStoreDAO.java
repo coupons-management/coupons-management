@@ -2,14 +2,11 @@ package com.gopher.system.dao.mysql;
 
 import java.util.List;
 
-import com.gopher.system.model.vo.request.StoreAvailableRequet;
+import com.gopher.system.model.vo.request.*;
 import org.springframework.stereotype.Repository;
 
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.vo.CpStoreVo;
-import com.gopher.system.model.vo.request.CpSitestoreRequest;
-import com.gopher.system.model.vo.request.StoreAllPageRequst;
-import com.gopher.system.model.vo.request.StorePageRequst;
 
 /**
  * CpStoreDAO继承基类
@@ -18,6 +15,8 @@ import com.gopher.system.model.vo.request.StorePageRequst;
 public interface CpStoreDAO extends MyBatisBaseDao<CpStore, Integer> {
 
 	 CpStore getBeanByWebSite(String website);
+
+	 CpStore findByWebsite(StoreDetailJspRequest request);
 
 	/**
 	 * 根据爬虫ID 获取商家列表

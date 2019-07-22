@@ -1,13 +1,14 @@
 package com.gopher.system.service;
 
-import java.util.List;
-
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.StoreAvailableRequet;
+import com.gopher.system.model.vo.request.StoreDetailJspRequest;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.model.vo.request.StoreVerifyRequest;
 import com.gopher.system.model.vo.response.StoreResponse;
+
+import java.util.List;
 
 public interface StoreService {
 	/**
@@ -60,7 +61,11 @@ public interface StoreService {
 	 */
 	Page<CpStore> availableAssignStore(StoreAvailableRequet storeAvailableRequet);
 
-
-
+	/**
+	 * 根据官网模糊匹配商家
+	 * @param request
+	 * @return
+	 */
+	CpStore findByWebsite(StoreDetailJspRequest request);
 
 }

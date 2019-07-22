@@ -10,6 +10,7 @@ import com.gopher.system.model.entity.Role;
 import com.gopher.system.model.entity.User;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.*;
+import com.gopher.system.model.vo.response.UserListResponse;
 import com.gopher.system.service.UserService;
 import com.gopher.system.util.MD5Utils;
 import com.gopher.system.util.ThreadLocalUtils;
@@ -23,6 +24,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author dongyangyang
@@ -97,17 +99,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> getPage(UserPageRequst userPageRequst) {
+    public Page<UserListResponse> getPage(UserPageRequst userPageRequst) {
         if (null == userPageRequst) {
             throw new BusinessRuntimeException("参数不能为空");
         }
-        Page<User> result = new Page<>();
+        Page<UserListResponse> result = new Page<>();
         result.setPageNumber(userPageRequst.getPageNumber());
         result.setPageSize(userPageRequst.getPageSize());
         List<User> list = userDAO.selectPage(userPageRequst);
+        List<UserListResponse> collect = null;
+        if(!CollectionUtils.isEmpty(list)){
+            collect = list.stream().map(p -> {
+                UserListResponse response = new UserListResponse();
+                BeanUtils.copyProperties(p, response);
+                response.setRoleList(userRole(p.getId()));
+                return response;
+            }).collect(Collectors.toList());
+        }
         final int totalCount = userDAO.getCount(userPageRequst);
         result.setTotalCount(totalCount);
-        result.setList(list);
+        result.setList(collect);
         return result;
     }
 

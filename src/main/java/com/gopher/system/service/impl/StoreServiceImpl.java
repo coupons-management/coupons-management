@@ -1,30 +1,24 @@
 package com.gopher.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import javax.annotation.Resource;
-
 import com.gopher.system.dao.mysql.*;
-import com.gopher.system.model.vo.request.StoreAvailableRequet;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
 import com.gopher.system.exception.BusinessRuntimeException;
-import com.gopher.system.model.entity.CpCoupon;
-import com.gopher.system.model.entity.CpOutSite;
-import com.gopher.system.model.entity.CpOutSiteStore;
-import com.gopher.system.model.entity.CpScrapy;
-import com.gopher.system.model.entity.CpScrapyStore;
-import com.gopher.system.model.entity.CpStore;
+import com.gopher.system.model.entity.*;
 import com.gopher.system.model.vo.Page;
+import com.gopher.system.model.vo.request.StoreAvailableRequet;
+import com.gopher.system.model.vo.request.StoreDetailJspRequest;
 import com.gopher.system.model.vo.request.StorePageRequst;
 import com.gopher.system.model.vo.request.StoreVerifyRequest;
 import com.gopher.system.model.vo.response.StoreResponse;
 import com.gopher.system.service.CouponService;
 import com.gopher.system.service.StoreService;
 import com.gopher.system.util.DateUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 /**
  * 
  * @author dongyangyang
@@ -224,5 +218,10 @@ public class StoreServiceImpl implements StoreService {
 		result.setTotalCount(totalCount);
 		result.setList(list);
 		return result;
+	}
+
+	@Override
+	public CpStore findByWebsite(StoreDetailJspRequest request) {
+		return cpStoreDAO.findByWebsite(request);
 	}
 }

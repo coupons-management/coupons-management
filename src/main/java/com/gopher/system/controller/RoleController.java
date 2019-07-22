@@ -51,6 +51,14 @@ public class RoleController {
         return result;
     }
 
+    @ApiOperation(value = "角色列表",httpMethod = "POST" ,response = Result.class)
+    @RequestMapping(path="/list")
+    public Result roleList() {
+        Result result = new Result();
+        result.setData(roleService.roleList());
+        return result;
+    }
+
 
     @ApiOperation(value = "某个角色资源列表",httpMethod = "POST" ,response = Resource.class)
     @RequestMapping(path="/resource")

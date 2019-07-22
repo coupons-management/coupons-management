@@ -5,7 +5,7 @@ import com.gopher.system.model.entity.Role;
 import com.gopher.system.model.entity.User;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.*;
-import com.gopher.system.model.vo.response.BasicInfoResponse;
+import com.gopher.system.model.vo.response.UserListResponse;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public interface UserService {
 	 * @param userPageRequst
 	 * @return
 	 */
-	Page<User> getPage(UserPageRequst userPageRequst);
+	Page<UserListResponse> getPage(UserPageRequst userPageRequst);
 
 	/**
 	 * 修改用户信息

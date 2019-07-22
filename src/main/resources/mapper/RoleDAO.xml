@@ -60,6 +60,16 @@
         `NAME` = #{name}
     </select>
 
+    <select id="getList" resultMap="BaseResultMap">
+        SELECT
+          *
+        FROM
+        ROLE
+        ORDER BY
+        IF(ISNULL(CREATE_TIME),0,1),CREATE_TIME DESC
+    </select>
+
+
 
     <delete id="deleteUserRoleByRoleId" parameterType="java.lang.Integer">
         DELETE

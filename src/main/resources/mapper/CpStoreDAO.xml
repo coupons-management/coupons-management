@@ -755,6 +755,9 @@
         cs.IS_COMPLETE
         FROM
         CP_STORE cs
+        INNER JOIN
+        CP_OUT_SITE_STORE coss
+        ON cs.ID = coss.STORE_ID
         WHERE NOT EXISTS (SELECT * FROM USER_STORE us WHERE cs.id=us.STORE_ID)
         <if test="name != null and  name !='' ">
             AND cs.NAME LIKE "%"#{name}"%"
@@ -768,11 +771,27 @@
         COUNT(1)
         FROM
         CP_STORE cs
+        INNER JOIN
+        CP_OUT_SITE_STORE coss
+        ON cs.ID = coss.STORE_ID
         WHERE NOT EXISTS (SELECT * FROM USER_STORE us WHERE cs.id=us.STORE_ID)
         <if test="name != null and  name !='' ">
             AND cs.NAME LIKE "%"#{name}"%"
         </if>
         ORDER BY cs.CREATE_TIME DESC
     </select>
+
+    <select id="findByWebsite" parameterType="com.gopher.system.model.vo.request.StoreDetailJspRequest" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        CP_STORE cs
+        INNER JOIN
+        CP_OUT_SITE_STORE coss
+        ON cs.ID = coss.STORE_ID
+        WHERE cs.WEBSITE "%"#{website}"%"
+        AND coss.OUT_ID = #{outSiteId}
+    </select>
+
 
 </mapper>

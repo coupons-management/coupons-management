@@ -192,6 +192,10 @@ public class RoleServiceImpl implements RoleService {
 
     }
 
+    @Override
+    public List<Role> roleList() {
+        return roleDAO.getList();
+    }
 
     private boolean checkHasResource(Integer resourceId, ResourceResponse resourceResponse) {
         boolean flag = false;

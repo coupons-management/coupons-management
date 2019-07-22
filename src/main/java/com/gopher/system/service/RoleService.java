@@ -55,5 +55,10 @@ public interface RoleService {
      */
     void updateRoleResource(RoleUpdateResourceRequest roleUpdateResourceRequest);
 
+    /**
+     * 角色列表
+     * @return
+     */
+    List<Role> roleList();
 
 }

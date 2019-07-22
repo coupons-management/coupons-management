@@ -2,11 +2,13 @@ package com.gopher.system.controller;
 
 import com.gopher.system.constant.SiteEnum;
 import com.gopher.system.model.entity.CpSitestoreType;
+import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.vo.CpCouponVo;
 import com.gopher.system.model.vo.request.*;
 import com.gopher.system.model.vo.response.StoreDetailResponse;
 import com.gopher.system.service.OfficialWebsiteService;
 import com.gopher.system.service.ShowSiteTypeService;
+import com.gopher.system.service.StoreService;
 import com.gopher.system.service.WebSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -39,6 +41,9 @@ public class GreenIndexController {
 
     @Autowired
     private WebSiteService webSiteService;
+
+    @Autowired
+    private StoreService storeService;
 
 
     @RequestMapping("/")
@@ -80,6 +85,44 @@ public class GreenIndexController {
         modelAndView.setViewName("/green/store");
         return modelAndView;
     }
+
+//    @RequestMapping("/store/{website}")
+//    public ModelAndView storeDetail(@PathVariable String website) {
+
+//        CpStore store = storeService.findByWebsite(new StoreDetailJspRequest(website, SiteEnum.GREEN.getId()));
+////        String couponType = storeRequest.getCoupon_type();
+//        ModelAndView modelAndView = new ModelAndView();
+//        CpSitestoreRequest cpSitestoreRequest = new CpSitestoreRequest();
+//        cpSitestoreRequest.setSiteId(SiteEnum.GREEN.getId());
+//        modelAndView.addObject("topStoreList", officialWebsiteService.getTopStoreList(cpSitestoreRequest));
+//        StoreRequest storeRequest = new StoreRequest();
+//        storeRequest.setSiteId(SiteEnum.GREEN.getId());
+//        storeRequest.setStoreId(store.getStoreId());
+//
+//        StoreDetailResponse storeDetail = webSiteService.getStoreDetail(storeRequest);
+////        if (!CollectionUtils.isEmpty(storeDetail.getCouponList().getList())) {
+////            List<CpCouponVo> couponVoList = new ArrayList<>();
+////            for (CpCouponVo cpCouponVo : storeDetail.getCouponList().getList()) {
+////                if (storeRequest.getC() != null && storeRequest.getC().equals(cpCouponVo.getId())) {
+////                    modelAndView.addObject("coupon", cpCouponVo);
+////                }
+////                if (StringUtils.hasText(couponType)) {
+////                    if (couponType.equals(cpCouponVo.getCouponType())) {
+////                        couponVoList.add(cpCouponVo);
+////                    }
+////                }
+////            }
+////            if(StringUtils.hasText(couponType)){
+////                storeDetail.getCouponList().setList(couponVoList);
+////            }
+////        }
+//        modelAndView.addObject("storeDetail", storeDetail);
+//        StoreRequest visitStoreRequest = new StoreRequest();
+//        visitStoreRequest.setId(storeDetail.getId());
+//        webSiteService.updateStoreVisitCount(visitStoreRequest);
+//        modelAndView.setViewName("/green/storeDetail");
+//        return null;
+//    }
 
     @RequestMapping("/storeDetail")
     public ModelAndView storeDetail(StoreRequest storeRequest) {
