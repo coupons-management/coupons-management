@@ -54,9 +54,9 @@
                             </div>
 
                             <div class="info-box col-9 col-sm-12 d-flex flex-wrap align-content-between">
-                                <a target="_self" rel="nofollow" url=""
+                                <a target="_blank" rel="nofollow" url="${coupon.storeWebSite}"
                                    class="get_deal coupon-title text-left text-sm-center"
-                                   href="${basePath}/green/store/<c:choose><c:when test="${coupon.storeWebSite.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${coupon.storeWebSite.endsWith(\"/\")}">${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//www.") + 6)}</c:when><c:otherwise>${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${coupon.storeWebSite.endsWith(\"/\")}">${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//") + 2)}</c:when><c:otherwise>${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>">
+                                   href="${basePath}/green/store/<c:choose><c:when test="${coupon.storeWebSite.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${coupon.storeWebSite.endsWith(\"/\")}">${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//www.") + 6)}</c:when><c:otherwise>${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${coupon.storeWebSite.endsWith(\"/\")}">${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//") + 2)}</c:when><c:otherwise>${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>?c=${coupon.outSiteCouponId}">
                                     <p>${coupon.name}</p>
                                 </a>
 
@@ -92,3 +92,14 @@
 <script src="${basePath}/static/js/green/custom.js"></script>
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+        $('.get_code,.get_deal').on('click', function () {
+            var $this = $(this);
+
+            var url = $this.attr('url');
+            window.location.replace(url);
+
+        });
+    })
+</script>
