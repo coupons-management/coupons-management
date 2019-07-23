@@ -475,7 +475,7 @@
         s.LOGO_URL AS
         storeLogo,
         s.NAME AS storeName,
-        s.WEBSITE AS storeWbsite,
+        s.WEBSITE AS storeWebsite,
         s.ID AS storeId
         FROM
         CP_COUPON cp

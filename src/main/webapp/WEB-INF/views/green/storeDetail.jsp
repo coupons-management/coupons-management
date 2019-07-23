@@ -36,7 +36,8 @@
                         <div class="row">
                             <div class="col-12 col-md-3 d-flex justify-content-center align-items-center">
                                 <a class="cover"
-                                   href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1">
+                                   href="${basePath}/green/store/<c:choose><c:when test="${coupon.link.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//") + 2)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>">
+                                   <%--href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1">--%>
                                     <img alt="${coupon.name}"
                                          src="${coupon.storeLogo}">
                                 </a>
@@ -138,7 +139,7 @@
                             <c:forEach items="${topStoreList}" var="store">
                                 <div class="col-6 p-2">
                                     <a class="cover-wrap store-item" style="max-height: 100px"
-                                       href="${basePath}/green/storeDetail?storeId=${store.storeId}&siteId=1">
+                                       href="${basePath}/green/store/<c:choose><c:when test="${store.webSite.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//") + 2)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>">
                                         <div class="cover">
                                             <img class="img-fluid"
                                                  style="height: 96px;max-width: 100%;max-height: 100%;"
@@ -157,13 +158,21 @@
                 <div class="col-lg-9 col-12 coupon-container">
                     <div class="row">
                         <div class="col-12 choice">
-                            <button id="type_all" class="btn btn-sm btn-all <c:if test="${coupon_type == null}">btn-active</c:if> " url="${basePath}/green/storeDetail?storeId=${storeDetail.storeId}&siteId=1">
+                            <button id="type_all"
+                                    class="btn btn-sm btn-all <c:if test="${coupon_type == null || coupon_type =='all'}">btn-active</c:if> ">
+                                    <%--url="${basePath}/green/storeDetail?storeId=${storeDetail.storeId}&siteId=1">--%>
                                 All<span class="d-none d-md-inline">  Offers</span>
                             </button>
-                            <button id="type_code" class="btn btn-sm  btn-code <c:if test="${coupon_type == 'CODE'}">btn-active</c:if>" url="${basePath}/green/storeDetail?storeId=${storeDetail.storeId}&siteId=1&coupon_type=CODE">
+                            <button id="type_code"
+                                    class="btn btn-sm  btn-code <c:if test="${coupon_type == 'CODE'}">btn-active</c:if>">
+                                    <%--url="${basePath}/green/storeDetail?storeId=${storeDetail.storeId}&siteId=1&coupon_type=CODE">--%>
                                 <span class="d-none d-md-inline">Coupon </span>Codes
                             </button>
-                            <button id="type_deal" class="btn btn-sm  btn-deal <c:if test="${coupon_type == 'DEAL'}">btn-active</c:if>" url="${basePath}/green/storeDetail?storeId=${storeDetail.storeId}&siteId=1&coupon_type=DEAL">Deals</button>
+                            <button id="type_deal"
+                                    class="btn btn-sm  btn-deal <c:if test="${coupon_type == 'DEAL'}">btn-active</c:if>">
+                                    <%--url="${basePath}/green/storeDetail?storeId=${storeDetail.storeId}&siteId=1&coupon_type=DEAL">--%>
+                                Deals
+                            </button>
                             <button id="type_verify" class="btn btn-sm  btn-verify">
                                 <i class="fa fa-shield d-inline d-md-none" aria-hidden="true"></i>
                                 <div class="custom-check-box d-none d-md-block">
@@ -201,7 +210,7 @@
 
                                     <div class="detail-info">
                                         <a class="get_code" url="${coupon.link}"
-                                           href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1&c=${coupon.id}"
+                                           href="${basePath}/green/store/<c:choose><c:when test="${coupon.link.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//") + 2)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>"
                                            target="_blank"
                                            rel="nofollow">
                                             <h3 class="paddl"><span
@@ -220,7 +229,7 @@
 
                                         <c:choose>
                                             <c:when test="${coupon.couponType == 'CODE'}">
-                                                <a href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1&c=${coupon.id}"
+                                                <a href="${basePath}/green/store/<c:choose><c:when test="${coupon.link.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//") + 2)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>?c=${coupon.id}#get_code_${coupon.id}"
                                                    rel="nofollow" class="get_code"
                                                    data-id="120705" data-clipboard-text="save10" target="_blank"
                                                    url="${coupon.link}">
@@ -235,7 +244,7 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <a class="btn-get-deal get_deal" data-id="439552"
-                                                   href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1&c=${coupon.id}"
+                                                   href="${basePath}/green/store/<c:choose><c:when test="${coupon.link.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//") + 2)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>?c=${coupon.id}#get_code_${coupon.id}"
                                                    rel="nofollow" target="_blank"
                                                    url="${coupon.link}">
                                                     GET DEAL
@@ -282,9 +291,75 @@
         });
 
 
-        $('#type_all,#type_code,#type_deal').on('click', function () {
-            location.href = $(this).attr('url');
+        // $('#type_all,#type_code,#type_deal').on('click', function () {
+        //     location.href = $(this).attr('url');
+        // });
+
+
+        //根据路由判断是否显示弹出层
+        var coupon_id = null;
+
+        var coupon_type = 'CODE',
+            verify = 'False',
+            name__icontains = '';
+        $('#type_all').on('click', function () {
+            coupon_type = 'all';
+            location.href = '?coupon_type=all';
         });
+        $('#type_code').on('click', function () {
+            coupon_type = 'CODE';
+            show_div(coupon_type, verify, name__icontains);
+        });
+        $('#type_deal').on('click', function () {
+            coupon_type = 'DEAL';
+            show_div(coupon_type, verify, name__icontains);
+        });
+        $('#type_verify').on('click', function () {
+            var verify = !$('#type_verify').hasClass('btn-active');
+
+            show_div(coupon_type, verify, name__icontains);
+        });
+        $('.search_input').keypress(function (e) {
+            if (e.which === 13 || e.keyCode == 13) {
+                name__icontains = $('.search_input').val();
+                show_div(coupon_type, verify, name__icontains);
+            }
+        });
+
+        function show_div(coupon_type, verify, name__icontains) {
+            location.href = '?coupon_type=' + coupon_type + '&verify=' + verify + '&name__icontains=' + name__icontains
+        }
+
+
+        // $('.get_code,.get_deal').on('click', function () {
+        //     var $this = $(this);
+        //
+        //     var url = $this.attr('url');
+        //     var newWindow = window.open(url);
+        //     var itemId = $this.data('id');
+        //     if (coupon_id && itemId == coupon_id) {
+        //         $('.js-modal').modal && $('.js-modal').modal();
+        //     } else {
+        //         newWindow.location = url;
+        //     }
+        // });
+
+        // var btn = new ClipboardJS('.copy_code', {
+        //     container: document.getElementById('exampleModalCenter')
+        // });
+        // btn.on('success', function (e) {
+        //     $('.copy_code').text('Copied!');
+        //     $('.copy_code').removeClass('u-btn-primary').addClass('u-btn-blue');
+        // });
+        // $('.copy_code').on('click', function () {
+        //     $(this).text('Copied!');
+        //     $(this).removeClass('u-btn-primary').addClass('u-btn-blue');
+        // });
+
+        // 弹框中的 copy code 按钮
+
+        // 列表中的 get code 按钮
+        // new ClipboardJS(".get_code");
 
 
     })

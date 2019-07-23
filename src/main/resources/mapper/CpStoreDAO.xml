@@ -789,7 +789,7 @@
         INNER JOIN
         CP_OUT_SITE_STORE coss
         ON cs.ID = coss.STORE_ID
-        WHERE cs.WEBSITE "%"#{website}"%"
+        WHERE cs.WEBSITE LIKE "%"#{website}"%"
         AND coss.OUT_ID = #{outSiteId}
     </select>
 

@@ -78,7 +78,7 @@ public class GreenIndexController {
         //todo 全部数据？
         storePageRequst.setPageSize(100);
         storePageRequst.setSiteId(SiteEnum.GREEN.getId());
-        if(StringUtils.hasText(word) && !"*".equals(word)){
+        if (StringUtils.hasText(word) && !"*".equals(word)) {
             storePageRequst.setName(word);
         }
         modelAndView.addObject("stores", officialWebsiteService.getStorePageList(storePageRequst));
@@ -86,65 +86,32 @@ public class GreenIndexController {
         return modelAndView;
     }
 
-//    @RequestMapping("/store/{website}")
-//    public ModelAndView storeDetail(@PathVariable String website) {
-
-//        CpStore store = storeService.findByWebsite(new StoreDetailJspRequest(website, SiteEnum.GREEN.getId()));
-////        String couponType = storeRequest.getCoupon_type();
-//        ModelAndView modelAndView = new ModelAndView();
-//        CpSitestoreRequest cpSitestoreRequest = new CpSitestoreRequest();
-//        cpSitestoreRequest.setSiteId(SiteEnum.GREEN.getId());
-//        modelAndView.addObject("topStoreList", officialWebsiteService.getTopStoreList(cpSitestoreRequest));
-//        StoreRequest storeRequest = new StoreRequest();
-//        storeRequest.setSiteId(SiteEnum.GREEN.getId());
-//        storeRequest.setStoreId(store.getStoreId());
-//
-//        StoreDetailResponse storeDetail = webSiteService.getStoreDetail(storeRequest);
-////        if (!CollectionUtils.isEmpty(storeDetail.getCouponList().getList())) {
-////            List<CpCouponVo> couponVoList = new ArrayList<>();
-////            for (CpCouponVo cpCouponVo : storeDetail.getCouponList().getList()) {
-////                if (storeRequest.getC() != null && storeRequest.getC().equals(cpCouponVo.getId())) {
-////                    modelAndView.addObject("coupon", cpCouponVo);
-////                }
-////                if (StringUtils.hasText(couponType)) {
-////                    if (couponType.equals(cpCouponVo.getCouponType())) {
-////                        couponVoList.add(cpCouponVo);
-////                    }
-////                }
-////            }
-////            if(StringUtils.hasText(couponType)){
-////                storeDetail.getCouponList().setList(couponVoList);
-////            }
-////        }
-//        modelAndView.addObject("storeDetail", storeDetail);
-//        StoreRequest visitStoreRequest = new StoreRequest();
-//        visitStoreRequest.setId(storeDetail.getId());
-//        webSiteService.updateStoreVisitCount(visitStoreRequest);
-//        modelAndView.setViewName("/green/storeDetail");
-//        return null;
-//    }
-
-    @RequestMapping("/storeDetail")
-    public ModelAndView storeDetail(StoreRequest storeRequest) {
-        String couponType = storeRequest.getCoupon_type();
+    @RequestMapping("/store/{website}")
+    public ModelAndView storeDetail(@PathVariable String website, @RequestParam(value = "coupon_type", required = false) String couponType,
+                                    Boolean verify, @RequestParam(value = "name__icontains", required = false) String name, Integer c) {
+        CpStore store = storeService.findByWebsite(new StoreDetailJspRequest(website, SiteEnum.GREEN.getId()));
         ModelAndView modelAndView = new ModelAndView();
         CpSitestoreRequest cpSitestoreRequest = new CpSitestoreRequest();
-        cpSitestoreRequest.setSiteId(storeRequest.getSiteId());
+        cpSitestoreRequest.setSiteId(SiteEnum.GREEN.getId());
         modelAndView.addObject("topStoreList", officialWebsiteService.getTopStoreList(cpSitestoreRequest));
+        StoreRequest storeRequest = new StoreRequest();
+        storeRequest.setSiteId(SiteEnum.GREEN.getId());
+        storeRequest.setStoreId(store.getId());
+
         StoreDetailResponse storeDetail = webSiteService.getStoreDetail(storeRequest);
         if (!CollectionUtils.isEmpty(storeDetail.getCouponList().getList())) {
             List<CpCouponVo> couponVoList = new ArrayList<>();
             for (CpCouponVo cpCouponVo : storeDetail.getCouponList().getList()) {
-                if (storeRequest.getC() != null && storeRequest.getC().equals(cpCouponVo.getId())) {
+                if (c != null && c.equals(cpCouponVo.getId())) {
                     modelAndView.addObject("coupon", cpCouponVo);
                 }
-                if (StringUtils.hasText(couponType)) {
+                if (StringUtils.hasText(couponType) && !"all".equals(couponType)) {
                     if (couponType.equals(cpCouponVo.getCouponType())) {
                         couponVoList.add(cpCouponVo);
                     }
                 }
             }
-            if(StringUtils.hasText(couponType)){
+            if(StringUtils.hasText(couponType)&& !"all".equals(couponType)){
                 storeDetail.getCouponList().setList(couponVoList);
             }
         }
@@ -155,6 +122,38 @@ public class GreenIndexController {
         modelAndView.setViewName("/green/storeDetail");
         return modelAndView;
     }
+
+//    @RequestMapping("/storeDetail")
+//    public ModelAndView storeDetail(StoreRequest storeRequest) {
+//        String couponType = storeRequest.getCoupon_type();
+//        ModelAndView modelAndView = new ModelAndView();
+//        CpSitestoreRequest cpSitestoreRequest = new CpSitestoreRequest();
+//        cpSitestoreRequest.setSiteId(storeRequest.getSiteId());
+//        modelAndView.addObject("topStoreList", officialWebsiteService.getTopStoreList(cpSitestoreRequest));
+//        StoreDetailResponse storeDetail = webSiteService.getStoreDetail(storeRequest);
+//        if (!CollectionUtils.isEmpty(storeDetail.getCouponList().getList())) {
+//            List<CpCouponVo> couponVoList = new ArrayList<>();
+//            for (CpCouponVo cpCouponVo : storeDetail.getCouponList().getList()) {
+//                if (storeRequest.getC() != null && storeRequest.getC().equals(cpCouponVo.getId())) {
+//                    modelAndView.addObject("coupon", cpCouponVo);
+//                }
+//                if (StringUtils.hasText(couponType)) {
+//                    if (couponType.equals(cpCouponVo.getCouponType())) {
+//                        couponVoList.add(cpCouponVo);
+//                    }
+//                }
+//            }
+//            if(StringUtils.hasText(couponType)){
+//                storeDetail.getCouponList().setList(couponVoList);
+//            }
+//        }
+//        modelAndView.addObject("storeDetail", storeDetail);
+//        StoreRequest visitStoreRequest = new StoreRequest();
+//        visitStoreRequest.setId(storeDetail.getId());
+//        webSiteService.updateStoreVisitCount(visitStoreRequest);
+//        modelAndView.setViewName("/green/storeDetail");
+//        return modelAndView;
+//    }
 
     @RequestMapping("/category")
     public ModelAndView categories() {
@@ -176,7 +175,7 @@ public class GreenIndexController {
 
 
     @RequestMapping("/category/{name}")
-    public ModelAndView categoryDetail(@PathVariable String name, @RequestParam(value = "coupon_type",required = false) String couponType, Integer page) {
+    public ModelAndView categoryDetail(@PathVariable String name, @RequestParam(value = "coupon_type", required = false) String couponType, Integer page) {
         ModelAndView modelAndView = new ModelAndView();
         CategoryDetailJspRequest categoryRequest = new CategoryDetailJspRequest();
         categoryRequest.setSiteId(SiteEnum.GREEN.getId());
@@ -184,10 +183,10 @@ public class GreenIndexController {
         CpSitestoreType category = showSiteTypeService.selectByName(categoryRequest);
         categoryRequest.setId(category.getId());
         categoryRequest.setPageSize(30);
-        if(StringUtils.hasText(couponType) && !"all".equals(couponType)){
+        if (StringUtils.hasText(couponType) && !"all".equals(couponType)) {
             categoryRequest.setCouponType(couponType);
         }
-        if(page != null){
+        if (page != null) {
             categoryRequest.setPageNumber(page);
         }
         CpSitestoreRequest cpSitestoreRequest = new CpSitestoreRequest();

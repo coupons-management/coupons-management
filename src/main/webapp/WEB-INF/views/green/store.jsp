@@ -308,8 +308,8 @@
                             <div class="col-lg-2 col-md-3 col-sm-4 col-6 p-md-2 p-0">
 
                                 <a class="cover-wrap" style="height: 176px;"
-                                   <%--href="${basePath}/green/store/<c:choose><c:when test="${store.webSite.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//") + 2)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>">--%>
-                                    href="${basePath}/green/storeDetail?storeId=${store.storeId}&siteId=1">
+                                   href="${basePath}/green/store/<c:choose><c:when test="${store.webSite.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//") + 2)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>">
+                                    <%--href="${basePath}/green/storeDetail?storeId=${store.storeId}&siteId=1">--%>
                                     <div class="cover">
                                         <img src="${store.logoUrl}" alt="${store.name} coupons" title="${store.name}"/>
                                     </div>
@@ -325,7 +325,7 @@
                         <div class="row text-left text-md-center">
                             <c:forEach items="${stores.list}" var="store">
                                 <div class="col-md-3 col-6">
-                                    <a href="${basePath}/green/storeDetail?storeId=${store.storeId}&siteId=1">
+                                    <a href="${basePath}/green/store/<c:choose><c:when test="${store.webSite.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//") + 2)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>">
                                             ${store.name}
                                     </a>
                                 </div>
