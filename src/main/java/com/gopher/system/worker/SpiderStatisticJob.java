@@ -22,6 +22,7 @@ import java.util.List;
  *
  * @author dongyangyang
  */
+@Deprecated
 public class SpiderStatisticJob {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpiderStatisticJob.class);
     @Autowired

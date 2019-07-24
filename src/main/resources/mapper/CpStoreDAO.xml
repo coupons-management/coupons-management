@@ -24,7 +24,8 @@
                 property="couponCount"/>
         <result column="IS_COMPLETE" jdbcType="VARCHAR"
                 property="isComplete"/>
-
+        <result column="LAST_SPIDER" jdbcType="VARCHAR"
+                property="lastSpider"/>
         <result column="COUPON_COUNT_VALID" jdbcType="INTEGER"
                 property="couponCountValid"/>
         <result column="IN_TYPE" jdbcType="CHAR" property="inType"/>

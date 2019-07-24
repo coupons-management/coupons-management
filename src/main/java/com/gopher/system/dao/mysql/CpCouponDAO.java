@@ -17,6 +17,8 @@ public interface CpCouponDAO extends MyBatisBaseDao<CpCoupon, Integer> {
 
     CpCoupon getBeanByName(CpCoupon cou);
 
+    CpCoupon getBeanByCode(CpCoupon cou);
+
     List<CpCoupon> getPageList(CouponPageRequest couponPageRequest);
 
     int getCount(CouponPageRequest couponPageRequest);

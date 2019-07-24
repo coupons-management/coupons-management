@@ -369,6 +369,16 @@
         STORE_ID=#{storeId,jdbcType=INTEGER} limit 1
     </select>
 
+    <select id="getBeanByCode"
+            parameterType="com.gopher.system.model.entity.CpCoupon"
+            resultType="com.gopher.system.model.entity.CpCoupon">
+        select
+        <include refid="Base_Column_List"/>
+        from CP_COUPON
+        where CODE = #{code,jdbcType=VARCHAR} and
+        STORE_ID=#{storeId,jdbcType=INTEGER} limit 1
+    </select>
+
     <select id="getPageList"
             parameterType="com.gopher.system.model.vo.request.CouponPageRequest"
             resultMap="BaseResultMap">

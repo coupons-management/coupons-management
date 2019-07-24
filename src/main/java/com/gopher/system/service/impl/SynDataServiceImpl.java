@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class SynDataServiceImpl implements SynDataService {
@@ -65,6 +62,7 @@ public class SynDataServiceImpl implements SynDataService {
                 final String sourceUrl = stu.getSourceSite();
                 // 商家官网
                 final String storeUrl = stu.getFinalWebsite();
+
                 CpInSite site = cpInSiteDAO.getSiteUrl(sourceUrl);
                 if (site == null) {
                     site = new CpInSite();
@@ -83,7 +81,6 @@ public class SynDataServiceImpl implements SynDataService {
                     cpType.setName(stu.getCategory());
                     cpType.setInType("0");
                     cpTypeDAO.insert(cpType);
-
                 }
                 // 增加商家
                 CpStore cpStore = cpStoreDAO.getBeanByWebSite(storeUrl);
@@ -119,33 +116,41 @@ public class SynDataServiceImpl implements SynDataService {
                     }
                     cpStoreDAO.insert(cpStore);
                 } else {
-                    cpStore.setName(stu.getName());
-                    cpStore.setWebsite(storeUrl);
-                    cpStore.setCountry(stu.getCountry());
-                    cpStore.setTitle(stu.getTitle());
-                    if (StringUtils.isEmpty(stu.getCouponCount())) {
-                        cpStore.setCouponCount(0);
-                    } else {
-                        cpStore.setCouponCount(Integer.parseInt(stu.getCouponCount()));
+                    if (!Objects.equals(cpStore.getApproval(), "1")) {
+                        //合格的商家不更新
+                        Integer weight = DataCacheUtils.scrapyMap.get(stu.getSpiderName());
+                        Integer last_weight = DataCacheUtils.scrapyMap.get(cpStore.getLastSpider());
+                        // 本次爬虫权重高于上一次 更新数据
+                        if (last_weight < weight) {
+                            cpStore.setName(stu.getName());
+                            cpStore.setWebsite(storeUrl);
+                            cpStore.setCountry(stu.getCountry());
+                            cpStore.setTitle(stu.getTitle());
+                            if (StringUtils.isEmpty(stu.getCouponCount())) {
+                                cpStore.setCouponCount(0);
+                            } else {
+                                cpStore.setCouponCount(Integer.parseInt(stu.getCouponCount()));
+                            }
+                            cpStore.setLogoUrl(stu.getLogoUrl());
+                            cpStore.setDes(stu.getDescription());
+                            cpStore.setUuid(stu.getUuid());
+                            cpStore.setTypeId(cpType.getId());
+                            cpStore.setTypeName(cpType.getName());
+                            // 0同步入库 1人工入库
+                            cpStore.setInType("0");
+                            cpStore.setCreatedAt(DateUtils.getDateTime(stu.getCreatedAt()));
+                            cpStore.setUpdateTime(new Date());
+                            if (StringUtils.isNotEmpty(stu.getName())
+                                    && StringUtils.isNotEmpty(stu.getFinalWebsite())
+                                    && StringUtils.isNotEmpty(cpType.getName())
+                                    && StringUtils.isNotEmpty(stu.getLogoUrl())) {
+                                cpStore.setIsComplete("1");
+                            } else {
+                                cpStore.setIsComplete("0");
+                            }
+                            cpStoreDAO.updateByPrimaryKeySelective(cpStore);
+                        }
                     }
-                    cpStore.setLogoUrl(stu.getLogoUrl());
-                    cpStore.setDes(stu.getDescription());
-                    cpStore.setUuid(stu.getUuid());
-                    cpStore.setTypeId(cpType.getId());
-                    cpStore.setTypeName(cpType.getName());
-                    // 0同步入库 1人工入库
-                    cpStore.setInType("0");
-                    cpStore.setCreatedAt(DateUtils.getDateTime(stu.getCreatedAt()));
-                    cpStore.setUpdateTime(new Date());
-                    if (StringUtils.isNotEmpty(stu.getName())
-                            && StringUtils.isNotEmpty(stu.getFinalWebsite())
-                            && StringUtils.isNotEmpty(cpType.getName())
-                            && StringUtils.isNotEmpty(stu.getLogoUrl())) {
-                        cpStore.setIsComplete("1");
-                    } else {
-                        cpStore.setIsComplete("0");
-                    }
-                    cpStoreDAO.updateByPrimaryKeySelective(cpStore);
 
                 }
                 //修改站点与商家关系
@@ -199,11 +204,7 @@ public class SynDataServiceImpl implements SynDataService {
                     cpTypeDAO.insert(cpType);
                 }
                 final String storeUrl = stu.getStoreWebsite();
-                final String code     = stu.getCode();
-                if(StringUtils.isNotEmpty(code)){
-                   //code 类型的优惠券 通过code验证是否重复
-
-                }
+                final String code = stu.getCode();
                 CpStore cpStore = cpStoreDAO.getBeanByWebSite(storeUrl);
                 // 2、增加商家
                 if (cpStore == null) {
@@ -229,8 +230,15 @@ public class SynDataServiceImpl implements SynDataService {
                 // 3、增加优惠卷
                 CpCoupon qcpCoupon = new CpCoupon();
                 qcpCoupon.setStoreId(cpStore.getId());
-                qcpCoupon.setName(stu.getName());
-                CpCoupon cpCoupon = cpCouponDAO.getBeanByName(qcpCoupon);
+                CpCoupon cpCoupon = null;
+                if (StringUtils.isNotEmpty(code)) {
+                    //code 类型的优惠券 通过code验证是否重复
+                    qcpCoupon.setCode(code);
+                    cpCoupon = cpCouponDAO.getBeanByCode(qcpCoupon);
+                } else {
+                    qcpCoupon.setName(stu.getName());
+                    cpCoupon = cpCouponDAO.getBeanByName(qcpCoupon);
+                }
                 Integer weight = DataCacheUtils.scrapyMap.get(stu.getSpiderName());
                 final int index = weight * (DataCacheUtils.VALUES - stu.getIndex());
                 if (cpCoupon == null) {
@@ -241,10 +249,10 @@ public class SynDataServiceImpl implements SynDataService {
                     final Date expire = stu.getExpire();
                     if (null == expire) {
                         cpCoupon.setExpireAt(DateUtils.getDateTime("2099-01-01"));
-                    }else{
-                        if (index == 0){
+                    } else {
+                        if (index == 0) {
 
-                        }else{
+                        } else {
                             cpCoupon.setExpireAt(stu.getExpire());
                         }
                     }
@@ -272,10 +280,10 @@ public class SynDataServiceImpl implements SynDataService {
                     final Date expire = stu.getExpire();
                     if (null == expire) {
                         cpCoupon.setExpireAt(DateUtils.getDateTime("2099-01-01"));
-                    }else{
-                        if (index == 0){
+                    } else {
+                        if (index == 0) {
 
-                        }else{
+                        } else {
                             cpCoupon.setExpireAt(stu.getExpire());
                         }
                     }

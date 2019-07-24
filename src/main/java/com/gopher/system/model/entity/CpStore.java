@@ -72,7 +72,7 @@ public class CpStore implements Serializable {
 	private String inType;
 
 	/**
-	 * 审核方式
+	 * 1=合格 2=不合格 0=待审核
 	 */
 	private String approval;
 
@@ -103,6 +103,18 @@ public class CpStore implements Serializable {
 	private String isComplete;
 
 	private int storeId;
+	/**
+	 * 最后更新来源爬虫名称
+	 */
+	private String lastSpider;
+
+	public String getLastSpider() {
+		return lastSpider;
+	}
+
+	public void setLastSpider(String lastSpider) {
+		this.lastSpider = lastSpider;
+	}
 
 	public int getStoreId() {
 		return storeId;
