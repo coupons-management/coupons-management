@@ -340,11 +340,11 @@ public class SynDataServiceImpl implements SynDataService {
                 if (siteStore == null) {
                     cpSiteStoreDAO.insert(cpSiteStore);
                 }
-                CpCouponCensus param = new CpCouponCensus();
-                param.setCouponName(cpCoupon.getName());
-                param.setScrapyName(cpScrapy.getName());
-                param.setStoreId(cpStore.getId());
-                CpCouponCensus census = cpCouponCensusDAO.getBean(param);
+//                CpCouponCensus param = new CpCouponCensus();
+//                param.setCouponName(cpCoupon.getName());
+//                param.setScrapyName(cpScrapy.getName());
+//                param.setStoreId(cpStore.getId());
+//                CpCouponCensus census = cpCouponCensusDAO.getBean(param);
 //                Integer weight = DataCacheUtils.scrapyMap.get(cpScrapy.getName());
 //                if (weight == null || weight <= 0) {
 //                    weight = 1;
