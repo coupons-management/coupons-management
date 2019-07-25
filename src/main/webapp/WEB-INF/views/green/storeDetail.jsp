@@ -210,7 +210,7 @@
 
                                     <div class="detail-info">
                                         <a class="get_code" url="${coupon.link}"
-                                           href="${basePath}/green/store/<c:choose><c:when test="${coupon.link.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//") + 2)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>"
+                                           href="${basePath}/green/store/<c:choose><c:when test="${coupon.link.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//") + 2)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>?c=${coupon.id}#get_code_${coupon.id}"
                                            target="_blank"
                                            rel="nofollow">
                                             <h3 class="paddl"><span

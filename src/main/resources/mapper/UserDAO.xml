@@ -212,15 +212,27 @@
     WHERE USER_ID = #{id}
   </delete>
 
+    <delete id="cancelUserStore" parameterType="com.gopher.system.model.vo.request.UserAssignOrCancelStoreRequest">
+        DELETE FROM USER_STORE
+        WHERE USER_ID = #{userId}
+        AND STORE_ID= #{storeId}
+    </delete>
+
 
     <insert id="assignStore" parameterType="com.gopher.system.model.vo.request.UserAssignStoreRequest">
-
         INSERT INTO
         USER_STORE (USER_ID,STORE_ID)
         VALUES
         <foreach collection="param.stores" item="store" separator=",">
             (#{param.userId},#{store})
         </foreach>
+    </insert>
+
+    <insert id="assignStoreToUser" parameterType="com.gopher.system.model.vo.request.UserAssignOrCancelStoreRequest">
+        INSERT INTO
+        USER_STORE (USER_ID,STORE_ID)
+        VALUES
+        (#{userId},#{storeId})
     </insert>
 
     <select id="assignedCount" parameterType="java.util.List" resultType="java.lang.Integer">
@@ -277,11 +289,11 @@
                 </if>
             </when>
             <otherwise>
-              <where>
-                  <if test="name != null and name!=''">
-                    cs.NAME LIKE "%"#{name}"%"
-                  </if>
-              </where>
+                <where>
+                    <if test="name != null and name!=''">
+                        cs.NAME LIKE "%"#{name}"%"
+                    </if>
+                </where>
             </otherwise>
         </choose>
         ORDER BY cs.CREATE_TIME DESC

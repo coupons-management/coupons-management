@@ -77,4 +77,10 @@ public interface UserService {
 	 */
 	Page<CpStore> currentUserStore(UserStoreRequest userStoreRequest);
 
+	/**
+	 * 分配、取消分配商家
+	 * @param request
+	 */
+	void assignOrCancelStoreToUser(UserAssignOrCancelStoreRequest request);
+
 }

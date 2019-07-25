@@ -4,15 +4,12 @@ import java.util.List;
 
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.Role;
-import com.gopher.system.model.vo.request.UserAssigRoleRequest;
-import com.gopher.system.model.vo.request.UserAssignStoreRequest;
-import com.gopher.system.model.vo.request.UserStoreRequest;
+import com.gopher.system.model.vo.request.*;
 import com.gopher.system.model.vo.response.BasicInfoResponse;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.gopher.system.model.entity.User;
-import com.gopher.system.model.vo.request.UserPageRequst;
 
 /**
  * UserDAO继承基类
@@ -38,13 +35,33 @@ public interface UserDAO extends MyBatisBaseDao<User, Integer> {
 
 	void assignRole(@Param("param") UserAssigRoleRequest param);
 
+	/**
+	 * 员工角色列表
+	 * @param userId
+	 * @return
+	 */
 	List<Role> userRole(Integer userId);
 
+	/**
+	 * 员工管理商家列表
+	 * @param userStoreRequest
+	 * @return
+	 */
 	List<CpStore> userStore(UserStoreRequest userStoreRequest);
 
 	int userStoreCount(UserStoreRequest userStoreRequest);
 
+	/**
+	 * 将商家分配给员工
+	 * @param request
+	 */
+	void assignStoreToUser(UserAssignOrCancelStoreRequest request);
 
+	/**
+	 * 取消分配商家
+	 * @param request
+	 */
+	void cancelUserStore(UserAssignOrCancelStoreRequest request);
 
 
 }

@@ -60,6 +60,13 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping(path="/assignOrCancel")
+    public Result assignOrCancelStore(@RequestBody UserAssignOrCancelStoreRequest request) {
+        Result result = new Result();
+        userService.assignOrCancelStoreToUser(request);
+        return result;
+    }
+
 
     @RequestMapping(path="/assignRole")
     public Result assignRole(@RequestBody UserAssigRoleRequest userAssigRoleRequest) {

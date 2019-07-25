@@ -1,5 +1,6 @@
 package com.gopher.system.service.impl;
 
+import com.gopher.system.constant.AssignStoreOperationEnmu;
 import com.gopher.system.constant.RoleTypeEnmu;
 import com.gopher.system.dao.mysql.CpStoreDAO;
 import com.gopher.system.dao.mysql.RoleDAO;
@@ -22,6 +23,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -108,7 +110,7 @@ public class UserServiceImpl implements UserService {
         result.setPageSize(userPageRequst.getPageSize());
         List<User> list = userDAO.selectPage(userPageRequst);
         List<UserListResponse> collect = null;
-        if(!CollectionUtils.isEmpty(list)){
+        if (!CollectionUtils.isEmpty(list)) {
             collect = list.stream().map(p -> {
                 UserListResponse response = new UserListResponse();
                 BeanUtils.copyProperties(p, response);
@@ -171,7 +173,7 @@ public class UserServiceImpl implements UserService {
             for (Integer roleId : userAssigRoleRequest.getRoles()) {
                 Role role = roleDAO.selectByPrimaryKey(roleId);
                 if (role == null) {
-                    throw new BusinessRuntimeException(roleId+"角色不存在");
+                    throw new BusinessRuntimeException(roleId + "角色不存在");
                 }
             }
             userDAO.assignRole(userAssigRoleRequest);
@@ -234,5 +236,43 @@ public class UserServiceImpl implements UserService {
         result.setTotalCount(totalCount);
         result.setList(list);
         return result;
+    }
+
+
+    @Override
+    public void assignOrCancelStoreToUser(UserAssignOrCancelStoreRequest request) {
+
+        if (request.getUserId() == null || request.getStoreId() == null || request.getOperation() == null) {
+            throw new BusinessRuntimeException("参数不能为空");
+        }
+
+        AssignStoreOperationEnmu operation = AssignStoreOperationEnmu.getOperation(request.getOperation());
+        if (operation == null) {
+            throw new BusinessRuntimeException("操作参数有误");
+        }
+
+        if (AssignStoreOperationEnmu.ASSIGN.equals(operation)) {
+
+            CpStore cpStore = cpStoreDAO.selectByPrimaryKey(request.getStoreId());
+            if (cpStore == null) {
+                throw new BusinessRuntimeException(request.getStoreId() + "商家不存在");
+            }
+
+            int count = userDAO.assignedCount(Arrays.asList(request.getStoreId()));
+            if (count > 0) {
+                throw new BusinessRuntimeException("商家已被分配");
+            }
+
+            User user = userDAO.selectByPrimaryKey(request.getUserId());
+            if(user == null){
+                throw new BusinessRuntimeException(request.getUserId() + "用户不存在");
+            }
+
+            userDAO.assignStoreToUser(request);
+        } else {
+            userDAO.cancelUserStore(request);
+        }
+
+
     }
 }
