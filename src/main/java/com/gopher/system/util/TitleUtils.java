@@ -103,7 +103,17 @@ public class TitleUtils {
 
         List<String> messageList = messageMap.get(key);
         if (messageList == null || messageList.size() < 1) {
-            return title;
+            // 使用google翻译 en->france->en
+            String result = TranslateUtils.translate(Language.ENGLISH.toString(),title,Language.FRENCH.toString());
+            if(StringUtils.hasText(result)){
+                result = TranslateUtils.translate(Language.FRENCH.toString(),result,Language.ENGLISH.toString());
+                if(!StringUtils.hasText(result)){
+                    result = title;
+                }
+            }else{
+                result = title;
+            }
+            return result;
         }
         String newMessage = messageList.get(getRandom(messageList.size()));
         if (key.endsWith("A4")) {
@@ -125,6 +135,7 @@ public class TitleUtils {
         } else if (newMessage.indexOf("free delivery ") != -1) {
             newMessage = newMessage.replace("free delivery", "+ Free Delivery");
         }
+
         return newMessage;
 
 
