@@ -375,11 +375,9 @@
 		FROM CP_OUT_SITE_COUPON
 		SITECOUPON,CP_STORE STORE WHERE
 		SITECOUPON.STORE_ID=STORE.ID AND
-		ADVISE_SORT <![CDATA[<>]]>
-		0 AND OUT_SITE_ID = #{outSiteId}
+		ADVISE_SORT != 0 AND OUT_SITE_ID = #{outSiteId}
 		ORDER BY HOT_SORT ASC
 	</select>
-
 
     <select id="getPageList"
             resultType="com.gopher.system.model.vo.response.ShowSiteCouponResponse"
@@ -401,10 +399,8 @@
         cs.WEBSITE AS website
         FROM
         CP_COUPON cp
-        LEFT JOIN
-        CP_OUT_SITE_COUPON osp ON cp.ID =
-        osp.COUPON_ID
-        LEFT JOIN CP_STORE cs ON cp.STORE_ID = cs.ID
+        JOIN CP_OUT_SITE_COUPON osp ON cp.ID = osp.COUPON_ID
+        JOIN CP_STORE cs ON cp.STORE_ID = cs.ID
         <include refid="getPageWhere"></include>
         ORDER BY cp.MANUAL_SORT DESC , cp.INDEX DESC
         LIMIT #{beginIndex},#{pageSize}
@@ -412,10 +408,12 @@
 
     <sql id="getPageWhere">
         <where>
-            osp.OUT_SITE_ID = #{siteId}
+            <if test="siteId != null and siteId > 0 ">
+                AND osp.OUT_SITE_ID = #{siteId}
+            </if>
             <if test="search != null and search != '' ">
-                AND cp.TITLE LIKE "%"#{search}"%" OR osp.TITLE LIKE
-                "%"#{search}"%"
+                AND (cp.TITLE LIKE "%"#{search}"%" OR osp.TITLE LIKE
+                "%"#{search}"%")
             </if>
             <if test="couponType != null and couponType !='' ">
                 AND cp.COUPON_TYPE = #{couponType}
@@ -428,6 +426,12 @@
             </if>
             <if test="storeId != null and storeId !='' ">
                 AND cp.STORE_ID = #{storeId}
+            </if>
+            <if test="expiry != null and expiry != 0 ">
+                <choose>
+                  <when test="expiry == 1">AND cp.EXPIRE_AT &lt; NOW()</when>
+                  <otherwise>AND cp.EXPIRE_AT &gt;= NOW()</otherwise>
+                </choose> 
             </if>
             <if test="expiryDate != null  ">
                 AND cp.EXPIRE_AT > #{expiryDate}
@@ -442,7 +446,7 @@
         count(1)
         FROM
         CP_COUPON cp
-        LEFT JOIN CP_OUT_SITE_COUPON osp ON
+        JOIN CP_OUT_SITE_COUPON osp ON
         cp.ID = osp.COUPON_ID
         <include refid="getPageWhere"></include>
     </select>
@@ -458,7 +462,7 @@
 		UPDATE CP_OUT_SITE_COUPON SET ADVISE_SORT = 0
 		WHERE
 		OUT_SITE_ID = #{outId}
-		AND ADVISE_SORT >0
+		AND ADVISE_SORT > 0
 	</update>
 
     <select id="getListByCategory"
@@ -468,9 +472,10 @@
         osp.ID AS id,
         osp.TITLE AS title,
         cp.COUPON_TYPE AS couponType,
-        cp.`CODE` AS code,
+        cp.CODE AS code,
         cp.DES AS description,
-        cp.LINK AS link,
+        <!-- cp.LINK AS link, -->
+        IFNULL(ss.AD_ADDRESS, s.WEBSITE) AS link,
         cp.UPDATE_TIME AS updateTime,
         s.LOGO_URL AS
         storeLogo,
@@ -480,16 +485,26 @@
         FROM
         CP_COUPON cp
         INNER JOIN
-        CP_OUT_SITE_COUPON osp ON cp.ID =
-        osp.COUPON_ID
+        CP_OUT_SITE_COUPON osp ON cp.ID = osp.COUPON_ID
         INNER JOIN CP_STORE s ON s.ID = osp.STORE_ID
+        JOIN CP_OUT_SITE_STORE ss ON s.ID = ss.STORE_ID 
         <include refid="getListByCategory_where"/>
-        ORDER BY cp.MANUAL_SORT DESC , cp.INDEX DESC
+        ORDER BY 
+        FIELD(osp.STORE_ID, <foreach item="storeId" index="index" collection="storeIdList" separator=",">
+         #{storeId}
+      </foreach>),
+        cp.MANUAL_SORT DESC , cp.INDEX DESC
         LIMIT #{beginIndex},#{pageSize}
     </select>
     <sql id="getListByCategory_where">
         <where>
-            osp.OUT_SITE_ID = #{siteId}
+            <!-- IS_MANUAL为1时,只显示人工 -->
+           (IFNULL(ss.IS_MANUAL, 0) = 0 OR cp.IN_TYPE = 1)
+            <!-- 不显示过期优惠券 -->
+            AND (cp.EXPIRE_AT IS NULL OR cp.EXPIRE_AT > NOW())
+            AND cp.IS_PASS != 2
+            AND osp.OUT_SITE_ID = #{siteId} 
+            AND ss.OUT_ID = #{siteId}
             AND osp.STORE_ID IN
             <foreach collection="storeIdList" item="storeId"
                      index="index" open="(" close=")" separator=",">
@@ -507,11 +522,9 @@
         COUNT(1)
         FROM
         CP_COUPON cp
-        INNER JOIN
-        CP_OUT_SITE_COUPON osp ON
-        cp.ID =
-        osp.COUPON_ID
+        INNER JOIN CP_OUT_SITE_COUPON osp ON cp.ID = osp.COUPON_ID
         INNER JOIN CP_STORE s ON s.ID = osp.STORE_ID
+        JOIN CP_OUT_SITE_STORE ss ON s.ID = ss.STORE_ID 
         <include refid="getListByCategory_where"/>
     </select>
 

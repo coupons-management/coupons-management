@@ -67,7 +67,8 @@ public class LoginServiceImpl implements LoginService {
 		LoginResponse result = new LoginResponse();
 		result.setSessionKey(sessionKey);
 		result.setExpiryTime(System.currentTimeMillis() + CookieUtils.DEFAULT_AGE * 1000L);
-		LOG.info("登录成功,账号{},密码{}", account, password);
+//		LOG.info("登录成功,账号{},密码{}", account, password);
+		LOG.info("登录成功,账号{}", account);
 		return result;
 	}
 

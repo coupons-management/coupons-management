@@ -22,7 +22,7 @@ public class ShowSiteStoreRequest extends PageRequestBase {
 	 */
 	private String storeType;
 	/**
-	 * 国家
+	 * 分类
 	 */
 	private int typeId;
 	

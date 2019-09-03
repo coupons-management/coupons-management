@@ -27,7 +27,6 @@ public class ShowSiteTwoController {
         return result;
     }
 
-
     @RequestMapping(path = "/getTwoList")
     public Result getTwoList(@RequestBody ShowSiteStoreRequest showSiteStoreRequest) {
         Result result = new Result();
@@ -35,6 +34,13 @@ public class ShowSiteTwoController {
         return result;
     }
 
+    @RequestMapping(path = "/addSiteStore")
+    public Result addSiteStore(@RequestBody OutSiteStoreRsp outSiteStore) {
+      Result result = new Result();
+      showSiteTwoService.addOutSiteStore(outSiteStore);
+      return result;
+    }
+    
     @RequestMapping(path = "/updateSiteStore")
     public Result updateSiteStore(@RequestBody OutSiteStoreRsp outSiteStore) {
         Result result = new Result();

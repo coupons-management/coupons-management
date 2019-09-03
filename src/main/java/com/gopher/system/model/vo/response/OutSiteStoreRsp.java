@@ -4,7 +4,9 @@ import com.gopher.system.model.entity.CpOutSiteStore;
 
 public class OutSiteStoreRsp extends CpOutSiteStore {
 
-    private int typeId;
+  private static final long serialVersionUID = 1L;
+
+    private Integer typeId;
 
     private String name;
 
@@ -16,11 +18,11 @@ public class OutSiteStoreRsp extends CpOutSiteStore {
         this.name = name;
     }
 
-    public int getTypeId() {
+    public Integer getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(int typeId) {
+    public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
 }

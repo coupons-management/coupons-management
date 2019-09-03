@@ -9,6 +9,11 @@ public class PageRequestBase {
 	 * 默认页容
 	 */
 	public static final int DEFAULT_PAGE_SIZE = 10;
+
+	/**
+	 * 前端店铺优惠券页容
+	 */
+	public static final int COUPON_PAGE_SIZE = 50;
 	
 	private int pageSize = DEFAULT_PAGE_SIZE;
 

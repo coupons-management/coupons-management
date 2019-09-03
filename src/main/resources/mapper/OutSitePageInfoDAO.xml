@@ -115,4 +115,10 @@
     from OUT_SITE_PAGE_INFO
     where OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER}
   </select>
+  
+  <select id="findOneByType" resultMap="BaseResultMap">
+    SELECT * FROM OUT_SITE_PAGE_INFO WHERE 
+    OUT_SITE_ID = #{outSiteId,jdbcType=INTEGER} 
+    AND TYPE = #{type,jdbcType=INTEGER} LIMIT 1
+  </select>
 </mapper>

@@ -19,9 +19,9 @@ import com.gopher.system.service.ShowSiteTypeService;
 @RestController
 @RequestMapping(path="/showSiteType")
 public class ShowSiteTypeController {
+  
 	@Autowired
 	private ShowSiteTypeService showSiteTypeService;
-	
 
 	@RequestMapping(path="/getTree")
 	public Result getTree(@RequestBody SiteTypeTreeRequest siteTypeTreeRequest) {
@@ -35,7 +35,7 @@ public class ShowSiteTypeController {
 	public Result getList(@RequestBody SiteTypeTreeRequest siteTypeTreeRequest) {
 		Result result = new Result();
 		final int siteId = siteTypeTreeRequest.getSiteId();
-		result.setData(showSiteTypeService.getList(siteId,0));
+		result.setData(showSiteTypeService.getList(siteId, 0));
 		return result;
 	}
 	

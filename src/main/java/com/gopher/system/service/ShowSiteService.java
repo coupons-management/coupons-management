@@ -42,6 +42,8 @@ public interface ShowSiteService {
 
 
     List<OutSitePageInfo> findPageInfoList(int outSiteId);
+    
+    OutSitePageInfo findOneByType(int outSiteId, int type);
 
     void savePageInfo(OutSitePageInfo outSitePageInfo);
     

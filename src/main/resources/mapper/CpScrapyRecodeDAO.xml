@@ -3,19 +3,22 @@
 <mapper namespace="com.gopher.system.dao.mysql.CpScrapyRecodeDAO">
   <resultMap id="BaseResultMap" type="com.gopher.system.model.entity.CpScrapyRecode">
     <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="SCRAPY_NAME" jdbcType="VARCHAR" property="scrapyName" />
+    <result column="SCRAPY_ID" jdbcType="INTEGER" property="scrapyId" />
     <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
-    <result column="STATUS" jdbcType="VARCHAR" property="status" />
     <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
-    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
-    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="PROCESS" jdbcType="VARCHAR" property="process" />
+    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="STORE_CNT" jdbcType="INTEGER" property="storeCnt" />
+    <result column="NEW_STORE_CNT" jdbcType="INTEGER" property="newStoreCnt" />
+    <result column="NEW_C_STORE_CNT" jdbcType="INTEGER" property="newCStoreCnt" />
+    <result column="COUPON_CNT" jdbcType="INTEGER" property="couponCnt" />
+    <result column="NEW_COUPON_CNT" jdbcType="INTEGER" property="newCouponCnt" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, SCRAPY_NAME, START_TIME, `STATUS`, END_TIME, CREATE_USER, UPDATE_USER, CREATE_TIME, 
-    UPDATE_TIME,PROCESS
+    ID, SCRAPY_ID, START_TIME, END_TIME, PROCESS, CREATE_USER, CREATE_TIME,
+     STORE_CNT, NEW_STORE_CNT, NEW_C_STORE_CNT, COUPON_CNT, NEW_COUPON_CNT, 
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -38,84 +41,66 @@
   <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.gopher.system.model.entity.CpScrapyRecode" useGeneratedKeys="true">
     insert into CP_SCRAPY_RECODE
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="scrapyName != null">
-        SCRAPY_NAME,
+      <if test="scrapyId != null">
+        SCRAPY_ID,
       </if>
       <if test="startTime != null">
         START_TIME,
       </if>
-      <if test="status != null">
-        `STATUS`,
-      </if>
       <if test="endTime != null">
         END_TIME,
+      </if>
+      <if test="process != null">
+        PROCESS,
       </if>
       <if test="createUser != null">
         CREATE_USER,
       </if>
-      <if test="updateUser != null">
-        UPDATE_USER,
-      </if>
       <if test="createTime != null">
         CREATE_TIME,
       </if>
-      <if test="updateTime != null">
-        UPDATE_TIME,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="scrapyName != null">
-        #{scrapyName,jdbcType=VARCHAR},
+      <if test="scrapyId != null">
+        #{scrapyId,jdbcType=INTEGER},
       </if>
       <if test="startTime != null">
         #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
-      </if>
       <if test="endTime != null">
         #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="process != null">
+        #{process,jdbcType=VARCHAR},
       </if>
       <if test="createUser != null">
         #{createUser,jdbcType=INTEGER},
       </if>
-      <if test="updateUser != null">
-        #{updateUser,jdbcType=INTEGER},
-      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.gopher.system.model.entity.CpScrapyRecode">
     update CP_SCRAPY_RECODE
     <set>
-      <if test="scrapyName != null">
-        SCRAPY_NAME = #{scrapyName,jdbcType=VARCHAR},
+      <if test="scrapyId != null">
+        SCRAPY_ID = #{scrapyId,jdbcType=INTEGER},
       </if>
       <if test="startTime != null">
         START_TIME = #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="status != null">
-        `STATUS` = #{status,jdbcType=VARCHAR},
-      </if>
       <if test="endTime != null">
         END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="process != null">
+        PROCESS = #{process,jdbcType=VARCHAR},
       </if>
       <if test="createUser != null">
         CREATE_USER = #{createUser,jdbcType=INTEGER},
       </if>
-      <if test="updateUser != null">
-        UPDATE_USER = #{updateUser,jdbcType=INTEGER},
-      </if>
       <if test="createTime != null">
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
@@ -133,13 +118,57 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   
-  
-  
    <select id="getBeanByScrapyName" parameterType="String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from CP_SCRAPY_RECODE
     where SCRAPY_NAME = #{scrapyName,jdbcType=VARCHAR} limit 1
+  </select>
+  
+  <update id="updateRecordByProcess" parameterType="com.gopher.system.model.entity.CpScrapyRecode">
+    update CP_SCRAPY_RECODE
+    <set>
+      <if test="endTime != null">
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeCnt != null">
+        STORE_CNT = #{storeCnt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newStoreCnt != null">
+        NEW_STORE_CNT = #{newStoreCnt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newCStoreCnt != null">
+        NEW_C_STORE_CNT = #{newCStoreCnt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponCnt != null">
+        COUPON_CNT = #{couponCnt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newCouponCnt != null">
+        NEW_COUPON_CNT = #{newCouponCnt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PROCESS = #{process,jdbcType=INTEGER}
+  </update>
+  
+  <sql id="getList_where">
+    <where>
+       <if test="scrapyId != null">
+         AND r.SCRAPY_ID = #{scrapyId,jdbcType=INTEGER}
+       </if>
+       <if test="startTime != null and endTime != null">
+         AND r.START_TIME &gt;= #{startTime} AND r.END_TIME &lt;= #{endTime}
+       </if>
+    </where>
+  </sql>
+  <select id="getList" parameterType="com.gopher.system.model.vo.request.ScrapyRecordPageRequst" resultMap="BaseResultMap">
+    SELECT r.*, s.NAME FROM CP_SCRAPY_RECODE r JOIN CP_SCRAPY s ON r.SCRAPY_ID = s.ID
+    <include refid="getList_where"/>
+     ORDER BY ID DESC LIMIT #{beginIndex},#{pageSize}
+  </select>
+  
+  <select id="getListCount" parameterType="com.gopher.system.model.vo.request.ScrapyRecordPageRequst" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM CP_SCRAPY_RECODE r JOIN CP_SCRAPY s ON r.SCRAPY_ID = s.ID
+    <include refid="getList_where"/>
   </select>
   
 </mapper>

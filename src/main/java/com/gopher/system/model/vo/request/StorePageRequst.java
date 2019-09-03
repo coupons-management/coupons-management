@@ -66,7 +66,7 @@ public class StorePageRequst extends PageRequestBase{
 	 * 3= 新增的商家
 	 */
 	private int range;
-
+	
 	public Date getBeginDate() {
 		return beginDate;
 	}
@@ -175,7 +175,5 @@ public class StorePageRequst extends PageRequestBase{
 	public void setValidCouponsCount(Integer validCouponsCount) {
 		this.validCouponsCount = validCouponsCount;
 	}
-	
-	
 
 }

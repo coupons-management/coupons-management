@@ -9,10 +9,7 @@ import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.SpiderStatistic;
 import com.gopher.system.util.DateUtils;
 import com.gopher.system.worker.vo.SpiderStatisticVO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +21,7 @@ import java.util.List;
  */
 @Deprecated
 public class SpiderStatisticJob {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SpiderStatisticJob.class);
+//    private static final Logger LOGGER = LoggerFactory.getLogger(SpiderStatisticJob.class);
     @Autowired
     private CpCouponDAO cpCouponDAO;
     @Autowired

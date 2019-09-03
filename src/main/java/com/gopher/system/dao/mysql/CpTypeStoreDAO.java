@@ -18,12 +18,12 @@ public interface CpTypeStoreDAO extends MyBatisBaseDao<CpTypeStore, Integer> {
 	 * @param typeId
 	 * @return
 	 */
-	List<CpTypeStore> getListByType(int typeId);
+	List<CpTypeStore> getListByType(Integer typeId);
 
 	/**
 	 * 根据商家找到对应的分类(官网)
 	 * @param storeId
 	 * @return
 	 */
-	CpTypeStore getByStore(@Param("storeId") int storeId, @Param("siteId") int siteId);
+	CpTypeStore getByStore(@Param("storeId") Integer storeId, @Param("siteId") Integer siteId);
 }

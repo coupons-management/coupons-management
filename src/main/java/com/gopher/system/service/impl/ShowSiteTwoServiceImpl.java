@@ -7,11 +7,13 @@ import com.gopher.system.model.vo.CpOutSiteStoreVo;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CpSitestoreRequest;
 import com.gopher.system.model.vo.request.ShowSiteStoreRequest;
+import com.gopher.system.model.vo.request.StoreDetailJspRequest;
 import com.gopher.system.model.vo.response.OutSiteStoreRsp;
 import com.gopher.system.service.ShowSiteTwoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -39,13 +41,12 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 		return cpOutSiteDAO.getList();
 	}
 
-
 	@Override
 	public Page<CpOutSiteStoreVo> getTwoList(ShowSiteStoreRequest request) {
 		Page<CpOutSiteStoreVo> result = new Page<>();
-		final int siteId = request.getOutId();
 		List<CpOutSiteStoreVo> list = cpOutSiteStoreDAO.getTwoList(request);
 		if (list != null && list.size() > 0) {
+    		final int siteId = request.getOutId();
 			for (CpOutSiteStoreVo vo : list) {
 				if (vo == null) {
 					list = null;
@@ -58,14 +59,13 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 				}
 				request.setStoreId(vo.getStoreId());
 				vo.setShowCount(vo.getValidCount() + "/" + vo.getToalCount());
-				CpTypeStore type = cpTypeStoreDAO.getByStore(vo.getStoreId(),siteId);
+				CpTypeStore type = cpTypeStoreDAO.getByStore(vo.getStoreId(), siteId);
 				if(null != type){
 					CpSitestoreType cpSitestoreType = cpSitestoreTypeDAO.selectByPrimaryKey(type.getTypeId());
 					if(null != cpSitestoreType){
 						vo.setTypeName(cpSitestoreType.getName());
 					}
 				}
-
 			}
 		}
 		int total = cpOutSiteStoreDAO.getTwoCount(request);
@@ -74,52 +74,115 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 		result.setPageSize(request.getPageSize());
 		result.setPageNumber(request.getPageNumber());
 		return result;
-
 	}
 
+	private void checkValue(OutSiteStoreRsp cpOutSiteStore, boolean isEdit){
+	  if(cpOutSiteStore == null){
+        throw new BusinessRuntimeException("参数不能为空");
+      }
+      final Integer outId = cpOutSiteStore.getOutId();
+      if(null == outId){
+        throw new BusinessRuntimeException("无效的网站ID");
+      }
+      if(isEdit){
+        final Integer id = cpOutSiteStore.getId();
+        final Integer storeId = cpOutSiteStore.getStoreId();
+        if(null == id){
+            throw new BusinessRuntimeException("非法的ID");
+        }
+        if(null == storeId){
+            throw new BusinessRuntimeException("无效的商家ID");
+        }
+      }
+      
+      //如果网址重复则提示
+      String website = cpOutSiteStore.getWebsite();
+      StoreDetailJspRequest request = new StoreDetailJspRequest(website, outId);
+      CpStore cpStore = cpStoreDAO.findByWebsite(request);
+      if(cpStore != null && cpStore.getId() != cpOutSiteStore.getId()){
+        throw new BusinessRuntimeException("该官网已存在，请重新输入");
+      }
+	}
+	@Override
+    public void addOutSiteStore(OutSiteStoreRsp cpOutSiteStore) {
+	    checkValue(cpOutSiteStore, false);
+        
+        //新增店铺
+	    CpStore cpStore = new CpStore();
+        cpStore.setName(cpOutSiteStore.getName());
+        cpStore.setWebsite(cpOutSiteStore.getWebsite());
+        //cpStore.setCountry(stu.getStoreCountry());
+        cpStore.setLogoUrl(cpOutSiteStore.getLogo());
+        final Date now = new Date();
+        cpStore.setCreateTime(now);
+        cpStore.setUpdateTime(now);
+        cpStore.setInType("1");// 0同步入库 1人工入库
+//        cpStore.setTypeName(cpType.getName());
+//        cpStore.setTypeId(cpType.getId());
+        cpStore.setIsComplete("1");
+        cpStore.setApproval("1");// 人工入库默认审核通过
+        cpStoreDAO.insertSelective(cpStore);
+        
+        //新增网站店铺
+        cpOutSiteStore.setStoreId(cpStore.getId());
+        cpOutSiteStore.setCreateTime(now);
+        cpOutSiteStore.setUpdateTime(now);
+        cpOutSiteStoreDAO.insertSelective(cpOutSiteStore);
+        // 同步分类
+        final Integer typeId = cpOutSiteStore.getTypeId();
+        if(typeId != null){
+            CpTypeStore cpTypeStore = new CpTypeStore();
+            cpTypeStore.setTypeId(typeId);
+            cpTypeStore.setOutSiteId(cpOutSiteStore.getOutId());
+            cpTypeStore.setStoreId(cpStore.getStoreId());
+            cpTypeStore.setCreateTime(new Date());
+            cpTypeStoreDAO.insert(cpTypeStore);
+        }
+    }
+	
 	@Override
 	public void updateOutSiteStore(OutSiteStoreRsp cpOutSiteStore) {
-		if(cpOutSiteStore == null){
-          throw new BusinessRuntimeException("参数不能为空");
-		}
-		final Integer id = cpOutSiteStore.getId();
+		checkValue(cpOutSiteStore, true);
+		
+		final Integer outId = cpOutSiteStore.getOutId();
 		final Integer storeId = cpOutSiteStore.getStoreId();
-		if(null == id && id <= 0){
-			throw new BusinessRuntimeException("非法的ID");
-		}
-		if(null == storeId && storeId <=0){
-			throw new BusinessRuntimeException("无效的商家ID");
-		}
+		
 		cpOutSiteStoreDAO.updateByPrimaryKey(cpOutSiteStore);
-		CpStore cpStore = new CpStore();
-		cpStore.setId(storeId);
 		// 同步主表logo
-		cpStore.setLogoUrl(cpOutSiteStore.getLogo());
-		cpStoreDAO.updateByPrimaryKeySelective(cpStore);
-		final int typeId = cpOutSiteStore.getTypeId();
+		String logo = cpOutSiteStore.getLogo();
+		if(StringUtils.hasText(logo)){
+		  CpStore cpStore = new CpStore();
+		  cpStore.setId(storeId);
+		  cpStore.setLogoUrl(logo);
+		  cpStoreDAO.updateByPrimaryKeySelective(cpStore);
+		}
 		// 同步分类
-		if(typeId > 0){
-			CpTypeStore cpTypeStore = cpTypeStoreDAO.selectByPrimaryKey(typeId);
-			if(null == cpTypeStore){
+		final Integer typeId = cpOutSiteStore.getTypeId();
+		CpTypeStore cpTypeStore = cpTypeStoreDAO.getByStore(storeId, outId);
+		if(typeId != null){
+			if(cpTypeStore == null){//之前没有分类，设置了分类，加中间表数据
 				cpTypeStore = new CpTypeStore();
 				cpTypeStore.setTypeId(typeId);
-				cpTypeStore.setOutSiteId(cpOutSiteStore.getOutId());
+				cpTypeStore.setOutSiteId(outId);
 				cpTypeStore.setStoreId(storeId);
 				cpTypeStore.setCreateTime(new Date());
 				cpTypeStoreDAO.insert(cpTypeStore);
-			}else{
-				cpTypeStore.setTypeId(typeId);
-				cpTypeStore.setUpdateTime(new Date());
-				cpTypeStoreDAO.updateByPrimaryKeySelective(cpTypeStore);
+			} else {
+			  Integer oldTypeId = cpTypeStore.getTypeId(); 
+			  if(!typeId.equals(oldTypeId)) {//之前有分类，但分类有改动，改数据
+			    cpTypeStore.setTypeId(typeId);
+			    cpTypeStore.setUpdateTime(new Date());
+			    cpTypeStoreDAO.updateByPrimaryKeySelective(cpTypeStore);
+			  }
 			}
+		} else if(cpTypeStore != null){//之前有分类，现在没有分类，删除数据
+		  cpTypeStoreDAO.deleteByPrimaryKey(cpTypeStore.getId());
 		}
-
 	}
-
+	
 	@Override
 	public void deleteOutSiteStore(CpOutSiteStore cpOutSiteStore) {
 		cpOutSiteStoreDAO.deleteByPrimaryKey(cpOutSiteStore.getId());
-
 	}
 
 	@Override
@@ -169,7 +232,7 @@ public class ShowSiteTwoServiceImpl implements ShowSiteTwoService {
 			result.setName(cpStore.getName());
 		}
 		// TODO 找到当前商家在官网的分类
-		CpTypeStore cpTypeStore = cpTypeStoreDAO.getByStore(storeId,store.getOutId());
+		CpTypeStore cpTypeStore = cpTypeStoreDAO.getByStore(storeId, store.getOutId());
 		if(null != cpTypeStore){
 			result.setTypeId(cpTypeStore.getTypeId());
 		}

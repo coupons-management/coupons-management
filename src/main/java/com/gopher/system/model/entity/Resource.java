@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -13,6 +12,12 @@ import java.util.Objects;
  */
 @ApiModel(description = "角色信息")
 public class Resource implements Serializable{
+
+    /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
 
     @ApiModelProperty(value = "角色ID")
     private Integer id;

@@ -26,7 +26,7 @@
 <div class="js-site-main site-main">
     <c:if test="${coupon != null}">
         <div class="modal fade store-detail-modal js-modal get_code_121525 show" id="exampleModalCenter" tabindex="-1"
-             role="dialog" aria-labelledby="exampleModalCenterTitle" style="padding-right: 16px; display: none;">
+             role="dialog" aria-labelledby="exampleModalCenterTitle" style="margin: 20px;position: absolute;top: 30%;display: none;">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body" style="padding: 30px;">
@@ -36,7 +36,7 @@
                         <div class="row">
                             <div class="col-12 col-md-3 d-flex justify-content-center align-items-center">
                                 <a class="cover"
-                                   href="${basePath}/green/store/<c:choose><c:when test="${coupon.link.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//") + 2)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>">
+                                   href="${basePath}/green/store/${fn:replace(fn:replace(fn:replace(storeDetail.website,'www.',''),'http://',''),'https://','')}">
                                    <%--href="${basePath}/green/storeDetail?storeId=${coupon.storeId}&siteId=1">--%>
                                     <img alt="${coupon.name}"
                                          src="${coupon.storeLogo}">
@@ -47,8 +47,8 @@
                                 <p class="coupon-source">
                                     <span style="color: #7D7D7D;" class="mr-1">${coupon.storeName}</span>
                                     <a style="color: #269AC8;font-size: 12px;" rel="nofollow"
-                                       href="${coupon.link}">
-                                            ${coupon.link}
+                                       href="${storeDetail.website}">
+                                            ${fn:replace(fn:replace(fn:replace(storeDetail.website,'www.',''),'http://',''),'https://','')}
                                     </a>
                                 </p>
                                 <c:choose>
@@ -64,7 +64,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <div class="link-box">
-                                            <a href="${coupon.link}" class="btn">
+                                            <a href="${storeDetail.advertising}" class="btn">
                                                 GO TO WEBSITE
                                             </a>
                                             <p class="n-people-used d-block d-md-none">3 people used</p>
@@ -86,39 +86,39 @@
             <div class="row">
                 <!-- Profle Content -->
                 <div class="col-lg-2 col-md-3 col-5 d-flex align-items-center">
-                    <!-- User Image -->
+                    <!-- Store Image -->
                     <div class="store-brand cover-wrap">
-                        <a class="cover" href="${storeDetail.website}"
+                        <a class="cover" href="${storeDetail.advertising}"
                            target="_blank" rel="nofollow">
                             <img class="img-fluid" src="${storeDetail.logo}" alt="${storeDetail.name} coupons">
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-9 col-7 d-flex d-lg-block align-items-center">
-                    <h1 class="store-name">${storeDetail.name}</h1>
+                    <h1 class="store-name">${storeDetail.showName}</h1>
                     <p class="store-description d-none d-lg-block">${storeDetail.storeDescription}</p>
 
-                    <%--<div class="d-none d-lg-block">--%>
-                    <%--<span class="store-info-item">--%>
-                    <%--<em>5</em> Offers Available--%>
-                    <%--</span>--%>
-                    <%--<span class="store-info-item">--%>
-                    <%--<em>2</em> Verified Coupons--%>
-                    <%--</span>--%>
-                    <%--<span class="store-info-item">--%>
-                    <%--<em>1</em> Coupon Codes--%>
-                    <%--</span>--%>
-                    <%--<span class="store-info-item">--%>
-                    <%--<em>3</em> Sales--%>
-                    <%--</span>--%>
-                    <%--<span class="store-info-item">--%>
-                    <%--May 20, 2019--%>
-                    <%--</span>--%>
-                    <%--</div>--%>
+                    <div class="d-none d-lg-block">
+                      <span class="store-info-item">
+                      <em>${storeDetail.couponCount}</em> Offers Available
+                      </span>
+                      <!-- <span class="store-info-item">
+                      <em>2</em> Verified Coupons
+                      </span> -->
+                      <span class="store-info-item">
+                      <em>${codeCnt}</em> Coupon Codes
+                      </span>
+                      <span class="store-info-item">
+                      <em>${dealCnt}</em> Sales
+                      </span>
+                      <span class="store-info-item">
+                        ${storeDetail.lastUpdateTime}
+                      </span>
+                    </div>
                     <!-- Project Progress -->
                 </div>
                 <div class="col-lg-2 d-none d-lg-flex align-items-end justify-content-end">
-                    <a class="visit-btn" href="${storeDetail.website}" target="_blank" rel="nofollow">Visit Website</a>
+                    <a class="visit-btn" href="${storeDetail.advertising}" target="_blank" rel="nofollow">Visit Website</a>
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@
                             <c:forEach items="${topStoreList}" var="store">
                                 <div class="col-6 p-2">
                                     <a class="cover-wrap store-item" style="max-height: 100px"
-                                       href="${basePath}/green/store/<c:choose><c:when test="${store.webSite.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//") + 2)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>">
+                                       href="${basePath}/green/store/${fn:replace(fn:replace(fn:replace(store.webSite,'www.',''),'http://',''),'https://','')}">
                                         <div class="cover">
                                             <img class="img-fluid"
                                                  style="height: 96px;max-width: 100%;max-height: 100%;"
@@ -173,7 +173,7 @@
                                     <%--url="${basePath}/green/storeDetail?storeId=${storeDetail.storeId}&siteId=1&coupon_type=DEAL">--%>
                                 Deals
                             </button>
-                            <button id="type_verify" class="btn btn-sm  btn-verify">
+                            <!-- <button id="type_verify" class="btn btn-sm  btn-verify">
                                 <i class="fa fa-shield d-inline d-md-none" aria-hidden="true"></i>
                                 <div class="custom-check-box d-none d-md-block">
                                     <input type="checkbox" id="verify-2">
@@ -182,7 +182,7 @@
                                         VERIFIED 2
                                     </label>
                                 </div>
-                            </button>
+                            </button> -->
                         </div>
                     </div>
 
@@ -196,29 +196,22 @@
                                              style="max-height: 100px">
                                             <!-- TODO 将 30% off 替换为真实的值 这里先不换, 具体规则未定-->
                                             <span class="offer-anchor-text">${coupon.sale}</span>
-                                            <c:choose>
-                                                <c:when test="${coupon.couponType == 'CODE'}">
-                                                    <span class="label code">${coupon.couponType}</span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <span class="label deal">${coupon.couponType}</span>
-                                                </c:otherwise>
-                                            </c:choose>
-
+                                            <span class="label ${coupon.couponType == 'CODE' ? 'code' : 'deal'}">${coupon.couponType}</span>
                                         </div>
                                     </div>
 
                                     <div class="detail-info">
-                                        <a class="get_code" url="${coupon.link}"
-                                           href="${basePath}/green/store/<c:choose><c:when test="${coupon.link.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//") + 2)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>?c=${coupon.id}#get_code_${coupon.id}"
+                                        <a class="get_code" url="${storeDetail.advertising}" href="${basePath}/green/store/${fn:replace(fn:replace(fn:replace(storeDetail.website,'www.',''),'http://',''),'https://','')}?c=${coupon.id}#get_code_${coupon.id}"
                                            target="_blank"
                                            rel="nofollow">
-                                            <h3 class="paddl"><span
-                                                    class="label code d-inline d-sm-none">${coupon.couponType}</span>${coupon.title}
+                                            <h3 class="paddl">
+                                            <span class="label ${coupon.couponType == 'CODE' ? 'code' : 'deal'} d-inline d-sm-none">
+                                            ${coupon.couponType}</span>${coupon.title}
                                             </h3>
                                         </a>
-
-                                        <p class="coupon-description">&nbsp;&nbsp;&nbsp;</p>
+                                        <c:if test="${not empty storeDetail.storeDescription}">
+                                          <p class="coupon-description">${storeDetail.storeDescription}</p>
+                                        </c:if>
                                         <div class="foot">
                         <span class="use-info d-inline d-sm-none"><i class="fa fa-user mr-1" aria-hidden="true"></i>
 
@@ -229,10 +222,10 @@
 
                                         <c:choose>
                                             <c:when test="${coupon.couponType == 'CODE'}">
-                                                <a href="${basePath}/green/store/<c:choose><c:when test="${coupon.link.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//") + 2)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>?c=${coupon.id}#get_code_${coupon.id}"
+                                                <a href="${basePath}/green/store/${fn:replace(fn:replace(fn:replace(storeDetail.website,'www.',''),'http://',''),'https://','')}?c=${coupon.id}#get_code_${coupon.id}"
                                                    rel="nofollow" class="get_code"
                                                    data-id="120705" data-clipboard-text="save10" target="_blank"
-                                                   url="${coupon.link}">
+                                                   url="${storeDetail.advertising}">
                                                     <div class="coupon-hop">
                                                         <div class="partial-code">${(coupon.code != null && coupon.code != "") ? coupon.code.substring(coupon.code.length()-1):""}</div>
                                                         <div class="hide-btn d-flex align-items-center justify-content-center">
@@ -244,9 +237,9 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <a class="btn-get-deal get_deal" data-id="439552"
-                                                   href="${basePath}/green/store/<c:choose><c:when test="${coupon.link.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${coupon.link.endsWith(\"/\")}">${coupon.link.substring(coupon.link.indexOf("//") + 2)}</c:when><c:otherwise>${coupon.link.substring(coupon.link.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>?c=${coupon.id}#get_code_${coupon.id}"
+                                                   href="${basePath}/green/store/${fn:replace(fn:replace(fn:replace(storeDetail.website,'www.',''),'http://',''),'https://','')}?c=${coupon.id}#get_code_${coupon.id}"
                                                    rel="nofollow" target="_blank"
-                                                   url="${coupon.link}">
+                                                   url="${storeDetail.advertising}">
                                                     GET DEAL
                                                 </a>
                                             </c:otherwise>

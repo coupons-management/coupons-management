@@ -216,12 +216,11 @@ public class CouponServiceImpl implements CouponService {
         cpCouponDAO.deleteByPrimaryKey(couponId);
     }
 
-
     @Override
-    public CpCoupon getNewOne(int storeId) {
+    public CpCoupon getNewOne(int storeId, boolean isScrapy) {
         CpCoupon result = new CpCoupon();
         if (storeId > 0) {
-            result = cpCouponDAO.getNewOneByStore(storeId);
+            result = cpCouponDAO.getNewOneByStore(storeId, isScrapy);
         }
         return result;
     }

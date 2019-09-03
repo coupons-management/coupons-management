@@ -8,12 +8,15 @@ import java.util.Date;
  * @author 
  */
 public class CpScrapyRecode implements Serializable {
+  
+    private static final long serialVersionUID = 1L;
+
     private Integer id;
 
     /**
-     * 爬虫名
+     * 爬虫ID
      */
-    private String scrapyName;
+    private Integer scrapyId;
 
     /**
      * 爬虫开始时间
@@ -21,24 +24,19 @@ public class CpScrapyRecode implements Serializable {
     private Date startTime;
 
     /**
-     * 状态(0:停止1::爬取中)
-     */
-    private String status;
-
-    /**
      * 结束时间
      */
     private Date endTime;
 
     /**
+     * 进程ID
+     */
+    private String process;
+    
+    /**
      * 创建人
      */
     private Integer createUser;
-
-    /**
-     * 修改人
-     */
-    private Integer updateUser;
 
     /**
      * 创建时间
@@ -46,46 +44,46 @@ public class CpScrapyRecode implements Serializable {
     private Date createTime;
 
     /**
-     * 修改时间
+     * 爬取店铺数量
      */
-    private Date updateTime;
+    private Integer storeCnt;
 
-    private String process;
+    /**
+     * 新建店铺数量
+     */
+    private Integer newStoreCnt;
 
-    private String spiderName;
+    /**
+     * 新建优惠券的店铺数量
+     */
+    private Integer newCStoreCnt;
 
-    public String getSpiderName() {
-        return spiderName;
-    }
+    /**
+     * 优惠券数量
+     */
+    private Integer couponCnt;
 
-    public void setSpiderName(String spiderName) {
-        this.spiderName = spiderName;
-    }
+    /**
+     * 优惠券数量
+     */
+    private Integer newCouponCnt;
 
-    public String getProcess() {
-        return process;
-    }
-
-    public void setProcess(String process) {
-        this.process = process;
-    }
-
-    private static final long serialVersionUID = 1L;
+    private String name;
 
     public Integer getId() {
-        return id;
+      return id;
     }
-
+    
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public String getScrapyName() {
-        return scrapyName;
+  
+    public Integer getScrapyId() {
+        return scrapyId;
     }
 
-    public void setScrapyName(String scrapyName) {
-        this.scrapyName = scrapyName;
+    public void setScrapyId(Integer scrapyId) {
+        this.scrapyId = scrapyId;
     }
 
     public Date getStartTime() {
@@ -96,20 +94,20 @@ public class CpScrapyRecode implements Serializable {
         this.startTime = startTime;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Date getEndTime() {
         return endTime;
     }
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+    
+    public String getProcess() {
+      return process;
+    }
+  
+    public void setProcess(String process) {
+        this.process = process;
     }
 
     public Integer getCreateUser() {
@@ -120,14 +118,6 @@ public class CpScrapyRecode implements Serializable {
         this.createUser = createUser;
     }
 
-    public Integer getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(Integer updateUser) {
-        this.updateUser = updateUser;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -136,70 +126,52 @@ public class CpScrapyRecode implements Serializable {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Integer getStoreCnt() {
+      return storeCnt;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setStoreCnt(Integer storeCnt) {
+      this.storeCnt = storeCnt;
     }
 
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        CpScrapyRecode other = (CpScrapyRecode) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getScrapyName() == null ? other.getScrapyName() == null : this.getScrapyName().equals(other.getScrapyName()))
-            && (this.getStartTime() == null ? other.getStartTime() == null : this.getStartTime().equals(other.getStartTime()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getEndTime() == null ? other.getEndTime() == null : this.getEndTime().equals(other.getEndTime()))
-            && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
-            && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
+    public Integer getNewStoreCnt() {
+      return newStoreCnt;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getScrapyName() == null) ? 0 : getScrapyName().hashCode());
-        result = prime * result + ((getStartTime() == null) ? 0 : getStartTime().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
-        result = prime * result + ((getEndTime() == null) ? 0 : getEndTime().hashCode());
-        result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
-        result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        return result;
+    public void setNewStoreCnt(Integer newStoreCnt) {
+      this.newStoreCnt = newStoreCnt;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", scrapyName=").append(scrapyName);
-        sb.append(", startTime=").append(startTime);
-        sb.append(", status=").append(status);
-        sb.append(", endTime=").append(endTime);
-        sb.append(", createUser=").append(createUser);
-        sb.append(", updateUser=").append(updateUser);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", updateTime=").append(updateTime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+    public Integer getNewCStoreCnt() {
+      return newCStoreCnt;
     }
+
+    public void setNewCStoreCnt(Integer newCStoreCnt) {
+      this.newCStoreCnt = newCStoreCnt;
+    }
+
+    public Integer getCouponCnt() {
+      return couponCnt;
+    }
+
+    public void setCouponCnt(Integer couponCnt) {
+      this.couponCnt = couponCnt;
+    }
+
+    public Integer getNewCouponCnt() {
+      return newCouponCnt;
+    }
+
+    public void setNewCouponCnt(Integer newCouponCnt) {
+      this.newCouponCnt = newCouponCnt;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+    
 }

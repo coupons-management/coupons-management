@@ -2,14 +2,9 @@ package com.gopher.system.worker;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
@@ -17,16 +12,16 @@ import com.gopher.system.service.SynDataService;
 import com.gopher.system.util.HttpRequest;
 import com.gopher.system.util.Message;
 import com.gopher.system.util.TitleUtils;
-import org.springframework.stereotype.Service;
 
 public class SynBasicsData {
+   
+    //TODO 检查可用性
+  
     @Autowired
     private SynDataService synDataService;
-    private static final Logger LOGGER = LoggerFactory.getLogger(SpiderStatisticJob.class);
+//    private static final Logger LOGGER = LoggerFactory.getLogger(SpiderStatisticJob.class);
 
-
-    @SuppressWarnings("unchecked")
-    public void synDate() {
+    public void syncData() {
 //        LOGGER.info("--------------同步数据--------------------");
         //同步类型
         synDataService.synTypeData();
@@ -36,7 +31,6 @@ public class SynBasicsData {
         synDataService.synCouponData();
     }
 
-    @SuppressWarnings("unchecked")
     public void initData() {
         synDataService.initData();
         String messgae = initKeyWords();
@@ -64,7 +58,6 @@ public class SynBasicsData {
     }
 
 
-    @SuppressWarnings("unchecked")
     public void clearDatd() {
 
         synDataService.clearData();
@@ -72,7 +65,6 @@ public class SynBasicsData {
     }
 
 
-    @SuppressWarnings("unchecked")
     public void initScrapy() {
 
         String sr = HttpRequest.sendPost("http://18.234.205.204:6800/schedule.json", "project=coupon_spider&spider=offer");
@@ -86,6 +78,7 @@ public class SynBasicsData {
         }
         String s = HttpRequest.sendPost("http://18.234.205.204:6800/schedule.json", "project=coupon_spider&spider=ccouponchief");
         JSONObject couObject = JSONObject.parseObject(s);
+        System.out.println(couObject);
         Message coujson = (Message) JSONObject.toJavaObject(jsonObject, Message.class);
         if ("ok".equals(coujson.getStatus())) {
             System.out.println("=========================================爬虫 ccouponchief 启动成功=================================================================");
@@ -94,11 +87,10 @@ public class SynBasicsData {
         }
 
         String m = HttpRequest.sendPost("http://18.234.205.204:6800/cancel.json", "project=coupon_spider&job=6487ec79947edab326d6db28a2d86511e8247444");
+        System.out.println(m);
 
     }
 
-
-    @SuppressWarnings("unchecked")
     public void initStopScrapy() {
 
         String msg = HttpRequest.sendPost("http://18.234.205.204:6800/cancel.json", "project=coupon_spider&job=6487ec79947edab326d6db28a2d86511e8247444");

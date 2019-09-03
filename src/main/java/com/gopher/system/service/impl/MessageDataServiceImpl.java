@@ -3,13 +3,11 @@ package com.gopher.system.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.gopher.system.dao.mysql.*;
 import com.gopher.system.model.entity.*;
-import com.gopher.system.model.vo.response.CouponResultsOfScore;
 import com.gopher.system.service.MessageDataService;
-import com.gopher.system.util.DateUtils;
 import com.gopher.system.util.SpiderStatusJson;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
@@ -39,60 +37,57 @@ public class MessageDataServiceImpl implements MessageDataService {
     @Override
     public void insertCouponMessages(TMessage message) {
         synMessageDataDao.insertCouponMessages(message);
-
     }
 
     @Override
     public void insertCategoryMessages(TMessage message) {
         synMessageDataDao.insertCategoryMessages(message);
-
     }
 
     @Override
-    public void insertScrapyRecode(CpScrapyRecode record) {
-        cpScrapyRecodeDAO.insert(record);
-
+    public void updateScrapyRunState(String msg) {
+//      {"spider": "couponpatwo", "time": "2019-08-07 04:51:16", "status": "stop"}
+      System.out.println(msg);
+      SpiderStatusJson json = JSON.parseObject(msg, SpiderStatusJson.class);
+      final String spider_name = json.getSpider();
+      CpScrapy scrapy = cpScrapyDAO.getBeanByName(spider_name);
+      if(scrapy != null){
+        boolean isStart = "start".equals(json.getStatus());
+        scrapy.setIsRunning(isStart?1:0);
+        cpScrapyDAO.updateByPrimaryKeySelective(scrapy);
+      }
+      
+//      CpScrapyRecode recode = cpScrapyRecodeDAO.getBeanByScrapyName(spider_name);
+//      if (recode == null) {
+//          recode = new CpScrapyRecode();
+//          recode.setScrapyName(json.getSpider());
+//          if (Objects.equals(status_start, json.getStatus())) {
+//              recode.setStatus("1");
+//          } else {
+//              recode.setStatus("0");
+//          }
+//          recode.setStartTime(DateUtils.getDateTime(json.getTime()));
+//          cpScrapyRecodeDAO.insert(recode);
+//          return;
+//      } else {
+//          recode.setScrapyName(json.getSpider());
+//          if (Objects.equals(status_start, json.getStatus())) {
+//              recode.setStatus("1");
+//          } else {
+//              recode.setStatus("0");
+//          }
+//          recode.setEndTime(json.getEndTime());
+//          cpScrapyRecodeDAO.updateByPrimaryKeySelective(recode);
+//      }
+//      
+//      if(null == spider){
+//          return;
+//      }
     }
-
-    @Override
-    public void updateScrapyRecode(CpScrapyRecode record) {
-        cpScrapyRecodeDAO.updateByPrimaryKey(record);
-
-    }
-    @Autowired
-    private CpScrapyStoreDAO cpScrapyStoreDAO;
+//    @Autowired
+//    private CpScrapyStoreDAO cpScrapyStoreDAO;
     @Override
     public void updateCouponIndex(String msg) {
-        final String status_start = "start";
-        final String status_stop = "stop";
-        SpiderStatusJson json = JSON.parseObject(msg, SpiderStatusJson.class);
-        final String spider_name = json.getSpider();
-        CpScrapyRecode recode = cpScrapyRecodeDAO.getBeanByScrapyName(spider_name);
-        if (recode == null) {
-            recode = new CpScrapyRecode();
-            recode.setScrapyName(json.getSpider());
-            if (Objects.equals(status_start, json.getStatus())) {
-                recode.setStatus("1");
-            } else {
-                recode.setStatus("0");
-            }
-            recode.setStartTime(DateUtils.getDateTime(json.getTime()));
-            cpScrapyRecodeDAO.insert(recode);
-            return;
-        } else {
-            recode.setScrapyName(json.getSpider());
-            if (Objects.equals(status_start, json.getStatus())) {
-                recode.setStatus("1");
-            } else {
-                recode.setStatus("0");
-            }
-            recode.setEndTime(json.getEndTime());
-            cpScrapyRecodeDAO.updateByPrimaryKeySelective(recode);
-        }
-        CpScrapy spider = cpScrapyDAO.getBeanByName(spider_name);
-        if(null == spider){
-            return;
-        }
 //        CpScrapyStore query  = new CpScrapyStore();
 //        query.setScrapyId(spider.getId());
 //        List<CpScrapyStore> cpScrapyStoreList = cpScrapyStoreDAO.getList(query);
@@ -122,7 +117,6 @@ public class MessageDataServiceImpl implements MessageDataService {
 //                }
 //            });
 //        }
-
 
     }
 

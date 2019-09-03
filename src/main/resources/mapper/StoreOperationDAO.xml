@@ -41,12 +41,11 @@
                 property="storeId"/>
     </resultMap>
 
-
     <select id="getPageList"
             parameterType="com.gopher.system.model.vo.request.StorePageRequst"
             resultMap="BaseResultMap">
         SELECT
-        DISTINCT(cs.ID ),
+        DISTINCT(cs.ID),
         cs.TYPE_ID,
         cs.NAME,
         cs.WEBSITE,
@@ -65,10 +64,15 @@
         FROM CP_STORE cs
         INNER JOIN
         CP_SCRAPY_STORE css ON cs.ID = css.STORE_ID
-        <!--
-        LEFT JOIN
-        CP_COUPON cc ON cs.ID = cc.STORE_ID
-        -->
+        <if test="range != 3">
+          LEFT JOIN 
+          (SELECT STORE_ID, COUNT(*) FROM CP_COUPON WHERE 
+          CREATE_TIME BETWEEN #{beginDate} AND #{endDate}
+          <!-- 基本数据只看爬虫方式导入的 -->
+           AND IN_TYPE = "0"
+          GROUP BY STORE_ID) cc 
+          ON cs.ID = cc.STORE_ID
+        </if>
         <include refid="page_where"/>
         ORDER BY cs.ID ASC
         limit #{beginIndex},#{pageSize}
@@ -91,27 +95,17 @@
             <if test="scrapyId > 0 ">
                 AND css.SCRAPY_ID = #{scrapyId}
             </if>
-            <if test="range == 1">
-                <!-- 有新增优惠券的商家
-                AND cc.CREATE_TIME &gt;= #{beginDate}
-                AND cc.CREATE_TIME &lt;= #{endDate}
-                 -->
-                AND  EXISTS (SELECT ID FROM CP_COUPON WHERE STORE_ID = cs.ID)
-            </if>
-            <if test="range == 2">
-                <!-- 无新增优惠券的商家
-                AND ( cc.CREATE_TIME &lt;= #{beginDate}
-                      OR cc.CREATE_TIME &gt;= #{endDate}
-                      OR cc.CREATE_TIME IS NOT NULL)
-                -->
-                AND  NOT EXISTS (SELECT ID FROM CP_COUPON WHERE STORE_ID = cs.ID)
-            </if>
-
-            <if test="range == 3">
-                <!-- 新增的商家-->
-                AND cs.CREATE_TIME &gt;= #{beginDate}
-                AND cs.CREATE_TIME &lt;= #{endDate}
-            </if>
+            <choose>
+              <when test="range == 1"><!-- 有新增券的商家-->
+                AND cc.STORE_ID IS NOT NULL
+              </when>
+              <when test="range == 2"><!-- 没有有新增券的商家-->
+                AND cc.STORE_ID IS NULL
+              </when>
+              <otherwise><!-- 新增的商家-->
+                AND cs.CREATE_TIME BETWEEN #{beginDate} AND #{endDate}
+              </otherwise>
+            </choose>
         </where>
     </sql>
     <select id="getCount"
@@ -120,10 +114,12 @@
         SELECT COUNT(DISTINCT(cs.ID )) FROM CP_STORE cs
         INNER JOIN
         CP_SCRAPY_STORE css ON cs.ID = css.STORE_ID
-        <!--
-        LEFT JOIN
-        CP_COUPON cc ON cs.ID = cc.STORE_ID
-        -->
+        <if test="range != 3">
+          LEFT JOIN 
+          (SELECT STORE_ID, COUNT(*) FROM CP_COUPON WHERE CREATE_TIME 
+          BETWEEN #{beginDate} AND #{endDate} GROUP BY STORE_ID) cc 
+          ON cs.ID = cc.STORE_ID
+        </if>
         <include refid="page_where"/>
     </select>
 
@@ -134,7 +130,7 @@
         (coss.ID) AS ID,
         cs.ID AS STORE_ID,
         cs.TYPE_ID,
-        cs.`NAME`,
+        cs.NAME,
         cs.WEBSITE,
         cs.TYPE_NAME,
         cs.LOGO_URL,
@@ -151,10 +147,13 @@
         FROM
         CP_OUT_SITE_STORE coss
         INNER JOIN CP_STORE cs ON coss.STORE_ID = cs.ID
-        <!--
-       LEFT JOIN
-       CP_COUPON cc ON cs.ID = cc.STORE_ID
-       -->
+        <if test="range != 3">
+          LEFT JOIN 
+          (SELECT STORE_ID, COUNT(*) FROM CP_COUPON WHERE 
+          CREATE_TIME BETWEEN #{beginDate} AND #{endDate}
+          GROUP BY STORE_ID) cc 
+          ON cs.ID = cc.STORE_ID
+        </if>
         <include refid="getPageListInSite_where"/>
         ORDER BY cs.ID ASC
         LIMIT #{beginIndex},#{pageSize}
@@ -175,28 +174,19 @@
             <if test="isComplete != null and isComplete != ''">
                 AND cs.IS_COMPLETE = #{isComplete}
             </if>
-            <if test="range == 1">
-                <!-- 有新增优惠券的商家
-                AND cc.CREATE_TIME &gt;= #{beginDate}
-                AND cc.CREATE_TIME &lt;= #{endDate}
-                -->
-                AND  EXISTS (SELECT ID FROM CP_COUPON WHERE STORE_ID = cs.ID)
-            </if>
-            <if test="range == 2">
-                <!-- 无新增优惠券的商家
-                AND ( cc.CREATE_TIME &lt;= #{beginDate} OR cc.CREATE_TIME &gt;= #{endDate} )
-                -->
-                AND NOT EXISTS (SELECT ID FROM CP_COUPON WHERE STORE_ID = cs.ID)
-            </if>
-
-            <if test="range == 3">
-                <!-- 新增的商家-->
-                AND cs.CREATE_TIME &gt;= #{beginDate}
-                AND cs.CREATE_TIME &lt;= #{endDate}
-            </if>
+            <choose>
+              <when test="range == 1"><!-- 有新增券的商家-->
+                AND cc.STORE_ID IS NOT NULL
+              </when>
+              <when test="range == 2"><!-- 没有有新增券的商家-->
+                AND cc.STORE_ID IS NULL
+              </when>
+              <otherwise><!-- 新增的商家-->
+                AND cs.CREATE_TIME BETWEEN #{beginDate} AND #{endDate}
+              </otherwise>
+            </choose>
         </where>
     </sql>
-
 
     <select id="getCountInSite"
             parameterType="com.gopher.system.model.vo.request.StorePageRequst"
@@ -205,10 +195,12 @@
         FROM
         CP_OUT_SITE_STORE coss
         INNER JOIN CP_STORE cs ON coss.STORE_ID = cs.ID
-        <!--
-              LEFT JOIN
-              CP_COUPON cc ON cs.ID = cc.STORE_ID
-              -->
+        <if test="range != 3">
+          LEFT JOIN 
+          (SELECT STORE_ID, COUNT(*) FROM CP_COUPON WHERE CREATE_TIME 
+          BETWEEN #{beginDate} AND #{endDate} GROUP BY STORE_ID) cc 
+          ON cs.ID = cc.STORE_ID
+        </if>
         <include refid="getPageListInSite_where"/>
     </select>
 

@@ -25,6 +25,13 @@ public interface ShowSiteTwoService {
     Page<CpOutSiteStoreVo> getTwoList(ShowSiteStoreRequest siteStore);
 
     /**
+     * 新增外站商家关系
+     *
+     * @param cpOutSiteStore
+     */
+    void addOutSiteStore(OutSiteStoreRsp cpOutSiteStore);
+    
+    /**
      * 修改外站商家关系
      *
      * @param cpOutSiteStore

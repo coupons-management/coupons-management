@@ -3,12 +3,9 @@ package com.gopher.system.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.gopher.system.constant.TemplateKeys;
 import com.gopher.system.dao.mysql.CpOutSiteCouponDAO;
 import com.gopher.system.model.vo.CpSearchStoreVo;
 import com.gopher.system.model.vo.request.*;
-import com.gopher.system.util.TitleUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,11 +89,6 @@ public class OfficialWebsiteServiceImpl implements OfficialWebsiteService {
         result.setList(list);
         result.setTotalCount(count);
         return result;
-    }
-
-    public static void main(String[] args) {
-        System.out.println("{{store_name}} promo & promo codes".replace("{{store_name}}", "test"));
-
     }
 
     @Override

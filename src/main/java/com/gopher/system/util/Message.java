@@ -2,6 +2,8 @@ package com.gopher.system.util;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import net.sf.json.JSONArray;
+
 public class Message {
 	@JSONField(name = "node_name")
 	private String nodeName;
@@ -10,6 +12,9 @@ public class Message {
 	private String message;
 	private String spider;
 	private String prevstate;
+	private JSONArray running;
+	private JSONArray finished;
+	
 	public String getNodeName() {
 		return nodeName;
 	}
@@ -46,7 +51,17 @@ public class Message {
 	public void setPrevstate(String prevstate) {
 		this.prevstate = prevstate;
 	}
-	
-	
+    public JSONArray getRunning() {
+      return running;
+    }
+    public void setRunning(JSONArray running) {
+      this.running = running;
+    }
+    public JSONArray getFinished() {
+      return finished;
+    }
+    public void setFinished(JSONArray finished) {
+      this.finished = finished;
+    }
 
 }

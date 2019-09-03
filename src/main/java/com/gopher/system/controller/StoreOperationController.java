@@ -20,7 +20,7 @@ public class StoreOperationController {
     @RequestMapping(path="/getPageInSpider")
     public Result getStoreDetail(@RequestBody StorePageRequst storePageRequst){
         Result result = new Result();
-        result.setData(storeOperationService.getPageInSpideer(storePageRequst));
+        result.setData(storeOperationService.getPageInSpider(storePageRequst));
         return result;
     }
 

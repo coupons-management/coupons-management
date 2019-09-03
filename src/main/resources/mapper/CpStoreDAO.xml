@@ -652,11 +652,11 @@
         FROM CP_OUT_SITE_STORE SITESTORE INNER JOIN CP_STORE STORE
         ON SITESTORE.STORE_ID = STORE.ID
         <where>
-            <if test="siteId != null and  siteId >0 ">
+            <if test="siteId != null and siteId >0 ">
                 OUT_ID=#{siteId}
             </if>
-            <if test="name != null and  name !='' ">
-                AND STORE.NAME LIKE "%"#{name}"%"
+            <if test="name != null and name !='' ">
+                AND STORE.NAME LIKE #{name}"%"
             </if>
         </where>
         ORDER BY SITESTORE.ID ASC
@@ -787,10 +787,10 @@
         *
         FROM
         CP_STORE cs
-        INNER JOIN
+        JOIN
         CP_OUT_SITE_STORE coss
         ON cs.ID = coss.STORE_ID
-        WHERE cs.WEBSITE LIKE "%"#{website}"%"
+        WHERE cs.WEBSITE LIKE concat('%',#{website},'%')
         AND coss.OUT_ID = #{outSiteId}
         LIMIT 1
     </select>

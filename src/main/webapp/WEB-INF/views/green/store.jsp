@@ -6,11 +6,12 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="keywords" content="keywords"/>
-    <meta name="description" content="description"/>
+    <meta name="keywords" content="${tdkInfo.keyWords}"/>
+    <meta name="description" content="${tdkInfo.description}"/>
     <meta name="google-site-verification" content="AV6k9uxlDcEFufTdl0rM5Aetr5U9uvxCRcw0u3gYf8I"/>
-    <meta name='webgains-site-verification' content='ambcr9xy'/>
-    <title>绿站</title>
+    <meta name="webgains-site-verification" content="ambcr9xy"/>
+
+    <title>${tdkInfo.title}</title>
     <!-- bootstrap -->
     <link rel="stylesheet" href="${basePath}/static/css/green/custom.css"/>
 </head>
@@ -308,7 +309,7 @@
                             <div class="col-lg-2 col-md-3 col-sm-4 col-6 p-md-2 p-0">
 
                                 <a class="cover-wrap" style="height: 176px;"
-                                   href="${basePath}/green/store/<c:choose><c:when test="${store.webSite.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//") + 2)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>">
+                                   href="${basePath}/green/store/${fn:replace(fn:replace(fn:replace(store.webSite,'www.',''),'http://',''),'https://','')}">
                                     <%--href="${basePath}/green/storeDetail?storeId=${store.storeId}&siteId=1">--%>
                                     <div class="cover">
                                         <img src="${store.logoUrl}" alt="${store.name} coupons" title="${store.name}"/>
@@ -325,7 +326,7 @@
                         <div class="row text-left text-md-center">
                             <c:forEach items="${stores.list}" var="store">
                                 <div class="col-md-3 col-6">
-                                    <a href="${basePath}/green/store/<c:choose><c:when test="${store.webSite.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//") + 2)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>">
+                                    <a href="${basePath}/green/store/${fn:replace(fn:replace(fn:replace(store.webSite,'www.',''),'http://',''),'https://','')}">
                                             ${store.name}
                                     </a>
                                 </div>

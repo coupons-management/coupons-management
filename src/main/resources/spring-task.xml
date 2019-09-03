@@ -15,7 +15,7 @@
     <!-- 配置相关类中方法的执行时间-->
     <task:scheduled-tasks scheduler="taskScheduler">
         <!-- 每隔 2秒执行一次 -->
-        <task:scheduled ref="synBasicsData" method="synDate" cron="*/2 * * * * ?"/>
+        <task:scheduled ref="synBasicsData" method="syncData" cron="*/2 * * * * ?"/>
         <!-- 同步数据 -->
         <!-- 初始化标题规则数据 -->
         <task:scheduled ref="synBasicsData" method="initData" initial-delay="1000" fixed-delay="90000000"/>

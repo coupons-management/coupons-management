@@ -3,19 +3,12 @@ package com.gopher.system.util;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import com.gopher.system.service.SynDataService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 public class TitleUtils {
-    @Autowired
-    private SynDataService synDataService;
 
     static List<String> list = new ArrayList<>();
     public static Map<String, List<String>> messageMap = new ConcurrentHashMap<>();
@@ -147,7 +140,6 @@ public class TitleUtils {
             random = SecureRandom.getInstance("SHA1PRNG");
             return random.nextInt(len);
         } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return 0;

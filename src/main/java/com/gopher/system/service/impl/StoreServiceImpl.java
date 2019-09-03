@@ -109,7 +109,8 @@ public class StoreServiceImpl implements StoreService {
     	return result;
     }
 
-    public List<StoreResponse> getShowValue(List<CpStore> list){
+    @Override
+    public List<StoreResponse> getShowValue(List<CpStore> list, boolean isScrapy){
 		List<StoreResponse> rspList = null;
 		// 基础数据
 		if (null != list) {
@@ -133,7 +134,7 @@ public class StoreServiceImpl implements StoreService {
 				rsp.setCountry(cpStore.getCountry());
 				rsp.setScrapyType(cpStore.getTypeName());
 				rsp.setStoreId(storeId);
-				CpCoupon coupon = couponService.getNewOne(storeId);
+				CpCoupon coupon = couponService.getNewOne(storeId, isScrapy);
 				if(null != coupon) {
 					rsp.setCouponUpdateTime(DateUtils.getDatetimeString(coupon.getCreateTime()));
 				}
@@ -157,7 +158,7 @@ public class StoreServiceImpl implements StoreService {
 		List<CpStore> list = cpStoreDAO.getPageList(storePageRequest);
 		final int totalCount = cpStoreDAO.getCount(storePageRequest);
 		result.setTotalCount(totalCount);
-		result.setList(this.getShowValue(list));
+		result.setList(this.getShowValue(list, true));
 		return result;
 	}
 

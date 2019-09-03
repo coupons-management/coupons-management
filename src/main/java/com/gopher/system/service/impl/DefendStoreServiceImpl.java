@@ -37,7 +37,7 @@ public class DefendStoreServiceImpl implements DefendStoreService{
 				//TODO 爬虫爬回来的不准 已实际入库的为准 有效优惠券数量
 				storeResponse.setValidCouponsCount(couponService.getValidCountByStore(storeId) + "/"
 						+couponService.getTotalCountByStore(storeId));
-				CpCoupon coupon = couponService.getNewOne(storeId);
+				CpCoupon coupon = couponService.getNewOne(storeId, false);
 				if(null != coupon) {
 					storeResponse.setCouponUpdateTime(DateUtils.getDatetimeString(coupon.getCreateTime()));
 				}

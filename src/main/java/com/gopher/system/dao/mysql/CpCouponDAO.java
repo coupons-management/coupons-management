@@ -2,6 +2,7 @@ package com.gopher.system.dao.mysql;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.gopher.system.model.entity.CpCoupon;
@@ -25,7 +26,7 @@ public interface CpCouponDAO extends MyBatisBaseDao<CpCoupon, Integer> {
 
     List<CpCoupon> getList(CpCoupon coupon);
 
-    CpCoupon getNewOneByStore(Integer storeId);
+    CpCoupon getNewOneByStore(@Param("storeId") Integer storeId, @Param("isScrapy") boolean isScrapy);
 
     List<CpCoupon> getScapyPageList(CouponPageRequest couponPageRequest);
 

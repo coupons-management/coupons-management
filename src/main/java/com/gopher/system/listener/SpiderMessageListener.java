@@ -37,7 +37,8 @@ public class SpiderMessageListener implements MessageListener {
                     messageDataService.insertStoreMessages(tmessage);
                     break;
                 case spider_status:
-                    messageDataService.updateCouponIndex(message_content);
+                    //messageDataService.updateCouponIndex(message_content);
+                    //messageDataService.updateScrapyRunState(message_content);
                     break;
                 default:
                     logger.info("未能识别的消息 queueName:{} content:{}", queue, message_content);

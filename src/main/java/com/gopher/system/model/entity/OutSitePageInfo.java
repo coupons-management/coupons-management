@@ -22,6 +22,14 @@ public class OutSitePageInfo implements Serializable {
     private String description;
 
     private static final long serialVersionUID = 1L;
+    
+    //页面类型
+    public static Integer TYPE_INDEX = 1;//首页
+    public static Integer TYPE_CATEGORY_LIST = 2;//分类列表
+    public static Integer TYPE_CATEGORY_DETAIL = 3;//分类详情
+    public static Integer TYPE_STORE_LIST = 4;//商家列表
+    public static Integer TYPE_ABOUT_US = 5;//关于我们
+    public static Integer TYPE_CONTACT_US = 6;//联系我们
 
     public Integer getId() {
         return id;

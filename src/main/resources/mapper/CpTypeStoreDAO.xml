@@ -149,7 +149,7 @@
         <include refid="Base_Column_List"/>
         from CP_TYPE_STORE
         where STORE_ID = #{storeId,jdbcType=INTEGER}
-        AND  OUT_SITE_ID = #{siteId,jdbcType=INTEGER}
+        AND OUT_SITE_ID = #{siteId,jdbcType=INTEGER}
         LIMIT 1
     </select>
 </mapper>

@@ -1,13 +1,18 @@
 package com.gopher.system.util;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
+@Document(collection = "category")
 public class CateGoryJson {
+    @Id
+    private String objectId;
 	private String id;
 	private String description;
-	@JSONField(name = "icon_code")
+	@Field("icon_code")
     private String iconCode;
-	@JSONField(name = "icon_color")
+	@Field("icon_color")
     private String iconColor;
     private String name;
 
@@ -16,20 +21,16 @@ public class CateGoryJson {
     private String status;
 
     private String type;
-    @JSONField(name = "url_name")
+    @Field("url_name")
     private String urlName;
     
- /*   {
-        "description":"Stay stylish yet keep warm with deals on outerwear from New York & Company, Eddie Bauer, Bloomingdale's, Kohl's, Old Navy, and other top brands.",
-        "icon_code":"icon-christmas-001",
-        "icon_color":"primary",
-        "name":"Women's Outerwear",
-        "site":"offers",
-        "status":"0",
-        "type":"category",
-        "url_name":"womens-coats-jackets"
-    }*/
-	public String getId() {
+    public String getObjectId() {
+      return objectId;
+    }
+    public void setObjectId(String objectId) {
+      this.objectId = objectId;
+    }
+    public String getId() {
 		return id;
 	}
 	public void setId(String id) {

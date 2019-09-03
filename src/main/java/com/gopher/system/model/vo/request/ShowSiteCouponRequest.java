@@ -5,10 +5,23 @@ public class ShowSiteCouponRequest {
 	private int id;
 	
 	private int mapId;
+
+	private int inType;//券类型 
+	
+	/**
+	 * 原标题
+	 */
+	private String sourceTitle;
 	/**
 	 * 当前标题
 	 */
 	private String currentTitle;
+
+	/**
+     * 券类型
+     */
+	private String couponType;
+	
 	/**
 	 * 描述
 	 */
@@ -30,9 +43,17 @@ public class ShowSiteCouponRequest {
 	 *
 	 */
 	private int storeId;
-	
 
-	public int getStoreId() {
+	
+    public String getSourceTitle() {
+      return sourceTitle;
+    }
+  
+    public void setSourceTitle(String sourceTitle) {
+      this.sourceTitle = sourceTitle;
+    }
+  
+    public int getStoreId() {
 		return storeId;
 	}
 
@@ -55,16 +76,32 @@ public class ShowSiteCouponRequest {
 	public void setMapId(int mapId) {
 		this.mapId = mapId;
 	}
-
-	public String getCurrentTitle() {
+	
+    public int getInType() {
+      return inType;
+    }
+  
+    public void setInType(int inType) {
+      this.inType = inType;
+    }
+  
+    public String getCurrentTitle() {
 		return currentTitle;
 	}
 
 	public void setCurrentTitle(String currentTitle) {
 		this.currentTitle = currentTitle;
 	}
-
-	public String getDescription() {
+	
+    public String getCouponType() {
+      return couponType;
+    }
+  
+    public void setCouponType(String couponType) {
+      this.couponType = couponType;
+    }
+  
+    public String getDescription() {
 		return description;
 	}
 

@@ -6,11 +6,12 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="keywords" content="keywords" />
-        <meta name="description" content="description" />
-        <meta name="google-site-verification" content="AV6k9uxlDcEFufTdl0rM5Aetr5U9uvxCRcw0u3gYf8I" />
-        <meta name ='webgains-site-verification'content ='ambcr9xy'/>
-        <title>绿站</title>
+        <meta name="keywords" content="${tdkInfo.keyWords}"/>
+        <meta name="description" content="${tdkInfo.description}"/>
+        <meta name="google-site-verification" content="AV6k9uxlDcEFufTdl0rM5Aetr5U9uvxCRcw0u3gYf8I"/>
+        <meta name="webgains-site-verification" content="ambcr9xy"/>
+    
+        <title>${tdkInfo.title}</title>
         <!-- bootstrap -->
         <link rel="stylesheet" href="${basePath}/static/css/green/custom.css" />
     </head>
@@ -31,11 +32,7 @@
                     <div class="row">
                         <!-- Profile Sidebar -->
                         <div class="col-12">
-                            <p>cannabispromocodes Team:</p>
-                            <a href="mailto:cannabispromocodes@gmail.com">cannabispromocodes@gmail.com</a>
-                            <p>Comments or suggestions:</p>
-                            <a href="mailto:cannabispromocodes@gmail.com">cannabispromocodes@gmail.com</a>
-                            <p>Let us solve all the problems for you.</p>
+                            ${content}
                         </div>
                     </div>
                 </div>

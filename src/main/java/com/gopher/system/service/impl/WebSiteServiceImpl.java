@@ -1,6 +1,5 @@
 package com.gopher.system.service.impl;
 
-import java.nio.file.WatchEvent;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -37,9 +36,6 @@ public class WebSiteServiceImpl implements WebSiteService {
 
 	@Override
 	public Page<CpCouponVo> getCouponListByCategory(CategoryRequest categoryRequest) {
-		Page<CpCouponVo> result = new Page<>();
-		List<CpCouponVo> couponList = new ArrayList<>();
-
 		if (null == categoryRequest) {
 			throw new BusinessRuntimeException("参数不能为空");
 		}
@@ -53,8 +49,22 @@ public class WebSiteServiceImpl implements WebSiteService {
 		if (siteId <= 0) {
 			throw new BusinessRuntimeException("官网站点ID不能为空");
 		}
-		List<CpSitestoreType> sonList = cpSiteStoreTypeDAO.getSonList(id);
+		
 		List<Integer> storeIdList = new ArrayList<>();
+		
+		// 1级直接关联商家
+        CpSitestoreType type = cpSiteStoreTypeDAO.selectByPrimaryKey(id);
+        if (null != type) {
+            List<CpTypeStore> list = cpTypeStoreDAO.getListByType(type.getId());
+            if (null != list) {
+                for (CpTypeStore cpTypeStore : list) {
+                    storeIdList.add(cpTypeStore.getStoreId());
+                }
+            }
+        }
+        
+        List<CpSitestoreType> sonList = cpSiteStoreTypeDAO.getSonList(id);
+        
 		if (null != sonList && !sonList.isEmpty()) {
 			// 如果当前分类下有绑定子级
 			// 拿到这个之级下面所有对应的商家
@@ -65,16 +75,8 @@ public class WebSiteServiceImpl implements WebSiteService {
 				}
 			}
 		}
-		// 1级直接关联商家
-		CpSitestoreType type = cpSiteStoreTypeDAO.selectByPrimaryKey(id);
-		if (null != type) {
-			List<CpTypeStore> list = cpTypeStoreDAO.getListByType(type.getId());
-			if (null != list) {
-				for (CpTypeStore cpTypeStore : list) {
-					storeIdList.add(cpTypeStore.getStoreId());
-				}
-			}
-		}
+		
+		List<CpCouponVo> couponList = new ArrayList<>();
 		int totalCount = 0;
 		if (!storeIdList.isEmpty()) {
 			ShowSiteCouponPageRequest showSiteCouponPageRequest = new ShowSiteCouponPageRequest();
@@ -91,6 +93,7 @@ public class WebSiteServiceImpl implements WebSiteService {
 			}
 			totalCount = cpOutSiteCouponDAO.getCountByCategory(showSiteCouponPageRequest);
 		}
+		Page<CpCouponVo> result = new Page<>();
 		result.setPageNumber(pageNumber);
 		result.setPageSize(pageSize);
 		result.setTotalCount(totalCount);
@@ -153,20 +156,21 @@ public class WebSiteServiceImpl implements WebSiteService {
 		int coupon_count  = 0;
 		if(!CollectionUtils.isEmpty(list)){
 			first_name   = list.get(0).getName()!=null?list.get(0).getName():list.get(0).getTitle();
-			last_update_time = DateUtils.getDateString(list.get(0).getUpdateTime());
+			last_update_time = DateUtils.getEnglishDateString(list.get(0).getUpdateTime());
 			coupon_count = list.size();
 			list.forEach(e->{
 				e.setSale(getSale(e.getTitle(), e.getCouponType()));
-				if(StringUtils.hasText(ad_address)){
-					e.setLink(ad_address);
-				}else{
-					e.setLink(webSite);
-				}
+//				if(StringUtils.hasText(ad_address)){
+//					e.setLink(ad_address);
+//				}else{
+//					e.setLink(webSite);
+//				}
 			});
 		}
 
+		result.setName(name);
 		if(StringUtils.hasText(showName)){
-			result.setName(showName.replace("{{store_name}}",name));
+			result.setShowName(showName.replace("{{store_name}}",name));
 		}
 			/**
 		 * {{store_name}} Coupons {{month}} : {{best_off}}OFF Promo Code, Discounts
@@ -213,6 +217,13 @@ public class WebSiteServiceImpl implements WebSiteService {
 			                                     .replace("{{best_coupon_name}}",first_name));
 		}
 		result.setWebsite(cpStore.getWebsite());
+		result.setCouponCount(cpStore.getCouponCount());
+		result.setLastUpdateTime(last_update_time);
+		if(StringUtils.hasText(ad_address)){
+		  result.setAdvertising(ad_address);
+		} else {
+		  result.setAdvertising(cpStore.getWebsite());
+		}
 
 		Page<CpCouponVo> page = new Page<>();
 		page.setPageNumber(storeRequest.getPageNumber());

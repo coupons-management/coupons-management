@@ -9,24 +9,29 @@
             <!-- End Logo -->
 
             <!-- Navigation -->
-            <div class="flex-grow-1" style="width: 100%">
+            <div class="flex-grow-1">
                 <ul class="navbar-nav justify-content-end ">
-                    <li class="nav-item-top-stores  nav-item ml-0 d-none d-lg-inline-block">
+                    <li class="nav-item-top-stores  nav-item ml-0 d-none d-lg-inline-block ${isStore?'active':'' }">
                         <div class="nav-link">
                             <a href="${basePath}/green/store/"
-                               style="text-decoration: none;color: #151515;font-size: 15px;font-weight: 500;line-height: 35px">
+                               style="text-decoration: none;color: #151515;font-size: 15px;font-weight: 500;">
                                 Top Stores
                             </a>
                         </div>
                     </li>
 
-                    <li class="nav-item nav-item-category  d-none d-lg-inline-block">
+                    <li class="nav-item nav-item-category  d-none d-lg-inline-block ${isCategory?'active':'' }">
                         <div class="nav-link">
                             <a href="${basePath}/green/category/"
-                               style="text-decoration: none;color: #151515;font-size: 15px;font-weight: 500;line-height: 35px">
+                               style="text-decoration: none;color: #151515;font-size: 15px;font-weight: 500;">
                                 Categories
                             </a>
                         </div>
+                        <ul class="list-group category-list">
+                          <c:forEach items="${categoryList}" var="category">
+                              <a href="${basePath}/green/category/${category.name}/" class="list-group-item list-group-item-action">${category.name}</a>
+                          </c:forEach>
+                        </ul>
                     </li>
 
                     <li class="nav-item nav-item__search">

@@ -5,7 +5,6 @@ import com.gopher.system.dao.mysql.CpSitestoreTypeDAO;
 import com.gopher.system.dao.mysql.CpTypeStoreDAO;
 import com.gopher.system.dao.mysql.StoreOperationDAO;
 import com.gopher.system.exception.BusinessRuntimeException;
-import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.entity.CpSitestoreType;
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.CpTypeStore;
@@ -16,12 +15,8 @@ import com.gopher.system.model.vo.response.StoreResponse;
 import com.gopher.system.service.StoreOperationService;
 import com.gopher.system.service.StoreService;
 import com.gopher.system.util.DateUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,16 +27,14 @@ public class StoreOperationServiceImpl implements StoreOperationService {
     @Autowired
     private StoreService storeService;
 
-    private static final Logger LOG = LoggerFactory.getLogger(StoreOperationServiceImpl.class);
-
     @Override
-    public Page<StoreResponse> getPageInSpideer(StorePageRequst storePageRequest) {
+    public Page<StoreResponse> getPageInSpider(StorePageRequst storePageRequest) {
 
         Page<StoreResponse> result = new Page<>();
         this.setParam(storePageRequest);
         List<CpStore> list = storeOperationDAO.getPageList(storePageRequest);
         result.setTotalCount(storeOperationDAO.getCount(storePageRequest));
-        result.setList(storeService.getShowValue(list));
+        result.setList(storeService.getShowValue(list, true));
         result.setPageNumber(storePageRequest.getPageNumber());
         result.setPageSize(storePageRequest.getPageSize());
         return result;
@@ -55,7 +48,6 @@ public class StoreOperationServiceImpl implements StoreOperationService {
         storePageRequest.setEndDate(DateUtils.getOneDayEndDate(storePageRequest.getEndTime()));
         storePageRequest.setScrapyId(storePageRequest.getSpiderId());
     }
-
 
     @Autowired
     private CpTypeStoreDAO cpTypeStoreDAO;
@@ -74,12 +66,12 @@ public class StoreOperationServiceImpl implements StoreOperationService {
         this.setParam(storePageRequest);
         List<CpStore> list = storeOperationDAO.getPageListInSite(storePageRequest);
         result.setTotalCount(storeOperationDAO.getCountInSite(storePageRequest));
-        result.setList(storeService.getShowValue(list));
+        result.setList(storeService.getShowValue(list, false));
         List<StoreResponse> li = result.getList();
         if(li != null && !li.isEmpty()) {
             li.forEach(vo -> {
                 vo.setScrapyType("");
-                CpTypeStore type = cpTypeStoreDAO.getByStore(vo.getStoreId(),siteId);
+                CpTypeStore type = cpTypeStoreDAO.getByStore(vo.getStoreId(), siteId);
                 if(null != type){
                     CpSitestoreType cpSitestoreType = cpSitestoreTypeDAO.selectByPrimaryKey(type.getTypeId());
                     if(null != cpSitestoreType){

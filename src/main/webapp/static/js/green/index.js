@@ -32,21 +32,21 @@ $(document).ready(function () {
                 url: basePath + "/officialWebsite/searchStorePageList",
                 method: 'post',
                 contentType: "application/json;charset=UTF-8",
-                data: JSON.stringify({pageNumber: 1, pageSize: 5, name: param,siteId:1}),
+                data: JSON.stringify({pageNumber: 1, pageSize: 5, name: param, siteId:1}),
                 dataType: 'json',
                 success: headerStoreSearchSuccess
             })
         }
     }
 
-
     function headerStoreSearchSuccess(result) {
-        if (result.data.list.length > 0) {
-            var list = result.data.list;
+    	var list = result.data.list;
+        if (list && list.length > 0) {
             for (var i = 0; i < list.length; i++) {
                 var store = list[i];
+                var webSite = store.webSite.replace("https://","").replace("http://","").replace("www.","");
                 $('#index_search_ul').append('<li class="">\n' +
-                    '                            <a class="dropdown-item" href=' + basePath + '/green/storeDetail?storeId=' + store.storeId + '&siteId=1 role="option">\n' +
+                    '                            <a class="dropdown-item" href=' + basePath + '/green/store/' + webSite + '>\n' +
                     '                                <div class="typeahead search-result">\n' +
                     '                                    <div class="img-text-wrap">\n' +
                     '                                        <img src=' + store.logoUrl + ' class="pic">\n' +
@@ -62,7 +62,6 @@ $(document).ready(function () {
             $('#index_search_ul').show();
         }
         searchCategory();
-
     }
 
 
@@ -72,7 +71,7 @@ $(document).ready(function () {
             url: basePath + "/officialWebsite/getStoreCategoryPage",
             method: 'post',
             contentType: "application/json;charset=UTF-8",
-            data: JSON.stringify({pageNumber: 1, pageSize: 5, name: param, level: 1, siteId: 1}),
+            data: JSON.stringify({pageNumber: 1, pageSize: 5, name: param, siteId: 1}),
             dataType: 'json',
             success: headerCategorySearchSuccess
         })
@@ -80,15 +79,15 @@ $(document).ready(function () {
     }
 
     function headerCategorySearchSuccess(result) {
-        if (result.data.list.length > 0) {
-            var list = result.data.list;
+    	var list = result.data.list;
+        if (list && list.length > 0) {
             for (var i = 0; i < list.length; i++) {
-                var cagegory = list[i];
+                var category = list[i];
                 $('#index_search_ul').append('<li class="active">\n' +
-                    '                            <a class="dropdown-item" href=' + basePath + '/green/categoryDetail?pageNumber=1&pageSize=5&siteId=1&id=' + cagegory.id + ' role="option">\n' +
+                    '                            <a class="dropdown-item" href=' + basePath + '/green/category/' + category.name + '>\n' +
                     '                                <div class="typeahead search-result">\n' +
                     '                                    <div>\n' +
-                    '                                        <strong>cagegory.name</strong>\n' +
+                    '                                        <strong>' + category.name + '</strong>\n' +
                     '                                        <span> -- Category</span>\n' +
                     '                                    </div>\n' +
                     '                                    <p class="count">more stores</p>\n' +

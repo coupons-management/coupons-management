@@ -50,7 +50,23 @@ public class DateUtils {
 		}
 		return result;
 	}
-
+	
+	public static String getEnglishDateString(Date date) {
+      if(null == date) {
+          return "";
+      }
+      Calendar cal = Calendar.getInstance();  
+      cal.setTime(date);  
+      
+      int year = cal.get(Calendar.YEAR);
+      int month = cal.get(Calendar.MONTH);
+      int day = cal.get(Calendar.DAY_OF_MONTH);
+      
+      String[] monthArr = "Jan,Feb,Mar,Apr,May,June,July,Aug,Sep,Oct,Nov,Dec".split(",");
+      String monthStr = monthArr[month];
+      
+      return monthStr + " " + day + ", " + year;
+    }
 	public static String getDateString(Date date) {
 		if(null == date) {
 			return "";
@@ -255,6 +271,16 @@ public class DateUtils {
 		return null;
 	}
 
+	public static Date getDateTimeUS(String source) {
+	  SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", java.util.Locale.US);
+	  try {
+	    return sdf.parse(source);
+	  } catch (ParseException e) {
+	    e.printStackTrace();
+	  }
+	  return null;
+	}
+	
 	public static long getDateTimeLong(String source) {
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FMT);
 		try {

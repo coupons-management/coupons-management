@@ -23,6 +23,14 @@ public class StoreDetailResponse {
 
     private Integer storeId;
 
+    private Integer couponCount; //优惠券数量
+
+    private String lastUpdateTime; //最后修改时间
+
+    private String advertising; //广告地址(没有则用网址)
+
+    private String showName; //展示名(替换后的)
+    
 	public Integer getStoreId() {
 		return storeId;
 	}
@@ -54,8 +62,24 @@ public class StoreDetailResponse {
 	public void setStoreDescription(String storeDescription) {
 		this.storeDescription = storeDescription;
 	}
+	
+    public Integer getCouponCount() {
+      return couponCount;
+    }
+  
+    public void setCouponCount(Integer couponCount) {
+      this.couponCount = couponCount;
+    }
+    
+    public String getLastUpdateTime() {
+      return lastUpdateTime;
+    }
 
-	private Page<CpCouponVo> couponList;
+    public void setLastUpdateTime(String lastUpdateTime) {
+      this.lastUpdateTime = lastUpdateTime;
+    }
+
+  private Page<CpCouponVo> couponList;
 
 	public int getId() {
 		return id;
@@ -104,5 +128,21 @@ public class StoreDetailResponse {
 	public void setCouponList(Page<CpCouponVo> couponList) {
 		this.couponList = couponList;
 	}
+
+    public String getAdvertising() {
+      return advertising;
+    }
+  
+    public void setAdvertising(String advertising) {
+      this.advertising = advertising;
+    }
+
+    public String getShowName() {
+      return showName;
+    }
+
+    public void setShowName(String showName) {
+      this.showName = showName;
+    }
     
 }

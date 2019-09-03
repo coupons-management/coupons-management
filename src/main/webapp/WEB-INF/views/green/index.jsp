@@ -6,12 +6,12 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="keywords" content="keywords"/>
-    <meta name="description" content="description"/>
+    <meta name="keywords" content="${tdkInfo.keyWords}"/>
+    <meta name="description" content="${tdkInfo.description}"/>
     <meta name="google-site-verification" content="AV6k9uxlDcEFufTdl0rM5Aetr5U9uvxCRcw0u3gYf8I"/>
     <meta name="webgains-site-verification" content="ambcr9xy"/>
 
-    <title>绿站</title>
+    <title>${tdkInfo.title}</title>
     <link rel="stylesheet" href="${basePath}/static/css/green/custom.css"/>
 </head>
 <body>
@@ -51,7 +51,6 @@
                             class="js-search__input form-control"
                             placeholder="Search for stores, offers or brands"
                             data-provide="typeahead"
-                            required=""
                             autocomplete="off"
                             aria-label="Search for stores, offers or brands"
                             name="search"
@@ -138,7 +137,8 @@
                 <c:forEach items="${topStoreList}" var="store">
                     <div class="col-6 col-md-4 col-lg-5-1 p-2" style="height: 187px">
                         <a class="store-grid-item cover-wrap"
-                           href="${basePath}/green/store/<c:choose><c:when test="${store.webSite.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${store.webSite.endsWith(\"/\")}">${store.webSite.substring(store.webSite.indexOf("//") + 2)}</c:when><c:otherwise>${store.webSite.substring(store.webSite.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>">
+                           href="${basePath}/green/store/${fn:replace(fn:replace(fn:replace(store.webSite,'www.',''),'http://',''),'https://','')}">
+                           
                            <%--href="${basePath}/green/storeDetail?storeId=${store.storeId}&siteId=1">--%>
                             <div class="cover">
                                 <img src="${store.logoUrl}" class="align-self-center" alt="${store.name} coupons"
@@ -164,9 +164,9 @@
                         <div class="coupon-item row no-gutters">
                             <div class="pic-box col-3 col-sm-12 d-flex flex-grow-0 justify-content-center">
                                 <a class="cover-wrap position-relative"
-                                   href="${basePath}/green/store/<c:choose><c:when test="${coupon.storeWebSite.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${coupon.storeWebSite.endsWith(\"/\")}">${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//www.") + 6)}</c:when><c:otherwise>${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${coupon.storeWebSite.endsWith(\"/\")}">${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//") + 2)}</c:when><c:otherwise>${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>">
+                                   href="${basePath}/green/store/${fn:replace(fn:replace(fn:replace(coupon.storeWebSite,'www.',''),'http://',''),'https://','')}">
                                     <div class="cover">
-                                        <img src="${coupon.storeLogo}" alt="${coupon.name}"/>
+                                        <img src="${coupon.storeLogo}" alt="${coupon.storeName} coupons"/>
                                     </div>
                                     <c:choose>
                                         <c:when test="${coupon.couponType == 'DEAL'}">
@@ -182,7 +182,7 @@
                             <div class="info-box col-9 col-sm-12 d-flex flex-wrap align-content-between">
                                 <a target="_blank" rel="nofollow" url="${coupon.storeWebSite}"
                                    class="get_deal coupon-title text-left text-sm-center"
-                                   href="${basePath}/green/store/<c:choose><c:when test="${coupon.storeWebSite.indexOf(\"//www.\") >=0}"><c:choose><c:when test="${coupon.storeWebSite.endsWith(\"/\")}">${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//www.") + 6)}</c:when><c:otherwise>${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//www.") + 6)}/</c:otherwise></c:choose></c:when><c:otherwise><c:choose><c:when test="${coupon.storeWebSite.endsWith(\"/\")}">${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//") + 2)}</c:when><c:otherwise>${coupon.storeWebSite.substring(coupon.storeWebSite.indexOf("//") + 2)}/</c:otherwise></c:choose></c:otherwise></c:choose>?c=${coupon.outSiteCouponId}">
+                                   href="${basePath}/green/store/${fn:replace(fn:replace(fn:replace(coupon.storeWebSite,'www.',''),'http://',''),'https://','')}?c=${coupon.outSiteCouponId}">
                                     <h3>${coupon.name}</h3>
                                 </a>
 
@@ -217,37 +217,39 @@
                 Top Categories
                 <a href="#top-categories-content" data-toggle="collapse" role="button" aria-expanded="false"
                    class="collapsed" aria-controls="top-categories-content">
-                    <i class="fa fa-chevron-up d-inline d-sm-none float-right" aria-hidden="true"></i>
+                    <c:if test="${fn:length(categoryList)> 5}">
+                      <i class="fa fa-chevron-up d-inline d-sm-none float-right"></i>
+                    </c:if>
                 </a>
             </h2>
 
             <div class="show visible-md">
-                <div class="row">
-                    <c:forEach items="${categoryList}" var="category">
-                        <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
-                            <div class="category-item">
-                                <a class="category-title"
-                                   href="${basePath}/green/category/${category.name}/">
-                                    <p>${category.name}</p>
-                                </a>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
+              <div class="row">
+                 <c:forEach items="${categoryList}" var="category" end="4">
+                   <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
+                      <div class="category-item">
+                          <a class="category-title"
+                             href="${basePath}/green/category/${category.name}/">
+                              <p>${category.name}</p>
+                          </a>
+                      </div>
+                   </div>
+                 </c:forEach>
+              </div>
             </div>
 
             <div id="top-categories-content" class="collapse">
                 <div class="row">
-                    <c:forEach items="${categoryList}" var="category">
-                        <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
-                            <div class="category-item">
-                                <a class="category-title"
-                                   href="${basePath}/green/category/${category.name}/">
-                                    <p>${category.name}</p>
-                                </a>
-                            </div>
+                  <c:forEach items="${categoryList}" var="category" begin="5">
+                    <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-sm-2">
+                       <div class="category-item">
+                          <a class="category-title"
+                             href="${basePath}/green/category/${category.name}/">
+                              <p>${category.name}</p>
+                          </a>
                         </div>
-                    </c:forEach>
+                    </div>
+                  </c:forEach>
                 </div>
             </div>
         </section>
@@ -261,26 +263,27 @@
                 Popular Stores
                 <a href="#popular-store-content" data-toggle="collapse" role="button" aria-expanded="false"
                    class="collapsed" aria-controls="popular-store-content">
-                    <i class="fa fa-chevron-up d-inline d-sm-none float-right" aria-hidden="true"></i>
+                   <c:if test="${fn:length(popularStoreList)> 5}">
+                    <i class="fa fa-chevron-up d-inline d-sm-none float-right"></i>
+                   </c:if>
                 </a>
             </h2>
 
             <div class="popular-store-content show visible-md">
                 <div class="row">
-
-                    <c:forEach items="${popularStoreList}" var="popularStore">
+                    <c:forEach items="${popularStoreList}" var="popularStore" end="4">
                         <div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">
-                            <a href="">${popularStore.name}</a>
+                            <a href="${basePath}/green/store/${fn:replace(fn:replace(fn:replace(popularStore.website,'www.',''),'http://',''),'https://','')}">${popularStore.showName}</a>
                         </div>
                     </c:forEach>
                 </div>
             </div>
 
-            <div id="popular-store-content" class="popular-store-content collapse">
+           <div id="popular-store-content" class="popular-store-content collapse">
                 <div class="row">
-                    <c:forEach items="${popularStoreList}" var="popularStore">
+                    <c:forEach items="${popularStoreList}" var="popularStore" begin="5">
                         <div class="store-name-wrap col-12 col-md-4 col-lg-5-1 mb-3 mb-md-4">
-                            <a href="">${popularStore.name}</a>
+                            <a href="${basePath}/green/store/${fn:replace(fn:replace(fn:replace(popularStore.website,'www.',''),'http://',''),'https://','')}">${popularStore.showName}</a>
                         </div>
                     </c:forEach>
                 </div>

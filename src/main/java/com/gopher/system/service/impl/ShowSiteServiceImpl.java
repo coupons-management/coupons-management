@@ -163,7 +163,6 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 		return list;
 	}
 
-
 	@Override
 	public void addStoreToSiteBatch(List<ShowSiteStoreRequest> showSiteStoreList) {
 		if(null == showSiteStoreList || showSiteStoreList.isEmpty()) {
@@ -172,9 +171,7 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 		for (ShowSiteStoreRequest showSiteStoreRequest : showSiteStoreList) {
 			this.addStoreToSite(showSiteStoreRequest);
 		}
-		
 	}
-
 
 	@Override
 	public OutSiteStoreRsp getStoreTemplate() {
@@ -206,12 +203,17 @@ public class ShowSiteServiceImpl implements ShowSiteService{
 	}
 
 	@Override
+	public OutSitePageInfo findOneByType(int outSiteId, int type) {
+	  OutSitePageInfo info = outSitePageInfoDAO.findOneByType(outSiteId, type);
+	  if(info == null){
+	    throw new BusinessRuntimeException("网站信息存在");
+	  }
+	  return info;
+	}
+	
+	@Override
 	public void savePageInfo(OutSitePageInfo outSitePageInfo) {
 		outSitePageInfoDAO.updateByPrimaryKeySelective(outSitePageInfo);
-	}
-
-	public static void main(String[] args) {
-		System.out.println(TitleUtils.getStoreMessage(TemplateKeys.STORE_SHOW_NAME));
 	}
 
 }

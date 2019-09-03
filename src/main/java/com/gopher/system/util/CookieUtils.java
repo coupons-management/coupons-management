@@ -3,9 +3,6 @@ package com.gopher.system.util;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class CookieUtils {
 	/**
 	 * 默认 cookie 生命周期 7*24小时(单位秒)
@@ -24,7 +21,7 @@ public class CookieUtils {
 	 */
 	public static final String DEFAULT_DOMAIN = "";
 	
-    private final static Logger LOG = LoggerFactory.getLogger(CookieUtils.class);
+//    private final static Logger LOG = LoggerFactory.getLogger(CookieUtils.class);
     
     /**
      * 客户端添加cookie

@@ -10,6 +10,10 @@ import java.util.List;
  * @Date 2019/7/22.
  */
 public class UserListResponse extends User {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
     private List<Role> roleList;
 
     public List<Role> getRoleList() {

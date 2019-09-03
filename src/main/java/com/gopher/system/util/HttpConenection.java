@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -31,10 +30,8 @@ import org.apache.http.util.CharsetUtils;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.gopher.system.controller.model.Result;
 
 
 public class HttpConenection {

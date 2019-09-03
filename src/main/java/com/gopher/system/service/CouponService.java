@@ -1,11 +1,9 @@
 package com.gopher.system.service;
 
 import java.util.List;
-
 import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.vo.Page;
 import com.gopher.system.model.vo.request.CouponPageRequest;
-import com.gopher.system.model.vo.request.CouponSortReq;
 import com.gopher.system.model.vo.request.MannulSortRequest;
 import com.gopher.system.model.vo.response.CouponResponse;
 
@@ -75,9 +73,10 @@ public interface CouponService {
      * 根据商家获取最新的优惠券
      *
      * @param storeId
+     * @param isScrapy 是否只看爬虫方式，不含人工方式
      * @return
      */
-    CpCoupon getNewOne(final int storeId);
+    CpCoupon getNewOne(final int storeId, boolean isScrapy);
 
     /**
      * 更新优惠券排序

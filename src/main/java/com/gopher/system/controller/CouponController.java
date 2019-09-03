@@ -1,6 +1,5 @@
 package com.gopher.system.controller;
 
-import com.gopher.system.model.vo.request.CouponSortReq;
 import com.gopher.system.model.vo.request.MannulSortRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,8 +12,6 @@ import com.gopher.system.model.entity.CpCoupon;
 import com.gopher.system.model.vo.request.CouponPageRequest;
 import com.gopher.system.model.vo.request.CouponRequest;
 import com.gopher.system.service.CouponService;
-
-import java.util.List;
 
 /**
  * 优惠券

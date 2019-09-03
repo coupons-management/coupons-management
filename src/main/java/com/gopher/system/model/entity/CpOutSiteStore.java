@@ -79,8 +79,10 @@ public class CpOutSiteStore implements Serializable {
 	 */
 	private Integer visitCount;
 
-
-
+	/**
+	 * 官网
+	 */
+	private String website;
 
 	public Integer getVisitCount() {
 		return visitCount;
@@ -259,8 +261,16 @@ public class CpOutSiteStore implements Serializable {
 	public void setAdviseSort(Integer adviseSort) {
 		this.adviseSort = adviseSort;
 	}
+	
+    public String getWebsite() {
+      return website;
+    }
+  
+    public void setWebsite(String website) {
+      this.website = website;
+    }
 
-	@Override
+  @Override
 	public boolean equals(Object that) {
 		if (this == that) {
 			return true;

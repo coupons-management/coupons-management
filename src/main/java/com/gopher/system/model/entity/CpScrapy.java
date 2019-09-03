@@ -37,6 +37,10 @@ public class CpScrapy implements Serializable {
      * 修改时间
      */
     private Date updateTime;
+    
+    private Integer isRunning;
+
+    private String process;
 
     private static final long serialVersionUID = 1L;
 
@@ -118,6 +122,22 @@ public class CpScrapy implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+    
+    public Integer getIsRunning() {
+      return isRunning;
+    }
+
+    public void setIsRunning(Integer isRunning) {
+      this.isRunning = isRunning;
+    }
+    
+    public String getProcess() {
+      return process;
+    }
+
+    public void setProcess(String process) {
+      this.process = process;
     }
 
     @Override

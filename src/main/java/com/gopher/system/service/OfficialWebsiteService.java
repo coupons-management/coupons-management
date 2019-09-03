@@ -32,7 +32,7 @@ public interface OfficialWebsiteService {
 	 * 分页查询商家
 	 * @return
 	 */
-	Page<CpStoreVo> getStorePageList(StorePageRequst quest );
+	Page<CpStoreVo> getStorePageList(StorePageRequst quest);
 	/**
 	 * 查询所有商家分类
 	 * @return

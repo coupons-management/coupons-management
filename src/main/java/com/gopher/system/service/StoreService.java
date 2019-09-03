@@ -49,9 +49,10 @@ public interface StoreService {
 	/**
 	 * 设置商家页面展示信息
 	 * @param list
+	 * @param isScrapy 只看爬虫
 	 * @return
 	 */
-	List<StoreResponse> getShowValue(List<CpStore> list);
+	List<StoreResponse> getShowValue(List<CpStore> list, boolean isScrapy);
 
 
 	/**

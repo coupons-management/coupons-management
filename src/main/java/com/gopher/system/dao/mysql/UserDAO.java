@@ -1,11 +1,9 @@
 package com.gopher.system.dao.mysql;
 
 import java.util.List;
-
 import com.gopher.system.model.entity.CpStore;
 import com.gopher.system.model.entity.Role;
 import com.gopher.system.model.vo.request.*;
-import com.gopher.system.model.vo.response.BasicInfoResponse;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

@@ -12,10 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.alibaba.fastjson.JSON;
-import com.gopher.system.constant.CodeAndMsg;
-import com.gopher.system.controller.model.Result;
 import com.gopher.system.model.entity.User;
 import com.gopher.system.service.CacheService;
 import com.gopher.system.util.CookieUtils;
@@ -54,10 +50,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 			}
 			logger.info("SESSION_KEY:{}", sessionKey);
 		}
-	  /*  if (!valid) {
-			httpServletResponse.getWriter()
-					.write(JSON.toJSONString(new Result(CodeAndMsg.NEED_LOGIN.getCode(), "您还没登录,或会话已过期,请重新登录", false)));
-		}*/
+//	    if (!valid) {
+//			httpServletResponse.getWriter()
+//					.write(JSON.toJSONString(new Result(CodeAndMsg.NEED_LOGIN.getCode(), "您还没登录,或会话已过期,请重新登录", false)));
+//		}
+		System.out.println(valid);
 		return true;
 	}
 

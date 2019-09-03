@@ -8,13 +8,15 @@
     <result column="ENABLE" jdbcType="VARCHAR" property="enable" />
     <result column="PROJECT" jdbcType="VARCHAR" property="project" />
     <result column="WEIGHT" jdbcType="INTEGER" property="weight" />
+    <result column="IS_RUNNING" jdbcType="INTEGER" property="isRunning" />
+    <result column="PROCESS" jdbcType="VARCHAR" property="process" />
     <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
     <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, OUT_SITE_ID, `NAME`, `ENABLE`, PROJECT, WEIGHT,CREATE_USER, UPDATE_USER, CREATE_TIME, 
+    ID, OUT_SITE_ID, `NAME`, `ENABLE`, PROJECT, WEIGHT, IS_RUNNING, PROCESS, CREATE_USER, UPDATE_USER, CREATE_TIME, 
     UPDATE_TIME
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -105,6 +107,15 @@
       <if test="project != null">
         PROJECT = #{project,jdbcType=VARCHAR},
       </if>
+      <if test="weight != null">
+        WEIGHT = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="isRunning != null">
+        IS_RUNNING = #{isRunning,jdbcType=INTEGER},
+      </if>
+      <if test="process != null">
+        PROCESS = #{process,jdbcType=VARCHAR},
+      </if>
       <if test="createUser != null">
         CREATE_USER = #{createUser,jdbcType=INTEGER},
       </if>
@@ -132,7 +143,6 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  
   
     <select id="getBeanByName" parameterType="String" resultType="com.gopher.system.model.entity.CpScrapy">
     select 

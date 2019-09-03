@@ -253,9 +253,7 @@
             <if test="code != null">
                 CODE = #{code,jdbcType=VARCHAR},
             </if>
-            <if test="expireAt != null">
                 EXPIRE_AT = #{expireAt,jdbcType=TIMESTAMP},
-            </if>
             <if test="storeWebsiteCrc != null">
                 STORE_WEBSITE_CRC = #{storeWebsiteCrc,jdbcType=VARCHAR},
             </if>
@@ -474,9 +472,11 @@
         CP_COUPON
         <where>
             STORE_ID = #{storeId}
-            AND IN_TYPE = "0"
+            <!-- 只看爬虫方式最新加的 -->
+            <if test="isScrapy">
+              AND IN_TYPE = "0"
+            </if>
         </where>
-
         ORDER BY CREATE_TIME DESC LIMIT 1
     </select>
 
@@ -656,7 +656,7 @@
             resultType="com.gopher.system.model.vo.CpCouponVo">
         <!-- SELECT CPCOUPON.NAME,LINK , CPCOUPON,TITLE,LOGO_URL storeLogo, FROM
             CP_COUPON CPCOUPON, CP_OUT_SITE_COUPON SITECOUPON ,CP_STORE STORE -->
-        SELECT CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO,STORE.ID storeId,CPCOUPON.COUPON_TYPE couponType,CPCOUPON.ID id,CPCOUPON.STORE_URL storeWebSite,SITECOUPON.ID outSiteCouponId FROM
+        SELECT CPCOUPON.NAME,LINK ,CPCOUPON.TITLE,LOGO_URL STORELOGO,STORE.ID storeId,STORE.NAME STORENAME,CPCOUPON.COUPON_TYPE couponType,CPCOUPON.ID id,CPCOUPON.STORE_URL storeWebSite,SITECOUPON.ID outSiteCouponId FROM
         CP_COUPON CPCOUPON, CP_OUT_SITE_COUPON SITECOUPON ,CP_STORE STORE
         <where>
             CPCOUPON.ID=SITECOUPON.COUPON_ID AND CPCOUPON.STORE_ID=STORE.ID
