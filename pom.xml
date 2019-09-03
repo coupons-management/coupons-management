@@ -53,6 +53,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${javax.servlet-api.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -61,6 +62,13 @@
             <version>4.12</version>
         </dependency>
 
+     <!--         json -->
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.4</version>
+            <classifier>jdk15</classifier>
+        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -183,11 +191,11 @@
             <artifactId>commons-fileupload</artifactId>
             <version>1.4</version>
         </dependency>
-        <dependency>
+       <!--  <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
-        </dependency>
+        </dependency> -->
         <!-- apache POI 集成 -->
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -251,10 +259,17 @@
             <artifactId>spring-data-mongodb</artifactId>
             <version>1.10.1.RELEASE</version>
         </dependency>
+        
+        <dependency>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+          <version>19.0</version>
+        </dependency>
     </dependencies>
 
     <build>
-        <finalName>system</finalName>
+        <finalName>coupon</finalName>
+        <defaultGoal>compile</defaultGoal>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -263,6 +278,11 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+            <plugin>  
+                <groupId>org.apache.tomcat.maven</groupId>  
+                <artifactId>tomcat7-maven-plugin</artifactId>  
+                <version>2.1</version>  
             </plugin>
         </plugins>
     </build>
